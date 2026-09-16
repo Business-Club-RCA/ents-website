@@ -8,6 +8,8 @@ import { SectionHeading } from '@/components/ui/SectionHeading';
 import { ArrowRight, ArrowUpRight, TerminalIcon } from '@/components/ui/Icons';
 import { projectsData } from '@/data/projects';
 
+import { PageHero } from '@/components/layout/PageHero';
+
 export const metadata: Metadata = {
   title: 'Ventures & Projects',
   description:
@@ -19,15 +21,14 @@ export default function ProjectsPage() {
   const otherProjects = projectsData.filter((p) => !p.featured);
 
   return (
-    <div className="pt-28 pb-16 sm:pt-36 sm:pb-24">
-      <Container size="wide" className="mb-16 sm:mb-20">
-        <SectionHeading
-          kicker="Portfolio &amp; Technology"
-          title="What We Build"
-          description="We do not just formulate pitch slides. ENTS members build and deploy working software platforms, campus micro-enterprises, and algorithmic trading infrastructure."
-          size="large"
-        />
-      </Container>
+    <div className="flex flex-col">
+      {/* Hero Banner with Cinematic Image */}
+      <PageHero
+        kicker="Portfolio &amp; Technology"
+        kicker="Portfolio & Technology"
+        title="What We Build"
+        description="We do not just formulate pitch slides. ENTS members build and deploy working software platforms, campus micro-enterprises, and algorithmic trading infrastructure."
+      />
 
       {/* Featured Flagship Project: SIFS */}
       <section className="border-t border-b border-neutral-200 bg-neutral-50/50 py-16 sm:py-20 mb-20">
@@ -127,6 +128,7 @@ export default function ProjectsPage() {
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-neutral-200">
           <h3 className="text-xs uppercase font-mono tracking-widest text-neutral-500">
             All Club Products &amp; Ventures ({projectsData.length})
+            All Club Products & Ventures ({projectsData.length})
           </h3>
           <span className="text-xs font-mono text-neutral-400">
             UPDATED SEPTEMBER 2026

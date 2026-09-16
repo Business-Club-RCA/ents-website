@@ -6,6 +6,8 @@ import { LeaderboardTable } from '@/components/sections/LeaderboardTable';
 import { getLeaderboardData } from '@/data/leaderboard';
 import { ShieldCheck, TrendingUp } from '@/components/ui/Icons';
 
+import { PageHero } from '@/components/layout/PageHero';
+
 export const metadata: Metadata = {
   title: 'Trading League Leaderboard',
   description:
@@ -22,21 +24,30 @@ export default async function LeaderboardPage() {
   );
 
   return (
-    <div className="pt-28 pb-16 sm:pt-36 sm:pb-24">
-      <Container size="wide" className="mb-12 sm:mb-16">
-        <SectionHeading
-          kicker="Simulated League Standings"
-          title="ENTS Trading League"
-          description="Real-time rankings from the Student Investment Fund Simulator. All participants trade with identical $10,000 demo accounts and adhere to institutional 1% risk rules."
-          size="large"
-        />
+    <div className="flex flex-col">
+      {/* Hero Banner with Cinematic Image */}
+      <PageHero
+        kicker="Simulated League Standings"
+        title="ENTS Trading League"
+        description="Real-time rankings from the Student Investment Fund Simulator. All participants trade with identical $10,000 demo accounts and adhere to institutional 1% risk rules."
+      />
 
-        {/* Snapshot Metric Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-8">
+      {/* Snapshot Metric Cards */}
+      <div className="py-12 bg-white">
+        <Container size="wide">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <div className="border border-neutral-200 bg-white p-5 font-mono">
             <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Top Performer</div>
             <div className="text-xl sm:text-2xl font-bold text-black mt-1 font-sans">
               {topTrader.name}
+            <div className="border border-neutral-200 bg-white p-5 font-mono">
+              <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Top Performer</div>
+              <div className="text-xl sm:text-2xl font-bold text-black mt-1 font-sans">
+                {topTrader.name}
+              </div>
+              <div className="text-xs text-neutral-500 mt-1">
+                +{topTrader.pnlPercent.toFixed(2)}% net return
+              </div>
             </div>
             <div className="text-xs text-neutral-500 mt-1">
               +{topTrader.pnlPercent.toFixed(2)}% net return
@@ -47,6 +58,14 @@ export default async function LeaderboardPage() {
             <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Total Paper Capital</div>
             <div className="text-xl sm:text-2xl font-bold text-black mt-1">
               ${totalCapital.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+            <div className="border border-neutral-200 bg-white p-5 font-mono">
+              <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Total Paper Capital</div>
+              <div className="text-xl sm:text-2xl font-bold text-black mt-1">
+                ${totalCapital.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+              </div>
+              <div className="text-xs text-neutral-500 mt-1">
+                across {standings.length} tracked accounts
+              </div>
             </div>
             <div className="text-xs text-neutral-500 mt-1">
               across {standings.length} tracked accounts
@@ -57,6 +76,14 @@ export default async function LeaderboardPage() {
             <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Orders Executed</div>
             <div className="text-xl sm:text-2xl font-bold text-black mt-1">
               {totalTrades}
+            <div className="border border-neutral-200 bg-white p-5 font-mono">
+              <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Orders Executed</div>
+              <div className="text-xl sm:text-2xl font-bold text-black mt-1">
+                {totalTrades}
+              </div>
+              <div className="text-xs text-neutral-500 mt-1">
+                logged in SIFS order book
+              </div>
             </div>
             <div className="text-xs text-neutral-500 mt-1">
               logged in SIFS order book
@@ -67,13 +94,21 @@ export default async function LeaderboardPage() {
             <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Risk Constraint</div>
             <div className="text-xl sm:text-2xl font-bold text-black mt-1">
               1.00% / Trade
+            <div className="border border-neutral-200 bg-white p-5 font-mono">
+              <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Risk Constraint</div>
+              <div className="text-xl sm:text-2xl font-bold text-black mt-1">
+                1.00% / Trade
+              </div>
+              <div className="text-xs text-neutral-500 mt-1">
+                max stop-loss violation
+              </div>
             </div>
             <div className="text-xs text-neutral-500 mt-1">
               max stop-loss violation
             </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </div>
 
       {/* Main Hairline Table */}
       <section className="border-t border-b border-neutral-200 bg-neutral-50/30 py-12">
@@ -92,6 +127,7 @@ export default async function LeaderboardPage() {
               </span>
               <h3 className="text-2xl font-bold tracking-tight text-black mt-2">
                 League Rules &amp; Integrity
+                League Rules & Integrity
               </h3>
               <p className="text-sm text-neutral-600 mt-3 leading-relaxed">
                 ENTS strictly opposes reckless gambling or lottery trading. Our league is evaluated

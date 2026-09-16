@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/Button';
 import { ArrowRight, ArrowUpRight } from '@/components/ui/Icons';
 import { teamData } from '@/data/team';
 
+import { PageHero } from '@/components/layout/PageHero';
+
 export const metadata: Metadata = {
   title: 'About ENTS',
   description:
@@ -26,6 +28,13 @@ export default function AboutPage() {
           size="large"
         />
       </Container>
+    <div className="flex flex-col">
+      {/* Hero Banner with Cinematic Image */}
+      <PageHero
+        kicker="01 / About The Society"
+        title="Building Software, Not Just Discussing Business."
+        description="ENTS was founded at Rwanda Coding Academy on a singular premise: the greatest founders and quantitative traders in the world do not merely talk about economics — they build tools, run experiments, and execute with technical conviction."
+      />
 
       {/* Mission & Founding Story */}
       <section className="border-y border-neutral-200 bg-neutral-50/40 py-16 sm:py-24">
@@ -79,6 +88,7 @@ export default function AboutPage() {
 
       {/* Leadership Team Grid */}
       <section className="py-20 sm:py-28">
+      <section className="py-20 sm:py-28 bg-white">
         <Container size="wide">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-4">
             <SectionHeading
@@ -87,6 +97,18 @@ export default function AboutPage() {
               description="Elected student leaders responsible for curriculum, hackathons, venture pitch sessions, and trading league audits."
               className="mb-0"
             />
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-4 border-b border-neutral-200 pb-6">
+            <div>
+              <div className="text-xs uppercase font-mono tracking-widest text-neutral-500 mb-2">
+                02 / Student Leadership
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tighter text-black">
+                Club Executive Committee
+              </h2>
+              <p className="mt-2 text-sm sm:text-base text-neutral-600 max-w-2xl">
+                Elected student leaders responsible for curriculum, hackathons, venture pitch sessions, and trading league audits.
+              </p>
+            </div>
             <div className="text-xs font-mono text-neutral-500">
               ACADEMIC YEAR 2026/2027
             </div>

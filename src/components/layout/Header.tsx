@@ -15,6 +15,8 @@ export function Header() {
   const isHome = pathname === '/';
   // On home page when not scrolled, header is over the dark hero
   const isDarkOverHero = isHome && !isScrolled;
+  // On every page when at the top, header floats over the hero image
+  const isDarkOverHero = !isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,6 +37,7 @@ export function Header() {
           : isScrolled
           ? 'bg-white/95 backdrop-blur-md border-b border-neutral-200 py-3 shadow-[0_1px_0_0_rgba(0,0,0,0.02)]'
           : 'bg-white border-b border-neutral-200 py-4'
+          : 'bg-white/95 backdrop-blur-md border-b border-neutral-200 py-3 shadow-[0_1px_0_0_rgba(0,0,0,0.02)]'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -101,6 +104,7 @@ export function Header() {
         </nav>
 
         {/* Right Buttons: Styled like reference screenshot */}
+        {/* Right Buttons */}
         <div className="flex items-center gap-3">
           {isDarkOverHero ? (
             <div className="hidden sm:flex items-center gap-2.5">

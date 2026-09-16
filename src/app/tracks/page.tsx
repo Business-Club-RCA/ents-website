@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/Button';
 import { ArrowRight, Check, Briefcase, TrendingUp } from '@/components/ui/Icons';
 import { tracksData } from '@/data/tracks';
 
+import { PageHero } from '@/components/layout/PageHero';
+
 export const metadata: Metadata = {
   title: 'Tracks & Curriculum',
   description:
@@ -28,6 +30,14 @@ export default function TracksPage() {
           size="large"
         />
       </Container>
+    <div className="flex flex-col">
+      {/* Hero Banner with Cinematic Image */}
+      <PageHero
+        kicker="Curriculum &amp; Weekly Schedules"
+        kicker="Curriculum & Weekly Schedules"
+        title="Two Disciplines. One Shared Rigor."
+        description="Whether you are building sustainable business models around software or learning how to trade global macro liquidity, ENTS provides a structured framework that turns theoretical concepts into tangible outcomes."
+      />
 
       {/* Track 1: Business Handlers */}
       <section id="business-handlers" className="border-t border-neutral-200 py-16 sm:py-24 bg-white scroll-mt-24">
@@ -60,6 +70,7 @@ export default function TracksPage() {
               <div className="border-t border-neutral-200 pt-6 space-y-3">
                 <h4 className="text-xs uppercase font-mono tracking-wider text-neutral-500">
                   Tools &amp; Stack
+                  Tools & Stack
                 </h4>
                 <div className="flex flex-wrap gap-1.5">
                   {businessTrack.toolsUsed.map((tool) => (
@@ -172,6 +183,7 @@ export default function TracksPage() {
               <div className="border-t border-neutral-200 pt-6 space-y-3">
                 <h4 className="text-xs uppercase font-mono tracking-wider text-neutral-500">
                   Tools &amp; Stack
+                  Tools & Stack
                 </h4>
                 <div className="flex flex-wrap gap-1.5">
                   {tradersTrack.toolsUsed.map((tool) => (

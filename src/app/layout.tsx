@@ -54,6 +54,16 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  icons: {
+    icon: [
+      {
+        url: '/ents-tab.svg',
+        type: 'image/svg+xml',
+      },
+    ],
+    shortcut: '/ents-tab.svg',
+    apple: '/ents-tab.svg',
+  },
 };
 
 export default function RootLayout({

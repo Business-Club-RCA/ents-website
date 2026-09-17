@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { siteConfig } from '@/data/site';
 import { ArrowUpRight } from '@/components/ui/Icons';
@@ -10,7 +11,17 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16">
           {/* Brand Column */}
           <div className="md:col-span-5 space-y-4">
-            <Link href="/" className="inline-block">
+            <Link href="/" className="inline-flex items-center gap-3 group">
+              <div className="relative w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center">
+                <Image
+                  src="/ents.svg"
+                  alt="ENTS Logo"
+                  width={36}
+                  height={36}
+                  className="w-full h-full object-contain"
+                  unoptimized
+                />
+              </div>
               <span className="font-black text-3xl sm:text-4xl tracking-tighter text-black">
                 ENTS
               </span>
@@ -178,4 +189,3 @@ export function Footer() {
     </footer>
   );
 }
-

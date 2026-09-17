@@ -1,171 +1,150 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { siteConfig } from '@/data/site';
-import { Button } from '@/components/ui/Button';
-import { MenuIcon, CloseIcon } from '@/components/ui/Icons';
 
 export function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const headerRef = useRef<HTMLDivElement>(null);
 
-  // On every page when at the top, header floats over the hero image
-  const isDarkOverHero = !isScrolled;
-
+  // Close menu when clicking outside or pressing Escape
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+    if (!menuOpen) return;
+
+    function handleClickOutside(event: MouseEvent) {
+      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    }
+
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setMenuOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
     };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [menuOpen]);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isDarkOverHero
-          ? 'bg-transparent border-b border-transparent py-5'
-          : 'bg-white/95 backdrop-blur-md border-b border-neutral-200 py-3 shadow-[0_1px_0_0_rgba(0,0,0,0.02)]'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* ENTS Wordmark + Geometric Icon */}
-        <Link
-          href="/"
-          className="group flex items-center gap-2.5 focus:outline-none select-none"
-          aria-label="ENTS Home"
-        >
-          <div
-            className={`w-7 h-7 rounded-sm flex items-center justify-center transition-colors ${
-              isDarkOverHero ? 'bg-white text-black' : 'bg-black text-white'
-            }`}
+    <header className="fixed top-4 sm:top-6 inset-x-0 z-50 flex flex-col items-center px-4 pointer-events-none">
+      <div ref={headerRef} className="w-full max-w-fit flex flex-col items-center">
+        {/* Floating Segmented Capsule Bar */}
+        <div className="pointer-events-auto bg-white/95 backdrop-blur-md rounded-2xl border border-neutral-200/90 shadow-[0_8px_30px_rgb(0,0,0,0.12),0_1px_3px_rgb(0,0,0,0.06)] flex items-center divide-x divide-neutral-200 transition-all select-none">
+          {/* Segment 1: Logo (Light Gray Background + Black Mark) + Brand */}
+          <Link
+            href="/"
+            onClick={() => setMenuOpen(false)}
+            className="flex items-center gap-2.5 px-3.5 sm:px-4 py-2 hover:opacity-85 transition-opacity focus:outline-none"
+            aria-label="ENTS Home"
           >
-            <span className="font-black text-xs font-mono">E</span>
-          </div>
-          <span
-            className={`font-black text-2xl tracking-tighter transition-colors ${
-              isDarkOverHero ? 'text-white' : 'text-black'
-            }`}
-          >
-            ENTS
-          </span>
-          <span
-            className={`hidden sm:inline-block text-[10px] tracking-widest uppercase font-mono pl-2 border-l transition-colors ${
-              isDarkOverHero
-                ? 'text-neutral-400 border-white/20'
-                : 'text-neutral-400 border-neutral-200'
-            }`}
-          >
-            RCA
-          </span>
-        </Link>
-
-        {/* Center Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-          {siteConfig.navItems.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`relative py-1 transition-colors ${
-                  isDarkOverHero
-                    ? isActive
-                      ? 'text-white font-semibold'
-                      : 'text-neutral-300 hover:text-white'
-                    : isActive
-                    ? 'text-black font-semibold'
-                    : 'text-neutral-600 hover:text-black'
-                }`}
-              >
-                {item.label}
-                {isActive && (
-                  <span
-                    className={`absolute bottom-0 left-0 right-0 h-[1.5px] ${
-                      isDarkOverHero ? 'bg-white' : 'bg-black'
-                    }`}
-                  />
-                )}
-              </Link>
-            );
-          })}
-        </nav>
-
-        {/* Right Buttons */}
-        <div className="flex items-center gap-3">
-          {isDarkOverHero ? (
-            <div className="hidden sm:flex items-center gap-2.5">
-              <Link
-                href="/join"
-                className="px-4 py-1.5 rounded-full text-xs font-medium bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/25 transition-all shadow-sm"
-              >
-                Start for free
-              </Link>
-              <Link
-                href="/projects"
-                className="px-4 py-1.5 rounded-full text-xs font-medium bg-black/80 hover:bg-black text-white backdrop-blur-md border border-white/15 transition-all shadow-sm"
-              >
-                Explore SIFS
-              </Link>
+            <div className="w-8 h-8 rounded-xl bg-neutral-100 border border-neutral-200/80 flex items-center justify-center p-1.5 shadow-[inset_0_1px_1px_rgba(0,0,0,0.04)]">
+              <Image
+                src="/ents.svg"
+                alt="ENTS Logo"
+                width={22}
+                height={22}
+                className="w-full h-full object-contain"
+                priority
+                unoptimized
+              />
             </div>
-          ) : (
-            <Button href="/join" size="sm" variant="primary" className="hidden sm:inline-flex">
-              Join the Club
-            </Button>
-          )}
+            <span className="font-bold text-base sm:text-lg tracking-tight text-neutral-900">
+              ENTS
+            </span>
+          </Link>
 
+          {/* Segment 2: Two-Line Menu Trigger (=) */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`p-2 md:hidden focus:outline-none transition-colors ${
-              isDarkOverHero
-                ? 'text-white hover:bg-white/10'
-                : 'text-black hover:bg-neutral-100'
-            }`}
-            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={mobileMenuOpen}
+            onClick={() => setMenuOpen((prev) => !prev)}
+            className="px-5 sm:px-6 py-3 flex items-center justify-center text-neutral-800 hover:text-black hover:bg-neutral-50 transition-colors focus:outline-none cursor-pointer"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
           >
-            {mobileMenuOpen ? <CloseIcon size={22} /> : <MenuIcon size={22} />}
+            {menuOpen ? (
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              >
+                <line x1="3" y1="3" x2="13" y2="13" />
+                <line x1="3" y1="13" x2="13" y2="3" />
+              </svg>
+            ) : (
+              <svg
+                width="18"
+                height="12"
+                viewBox="0 0 18 12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              >
+                <line x1="1" y1="3" x2="17" y2="3" />
+                <line x1="1" y1="9" x2="17" y2="9" />
+              </svg>
+            )}
           </button>
-        </div>
-      </div>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-neutral-200 px-4 pt-3 pb-6 animate-in slide-in-from-top-2 duration-150 text-black">
-          <nav className="flex flex-col space-y-3 pt-2">
-            {siteConfig.navItems.map((item) => {
-              const isActive = pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`text-base py-2 px-2 transition-colors ${
-                    isActive
-                      ? 'font-semibold text-black bg-neutral-100'
-                      : 'text-neutral-600 hover:text-black hover:bg-neutral-50'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-            <div className="pt-3 border-t border-neutral-100">
-              <div onClick={() => setMobileMenuOpen(false)}>
-                <Button href="/join" size="md" variant="primary" className="w-full">
-                  Join the Club
-                </Button>
-              </div>
-            </div>
-          </nav>
+          {/* Segment 3: Get Started Button */}
+          <div className="px-3 sm:px-3.5 py-2 flex items-center">
+            <Link
+              href="/join"
+              onClick={() => setMenuOpen(false)}
+              className="inline-flex items-center justify-center px-4 sm:px-5 py-2 rounded-xl bg-neutral-950 text-white text-xs sm:text-sm font-medium shadow-[0_2px_8px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.18)] hover:bg-neutral-800 transition-all active:scale-[0.98] cursor-pointer"
+            >
+              Get started
+            </Link>
+          </div>
         </div>
-      )}
+
+        {/* Dropdown Navigation Menu */}
+        {menuOpen && (
+          <div className="pointer-events-auto mt-2.5 w-72 sm:w-80 bg-white/95 backdrop-blur-xl border border-neutral-200/90 rounded-2xl shadow-[0_20px_40px_-15px_rgba(0,0,0,0.18)] p-2.5 animate-in fade-in slide-in-from-top-2 duration-150 select-none">
+            <nav className="flex flex-col space-y-1">
+              {siteConfig.navItems.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                      isActive
+                        ? 'bg-neutral-900 text-white font-semibold shadow-sm'
+                        : 'text-neutral-700 hover:text-black hover:bg-neutral-100/80'
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                    {isActive && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className="mt-2 pt-2 border-t border-neutral-100 flex items-center justify-between px-2.5 py-1 text-[10px] font-mono text-neutral-400 uppercase tracking-wider">
+              <span>Rwanda Coding Academy</span>
+              <span>EST. 2026</span>
+            </div>
+          </div>
+        )}
+      </div>
     </header>
   );
 }

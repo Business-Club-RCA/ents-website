@@ -60,7 +60,7 @@ export interface ClubMember {
   id: string;
   name: string;
   role: string;
-  track?: 'Business Handlers' | 'Traders' | 'Engineering';
+  track?: 'Business Handlers' | 'Traders' | 'Engineering' | 'Executive' | 'Advisory' | string;
   classYear?: string;
   avatarUrl?: string;
   initials: string;
@@ -100,4 +100,32 @@ export interface JoinApplication {
   reason: string;
   experienceOrSkills?: string;
 }
+
+export type UpdateType = 'announcement' | 'article' | 'event';
+
+export interface FeedItem {
+  id: string;
+  type: UpdateType;
+  title: string;
+  excerpt: string;
+  content?: string;
+  author: string;
+  date: string;
+  readTime?: string;
+  tags: string[];
+  isCustom?: boolean;
+
+  // External Article metadata (e.g. BBC News)
+  sourceUrl?: string;
+  sourceName?: string;
+  imageUrl?: string;
+
+  // Event metadata
+  eventDate?: string;
+  eventTime?: string;
+  eventLocation?: string;
+  rsvpLink?: string;
+  speakers?: string[];
+}
+
 

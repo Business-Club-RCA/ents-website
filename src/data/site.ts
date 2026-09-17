@@ -15,6 +15,7 @@ export const siteConfig = {
     { label: 'Tracks', href: '/tracks' },
     { label: 'Projects', href: '/projects' },
     { label: 'Leaderboard', href: '/leaderboard' },
+    { label: 'Updates', href: '/updates' },
   ],
   socials: {
     x: 'https://x.com/ents_rca',

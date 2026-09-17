@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from '@/components/ui/Icons';
 
-const ROTATING_WORDS = ['move.', 'scale.', 'build.', 'trade.', 'ship.', 'compound.'];
+const ROTATING_WORDS = ['move.', 'scale.', 'build.', 'trade.', 'ship.'];
 
 export function HeroVisual() {
   const [wordIndex, setWordIndex] = useState(0);

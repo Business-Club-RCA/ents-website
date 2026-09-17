@@ -31,30 +31,29 @@ export function PageHero({ kicker, title, description, children }: PageHeroProps
         <div className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none" />
       </div>
 
-      {/* 2. Hero Content */}
+      {/* 2. Hero Content with Smooth Staggered Animations */}
       <div className="relative z-10 w-full pt-32 pb-14 sm:pb-18">
         <Container size="wide">
           <div className="max-w-3xl space-y-4">
             {kicker && (
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-xs font-mono text-white/90">
+              <div className="animate-hero-badge inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-xs font-mono text-white/90">
                 <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                 <span>{kicker}</span>
               </div>
             )}
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]">
+            <h1 className="animate-hero-word-1 text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]">
               {title}
             </h1>
 
-            <p className="text-base sm:text-lg text-neutral-200/90 leading-relaxed font-normal max-w-2xl">
+            <p className="animate-hero-desc text-base sm:text-lg text-neutral-200/90 leading-relaxed font-normal max-w-2xl">
               {description}
             </p>
 
-            {children && <div className="pt-3">{children}</div>}
+            {children && <div className="animate-hero-cta pt-3">{children}</div>}
           </div>
         </Container>
       </div>
     </section>
   );
 }
-

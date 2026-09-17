@@ -1,11 +1,23 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from '@/components/ui/Icons';
 
+const ROTATING_WORDS = ['move.', 'scale.', 'build.', 'trade.', 'ship.', 'compound.'];
+
 export function HeroVisual() {
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % ROTATING_WORDS.length);
+    }, 2800);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative w-full min-h-[92vh] sm:min-h-screen flex flex-col justify-between overflow-hidden bg-black text-white select-none">
       {/* 1. Clean Atmospheric Background Image */}
@@ -33,29 +45,42 @@ export function HeroVisual() {
       {/* Spacer for Top Floating Navigation */}
       <div className="relative z-10 pt-28 sm:pt-32" />
 
-      {/* 2. Hero Content */}
+      {/* 2. Hero Content with Staged Animations */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 lg:pb-20">
         <div className="max-w-2xl space-y-4 sm:space-y-5">
-          {/* Institution Kicker */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-xs font-mono text-white/90">
-            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+          {/* Institution Kicker Badge */}
+          <div className="animate-hero-badge inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-xs font-mono text-white/90 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             <span>ENTS · Rwanda Coding Academy</span>
           </div>
 
-          {/* Bold Punchy Headline */}
+          {/* Bold Headline with Kinetic Word Roller Animation */}
           <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight text-white leading-[1.04]">
-            Make ideas move.
+            <span className="inline-block overflow-hidden align-bottom">
+              <span className="inline-block animate-hero-word-1">Make</span>
+            </span>{' '}
+            <span className="inline-block overflow-hidden align-bottom">
+              <span className="inline-block animate-hero-word-2">ideas</span>
+            </span>{' '}
+            <span className="inline-flex overflow-hidden align-bottom h-[1.14em] relative">
+              <span
+                key={wordIndex}
+                className="inline-block animate-word-roller text-white underline decoration-white/30 underline-offset-8"
+              >
+                {ROTATING_WORDS[wordIndex]}
+              </span>
+            </span>
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-base sm:text-lg md:text-xl text-neutral-200/95 max-w-xl leading-relaxed font-normal">
+          {/* Subtitle with Blur-Slide Entrance */}
+          <p className="animate-hero-desc text-base sm:text-lg md:text-xl text-neutral-200/95 max-w-xl leading-relaxed font-normal">
             A focused society for student builders and quantitative analysts at Rwanda Coding
             Academy to incubate software ventures, master global markets, and get things done.
           </p>
 
-          {/* Dual Pill Buttons */}
-          <div className="pt-2 flex flex-wrap items-center gap-3.5">
-            {/* Pill Button 1: Frosted Glass / Translucent */}
+          {/* Dual Pill CTA Buttons with Floating Stagger */}
+          <div className="animate-hero-cta pt-2 flex flex-wrap items-center gap-3.5">
+            {/* Pill Button 1: Frosted Glass */}
             <Link
               href="/join"
               className="inline-flex items-center justify-center px-7 py-3 rounded-full text-sm font-medium bg-white/15 hover:bg-white/25 text-white backdrop-blur-md border border-white/25 transition-all duration-150 cursor-pointer shadow-sm hover:scale-[1.02] active:scale-[0.98]"

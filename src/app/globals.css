@@ -59,6 +59,7 @@
   unicode-range: U+0030-0039, U+0025, U+002B, U+002D, U+0024, U+002C, U+002E, U+002F, U+003A, U+0023;
 }
 
+/* Big Shoulders Full Family */
 @font-face {
   font-family: 'BigShouldersNumbers';
   src: url('/fonts/BigShouldersDisplay.woff2') format('woff2');
@@ -249,6 +250,82 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Subtle animation keyframes */
+/* ----------------------------------------------------
+   Hero Entrance & Kinetic Text Animations
+   ---------------------------------------------------- */
+@keyframes heroBadgePop {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes heroWordReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(115%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes heroFloatSubtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-hero-badge {
+  animation: heroBadgePop 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+}
+
+.animate-hero-word-1 {
+  animation: heroWordReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.animate-hero-word-2 {
+  animation: heroWordReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+}
+
+.animate-hero-word-3 {
+  animation: heroWordReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.42s both;
+}
+
+.animate-hero-desc {
+  animation: heroSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+.animate-hero-cta {
+  animation: heroSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+}
+
+.animate-hero-float {
+  animation: heroFloatSubtle 6s ease-in-out infinite;
+}
+
+/* Subtle standard fade in */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -262,4 +339,86 @@ h1, h2, h3, h4, h5, h6 {
 
 .animate-fade-in {
   animation: fadeIn 0.4s ease-out forwards;
+}
+/* Smooth Word Roller Animation (kinetic vertical reveal with blur dissipation) */
+@keyframes wordRoller {
+  0% {
+    transform: translateY(110%);
+    opacity: 0;
+    filter: blur(6px);
+  }
+  30% {
+    filter: blur(3px);
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+.animate-word-roller {
+  animation: wordRoller 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Subtle continuous text shimmer */
+@keyframes textShimmer {
+  0% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: -100% center;
+  }
+}
+
+.animate-text-shimmer {
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #ffffff 45%,
+    #d4d4d8 50%,
+    #ffffff 55%,
+    #ffffff 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textShimmer 6s linear infinite;
+}
+
+/* Menu panel graceful, deliberate entrance (slower) */
+@keyframes menuPanelOpenSlow {
+  0% {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.94);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.animate-menu-panel-slow {
+  animation: menuPanelOpenSlow 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: top center;
+}
+
+/* Slower staggered menu item reveal */
+@keyframes menuItemSlideSlow {
+  0% {
+    opacity: 0;
+    transform: translateX(-18px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+
+.animate-menu-item-slow {
+  animation: menuItemSlideSlow 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
 }

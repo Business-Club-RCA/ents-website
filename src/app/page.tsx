@@ -9,6 +9,13 @@ import { FlagshipSimulator } from '@/components/sections/FlagshipSimulator';
 import { HeroVisual } from '@/components/sections/HeroVisual';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { tracksData } from '@/data/tracks';
+import {
+  PillarVenturesIllustration,
+  PillarDisciplineIllustration,
+  PillarNetworkIllustration,
+  BusinessTrackIllustration,
+  TradersTrackIllustration,
+} from '@/components/ui/CardIllustrations';
 
 export default function HomePage() {
   const businessTrack = tracksData.find((t) => t.id === 'business-handlers') || tracksData[0];
@@ -36,8 +43,8 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8">
             {/* Column 1 */}
-            <div className="card-hover bg-neutral-50/50 border border-neutral-200/90 rounded-2xl p-7 flex flex-col justify-between">
-              <div>
+            <div className="group relative overflow-hidden card-hover bg-neutral-50/50 border border-neutral-200/90 rounded-2xl p-7 flex flex-col justify-between">
+              <div className="relative z-10">
                 <div className="text-xs font-mono uppercase text-neutral-400 font-semibold mb-3">
                   PILLAR 01
                 </div>
@@ -48,15 +55,19 @@ export default function HomePage() {
                   No 20-year-old case studies. We build live software tools, launch campus micro-ventures, and audit real cash flows.
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-neutral-200/70 flex items-center gap-2 text-xs font-mono text-neutral-500">
+              <div className="relative z-10 mt-6 pt-4 border-t border-neutral-200/70 flex items-center gap-2 text-xs font-mono text-neutral-500">
                 <span className="w-1.5 h-1.5 bg-neutral-900 rounded-full" />
                 <span>Production Ventures</span>
+              </div>
+              {/* Background Illustration */}
+              <div className="absolute -right-3 -bottom-3 pointer-events-none select-none transition-all duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-1">
+                <PillarVenturesIllustration className="text-neutral-900/[0.14] group-hover:text-neutral-900/30 transition-colors duration-500" size={165} />
               </div>
             </div>
 
             {/* Column 2 */}
-            <div className="card-hover bg-neutral-50/50 border border-neutral-200/90 rounded-2xl p-7 flex flex-col justify-between">
-              <div>
+            <div className="group relative overflow-hidden card-hover bg-neutral-50/50 border border-neutral-200/90 rounded-2xl p-7 flex flex-col justify-between">
+              <div className="relative z-10">
                 <div className="text-xs font-mono uppercase text-neutral-400 font-semibold mb-3">
                   PILLAR 02
                 </div>
@@ -67,15 +78,19 @@ export default function HomePage() {
                   Every trade and business model is mathematically backed. We enforce strict 1% risk guardrails and algorithmic backtesting.
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-neutral-200/70 flex items-center gap-2 text-xs font-mono text-neutral-500">
+              <div className="relative z-10 mt-6 pt-4 border-t border-neutral-200/70 flex items-center gap-2 text-xs font-mono text-neutral-500">
                 <span className="w-1.5 h-1.5 bg-neutral-900 rounded-full" />
                 <span>Quantitative Rigor</span>
+              </div>
+              {/* Background Illustration */}
+              <div className="absolute -right-3 -bottom-3 pointer-events-none select-none transition-all duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-1">
+                <PillarDisciplineIllustration className="text-neutral-900/[0.14] group-hover:text-neutral-900/30 transition-colors duration-500" size={165} />
               </div>
             </div>
 
             {/* Column 3 */}
-            <div className="card-hover bg-neutral-50/50 border border-neutral-200/90 rounded-2xl p-7 flex flex-col justify-between">
-              <div>
+            <div className="group relative overflow-hidden card-hover bg-neutral-50/50 border border-neutral-200/90 rounded-2xl p-7 flex flex-col justify-between">
+              <div className="relative z-10">
                 <div className="text-xs font-mono uppercase text-neutral-400 font-semibold mb-3">
                   PILLAR 03
                 </div>
@@ -86,9 +101,13 @@ export default function HomePage() {
                   Leveraging Nyabihu&apos;s densest concentration of student software engineers to build financial infrastructure that scales.
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-neutral-200/70 flex items-center gap-2 text-xs font-mono text-neutral-500">
+              <div className="relative z-10 mt-6 pt-4 border-t border-neutral-200/70 flex items-center gap-2 text-xs font-mono text-neutral-500">
                 <span className="w-1.5 h-1.5 bg-neutral-900 rounded-full" />
                 <span>Nyabihu · Est. 2026</span>
+              </div>
+              {/* Background Illustration */}
+              <div className="absolute -right-3 -bottom-3 pointer-events-none select-none transition-all duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-1">
+                <PillarNetworkIllustration className="text-neutral-900/[0.14] group-hover:text-neutral-900/30 transition-colors duration-500" size={165} />
               </div>
             </div>
           </div>
@@ -121,8 +140,8 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Card 1: Business Handlers */}
-            <div className="card-hover bg-white border border-neutral-200/90 rounded-2xl p-8 sm:p-10 flex flex-col justify-between">
-              <div className="space-y-6">
+            <div className="group relative overflow-hidden card-hover bg-white border border-neutral-200/90 rounded-2xl p-8 sm:p-10 flex flex-col justify-between">
+              <div className="relative z-10 space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="p-3 bg-neutral-900 text-white rounded-xl shadow-sm">
                     <Briefcase size={22} />
@@ -155,7 +174,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="pt-8 mt-6 border-t border-neutral-100 flex items-center justify-between">
+              <div className="relative z-10 pt-8 mt-6 border-t border-neutral-100 flex items-center justify-between">
                 <span className="text-xs font-mono text-neutral-400">MEETS MON &amp; WED</span>
                 <Link
                   href="/tracks#business-handlers"
@@ -165,11 +184,16 @@ export default function HomePage() {
                   <ArrowRight size={15} />
                 </Link>
               </div>
+
+              {/* Background Illustration */}
+              <div className="absolute right-0 bottom-0 pointer-events-none select-none transition-all duration-700 ease-out group-hover:scale-105 group-hover:-translate-y-1">
+                <BusinessTrackIllustration className="text-neutral-900/[0.13] group-hover:text-neutral-900/28 transition-colors duration-500" size={270} />
+              </div>
             </div>
 
             {/* Card 2: Traders */}
-            <div className="card-hover bg-white border border-neutral-200/90 rounded-2xl p-8 sm:p-10 flex flex-col justify-between">
-              <div className="space-y-6">
+            <div className="group relative overflow-hidden card-hover bg-white border border-neutral-200/90 rounded-2xl p-8 sm:p-10 flex flex-col justify-between">
+              <div className="relative z-10 space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="p-3 bg-neutral-900 text-white rounded-xl shadow-sm">
                     <TrendingUp size={22} />
@@ -202,7 +226,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="pt-8 mt-6 border-t border-neutral-100 flex items-center justify-between">
+              <div className="relative z-10 pt-8 mt-6 border-t border-neutral-100 flex items-center justify-between">
                 <span className="text-xs font-mono text-neutral-400">MEETS TUE &amp; FRI</span>
                 <Link
                   href="/tracks#traders"
@@ -211,6 +235,11 @@ export default function HomePage() {
                   <span>Track Details</span>
                   <ArrowRight size={15} />
                 </Link>
+              </div>
+
+              {/* Background Illustration */}
+              <div className="absolute right-0 bottom-0 pointer-events-none select-none transition-all duration-700 ease-out group-hover:scale-105 group-hover:-translate-y-1">
+                <TradersTrackIllustration className="text-neutral-900/[0.13] group-hover:text-neutral-900/28 transition-colors duration-500" size={270} />
               </div>
             </div>
           </div>

@@ -13,6 +13,11 @@ import {
   TargetIcon,
   CompassIcon,
 } from '@/components/ui/Icons';
+import {
+  TenetCodeIllustration,
+  TenetRiskIllustration,
+  TenetGovernanceIllustration,
+} from '@/components/ui/CardIllustrations';
 
 export default function AboutPage() {
   return (
@@ -161,40 +166,58 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            <div className="card-hover p-7 rounded-2xl space-y-3">
-              <div className="text-xs font-mono uppercase text-neutral-400 font-semibold">
-                TENET 01
+            <div className="group relative overflow-hidden card-hover bg-white border border-neutral-200/90 rounded-2xl p-7 sm:p-8 flex flex-col justify-between min-h-[240px]">
+              <div className="relative z-10 space-y-3">
+                <div className="text-xs font-mono uppercase text-neutral-400 font-semibold">
+                  TENET 01
+                </div>
+                <h3 className="font-bold text-neutral-900 text-xl">
+                  Code as Capital
+                </h3>
+                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed max-w-[280px]">
+                  Software is the ultimate modern leverage. We transform student code into monetizable campus micro-services and automated trading algorithms.
+                </p>
               </div>
-              <h3 className="font-bold text-neutral-900 text-xl">
-                Code as Capital
-              </h3>
-              <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                Software is the ultimate modern leverage. We transform student code into monetizable campus micro-services and automated trading algorithms.
-              </p>
+              {/* Background Illustration */}
+              <div className="absolute -right-3 -bottom-3 pointer-events-none select-none transition-all duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-1.5">
+                <TenetCodeIllustration className="text-neutral-900/[0.16] group-hover:text-neutral-900/35 transition-colors duration-500" size={175} />
+              </div>
             </div>
 
-            <div className="card-hover p-7 rounded-2xl space-y-3">
-              <div className="text-xs font-mono uppercase text-neutral-400 font-semibold">
-                TENET 02
+            <div className="group relative overflow-hidden card-hover bg-white border border-neutral-200/90 rounded-2xl p-7 sm:p-8 flex flex-col justify-between min-h-[240px]">
+              <div className="relative z-10 space-y-3">
+                <div className="text-xs font-mono uppercase text-neutral-400 font-semibold">
+                  TENET 02
+                </div>
+                <h3 className="font-bold text-neutral-900 text-xl">
+                  1% Risk Boundary
+                </h3>
+                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed max-w-[280px]">
+                  Discipline over hype. We teach institutional statistical edge, emotional control, and mathematical guardrails across all trading operations.
+                </p>
               </div>
-              <h3 className="font-bold text-neutral-900 text-xl">
-                1% Risk Boundary
-              </h3>
-              <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                Discipline over hype. We teach institutional statistical edge, emotional control, and mathematical guardrails across all trading operations.
-              </p>
+              {/* Background Illustration */}
+              <div className="absolute -right-3 -bottom-3 pointer-events-none select-none transition-all duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-1.5">
+                <TenetRiskIllustration className="text-neutral-900/[0.16] group-hover:text-neutral-900/35 transition-colors duration-500" size={175} />
+              </div>
             </div>
 
-            <div className="card-hover p-7 rounded-2xl space-y-3">
-              <div className="text-xs font-mono uppercase text-neutral-400 font-semibold">
-                TENET 03
+            <div className="group relative overflow-hidden card-hover bg-white border border-neutral-200/90 rounded-2xl p-7 sm:p-8 flex flex-col justify-between min-h-[240px]">
+              <div className="relative z-10 space-y-3">
+                <div className="text-xs font-mono uppercase text-neutral-400 font-semibold">
+                  TENET 03
+                </div>
+                <h3 className="font-bold text-neutral-900 text-xl">
+                  Peer Governance
+                </h3>
+                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed max-w-[280px]">
+                  100% student-led. Senior RCA engineers mentor incoming cohorts, review venture pitch decks, and audit trading league performance weekly.
+                </p>
               </div>
-              <h3 className="font-bold text-neutral-900 text-xl">
-                Peer Governance
-              </h3>
-              <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                100% student-led. Senior RCA engineers mentor incoming cohorts, review venture pitch decks, and audit trading league performance weekly.
-              </p>
+              {/* Background Illustration */}
+              <div className="absolute -right-3 -bottom-3 pointer-events-none select-none transition-all duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-1.5">
+                <TenetGovernanceIllustration className="text-neutral-900/[0.16] group-hover:text-neutral-900/35 transition-colors duration-500" size={175} />
+              </div>
             </div>
           </div>
         </Container>

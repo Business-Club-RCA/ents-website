@@ -36,6 +36,7 @@ export interface Project {
     demo?: string;
     github?: string;
   };
+  imageUrl?: string;
 }
 
 export interface TeamMember {

@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { Container } from '@/components/ui/Container';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
@@ -83,7 +84,24 @@ export default function ProjectsPage() {
             </div>
 
             <div className="lg:col-span-5">
-              <div className="card-hover border border-neutral-200/90 bg-white rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
+              <div className="card-hover border border-neutral-200/90 bg-white rounded-2xl p-6 sm:p-7 space-y-5 shadow-sm">
+                {/* Real SIFS Dashboard Screen */}
+                <div className="skeuo-recessed rounded-xl overflow-hidden relative w-full h-48 sm:h-56">
+                  <Image
+                    src={featured.imageUrl || '/projects/sifs-dashboard.jpg'}
+                    alt={featured.title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    className="object-cover object-center"
+                    priority
+                  />
+                  <div className="absolute top-3 left-3">
+                    <span className="skeuo-badge px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold text-neutral-900">
+                      LIVE SIFS TERMINAL
+                    </span>
+                  </div>
+                </div>
+
                 <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
                   <div className="flex items-center gap-2">
                     <TerminalIcon size={16} className="text-neutral-900" />
@@ -118,7 +136,7 @@ export default function ProjectsPage() {
         </Container>
       </section>
 
-      {/* Grid of Other Club Products & Ventures */}
+      {/* Grid of Other Club Products & Ventures with Separating Lines */}
       <Container size="wide">
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-neutral-200">
           <h3 className="text-xs uppercase font-mono tracking-widest text-neutral-500 font-semibold">
@@ -129,29 +147,54 @@ export default function ProjectsPage() {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-[1px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 shadow-sm">
           {otherProjects.map((project) => (
             <div
               key={project.id}
-              className="card-hover bg-white border border-neutral-200/90 rounded-2xl p-7 flex flex-col justify-between"
+              className="bg-white p-6 sm:p-7 flex flex-col justify-between group hover:bg-neutral-50/70 transition-colors"
             >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
+              <div>
+                {/* Real Dashboard Image in Recessed Bezel */}
+                {project.imageUrl && (
+                  <div className="skeuo-recessed rounded-xl overflow-hidden relative w-full h-44 sm:h-48 mb-4">
+                    <Image
+                      src={project.imageUrl}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-2.5 left-2.5">
+                      <span className="skeuo-badge px-2 py-0.5 rounded-md text-[9px] font-mono font-bold text-neutral-900">
+                        DASHBOARD
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Separating hairline under dashboard image */}
+                <div className="w-full h-px bg-neutral-200/70 my-3" />
+
+                <div className="flex items-center justify-between mb-3">
                   <Badge variant={project.status}>{project.status}</Badge>
                   <span className="text-xs font-mono text-neutral-500 font-semibold">{project.category}</span>
                 </div>
 
                 <div>
-                  <h4 className="text-xl font-bold tracking-tight text-neutral-900">{project.title}</h4>
+                  <h4 className="text-xl font-bold tracking-tight text-neutral-900 group-hover:text-neutral-950 transition-colors">
+                    {project.title}
+                  </h4>
                   <p className="text-xs font-mono text-neutral-500 mt-1">{project.tagline}</p>
                 </div>
 
-                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">{project.description}</p>
+                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mt-3">
+                  {project.description}
+                </p>
 
                 {project.metrics && (
-                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-neutral-100 font-mono">
+                  <div className="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-neutral-100 font-mono">
                     {project.metrics.map((m) => (
-                      <div key={m.label} className="card-skeuo-sm p-2.5 rounded-lg">
+                      <div key={m.label} className="skeuo-chip p-2.5 rounded-lg">
                         <div className="text-[9px] text-neutral-500 uppercase">{m.label}</div>
                         <div className="text-xs font-bold text-neutral-900 font-number">{m.value}</div>
                       </div>
@@ -166,7 +209,7 @@ export default function ProjectsPage() {
                     key={tag}
                     className="text-[10px] font-mono text-neutral-600 bg-neutral-100 border border-neutral-200/80 px-2 py-0.5 rounded-lg"
                   >
-                    {tag}
+                    #{tag}
                   </span>
                 ))}
               </div>

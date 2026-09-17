@@ -41,9 +41,9 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-white shadow-sm grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 divide-neutral-200 md:divide-x">
             {/* Column 1 */}
-            <div className="group relative overflow-hidden card-hover bg-neutral-50/50 border border-neutral-200/90 rounded-2xl p-7 flex flex-col justify-between">
+            <div className="group relative overflow-hidden p-7 sm:p-8 lg:p-9 flex flex-col justify-between hover:bg-neutral-50/50 transition-colors duration-200">
               <div className="relative z-10">
                 <div className="text-xs font-mono uppercase text-neutral-400 font-semibold mb-3">
                   PILLAR 01
@@ -55,7 +55,7 @@ export default function HomePage() {
                   No 20-year-old case studies. We build live software tools, launch campus micro-ventures, and audit real cash flows.
                 </p>
               </div>
-              <div className="relative z-10 mt-6 pt-4 border-t border-neutral-200/70 flex items-center gap-2 text-xs font-mono text-neutral-500">
+              <div className="relative z-10 mt-8 pt-4 border-t border-neutral-200/70 flex items-center gap-2 text-xs font-mono text-neutral-500">
                 <span className="w-1.5 h-1.5 bg-neutral-900 rounded-full" />
                 <span>Production Ventures</span>
               </div>
@@ -66,7 +66,7 @@ export default function HomePage() {
             </div>
 
             {/* Column 2 */}
-            <div className="group relative overflow-hidden card-hover bg-neutral-50/50 border border-neutral-200/90 rounded-2xl p-7 flex flex-col justify-between">
+            <div className="group relative overflow-hidden p-7 sm:p-8 lg:p-9 flex flex-col justify-between hover:bg-neutral-50/50 transition-colors duration-200">
               <div className="relative z-10">
                 <div className="text-xs font-mono uppercase text-neutral-400 font-semibold mb-3">
                   PILLAR 02
@@ -78,7 +78,7 @@ export default function HomePage() {
                   Every trade and business model is mathematically backed. We enforce strict 1% risk guardrails and algorithmic backtesting.
                 </p>
               </div>
-              <div className="relative z-10 mt-6 pt-4 border-t border-neutral-200/70 flex items-center gap-2 text-xs font-mono text-neutral-500">
+              <div className="relative z-10 mt-8 pt-4 border-t border-neutral-200/70 flex items-center gap-2 text-xs font-mono text-neutral-500">
                 <span className="w-1.5 h-1.5 bg-neutral-900 rounded-full" />
                 <span>Quantitative Rigor</span>
               </div>
@@ -89,7 +89,7 @@ export default function HomePage() {
             </div>
 
             {/* Column 3 */}
-            <div className="group relative overflow-hidden card-hover bg-neutral-50/50 border border-neutral-200/90 rounded-2xl p-7 flex flex-col justify-between">
+            <div className="group relative overflow-hidden p-7 sm:p-8 lg:p-9 flex flex-col justify-between hover:bg-neutral-50/50 transition-colors duration-200">
               <div className="relative z-10">
                 <div className="text-xs font-mono uppercase text-neutral-400 font-semibold mb-3">
                   PILLAR 03
@@ -101,7 +101,7 @@ export default function HomePage() {
                   Leveraging Nyabihu&apos;s densest concentration of student software engineers to build financial infrastructure that scales.
                 </p>
               </div>
-              <div className="relative z-10 mt-6 pt-4 border-t border-neutral-200/70 flex items-center gap-2 text-xs font-mono text-neutral-500">
+              <div className="relative z-10 mt-8 pt-4 border-t border-neutral-200/70 flex items-center gap-2 text-xs font-mono text-neutral-500">
                 <span className="w-1.5 h-1.5 bg-neutral-900 rounded-full" />
                 <span>Nyabihu · Est. 2026</span>
               </div>
@@ -138,9 +138,9 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-white shadow-sm grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 divide-neutral-200 lg:divide-x">
             {/* Card 1: Business Handlers */}
-            <div className="group relative overflow-hidden card-hover bg-white border border-neutral-200/90 rounded-2xl p-8 sm:p-10 flex flex-col justify-between">
+            <div className="group relative overflow-hidden p-8 sm:p-10 lg:p-12 flex flex-col justify-between hover:bg-neutral-50/50 transition-colors duration-200">
               <div className="relative z-10 space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="p-3 bg-neutral-900 text-white rounded-xl shadow-sm">
@@ -192,7 +192,7 @@ export default function HomePage() {
             </div>
 
             {/* Card 2: Traders */}
-            <div className="group relative overflow-hidden card-hover bg-white border border-neutral-200/90 rounded-2xl p-8 sm:p-10 flex flex-col justify-between">
+            <div className="group relative overflow-hidden p-8 sm:p-10 lg:p-12 flex flex-col justify-between hover:bg-neutral-50/50 transition-colors duration-200">
               <div className="relative z-10 space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="p-3 bg-neutral-900 text-white rounded-xl shadow-sm">

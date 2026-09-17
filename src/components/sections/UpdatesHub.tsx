@@ -246,74 +246,94 @@ export function UpdatesHub() {
             </div>
 
             {/* The Single Featured Event Skeuomorphic Chassis */}
-            <div className="card-hover card-skeuo-static rounded-3xl overflow-hidden border border-neutral-300/80 shadow-[inset_0_1.5px_0_rgba(255,255,255,1),inset_0_-1.5px_0_rgba(0,0,0,0.04),0_8px_24px_-4px_rgba(0,0,0,0.08)] grid grid-cols-1 md:grid-cols-12 relative group">
-              {/* Top subtle highlight bar */}
-              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-neutral-300 to-transparent pointer-events-none" />
-
-              {/* Event Image Banner */}
-              <div className="md:col-span-6 relative min-h-[260px] sm:min-h-[340px] md:min-h-[380px] bg-neutral-100">
-                {currentFeaturedEvent.imageUrl && (
-                  <Image
-                    src={currentFeaturedEvent.imageUrl}
-                    alt={currentFeaturedEvent.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover object-center"
-                    priority={false}
-                  />
-                )}
-                <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 bg-white/95 backdrop-blur-md rounded-xl text-xs font-mono font-bold text-neutral-900 shadow-sm border border-white/40">
-                    Featured Event
+            <div className="skeuo-card rounded-3xl p-4 sm:p-6 lg:p-7 relative group overflow-hidden">
+              {/* Top hardware bar with corner rivets */}
+              <div className="flex items-center justify-between pb-3.5 mb-5 border-b border-neutral-200/90 text-[11px] font-mono">
+                <div className="flex items-center gap-2.5">
+                  <span className="skeuo-rivet" />
+                  <span className="uppercase tracking-widest text-neutral-500 font-semibold">
+                    FEATURED EVENT · CHASSIS SIFS-01
                   </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse" />
+                  <span className="text-neutral-700 font-bold uppercase tracking-wider text-[10px]">ACTIVE ENROLLMENT</span>
+                  <span className="skeuo-rivet ml-2" />
                 </div>
               </div>
 
-              {/* Event Details & Attendance Action */}
-              <div className="md:col-span-6 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
-                <div>
-                  <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-neutral-500 mb-3">
-                    <span className="font-semibold text-neutral-900">
-                      {currentFeaturedEvent.eventDate}
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8">
+                {/* Event Image Banner in Recessed Photographic Bezel */}
+                <div className="md:col-span-6 skeuo-recessed rounded-2xl overflow-hidden relative min-h-[260px] sm:min-h-[340px] md:min-h-[380px]">
+                  {currentFeaturedEvent.imageUrl && (
+                    <Image
+                      src={currentFeaturedEvent.imageUrl}
+                      alt={currentFeaturedEvent.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
+                      priority={false}
+                    />
+                  )}
+                  <div className="absolute top-4 left-4">
+                    <span className="skeuo-badge px-3 py-1 rounded-xl text-xs font-mono font-bold text-neutral-900">
+                      Featured Event
                     </span>
-                    <span>&middot;</span>
-                    <span>{currentFeaturedEvent.eventTime}</span>
-                  </div>
-
-                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-neutral-900 leading-snug mb-3">
-                    {currentFeaturedEvent.title}
-                  </h3>
-
-                  {/* Little Description */}
-                  <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6 font-normal">
-                    {currentFeaturedEvent.excerpt}
-                  </p>
-
-                  <div className="space-y-1.5 text-xs font-mono text-neutral-600 pt-4 border-t border-neutral-200">
-                    <div>Venue: {currentFeaturedEvent.eventLocation}</div>
-                    {currentFeaturedEvent.speakers && (
-                      <div>Hosts: {currentFeaturedEvent.speakers.join(', ')}</div>
-                    )}
                   </div>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-neutral-200 flex flex-wrap items-center justify-between gap-3">
-                  <span className="text-xs font-mono text-neutral-400">
-                    Organized by {currentFeaturedEvent.author}
-                  </span>
+                {/* Event Details & Attendance Action */}
+                <div className="md:col-span-6 flex flex-col justify-between py-1">
+                  <div>
+                    <div className="flex flex-wrap items-center gap-2.5 text-xs font-mono text-neutral-500 mb-3">
+                      <span className="skeuo-badge px-3 py-1 rounded-lg font-bold text-neutral-900">
+                        {currentFeaturedEvent.eventDate}
+                      </span>
+                      <span>&middot;</span>
+                      <span className="font-semibold text-neutral-700">{currentFeaturedEvent.eventTime}</span>
+                    </div>
 
-                  {registeredEvents.includes(currentFeaturedEvent.id) ? (
-                    <span className="px-5 py-2.5 rounded-xl bg-emerald-50 text-emerald-800 font-mono text-xs font-bold border border-emerald-200">
-                      Attendance Confirmed
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-neutral-900 leading-snug mb-3">
+                      {currentFeaturedEvent.title}
+                    </h3>
+
+                    {/* Little Description */}
+                    <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6 font-normal">
+                      {currentFeaturedEvent.excerpt}
+                    </p>
+
+                    <div className="skeuo-chip p-4 rounded-xl space-y-2 text-xs font-mono text-neutral-700">
+                      <div className="flex items-center gap-2">
+                        <span className="text-neutral-500">VENUE:</span>
+                        <span className="font-semibold text-neutral-900">{currentFeaturedEvent.eventLocation}</span>
+                      </div>
+                      {currentFeaturedEvent.speakers && (
+                        <div className="flex items-center gap-2">
+                          <span className="text-neutral-500">HOSTS:</span>
+                          <span className="font-semibold text-neutral-900">{currentFeaturedEvent.speakers.join(', ')}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="skeuo-groove pt-6 mt-6 flex flex-wrap items-center justify-between gap-3">
+                    <span className="text-xs font-mono text-neutral-500">
+                      Organized by <strong className="text-neutral-900">{currentFeaturedEvent.author}</strong>
                     </span>
-                  ) : (
-                    <button
-                      onClick={() => setAttendanceModalEvent(currentFeaturedEvent)}
-                      className="btn-skeuo-dark font-bold px-6 py-2.5 rounded-xl text-xs font-mono cursor-pointer"
-                    >
-                      Register Attendance
-                    </button>
-                  )}
+
+                    {registeredEvents.includes(currentFeaturedEvent.id) ? (
+                      <span className="skeuo-badge px-5 py-2.5 rounded-xl text-emerald-800 font-mono text-xs font-bold border-emerald-300">
+                        ✓ Attendance Confirmed
+                      </span>
+                    ) : (
+                      <button
+                        onClick={() => setAttendanceModalEvent(currentFeaturedEvent)}
+                        className="btn-skeuo-dark font-bold px-6 py-2.5 rounded-xl text-xs font-mono cursor-pointer"
+                      >
+                        Register Attendance
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -379,42 +399,51 @@ export function UpdatesHub() {
             No entries found.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-[1px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 shadow-sm">
             {filteredItems.map((item) => {
               const isEvent = item.type === 'event';
 
               return (
                 <article
                   key={item.id}
-                  className="card-hover card-skeuo-static rounded-2xl overflow-hidden border border-neutral-300/80 shadow-[inset_0_1.5px_0_rgba(255,255,255,1),inset_0_-1.5px_0_rgba(0,0,0,0.04),0_6px_20px_-4px_rgba(0,0,0,0.06)] flex flex-col justify-between relative group"
+                  className="bg-white p-4 sm:p-5 flex flex-col justify-between relative group hover:bg-neutral-50/70 transition-colors overflow-hidden"
                 >
-                  {/* Subtle top hairline highlight */}
-                  <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-neutral-300 to-transparent pointer-events-none" />
-
                   <div>
-                    {/* Cover Image */}
+                    {/* Top Hardware Accent with Corner Rivets */}
+                    <div className="flex items-center justify-between px-1 pb-2.5 mb-2.5 border-b border-neutral-200/70">
+                      <span className="skeuo-rivet" />
+                      <div className="flex items-center gap-2 text-[10px] font-mono text-neutral-500">
+                        <span className="w-1.5 h-1.5 rounded-full bg-neutral-400" />
+                        <span className="uppercase tracking-wider font-semibold text-neutral-600">
+                          {isEvent ? 'EVENT DISPATCH' : 'NEWS ARTICLE'}
+                        </span>
+                      </div>
+                      <span className="skeuo-rivet" />
+                    </div>
+
+                    {/* Recessed Photographic Bezel */}
                     {item.imageUrl && (
                       <Link
                         href={isEvent ? '#' : `/updates/${item.id}`}
-                        className="block relative w-full h-48 sm:h-52 overflow-hidden bg-neutral-100 border-b border-neutral-200/70"
+                        className="skeuo-recessed block rounded-xl overflow-hidden relative w-full h-44 sm:h-48 group-hover:border-neutral-400 transition-colors"
                       >
                         <Image
                           src={item.imageUrl}
                           alt={item.title}
                           fill
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-300"
+                          className="object-cover object-center group-hover:scale-[1.03] transition-transform duration-500"
                         />
                       </Link>
                     )}
 
-                    <div className="p-6">
+                    <div className="pt-4 px-1">
                       {/* Category Label + Date */}
-                      <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400 mb-2.5">
-                        <span className="uppercase font-bold tracking-wider text-neutral-800 text-[10px] px-2 py-0.5 rounded-md bg-white border border-neutral-200/80 shadow-[inset_0_1px_0_rgba(255,255,255,1)]">
+                      <div className="flex items-center justify-between text-[11px] font-mono text-neutral-500 mb-2.5">
+                        <span className="skeuo-badge uppercase font-bold tracking-wider text-neutral-800 text-[10px] px-2.5 py-0.5 rounded-md">
                           {isEvent ? 'Event' : 'News'}
                         </span>
-                        <span>{item.date}</span>
+                        <span className="text-neutral-500">{item.date}</span>
                       </div>
 
                       {/* Headline linked to detail page */}
@@ -429,26 +458,26 @@ export function UpdatesHub() {
                       </h3>
 
                       {/* Excerpt */}
-                      <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-4">
+                      <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-4 line-clamp-3 font-normal">
                         {item.excerpt}
                       </p>
 
                       {/* Event info line if event */}
                       {isEvent && item.eventDate && (
-                        <div className="text-xs font-mono text-neutral-700 bg-white p-3 rounded-xl border border-neutral-200/90 shadow-[inset_0_1px_0_rgba(255,255,255,1)] mb-3">
-                          <div className="font-semibold text-neutral-900">
+                        <div className="skeuo-chip p-3 rounded-xl text-xs font-mono text-neutral-700 mb-3 space-y-1">
+                          <div className="font-bold text-neutral-900">
                             {item.eventDate} &middot; {item.eventTime}
                           </div>
-                          <div className="text-neutral-500 mt-0.5">{item.eventLocation}</div>
+                          <div className="text-neutral-500">{item.eventLocation}</div>
                         </div>
                       )}
 
-                      {/* Tactile Tags */}
-                      <div className="flex flex-wrap gap-1.5">
+                      {/* Tactile Debossed Tags */}
+                      <div className="flex flex-wrap gap-1.5 pt-1">
                         {item.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="text-[10px] font-mono bg-white border border-neutral-200/90 shadow-[inset_0_1px_0_rgba(255,255,255,1),0_1px_2px_rgba(0,0,0,0.03)] px-2 py-0.5 rounded-lg text-neutral-700"
+                            className="skeuo-chip text-[10px] font-mono px-2 py-0.5 rounded-md text-neutral-700 font-medium"
                           >
                             #{tag}
                           </span>
@@ -457,15 +486,15 @@ export function UpdatesHub() {
                     </div>
                   </div>
 
-                  {/* Card Footer */}
-                  <div className="px-6 pb-6 pt-3.5 flex items-center justify-between text-xs font-mono border-t border-neutral-200/70">
+                  {/* Card Machined Footer */}
+                  <div className="skeuo-groove px-1 pb-1 pt-3.5 mt-4 flex items-center justify-between text-xs font-mono">
                     <span className="text-neutral-500 font-medium">{item.author}</span>
 
                     <div className="flex items-center gap-3">
                       {item.isCustom && (
                         <button
                           onClick={() => handleDeleteCustomItem(item.id)}
-                          className="text-neutral-500 hover:text-neutral-900 cursor-pointer underline text-[11px]"
+                          className="text-neutral-500 hover:text-red-600 cursor-pointer underline text-[11px]"
                         >
                           Delete
                         </button>
@@ -487,7 +516,7 @@ export function UpdatesHub() {
                       ) : (
                         <Link
                           href={`/updates/${item.id}`}
-                          className="btn-skeuo-light font-bold px-3.5 py-1.5 rounded-xl text-xs cursor-pointer"
+                          className="btn-skeuo-light font-bold px-4 py-1.5 rounded-xl text-xs cursor-pointer"
                         >
                           Read Article
                         </Link>

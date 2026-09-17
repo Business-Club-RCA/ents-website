@@ -11,6 +11,7 @@ export const projectsData: Project[] = [
     featured: true,
     category: 'Fintech',
     tags: ['Next.js', 'WebSockets', 'Financial APIs', 'PostgreSQL', 'Risk Engine'],
+    imageUrl: '/projects/sifs-dashboard.jpg',
     metrics: [
       { label: 'Simulated AUM', value: '$250,000' },
       { label: 'Active Portfolios', value: '48' },
@@ -31,6 +32,7 @@ export const projectsData: Project[] = [
     status: 'Live',
     category: 'Venture',
     tags: ['Next.js', 'Tailwind CSS', 'Mobile First', 'Inventory Sync'],
+    imageUrl: '/projects/rca-mart.jpg',
     metrics: [
       { label: 'Monthly Transactions', value: '380+' },
       { label: 'Fulfillment Time', value: '15 mins' },
@@ -46,6 +48,7 @@ export const projectsData: Project[] = [
     status: 'In Development',
     category: 'Quantitative',
     tags: ['Python', 'FastAPI', 'Pandas', 'TimescaleDB', 'Backtrader'],
+    imageUrl: '/projects/alphastream.jpg',
     metrics: [
       { label: 'Strategies Tested', value: '14' },
       { label: 'Historical Ticks', value: '1.2M+' },
@@ -61,6 +64,7 @@ export const projectsData: Project[] = [
     status: 'In Development',
     category: 'Platform',
     tags: ['TypeScript', 'Supabase', 'Accounting Schema', 'Audit Trail'],
+    imageUrl: '/projects/ledger.jpg',
     metrics: [
       { label: 'Capital Allocated', value: '1,200,000 RWF' },
       { label: 'Ventures Seeded', value: '4' },
@@ -75,6 +79,7 @@ export const projectsData: Project[] = [
     status: 'Planned',
     category: 'Fintech',
     tags: ['NLP', 'RSS Scraping', 'Financial News', 'Sentiment Score'],
+    imageUrl: '/projects/macropulse.jpg',
   },
   {
     id: 'rca-dev-agency',
@@ -85,6 +90,6 @@ export const projectsData: Project[] = [
     status: 'Planned',
     category: 'Venture',
     tags: ['Contracts', 'Client Management', 'SLA', 'Revenue Share'],
+    imageUrl: '/projects/agency.jpg',
   },
 ];
-

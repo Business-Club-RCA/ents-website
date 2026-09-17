@@ -44,9 +44,9 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10">
+          <div className="border border-neutral-300/90 rounded-3xl overflow-hidden shadow-sm grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 divide-neutral-300 lg:divide-x">
             {/* The Mission Card */}
-            <div className="card-hover rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group">
+            <div className="bg-white p-8 sm:p-10 lg:p-12 flex flex-col justify-between relative overflow-hidden group hover:bg-neutral-50/50 transition-colors">
               <div className="absolute top-0 inset-x-0 h-1.5 bg-neutral-900" />
               
               <div className="space-y-6">
@@ -96,7 +96,7 @@ export default function AboutPage() {
             </div>
 
             {/* The Vision Card (High Contrast Deep Obsidian Chassis) */}
-            <div className="card-skeuo-dark !bg-[#121216] border border-neutral-700/80 text-white rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group shadow-xl">
+            <div className="card-skeuo-dark !bg-[#121216] text-white p-8 sm:p-10 lg:p-12 flex flex-col justify-between relative overflow-hidden group">
               <div className="absolute top-0 inset-x-0 h-1 bg-white/40" />
               
               <div className="space-y-6">
@@ -165,8 +165,9 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            <div className="group relative overflow-hidden card-hover bg-white border border-neutral-200/90 rounded-2xl p-7 sm:p-8 flex flex-col justify-between min-h-[240px]">
+          <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-white shadow-sm grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 divide-neutral-200 md:divide-x">
+            {/* Tenet 01 */}
+            <div className="group relative overflow-hidden p-7 sm:p-8 lg:p-9 flex flex-col justify-between min-h-[250px] hover:bg-neutral-50/50 transition-colors duration-200">
               <div className="relative z-10 space-y-3">
                 <div className="text-xs font-mono uppercase text-neutral-400 font-semibold">
                   TENET 01
@@ -184,7 +185,8 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="group relative overflow-hidden card-hover bg-white border border-neutral-200/90 rounded-2xl p-7 sm:p-8 flex flex-col justify-between min-h-[240px]">
+            {/* Tenet 02 */}
+            <div className="group relative overflow-hidden p-7 sm:p-8 lg:p-9 flex flex-col justify-between min-h-[250px] hover:bg-neutral-50/50 transition-colors duration-200">
               <div className="relative z-10 space-y-3">
                 <div className="text-xs font-mono uppercase text-neutral-400 font-semibold">
                   TENET 02
@@ -202,7 +204,8 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="group relative overflow-hidden card-hover bg-white border border-neutral-200/90 rounded-2xl p-7 sm:p-8 flex flex-col justify-between min-h-[240px]">
+            {/* Tenet 03 */}
+            <div className="group relative overflow-hidden p-7 sm:p-8 lg:p-9 flex flex-col justify-between min-h-[250px] hover:bg-neutral-50/50 transition-colors duration-200">
               <div className="relative z-10 space-y-3">
                 <div className="text-xs font-mono uppercase text-neutral-400 font-semibold">
                   TENET 03
@@ -243,11 +246,11 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-white shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 divide-neutral-200 sm:divide-x">
             {executiveTeam.map((member) => (
               <div
                 key={member.id}
-                className="card-skeuo rounded-3xl p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden group text-center"
+                className="p-6 sm:p-7 flex flex-col justify-between relative group text-center hover:bg-neutral-50/50 transition-colors duration-200"
               >
                 <div className="flex flex-col items-center">
                   {/* Skeuomorphic Recessed Bezel with Round Portrait */}
@@ -259,7 +262,7 @@ export default function AboutPage() {
                           alt={member.name}
                           fill
                           sizes="(max-width: 768px) 128px, 144px"
-                          className="object-cover object-top group-hover:scale-110 transition-transform duration-500"
+                          className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
                           unoptimized
                         />
                       ) : (
@@ -277,7 +280,10 @@ export default function AboutPage() {
                     </div>
                   </div>
 
-                  <div className="mt-1">
+                  {/* Separating hairline under profile picture */}
+                  <div className="w-14 h-px bg-neutral-200/80 my-2.5" />
+
+                  <div>
                     <h3 className="text-lg sm:text-xl font-bold text-neutral-900 group-hover:text-neutral-950 transition-colors">
                       {member.name}
                     </h3>
@@ -292,7 +298,7 @@ export default function AboutPage() {
                 </div>
 
                 {/* Tactile Skeuomorphic Social Keycaps & Chiseled Divider */}
-                <div className="divider-skeuo mt-6 pt-4 flex items-center justify-center gap-2.5">
+                <div className="border-t border-neutral-200/80 mt-6 pt-4 flex items-center justify-center gap-2.5">
                   {member.socials?.linkedin && (
                     <a
                       href={member.socials.linkedin}
@@ -356,16 +362,16 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Compact Responsive Micro-Grid: 5 columns on desktop */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-4">
+          {/* Compact Responsive Micro-Grid with Separating Lines */}
+          <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-white shadow-sm grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 divide-x divide-y divide-neutral-200">
             {clubMembers.map((member) => (
               <div
                 key={member.id}
-                className="card-skeuo-sm rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between group"
+                className="p-3.5 sm:p-4 flex flex-col justify-between group hover:bg-neutral-50/50 transition-colors duration-200"
               >
                 <div>
                   {/* Round Photo Thumbnail with Skeuomorphic Bezel + Tactile Cohort Tag */}
-                  <div className="flex items-center justify-between gap-2 mb-2.5">
+                  <div className="flex items-center justify-between gap-2 mb-2">
                     <div className="avatar-skeuo-bezel-sm relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-neutral-100 shrink-0">
                       {member.avatarUrl ? (
                         <Image
@@ -373,7 +379,7 @@ export default function AboutPage() {
                           alt={member.name}
                           fill
                           sizes="48px"
-                          className="object-cover object-top group-hover:scale-110 transition-transform duration-300"
+                          className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
                           unoptimized
                         />
                       ) : (
@@ -388,6 +394,9 @@ export default function AboutPage() {
                     </span>
                   </div>
 
+                  {/* Separating hairline under profile picture */}
+                  <div className="w-full h-px bg-neutral-200/70 my-2" />
+
                   {/* Name & Role */}
                   <h4 className="text-xs sm:text-sm font-bold text-neutral-900 truncate group-hover:text-neutral-950">
                     {member.name}
@@ -398,7 +407,7 @@ export default function AboutPage() {
                 </div>
 
                 {/* Tactile Skeuomorphic Social Keycaps & Chiseled Divider */}
-                <div className="divider-skeuo mt-3 pt-2.5 flex items-center gap-1.5">
+                <div className="border-t border-neutral-200/70 mt-3 pt-2.5 flex items-center gap-1.5">
                   {member.socials?.linkedin && (
                     <a
                       href={member.socials.linkedin}

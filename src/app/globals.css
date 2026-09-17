@@ -371,12 +371,92 @@ h1, h2, h3, h4, h5, h6 {
 /* Static non-hover skeuomorphic surface (tables, chassis containers) */
 .card-skeuo-static {
   background: linear-gradient(180deg, #ffffff 0%, #fbfbfd 45%, #f1f1f5 100%);
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow:
     0 1.5px 0 rgba(255, 255, 255, 1) inset,
-    0 -1.5px 0 rgba(0, 0, 0, 0.04) inset,
-    0 2px 4px rgba(0, 0, 0, 0.03),
-    0 8px 24px -4px rgba(0, 0, 0, 0.07);
+    0 -1.5px 0 rgba(0, 0, 0, 0.06) inset,
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 8px 24px -4px rgba(0, 0, 0, 0.08);
+}
+
+/* ----------------------------------------------------
+   Ultra-Tactile Real-Feel Skeuomorphic Card System
+   ---------------------------------------------------- */
+.skeuo-card {
+  background: linear-gradient(180deg, #ffffff 0%, #fcfcfd 30%, #f1f1f5 100%);
+  border: 1px solid #d4d4d8;
+  border-top-color: #f4f4f5;
+  border-bottom-color: #a1a1aa;
+  box-shadow:
+    0 1.5px 0 0 rgba(255, 255, 255, 1) inset,
+    0 -2px 0 0 rgba(0, 0, 0, 0.08) inset,
+    0 1px 3px 0 rgba(0, 0, 0, 0.05),
+    0 10px 26px -4px rgba(0, 0, 0, 0.09),
+    0 20px 40px -10px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+}
+
+.skeuo-card:hover {
+  transform: translateY(-4px);
+  border-color: #a1a1aa;
+  box-shadow:
+    0 1.5px 0 0 rgba(255, 255, 255, 1) inset,
+    0 -2.5px 0 0 rgba(0, 0, 0, 0.12) inset,
+    0 4px 12px 0 rgba(0, 0, 0, 0.07),
+    0 18px 40px -4px rgba(0, 0, 0, 0.14),
+    0 32px 64px -12px rgba(0, 0, 0, 0.08);
+}
+
+/* Recessed display bezel (for photo viewports / screen plates) */
+.skeuo-recessed {
+  background: #18181b;
+  border: 1px solid #d4d4d8;
+  border-top-color: #a1a1aa;
+  border-bottom-color: #ffffff;
+  box-shadow:
+    0 3px 8px -1px rgba(0, 0, 0, 0.3) inset,
+    0 1px 3px 0 rgba(0, 0, 0, 0.2) inset,
+    0 1px 0 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Tactile raised status badge */
+.skeuo-badge {
+  background: linear-gradient(180deg, #ffffff 0%, #f4f4f7 100%);
+  border: 1px solid #d4d4d8;
+  border-bottom-color: #a1a1aa;
+  box-shadow:
+    0 1px 0 0 #ffffff inset,
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* Debossed recessed tag chip */
+.skeuo-chip {
+  background: linear-gradient(180deg, #e9e9ed 0%, #f4f4f6 100%);
+  border: 1px solid #d1d1d6;
+  border-top-color: #b8b8c0;
+  border-bottom-color: #ffffff;
+  box-shadow:
+    0 1px 2px 0 rgba(0, 0, 0, 0.08) inset,
+    0 1px 0 0 #ffffff;
+}
+
+/* Precision metallic fastener / corner rivet */
+.skeuo-rivet {
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #f4f4f5 0%, #a1a1aa 50%, #71717a 100%);
+  border: 0.5px solid #52525b;
+  box-shadow:
+    0 0.5px 0 0 rgba(255, 255, 255, 0.9) inset,
+    0 1px 1.5px 0 rgba(0, 0, 0, 0.28);
+  flex-shrink: 0;
+}
+
+/* Machined status groove / separation hairline */
+.skeuo-groove {
+  border-top: 1px solid #d4d4d8;
+  border-bottom: 1px solid #ffffff;
 }
 
 /* Subtle glow pulse */

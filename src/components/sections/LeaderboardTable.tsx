@@ -120,7 +120,7 @@ export function LeaderboardTable({ initialData }: LeaderboardTableProps) {
       </div>
 
       {/* Leaderboard Table Container */}
-      <div className="border border-neutral-200 rounded-2xl overflow-hidden bg-white shadow-sm">
+      <div className="card-skeuo-static rounded-2xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
@@ -181,7 +181,7 @@ export function LeaderboardTable({ initialData }: LeaderboardTableProps) {
 
                       {/* Track / Asset */}
                       <td className="py-3.5 px-4">
-                        <span className="text-xs font-mono px-2 py-0.5 rounded bg-neutral-100 text-neutral-700">
+                        <span className="text-xs font-mono px-2.5 py-0.5 rounded-lg bg-neutral-100 border border-neutral-200/80 text-neutral-700">
                           {entry.assetClass}
                         </span>
                       </td>
@@ -194,7 +194,7 @@ export function LeaderboardTable({ initialData }: LeaderboardTableProps) {
                       {/* PnL % */}
                       <td className="py-3.5 px-4 text-right tabular-nums font-number font-bold">
                         <span
-                          className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs ${
+                          className={`inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-semibold ${
                             entry.pnlPercent >= 0
                               ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                               : 'bg-rose-50 text-rose-700 border border-rose-200'

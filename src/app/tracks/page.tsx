@@ -95,7 +95,7 @@ export default function TracksPage() {
                     {businessTrack.toolsUsed.map((tool) => (
                       <span
                         key={tool}
-                        className="text-xs font-mono bg-neutral-100 border border-neutral-200/80 px-2.5 py-1 rounded-md text-neutral-800"
+                        className="text-xs font-mono bg-neutral-100 border border-neutral-200/80 px-2.5 py-1 rounded-lg text-neutral-800"
                       >
                         {tool}
                       </span>
@@ -169,7 +169,7 @@ export default function TracksPage() {
                     {tradersTrack.toolsUsed.map((tool) => (
                       <span
                         key={tool}
-                        className="text-xs font-mono bg-neutral-100 border border-neutral-200/80 px-2.5 py-1 rounded-md text-neutral-800"
+                        className="text-xs font-mono bg-neutral-100 border border-neutral-200/80 px-2.5 py-1 rounded-lg text-neutral-800"
                       >
                         {tool}
                       </span>

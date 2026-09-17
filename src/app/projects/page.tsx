@@ -55,7 +55,7 @@ export default function ProjectsPage() {
                 {featured.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs font-mono bg-white border border-neutral-200/90 rounded-md px-2.5 py-1 text-neutral-800"
+                    className="text-xs font-mono bg-white border border-neutral-200/90 rounded-lg px-2.5 py-1 text-neutral-800"
                   >
                     {tag}
                   </span>
@@ -91,14 +91,14 @@ export default function ProjectsPage() {
                       Telemetry Overview
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono bg-neutral-900 text-white rounded px-2 py-0.5">
+                  <span className="text-[10px] font-mono bg-neutral-900 text-white rounded-lg px-2.5 py-0.5 font-semibold">
                     RCA PROD
                   </span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   {featured.metrics?.map((metric) => (
-                    <div key={metric.label} className="border border-neutral-200/70 bg-neutral-50/70 rounded-xl p-3.5">
+                    <div key={metric.label} className="card-skeuo-sm rounded-xl p-3.5">
                       <div className="text-[10px] font-mono uppercase tracking-wider text-neutral-500">
                         {metric.label}
                       </div>
@@ -151,7 +151,7 @@ export default function ProjectsPage() {
                 {project.metrics && (
                   <div className="grid grid-cols-2 gap-2 pt-2 border-t border-neutral-100 font-mono">
                     {project.metrics.map((m) => (
-                      <div key={m.label} className="bg-neutral-50/80 p-2.5 rounded-lg border border-neutral-200/70">
+                      <div key={m.label} className="card-skeuo-sm p-2.5 rounded-lg">
                         <div className="text-[9px] text-neutral-500 uppercase">{m.label}</div>
                         <div className="text-xs font-bold text-neutral-900 font-number">{m.value}</div>
                       </div>
@@ -164,7 +164,7 @@ export default function ProjectsPage() {
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-[10px] font-mono text-neutral-600 bg-neutral-100 px-2 py-0.5 rounded"
+                    className="text-[10px] font-mono text-neutral-600 bg-neutral-100 border border-neutral-200/80 px-2 py-0.5 rounded-lg"
                   >
                     {tag}
                   </span>

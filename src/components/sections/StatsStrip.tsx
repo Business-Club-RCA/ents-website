@@ -28,7 +28,7 @@ export function StatsStrip() {
                   <span className="text-[11px] font-mono uppercase tracking-widest text-neutral-500 font-semibold">
                     {stat.label}
                   </span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-neutral-100 text-neutral-600 border border-neutral-200/60">
+                  <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-lg bg-neutral-100 text-neutral-700 border border-neutral-200/80 font-medium">
                     {METRIC_BADGES[idx] || 'Live'}
                   </span>
                 </div>

@@ -96,7 +96,7 @@ export function FlagshipSimulator() {
 
           {/* Right Column: Interactive SIFS Terminal */}
           <div className="lg:col-span-6">
-            <div className="border border-neutral-800 bg-neutral-950 text-white rounded-2xl overflow-hidden shadow-[0_24px_50px_-12px_rgba(0,0,0,0.45)]">
+            <div className="card-skeuo-dark text-white rounded-2xl overflow-hidden shadow-[0_24px_50px_-12px_rgba(0,0,0,0.45)]">
               {/* Terminal Titlebar with Interactive Tabs */}
               <div className="flex flex-wrap items-center justify-between border-b border-neutral-800 px-4 py-3 text-xs font-mono bg-neutral-900/90 gap-2">
                 <div className="flex items-center gap-2">
@@ -201,12 +201,12 @@ export function FlagshipSimulator() {
                   {/* Ask rows */}
                   <div className="space-y-1">
                     <div className="flex items-center justify-between text-rose-400 text-[11px] relative">
-                      <div className="absolute right-0 h-full bg-rose-500/10 rounded" style={{ width: '65%' }} />
+                      <div className="absolute right-0 h-full bg-rose-500/10 rounded-lg" style={{ width: '65%' }} />
                       <span className="relative z-10">1.0846</span>
                       <span className="relative z-10 text-neutral-400">14.2 Lots</span>
                     </div>
                     <div className="flex items-center justify-between text-rose-400 text-[11px] relative">
-                      <div className="absolute right-0 h-full bg-rose-500/10 rounded" style={{ width: '40%' }} />
+                      <div className="absolute right-0 h-full bg-rose-500/10 rounded-lg" style={{ width: '40%' }} />
                       <span className="relative z-10">1.0844</span>
                       <span className="relative z-10 text-neutral-400">8.5 Lots</span>
                     </div>
@@ -218,12 +218,12 @@ export function FlagshipSimulator() {
                   {/* Bid rows */}
                   <div className="space-y-1">
                     <div className="flex items-center justify-between text-emerald-400 text-[11px] relative">
-                      <div className="absolute right-0 h-full bg-emerald-500/10 rounded" style={{ width: '85%' }} />
+                      <div className="absolute right-0 h-full bg-emerald-500/10 rounded-lg" style={{ width: '85%' }} />
                       <span className="relative z-10">{eurUsd.toFixed(4)}</span>
                       <span className="relative z-10 text-neutral-400">22.0 Lots</span>
                     </div>
                     <div className="flex items-center justify-between text-emerald-400 text-[11px] relative">
-                      <div className="absolute right-0 h-full bg-emerald-500/10 rounded" style={{ width: '50%' }} />
+                      <div className="absolute right-0 h-full bg-emerald-500/10 rounded-lg" style={{ width: '50%' }} />
                       <span className="relative z-10">1.0840</span>
                       <span className="relative z-10 text-neutral-400">11.4 Lots</span>
                     </div>

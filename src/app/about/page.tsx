@@ -41,12 +41,12 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10">
             {/* The Mission Card */}
-            <div className="card-hover bg-neutral-50/50 border border-neutral-200/90 rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group">
+            <div className="card-hover rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group">
               <div className="absolute top-0 inset-x-0 h-1.5 bg-neutral-900" />
               
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 text-white text-xs font-mono">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-neutral-900 text-white text-xs font-mono shadow-sm">
                     <TargetIcon size={14} />
                     <span>01 · OUR MISSION</span>
                   </div>
@@ -91,12 +91,12 @@ export default function AboutPage() {
             </div>
 
             {/* The Vision Card */}
-            <div className="card-hover bg-neutral-950 text-white border border-neutral-800 rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group shadow-sm">
+            <div className="card-hover bg-neutral-950 text-white rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group shadow-sm">
               <div className="absolute top-0 inset-x-0 h-1.5 bg-neutral-400" />
               
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-neutral-200 border border-white/15 text-xs font-mono">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white/10 text-neutral-200 border border-white/15 text-xs font-mono shadow-sm">
                     <CompassIcon size={14} />
                     <span>02 · OUR VISION</span>
                   </div>
@@ -161,7 +161,7 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="card-hover p-7 rounded-2xl border border-neutral-200/90 bg-white space-y-3">
+            <div className="card-hover p-7 rounded-2xl space-y-3">
               <div className="text-xs font-mono uppercase text-neutral-400 font-semibold">
                 TENET 01
               </div>
@@ -173,7 +173,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="card-hover p-7 rounded-2xl border border-neutral-200/90 bg-white space-y-3">
+            <div className="card-hover p-7 rounded-2xl space-y-3">
               <div className="text-xs font-mono uppercase text-neutral-400 font-semibold">
                 TENET 02
               </div>
@@ -185,7 +185,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="card-hover p-7 rounded-2xl border border-neutral-200/90 bg-white space-y-3">
+            <div className="card-hover p-7 rounded-2xl space-y-3">
               <div className="text-xs font-mono uppercase text-neutral-400 font-semibold">
                 TENET 03
               </div>
@@ -200,7 +200,6 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* 4. EXECUTIVE COMMITTEE (Exact 4 Profiles: Mentor, President, Vice President, Secretary) */}
       {/* 4. EXECUTIVE COMMITTEE (Skeuomorphic Real-Feel Cards with Round Profiles) */}
       <section className="py-20 sm:py-28 bg-white border-b border-neutral-200">
         <Container size="wide">
@@ -225,13 +224,9 @@ export default function AboutPage() {
             {executiveTeam.map((member) => (
               <div
                 key={member.id}
-                className="card-hover bg-white border border-neutral-200/90 rounded-2xl p-6 flex flex-col justify-between shadow-sm relative overflow-hidden group text-center"
                 className="card-skeuo rounded-3xl p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden group text-center"
               >
                 <div className="flex flex-col items-center">
-                  {/* Real Unsplash Round Profile Picture Display */}
-                  <div className="relative mb-3.5">
-                    <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-neutral-100 border-2 border-neutral-200/90 overflow-hidden shadow-md group-hover:border-neutral-900 group-hover:shadow-lg transition-all duration-300 ring-4 ring-neutral-50">
                   {/* Skeuomorphic Recessed Bezel with Round Portrait */}
                   <div className="relative mb-4">
                     <div className="avatar-skeuo-bezel relative w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden bg-neutral-100 transition-all duration-300">
@@ -251,12 +246,9 @@ export default function AboutPage() {
                       )}
                     </div>
 
-                    {/* Role Pill Badge Overlay */}
-                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap z-10">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono bg-neutral-950 text-white shadow-sm border border-white/20">
                     {/* Tactile Skeuomorphic Role Badge Overlay */}
                     <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap z-10">
-                      <span className="btn-skeuo-dark px-3 py-0.5 rounded-full text-[10px] font-bold font-mono tracking-wide shadow-md">
+                      <span className="btn-skeuo-dark px-3 py-0.5 rounded-lg text-[10px] font-bold font-mono tracking-wide shadow-md">
                         {member.role}
                       </span>
                     </div>
@@ -266,7 +258,6 @@ export default function AboutPage() {
                     <h3 className="text-lg sm:text-xl font-bold text-neutral-900 group-hover:text-black transition-colors">
                       {member.name}
                     </h3>
-                    <div className="text-xs font-mono text-neutral-500 mt-0.5">
                     <div className="text-xs font-mono text-neutral-500 mt-0.5 font-medium">
                       {member.specialization}
                     </div>
@@ -277,8 +268,6 @@ export default function AboutPage() {
                   </p>
                 </div>
 
-                {/* Real-World Branded Social & Portfolio Icons */}
-                <div className="mt-6 pt-4 border-t border-neutral-100 flex items-center justify-center gap-3">
                 {/* Tactile Skeuomorphic Social Keycaps & Chiseled Divider */}
                 <div className="divider-skeuo mt-6 pt-4 flex items-center justify-center gap-2.5">
                   {member.socials?.linkedin && (
@@ -286,12 +275,10 @@ export default function AboutPage() {
                       href={member.socials.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:scale-110 active:scale-95 transition-transform cursor-pointer drop-shadow-sm"
                       className="social-skeuo-btn"
                       aria-label={`${member.name} LinkedIn`}
                       title="LinkedIn"
                     >
-                      <LinkedInIcon size={24} />
                       <LinkedInIcon size={20} />
                     </a>
                   )}
@@ -300,12 +287,10 @@ export default function AboutPage() {
                       href={member.socials.x}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:scale-110 active:scale-95 transition-transform cursor-pointer drop-shadow-sm"
                       className="social-skeuo-btn"
                       aria-label={`${member.name} X`}
                       title="X"
                     >
-                      <XIcon size={24} />
                       <XIcon size={20} />
                     </a>
                   )}
@@ -314,12 +299,10 @@ export default function AboutPage() {
                       href={member.socials.portfolio}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:scale-110 active:scale-95 transition-transform cursor-pointer drop-shadow-sm"
                       className="social-skeuo-btn"
                       aria-label={`${member.name} Portfolio`}
                       title="Portfolio Website"
                     >
-                      <GlobeIcon size={24} />
                       <GlobeIcon size={20} />
                     </a>
                   )}
@@ -330,7 +313,6 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* 5. CLUB MEMBERS (25 Compact Micro-Profiles with Real Unsplash Photos & Brand Icons) */}
       {/* 5. CLUB MEMBERS (Skeuomorphic Real-Feel Micro-Cards with Round Profiles) */}
       <section className="py-20 sm:py-28 bg-neutral-50/40">
         <Container size="wide">
@@ -356,14 +338,11 @@ export default function AboutPage() {
             {clubMembers.map((member) => (
               <div
                 key={member.id}
-                className="card-hover bg-white border border-neutral-200/90 rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between group shadow-sm"
                 className="card-skeuo-sm rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between group"
               >
                 <div>
-                  {/* Round Photo Thumbnail + Cohort Tag */}
                   {/* Round Photo Thumbnail with Skeuomorphic Bezel + Tactile Cohort Tag */}
                   <div className="flex items-center justify-between gap-2 mb-2.5">
-                    <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-neutral-100 border-2 border-neutral-200/80 shrink-0 group-hover:border-neutral-900 transition-colors shadow-sm ring-2 ring-neutral-50">
                     <div className="avatar-skeuo-bezel-sm relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-neutral-100 shrink-0">
                       {member.avatarUrl ? (
                         <Image
@@ -381,8 +360,7 @@ export default function AboutPage() {
                       )}
                     </div>
 
-                    <span className="text-[9px] sm:text-[10px] font-mono text-neutral-500 bg-neutral-100/80 border border-neutral-200/60 px-2 py-0.5 rounded-full">
-                    <span className="btn-skeuo-light text-[9px] sm:text-[10px] font-mono px-2 py-0.5 rounded-full font-semibold">
+                    <span className="btn-skeuo-light text-[9px] sm:text-[10px] font-mono px-2 py-0.5 rounded-lg font-semibold">
                       {member.classYear?.replace(' (', ' · ').replace(')', '') || 'RCA'}
                     </span>
                   </div>
@@ -391,14 +369,11 @@ export default function AboutPage() {
                   <h4 className="text-xs sm:text-sm font-bold text-neutral-900 truncate group-hover:text-black">
                     {member.name}
                   </h4>
-                  <p className="text-[10px] sm:text-[11px] font-mono text-neutral-500 truncate mt-0.5">
                   <p className="text-[10px] sm:text-[11px] font-mono text-neutral-500 truncate mt-0.5 font-medium">
                     {member.role}
                   </p>
                 </div>
 
-                {/* Real-World Brand Social Links Row */}
-                <div className="mt-3 pt-2.5 border-t border-neutral-100 flex items-center gap-2">
                 {/* Tactile Skeuomorphic Social Keycaps & Chiseled Divider */}
                 <div className="divider-skeuo mt-3 pt-2.5 flex items-center gap-1.5">
                   {member.socials?.linkedin && (
@@ -406,12 +381,10 @@ export default function AboutPage() {
                       href={member.socials.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:scale-115 active:scale-95 transition-transform cursor-pointer"
                       className="social-skeuo-btn-sm"
                       aria-label={`${member.name} LinkedIn`}
                       title="LinkedIn"
                     >
-                      <LinkedInIcon size={18} />
                       <LinkedInIcon size={16} />
                     </a>
                   )}
@@ -420,12 +393,10 @@ export default function AboutPage() {
                       href={member.socials.x}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:scale-115 active:scale-95 transition-transform cursor-pointer"
                       className="social-skeuo-btn-sm"
                       aria-label={`${member.name} X`}
                       title="X"
                     >
-                      <XIcon size={18} />
                       <XIcon size={16} />
                     </a>
                   )}
@@ -434,12 +405,10 @@ export default function AboutPage() {
                       href={member.socials.portfolio}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:scale-115 active:scale-95 transition-transform cursor-pointer"
                       className="social-skeuo-btn-sm"
                       aria-label={`${member.name} Portfolio`}
                       title="Portfolio"
                     >
-                      <GlobeIcon size={18} />
                       <GlobeIcon size={16} />
                     </a>
                   )}

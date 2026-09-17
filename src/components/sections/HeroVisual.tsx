@@ -49,9 +49,9 @@ export function HeroVisual() {
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 lg:pb-20">
         <div className="max-w-2xl space-y-4 sm:space-y-5">
           {/* Institution Kicker Badge */}
-          <div className="animate-hero-badge inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-xs font-mono text-white/90 shadow-sm">
+          <div className="animate-hero-badge inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-black/40 backdrop-blur-md border border-white/20 text-xs font-mono text-white/90 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>ENTS · Rwanda Coding Academy</span>
+            <span>SIFS LEAGUE 2026</span>
           </div>
 
           {/* Bold Headline with Kinetic Word Roller Animation */}
@@ -83,7 +83,7 @@ export function HeroVisual() {
             {/* Tactile Skeuomorphic Button 1: Frosted Glass Key */}
             <Link
               href="/join"
-              className="btn-skeuo-glass inline-flex items-center justify-center px-7 py-3.5 rounded-full text-sm font-semibold cursor-pointer"
+              className="btn-skeuo-glass inline-flex items-center justify-center px-7 py-3.5 rounded-xl text-sm font-semibold cursor-pointer"
             >
               <span>Join the Club</span>
               <ArrowRight size={16} className="ml-2" />
@@ -92,7 +92,7 @@ export function HeroVisual() {
             {/* Tactile Skeuomorphic Button 2: Obsidian Key */}
             <Link
               href="/projects"
-              className="btn-skeuo-dark inline-flex items-center justify-center px-7 py-3.5 rounded-full text-sm font-semibold cursor-pointer border-neutral-700/80"
+              className="btn-skeuo-dark inline-flex items-center justify-center px-7 py-3.5 rounded-xl text-sm font-semibold cursor-pointer border-neutral-700/80"
             >
               See how it works
             </Link>

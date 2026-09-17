@@ -31,7 +31,7 @@ export function Footer() {
               quantitative traders at Rwanda Coding Academy.
             </p>
             <div className="pt-2">
-              <div className="inline-block text-xs font-mono uppercase tracking-wider text-neutral-500 bg-neutral-100 px-2.5 py-1 border border-neutral-200">
+              <div className="inline-block text-xs font-mono uppercase tracking-wider text-neutral-600 bg-neutral-100/90 px-3 py-1 rounded-lg border border-neutral-200/90 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
                 Nyabihu, Rwanda · RCA
               </div>
             </div>

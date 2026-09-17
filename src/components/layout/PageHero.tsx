@@ -36,7 +36,7 @@ export function PageHero({ kicker, title, description, children }: PageHeroProps
         <Container size="wide">
           <div className="max-w-3xl space-y-4">
             {kicker && (
-              <div className="animate-hero-badge inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-xs font-mono text-white/90">
+              <div className="animate-hero-badge inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-black/50 backdrop-blur-md border border-white/20 text-xs font-mono text-white/90 shadow-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                 <span>{kicker}</span>
               </div>

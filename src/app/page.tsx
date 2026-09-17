@@ -227,7 +227,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-radial from-neutral-900/40 via-transparent to-transparent pointer-events-none" />
         <Container size="wide" className="relative z-10">
           <div className="max-w-4xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-mono text-neutral-200">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 text-xs font-mono text-neutral-200 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               <span>Applications Open · Cohorts 5, 6 &amp; 7</span>
             </div>
@@ -245,7 +245,7 @@ export default function HomePage() {
                 href="/join"
                 variant="secondary"
                 size="lg"
-                className="btn-skeuo-light font-bold rounded-full px-8"
+                className="btn-skeuo-light font-bold rounded-xl px-8"
               >
                 <span>Apply to Join ENTS</span>
                 <ArrowRight size={18} />
@@ -254,7 +254,7 @@ export default function HomePage() {
                 href="/about"
                 variant="primary"
                 size="lg"
-                className="btn-skeuo-dark font-semibold rounded-full px-8 border-neutral-700"
+                className="btn-skeuo-dark font-semibold rounded-xl px-8 border-neutral-700"
               >
                 Read Our Story
               </Button>

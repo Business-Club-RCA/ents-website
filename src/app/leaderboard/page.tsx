@@ -1,11 +1,9 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { Container } from '@/components/ui/Container';
-import { SectionHeading } from '@/components/ui/SectionHeading';
 import { LeaderboardTable } from '@/components/sections/LeaderboardTable';
 import { getLeaderboardData } from '@/data/leaderboard';
 import { ShieldCheck, TrendingUp } from '@/components/ui/Icons';
-
 import { PageHero } from '@/components/layout/PageHero';
 
 export const metadata: Metadata = {
@@ -36,10 +34,6 @@ export default async function LeaderboardPage() {
       <div className="py-12 bg-white">
         <Container size="wide">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          <div className="border border-neutral-200 bg-white p-5 font-mono">
-            <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Top Performer</div>
-            <div className="text-xl sm:text-2xl font-bold text-black mt-1 font-sans">
-              {topTrader.name}
             <div className="border border-neutral-200 bg-white p-5 font-mono">
               <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Top Performer</div>
               <div className="text-xl sm:text-2xl font-bold text-black mt-1 font-sans">
@@ -49,62 +43,35 @@ export default async function LeaderboardPage() {
                 +{topTrader.pnlPercent.toFixed(2)}% net return
               </div>
             </div>
-            <div className="text-xs text-neutral-500 mt-1">
-              +{topTrader.pnlPercent.toFixed(2)}% net return
-            </div>
-          </div>
 
-          <div className="border border-neutral-200 bg-white p-5 font-mono">
-            <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Total Paper Capital</div>
-            <div className="text-xl sm:text-2xl font-bold text-black mt-1">
-              ${totalCapital.toLocaleString('en-US', { maximumFractionDigits: 0 })}
-            <div className="border border-neutral-200 bg-white p-5 font-mono">
-              <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Total Paper Capital</div>
-              <div className="text-xl sm:text-2xl font-bold text-black mt-1">
+            <div className="border border-neutral-200 bg-white p-5">
+              <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider">Total Paper Capital</div>
+              <div className="text-xl sm:text-2xl font-bold text-black mt-1 tabular-nums font-number">
                 ${totalCapital.toLocaleString('en-US', { maximumFractionDigits: 0 })}
               </div>
               <div className="text-xs text-neutral-500 mt-1">
                 across {standings.length} tracked accounts
               </div>
             </div>
-            <div className="text-xs text-neutral-500 mt-1">
-              across {standings.length} tracked accounts
-            </div>
-          </div>
 
-          <div className="border border-neutral-200 bg-white p-5 font-mono">
-            <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Orders Executed</div>
-            <div className="text-xl sm:text-2xl font-bold text-black mt-1">
-              {totalTrades}
-            <div className="border border-neutral-200 bg-white p-5 font-mono">
-              <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Orders Executed</div>
-              <div className="text-xl sm:text-2xl font-bold text-black mt-1">
+            <div className="border border-neutral-200 bg-white p-5">
+              <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider">Orders Executed</div>
+              <div className="text-xl sm:text-2xl font-bold text-black mt-1 tabular-nums font-number">
                 {totalTrades}
               </div>
               <div className="text-xs text-neutral-500 mt-1">
                 logged in SIFS order book
               </div>
             </div>
-            <div className="text-xs text-neutral-500 mt-1">
-              logged in SIFS order book
-            </div>
-          </div>
 
-          <div className="border border-neutral-200 bg-white p-5 font-mono">
-            <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Risk Constraint</div>
-            <div className="text-xl sm:text-2xl font-bold text-black mt-1">
-              1.00% / Trade
-            <div className="border border-neutral-200 bg-white p-5 font-mono">
-              <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Risk Constraint</div>
-              <div className="text-xl sm:text-2xl font-bold text-black mt-1">
+            <div className="border border-neutral-200 bg-white p-5">
+              <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider">Risk Constraint</div>
+              <div className="text-xl sm:text-2xl font-bold text-black mt-1 tabular-nums font-number">
                 1.00% / Trade
               </div>
               <div className="text-xs text-neutral-500 mt-1">
                 max stop-loss violation
               </div>
-            </div>
-            <div className="text-xs text-neutral-500 mt-1">
-              max stop-loss violation
             </div>
           </div>
         </Container>
@@ -126,7 +93,6 @@ export default async function LeaderboardPage() {
                 Governance
               </span>
               <h3 className="text-2xl font-bold tracking-tight text-black mt-2">
-                League Rules &amp; Integrity
                 League Rules & Integrity
               </h3>
               <p className="text-sm text-neutral-600 mt-3 leading-relaxed">
@@ -164,4 +130,3 @@ export default async function LeaderboardPage() {
     </div>
   );
 }
-

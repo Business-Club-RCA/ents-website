@@ -1,9 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { Container } from '@/components/ui/Container';
-import { SectionHeading } from '@/components/ui/SectionHeading';
 import { ApplicationForm } from '@/components/sections/ApplicationForm';
-
 import { PageHero } from '@/components/layout/PageHero';
 
 export const metadata: Metadata = {
@@ -14,16 +12,6 @@ export const metadata: Metadata = {
 
 export default function JoinPage() {
   return (
-    <div className="pt-28 pb-16 sm:pt-36 sm:pb-24">
-      <Container size="wide" className="mb-12 sm:mb-16">
-        <SectionHeading
-          kicker="Membership Intake"
-          title="Join the Society"
-          description="We are seeking dedicated builders, aspiring startup operators, and quantitative market analysts from Rwanda Coding Academy. All intakes are welcome to apply."
-          size="large"
-          centered
-        />
-      </Container>
     <div className="flex flex-col">
       {/* Hero Banner with Cinematic Image */}
       <PageHero
@@ -32,10 +20,6 @@ export default function JoinPage() {
         description="We are seeking dedicated builders, aspiring startup operators, and quantitative market analysts from Rwanda Coding Academy. All intakes are welcome to apply."
       />
 
-      {/* Interactive Form Component */}
-      <Container size="default" className="mb-20">
-        <ApplicationForm />
-      </Container>
       <div className="py-16 bg-white">
         <Container size="default">
           <ApplicationForm />
@@ -48,7 +32,6 @@ export default function JoinPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-4">
               <span className="text-xs uppercase font-mono tracking-widest text-neutral-500">
-                Timeline &amp; Process
                 Timeline & Process
               </span>
               <h3 className="text-2xl font-bold tracking-tight text-black mt-2">
@@ -92,4 +75,3 @@ export default function JoinPage() {
     </div>
   );
 }
-

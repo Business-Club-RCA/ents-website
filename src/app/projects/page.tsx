@@ -4,10 +4,8 @@ import { Container } from '@/components/ui/Container';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
-import { SectionHeading } from '@/components/ui/SectionHeading';
 import { ArrowRight, ArrowUpRight, TerminalIcon } from '@/components/ui/Icons';
 import { projectsData } from '@/data/projects';
-
 import { PageHero } from '@/components/layout/PageHero';
 
 export const metadata: Metadata = {
@@ -24,7 +22,6 @@ export default function ProjectsPage() {
     <div className="flex flex-col">
       {/* Hero Banner with Cinematic Image */}
       <PageHero
-        kicker="Portfolio &amp; Technology"
         kicker="Portfolio & Technology"
         title="What We Build"
         description="We do not just formulate pitch slides. ENTS members build and deploy working software platforms, campus micro-enterprises, and algorithmic trading infrastructure."
@@ -85,7 +82,6 @@ export default function ProjectsPage() {
               </div>
             </div>
 
-            {/* Metrics Breakdown Box */}
             <div className="lg:col-span-5">
               <div className="border border-neutral-300 bg-white p-6 sm:p-8 space-y-6">
                 <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
@@ -127,7 +123,6 @@ export default function ProjectsPage() {
       <Container size="wide">
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-neutral-200">
           <h3 className="text-xs uppercase font-mono tracking-widest text-neutral-500">
-            All Club Products &amp; Ventures ({projectsData.length})
             All Club Products & Ventures ({projectsData.length})
           </h3>
           <span className="text-xs font-mono text-neutral-400">
@@ -151,7 +146,6 @@ export default function ProjectsPage() {
 
                 <p className="text-sm text-neutral-600 leading-relaxed">{project.description}</p>
 
-                {/* Metrics */}
                 {project.metrics && (
                   <div className="grid grid-cols-2 gap-2 pt-2 border-t border-neutral-100 font-mono">
                     {project.metrics.map((m) => (
@@ -201,4 +195,3 @@ export default function ProjectsPage() {
     </div>
   );
 }
-

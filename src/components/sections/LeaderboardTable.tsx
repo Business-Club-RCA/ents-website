@@ -86,7 +86,7 @@ export function LeaderboardTable({ initialData }: LeaderboardTableProps) {
               <th className="py-3.5 px-4 font-semibold text-center hidden sm:table-cell">Win Rate</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-neutral-200 font-mono text-xs sm:text-sm">
+          <tbody className="divide-y divide-neutral-200 text-xs sm:text-sm tabular-nums">
             {filteredData.map((item) => {
               const isPositive = item.pnlPercent >= 0;
               return (
@@ -109,11 +109,11 @@ export function LeaderboardTable({ initialData }: LeaderboardTableProps) {
                       {String(item.rank).padStart(2, '0')}
                     </span>
                   </td>
-                  <td className="py-4 px-4 font-sans">
+                  <td className="py-4 px-4">
                     <div className="font-bold text-black text-sm">{item.name}</div>
                     <div className="text-xs text-neutral-400 font-mono">{item.classYear}</div>
                   </td>
-                  <td className="py-4 px-4 font-sans">
+                  <td className="py-4 px-4">
                     <Badge variant={item.track === 'Traders' ? 'dark' : 'neutral'}>
                       {item.track}
                     </Badge>
@@ -148,16 +148,11 @@ export function LeaderboardTable({ initialData }: LeaderboardTableProps) {
         </table>
       </div>
 
-      {/* Table Footer Note */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between text-xs font-mono text-neutral-500 pt-2">
-        <p>
-          * League standings reflect simulated paper trading execution under ENTS SIFS risk rules.
-        </p>
-        <p className="mt-1 sm:mt-0">
-          Refreshed weekly on Fridays at 18:00 CAT
-        </p>
+      {/* Footer Notes */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between text-xs text-neutral-500 pt-2 gap-2">
+        <span>* Standings updated real-time through the SIFS Execution API.</span>
+        <span className="font-mono">SIMULATION LEAGUE // RWANDA CODING ACADEMY</span>
       </div>
     </div>
   );
 }
-

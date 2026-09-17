@@ -13,7 +13,7 @@ export function StatsStrip() {
                 idx > 0 ? 'pt-6 sm:pt-0 sm:pl-8 lg:pl-10' : ''
               }`}
             >
-              <span className="font-black text-4xl sm:text-5xl lg:text-6xl tracking-tighter text-black">
+              <span className="font-black text-4xl sm:text-5xl lg:text-6xl tracking-tighter text-black tabular-nums font-number">
                 {stat.value}
               </span>
               <span className="mt-2 text-xs sm:text-sm uppercase tracking-widest font-mono text-neutral-500 font-semibold">
@@ -29,4 +29,3 @@ export function StatsStrip() {
     </section>
   );
 }
-

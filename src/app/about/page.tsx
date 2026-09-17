@@ -3,11 +3,9 @@ import type { Metadata } from 'next';
 import { Container } from '@/components/ui/Container';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Button } from '@/components/ui/Button';
 import { ArrowRight, ArrowUpRight } from '@/components/ui/Icons';
 import { teamData } from '@/data/team';
-
 import { PageHero } from '@/components/layout/PageHero';
 
 export const metadata: Metadata = {
@@ -18,16 +16,6 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="pt-28 pb-16 sm:pt-36 sm:pb-24">
-      {/* Header Banner */}
-      <Container size="wide" className="mb-16 sm:mb-24">
-        <SectionHeading
-          kicker="01 / About The Society"
-          title="Building Software, Not Just Discussing Business."
-          description="ENTS was founded at Rwanda Coding Academy on a singular premise: the greatest founders and quantitative traders in the world do not merely talk about economics — they build tools, run experiments, and execute with technical conviction."
-          size="large"
-        />
-      </Container>
     <div className="flex flex-col">
       {/* Hero Banner with Cinematic Image */}
       <PageHero
@@ -87,16 +75,8 @@ export default function AboutPage() {
       </section>
 
       {/* Leadership Team Grid */}
-      <section className="py-20 sm:py-28">
       <section className="py-20 sm:py-28 bg-white">
         <Container size="wide">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-4">
-            <SectionHeading
-              kicker="02 / Student Leadership"
-              title="Club Executive Committee"
-              description="Elected student leaders responsible for curriculum, hackathons, venture pitch sessions, and trading league audits."
-              className="mb-0"
-            />
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-4 border-b border-neutral-200 pb-6">
             <div>
               <div className="text-xs uppercase font-mono tracking-widest text-neutral-500 mb-2">
@@ -119,7 +99,6 @@ export default function AboutPage() {
               <Card key={member.id} hoverable className="flex flex-col justify-between">
                 <div>
                   <div className="flex items-start justify-between mb-6">
-                    {/* Placeholder Avatar Circle with Monogram */}
                     <div className="w-16 h-16 rounded-full border-2 border-black bg-neutral-100 flex items-center justify-center font-bold font-mono text-lg text-black select-none">
                       {member.initials}
                     </div>
@@ -139,7 +118,6 @@ export default function AboutPage() {
                   <p className="mt-4 text-sm text-neutral-600 leading-relaxed">{member.bio}</p>
                 </div>
 
-                {/* Member Connect Links */}
                 {member.socials && (
                   <div className="pt-6 mt-6 border-t border-neutral-100 flex items-center gap-4 text-xs font-mono">
                     {member.socials.linkedin && (
@@ -205,4 +183,3 @@ export default function AboutPage() {
     </div>
   );
 }
-

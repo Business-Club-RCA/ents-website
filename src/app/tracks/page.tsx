@@ -3,11 +3,9 @@ import type { Metadata } from 'next';
 import { Container } from '@/components/ui/Container';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Button } from '@/components/ui/Button';
 import { ArrowRight, Check, Briefcase, TrendingUp } from '@/components/ui/Icons';
 import { tracksData } from '@/data/tracks';
-
 import { PageHero } from '@/components/layout/PageHero';
 
 export const metadata: Metadata = {
@@ -21,19 +19,9 @@ export default function TracksPage() {
   const tradersTrack = tracksData.find((t) => t.id === 'traders')!;
 
   return (
-    <div className="pt-28 pb-16 sm:pt-36 sm:pb-24">
-      <Container size="wide" className="mb-16 sm:mb-20">
-        <SectionHeading
-          kicker="Curriculum &amp; Weekly Schedules"
-          title="Two Disciplines. One Shared Rigor."
-          description="Whether you are building sustainable business models around software or learning how to trade global macro liquidity, ENTS provides a structured framework that turns theoretical concepts into tangible outcomes."
-          size="large"
-        />
-      </Container>
     <div className="flex flex-col">
       {/* Hero Banner with Cinematic Image */}
       <PageHero
-        kicker="Curriculum &amp; Weekly Schedules"
         kicker="Curriculum & Weekly Schedules"
         title="Two Disciplines. One Shared Rigor."
         description="Whether you are building sustainable business models around software or learning how to trade global macro liquidity, ENTS provides a structured framework that turns theoretical concepts into tangible outcomes."
@@ -43,7 +31,6 @@ export default function TracksPage() {
       <section id="business-handlers" className="border-t border-neutral-200 py-16 sm:py-24 bg-white scroll-mt-24">
         <Container size="wide">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-            {/* Track Info Sidebar */}
             <div className="lg:col-span-4 space-y-6">
               <div className="flex items-center gap-3">
                 <div className="p-2.5 bg-black text-white">
@@ -69,7 +56,6 @@ export default function TracksPage() {
 
               <div className="border-t border-neutral-200 pt-6 space-y-3">
                 <h4 className="text-xs uppercase font-mono tracking-wider text-neutral-500">
-                  Tools &amp; Stack
                   Tools & Stack
                 </h4>
                 <div className="flex flex-wrap gap-1.5">
@@ -91,9 +77,7 @@ export default function TracksPage() {
               </div>
             </div>
 
-            {/* Track Breakdown Content */}
             <div className="lg:col-span-8 space-y-12">
-              {/* Weekly Cadence */}
               <div>
                 <h3 className="text-xs font-mono uppercase tracking-widest text-neutral-400 mb-4">
                   Weekly Operating Cadence
@@ -117,7 +101,6 @@ export default function TracksPage() {
                 </div>
               </div>
 
-              {/* Skills Gained & Deliverables */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-4">
                 <Card className="space-y-4">
                   <h4 className="text-sm font-mono uppercase tracking-wider text-black font-bold">
@@ -156,7 +139,6 @@ export default function TracksPage() {
       <section id="traders" className="border-t border-neutral-200 py-16 sm:py-24 bg-neutral-50/40 scroll-mt-24">
         <Container size="wide">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-            {/* Track Info Sidebar */}
             <div className="lg:col-span-4 space-y-6">
               <div className="flex items-center gap-3">
                 <div className="p-2.5 bg-black text-white">
@@ -182,7 +164,6 @@ export default function TracksPage() {
 
               <div className="border-t border-neutral-200 pt-6 space-y-3">
                 <h4 className="text-xs uppercase font-mono tracking-wider text-neutral-500">
-                  Tools &amp; Stack
                   Tools & Stack
                 </h4>
                 <div className="flex flex-wrap gap-1.5">
@@ -204,9 +185,7 @@ export default function TracksPage() {
               </div>
             </div>
 
-            {/* Track Breakdown Content */}
             <div className="lg:col-span-8 space-y-12">
-              {/* Weekly Cadence */}
               <div>
                 <h3 className="text-xs font-mono uppercase tracking-widest text-neutral-400 mb-4">
                   Weekly Operating Cadence
@@ -230,7 +209,6 @@ export default function TracksPage() {
                 </div>
               </div>
 
-              {/* Skills Gained & Deliverables */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-4">
                 <Card className="space-y-4">
                   <h4 className="text-sm font-mono uppercase tracking-wider text-black font-bold">
@@ -292,4 +270,3 @@ export default function TracksPage() {
     </div>
   );
 }
-

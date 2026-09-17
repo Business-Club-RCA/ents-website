@@ -12,9 +12,6 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  const isHome = pathname === '/';
-  // On home page when not scrolled, header is over the dark hero
-  const isDarkOverHero = isHome && !isScrolled;
   // On every page when at the top, header floats over the hero image
   const isDarkOverHero = !isScrolled;
 
@@ -34,9 +31,6 @@ export function Header() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isDarkOverHero
           ? 'bg-transparent border-b border-transparent py-5'
-          : isScrolled
-          ? 'bg-white/95 backdrop-blur-md border-b border-neutral-200 py-3 shadow-[0_1px_0_0_rgba(0,0,0,0.02)]'
-          : 'bg-white border-b border-neutral-200 py-4'
           : 'bg-white/95 backdrop-blur-md border-b border-neutral-200 py-3 shadow-[0_1px_0_0_rgba(0,0,0,0.02)]'
       }`}
     >
@@ -103,7 +97,6 @@ export function Header() {
           })}
         </nav>
 
-        {/* Right Buttons: Styled like reference screenshot */}
         {/* Right Buttons */}
         <div className="flex items-center gap-3">
           {isDarkOverHero ? (

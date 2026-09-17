@@ -90,17 +90,17 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* The Vision Card */}
-            <div className="card-hover bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 border border-neutral-800 text-white rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group shadow-sm">
-              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-neutral-700 via-neutral-400 to-neutral-700" />
+            {/* The Vision Card (High Contrast Deep Obsidian Chassis) */}
+            <div className="card-skeuo-dark !bg-[#121216] border border-neutral-700/80 text-white rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group shadow-xl">
+              <div className="absolute top-0 inset-x-0 h-1 bg-white/40" />
               
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-neutral-900/80 text-neutral-300 border border-neutral-700 text-xs font-mono shadow-sm">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white/10 text-white border border-white/20 text-xs font-mono shadow-sm">
                     <CompassIcon size={14} />
                     <span>02 · OUR VISION</span>
                   </div>
-                  <span className="text-xs font-mono uppercase tracking-wider text-neutral-400">
+                  <span className="text-xs font-mono uppercase tracking-wider text-neutral-300 font-medium">
                     Long-Term Horizon
                   </span>
                 </div>
@@ -109,12 +109,12 @@ export default function AboutPage() {
                   <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-snug">
                     Establish Rwanda Coding Academy as Africa&apos;s benchmark student sandbox for technology entrepreneurship and algorithmic finance.
                   </h3>
-                  <p className="mt-3 text-sm sm:text-base text-neutral-300 leading-relaxed font-normal">
+                  <p className="mt-3 text-sm sm:text-base text-neutral-200 leading-relaxed font-normal">
                     We envision an ecosystem where Nyabihu engineers build platforms that capture real continental market share and generate institutional-grade quantitative alpha before graduation.
                   </p>
                 </div>
 
-                <div className="space-y-3 pt-4 border-t border-neutral-800 text-xs sm:text-sm text-neutral-300">
+                <div className="space-y-3 pt-4 border-t border-neutral-700/80 text-xs sm:text-sm text-neutral-200">
                   <div className="flex items-start gap-3">
                     <span className="w-1.5 h-1.5 rounded-full bg-white mt-2 shrink-0" />
                     <div>
@@ -136,7 +136,7 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <div className="mt-8 pt-4 border-t border-neutral-800 flex items-center justify-between text-xs font-mono text-neutral-400">
+              <div className="mt-8 pt-4 border-t border-neutral-700/70 flex items-center justify-between text-xs font-mono text-neutral-400">
                 <span>ESTABLISHED AT RCA</span>
                 <span className="font-semibold text-white">NYABIHU · HORIZON 2030</span>
               </div>

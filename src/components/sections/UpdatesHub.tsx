@@ -7,7 +7,6 @@ import { Container } from '@/components/ui/Container';
 import { initialFeedItems } from '@/data/updates';
 import { FeedItem, UpdateType } from '@/types';
 
-const STORAGE_KEY = 'ents_feed_items_v2';
 const STORAGE_KEY = 'ents_feed_items_v3';
 const ATTENDANCE_STORAGE_KEY = 'ents_event_attendees_v1';
 
@@ -15,11 +14,7 @@ export function UpdatesHub() {
   const [items, setItems] = useState<FeedItem[]>(initialFeedItems);
   const [activeTab, setActiveTab] = useState<'all' | 'news' | 'event'>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [publishedToast, setPublishedToast] = useState(false);
 
-  // Form State for Site Owner Publisher Modal
-  const [formType, setFormType] = useState<UpdateType>('article');
   // Featured Event Index (Shows 1 event at a time)
   const [featuredEventIndex, setFeaturedEventIndex] = useState(0);
 
@@ -43,13 +38,10 @@ export function UpdatesHub() {
   const [formTags, setFormTags] = useState('');
   const [formImageUrl, setFormImageUrl] = useState('');
   const [formSourceUrl, setFormSourceUrl] = useState('');
-  // Event specific
   const [formEventDate, setFormEventDate] = useState('');
   const [formEventTime, setFormEventTime] = useState('');
   const [formEventLocation, setFormEventLocation] = useState('');
-  const [formRsvpLink, setFormRsvpLink] = useState('');
 
-  // Load custom persisted posts from localStorage on mount
   // Load custom items and registrations from localStorage
   useEffect(() => {
     try {
@@ -67,12 +59,10 @@ export function UpdatesHub() {
         setRegisteredEvents(JSON.parse(savedAttendance));
       }
     } catch {
-      // fallback to initial
       // fallback
     }
   }, []);
 
-  const handlePublish = (e: React.FormEvent) => {
   // Handle Admin Publishing
   const handleAdminPublish = (e: React.FormEvent) => {
     e.preventDefault();
@@ -91,7 +81,6 @@ export function UpdatesHub() {
       type: formType,
       title: formTitle.trim(),
       excerpt: formExcerpt.trim(),
-      author: formAuthor.trim() || (formType === 'event' ? 'ENTS Committee' : 'News Desk'),
       author: formAuthor.trim() || (formType === 'event' ? 'ENTS Executive Board' : 'News Desk'),
       date: new Date().toLocaleDateString('en-US', {
         month: 'long',
@@ -109,7 +98,6 @@ export function UpdatesHub() {
             eventDate: formEventDate.trim() || 'Upcoming Session',
             eventTime: formEventTime.trim() || '16:00 CAT',
             eventLocation: formEventLocation.trim() || 'RCA Campus',
-            rsvpLink: formRsvpLink.trim() || '/join',
             rsvpLink: '/join',
           }
         : {}),
@@ -125,7 +113,6 @@ export function UpdatesHub() {
       // ignore
     }
 
-    // Reset
     // Reset Form
     setFormTitle('');
     setFormExcerpt('');
@@ -136,12 +123,8 @@ export function UpdatesHub() {
     setFormEventDate('');
     setFormEventTime('');
     setFormEventLocation('');
-    setFormRsvpLink('');
-    setIsModalOpen(false);
     setIsAdminModalOpen(false);
 
-    setPublishedToast(true);
-    setTimeout(() => setPublishedToast(false), 3000);
     setPublishedToast('Item successfully published by Admin');
     setTimeout(() => setPublishedToast(''), 3500);
   };
@@ -179,7 +162,6 @@ export function UpdatesHub() {
     }
   };
 
-  // Filter items
   const upcomingEvents = items.filter((item) => item.type === 'event');
   const currentFeaturedEvent = upcomingEvents[featuredEventIndex % (upcomingEvents.length || 1)];
 
@@ -199,26 +181,16 @@ export function UpdatesHub() {
     return true;
   });
 
-  const upcomingEvents = items.filter((item) => item.type === 'event');
-
   return (
     <div className="py-12 sm:py-16 bg-white min-h-screen">
       <Container size="wide">
         {/* Simple Notification Toast */}
         {publishedToast && (
-          <div className="fixed bottom-6 right-6 z-50 bg-neutral-900 text-white px-5 py-3 rounded-xl shadow-xl text-xs font-mono">
-            Post published successfully
           <div className="fixed bottom-6 right-6 z-50 bg-neutral-900 text-white px-5 py-3.5 rounded-xl shadow-2xl text-xs font-mono">
             {publishedToast}
           </div>
         )}
 
-        {/* 1. UPCOMING EVENTS SECTION (WITH IMAGES & SHORT DESCRIPTIONS, NO ICONS) */}
-        <section className="mb-14 sm:mb-18 border border-neutral-200 bg-neutral-50/50 rounded-2xl p-6 sm:p-8 lg:p-10">
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pb-6 border-b border-neutral-200 mb-6">
-            <div>
-              <div className="text-[11px] font-mono uppercase tracking-widest text-neutral-500 font-semibold mb-1">
-                Schedule
         {/* 1. FEATURED EVENT SECTION (SINGLE FEATURED EVENT INSTEAD OF THREE) */}
         {currentFeaturedEvent && (
           <section className="mb-14 sm:mb-20">
@@ -231,9 +203,6 @@ export function UpdatesHub() {
                   Upcoming Event
                 </h2>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900">
-                Upcoming Events
-              </h2>
 
               {/* Admin Post Event Key & Event Cycler */}
               <div className="flex items-center gap-3 self-start sm:self-auto">
@@ -277,16 +246,6 @@ export function UpdatesHub() {
               </div>
             </div>
 
-            <button
-              onClick={() => {
-                setFormType('event');
-                setIsModalOpen(true);
-              }}
-              className="text-xs font-mono font-semibold px-4 py-2 rounded-xl bg-white border border-neutral-300 hover:border-neutral-900 transition-colors text-neutral-900 cursor-pointer self-start sm:self-auto"
-            >
-              Post Event
-            </button>
-          </div>
             {/* The Single Featured Event Card */}
             <div className="border border-neutral-200 rounded-3xl overflow-hidden bg-neutral-50/50 card-hover grid grid-cols-1 md:grid-cols-12 shadow-sm">
               {/* Event Image Banner */}
@@ -308,27 +267,9 @@ export function UpdatesHub() {
                 </div>
               </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {upcomingEvents.map((evt) => (
-              <div
-                key={evt.id}
-                className="bg-white border border-neutral-200 rounded-2xl overflow-hidden card-hover flex flex-col justify-between"
-              >
               {/* Event Details & Attendance Action */}
               <div className="md:col-span-6 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
                 <div>
-                  {/* Event Image */}
-                  {evt.imageUrl && (
-                    <div className="relative w-full h-44 sm:h-48 overflow-hidden bg-neutral-100">
-                      <Image
-                        src={evt.imageUrl}
-                        alt={evt.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-cover object-center"
-                      />
-                    </div>
-                  )}
                   <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-neutral-500 mb-3">
                     <span className="font-semibold text-neutral-900">
                       {currentFeaturedEvent.eventDate}
@@ -337,31 +278,15 @@ export function UpdatesHub() {
                     <span>{currentFeaturedEvent.eventTime}</span>
                   </div>
 
-                  <div className="p-5 sm:p-6">
-                    <div className="flex items-center justify-between text-[11px] font-mono text-neutral-500 mb-2.5">
-                      <span>{evt.eventDate}</span>
-                      <span>{evt.eventTime}</span>
-                    </div>
                   <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-neutral-900 leading-snug mb-3">
                     {currentFeaturedEvent.title}
                   </h3>
 
-                    <h3 className="text-base sm:text-lg font-bold text-neutral-900 tracking-tight leading-snug mb-2">
-                      {evt.title}
-                    </h3>
                   {/* Little / Short Description */}
                   <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6 font-normal">
                     {currentFeaturedEvent.excerpt}
                   </p>
 
-                    {/* Short, concise description */}
-                    <p className="text-xs text-neutral-600 leading-relaxed mb-3">
-                      {evt.excerpt}
-                    </p>
-
-                    <div className="text-xs font-mono text-neutral-500 pt-2.5 border-t border-neutral-100">
-                      Location: {evt.eventLocation}
-                    </div>
                   <div className="space-y-1.5 text-xs font-mono text-neutral-600 pt-4 border-t border-neutral-200">
                     <div>Venue: {currentFeaturedEvent.eventLocation}</div>
                     {currentFeaturedEvent.speakers && (
@@ -370,19 +295,10 @@ export function UpdatesHub() {
                   </div>
                 </div>
 
-                <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-2 flex items-center justify-between border-t border-neutral-100">
-                  <span className="text-[11px] font-mono text-neutral-400">
-                    {evt.author}
                 <div className="pt-6 mt-6 border-t border-neutral-200 flex flex-wrap items-center justify-between gap-3">
                   <span className="text-xs font-mono text-neutral-400">
                     Organized by {currentFeaturedEvent.author}
                   </span>
-                  <Link
-                    href={evt.rsvpLink || '/join'}
-                    className="text-xs font-mono font-bold text-neutral-900 hover:underline"
-                  >
-                    RSVP
-                  </Link>
 
                   {registeredEvents.includes(currentFeaturedEvent.id) ? (
                     <span className="px-4 py-2 rounded-xl bg-emerald-100 text-emerald-900 font-mono text-xs font-semibold">
@@ -398,14 +314,10 @@ export function UpdatesHub() {
                   )}
                 </div>
               </div>
-            ))}
-          </div>
-        </section>
             </div>
           </section>
         )}
 
-        {/* 2. CONTROL STRIP: Typographic Filters, Search & Post Action */}
         {/* 2. CONTROL STRIP: Typographic Filters, Search & Admin Post Update Key */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200 mb-8">
           {/* Search Box (No icons) */}
@@ -453,17 +365,14 @@ export function UpdatesHub() {
             </button>
           </div>
 
-          {/* Post Action */}
           {/* Admin Post Update Action */}
           <button
             onClick={() => {
               setFormType('article');
-              setIsModalOpen(true);
               setIsAdminModalOpen(true);
             }}
             className="btn-skeuo-dark font-bold rounded-xl px-5 py-2 text-xs font-mono cursor-pointer"
           >
-            Post Update
             Admin: Post Update
           </button>
         </div>
@@ -486,15 +395,15 @@ export function UpdatesHub() {
                   <div>
                     {/* Cover Image for Blogs & News */}
                     {item.imageUrl && (
-                      <div className="relative w-full h-48 sm:h-52 overflow-hidden bg-neutral-100">
+                      <Link href={isEvent ? '#' : `/updates/${item.id}`} className="block relative w-full h-48 sm:h-52 overflow-hidden bg-neutral-100">
                         <Image
                           src={item.imageUrl}
                           alt={item.title}
                           fill
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          className="object-cover object-center"
+                          className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-300"
                         />
-                      </div>
+                      </Link>
                     )}
 
                     <div className="p-6">
@@ -506,9 +415,15 @@ export function UpdatesHub() {
                         <span>{item.date}</span>
                       </div>
 
-                      {/* Headline */}
+                      {/* Headline linked to detail page */}
                       <h3 className="font-bold text-lg text-neutral-900 tracking-tight leading-snug mb-2">
-                        {item.title}
+                        {isEvent ? (
+                          <span>{item.title}</span>
+                        ) : (
+                          <Link href={`/updates/${item.id}`} className="hover:underline">
+                            {item.title}
+                          </Link>
+                        )}
                       </h3>
 
                       {/* Excerpt */}
@@ -519,7 +434,6 @@ export function UpdatesHub() {
                       {/* Event info line if event */}
                       {isEvent && item.eventDate && (
                         <div className="text-xs font-mono text-neutral-700 bg-neutral-50 p-2.5 rounded-lg border border-neutral-200/70 mb-3">
-                          <div>{item.eventDate} &middot; {item.eventTime}</div>
                           <div>
                             {item.eventDate} &middot; {item.eventTime}
                           </div>
@@ -555,7 +469,6 @@ export function UpdatesHub() {
                         </button>
                       )}
 
-                      {item.sourceUrl ? (
                       {isEvent ? (
                         registeredEvents.includes(item.id) ? (
                           <span className="text-emerald-700 font-semibold text-[11px]">
@@ -569,17 +482,13 @@ export function UpdatesHub() {
                             RSVP
                           </button>
                         )
-                      ) : item.sourceUrl ? (
-                        <a
-                          href={item.sourceUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                      ) : (
+                        <Link
+                          href={`/updates/${item.id}`}
                           className="font-semibold text-neutral-900 hover:underline"
                         >
-                          Read
-                        </a>
-                      ) : (
-                        <span className="text-neutral-400">{item.readTime}</span>
+                          Read Article
+                        </Link>
                       )}
                     </div>
                   </div>
@@ -590,8 +499,6 @@ export function UpdatesHub() {
         )}
       </Container>
 
-      {/* 4. SITE OWNER PUBLISHER MODAL (CLEAN TYPOGRAPHY, NO ICONS) */}
-      {isModalOpen && (
       {/* 4. EVENT ATTENDANCE REGISTRATION FORM MODAL */}
       {attendanceModalEvent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/60 backdrop-blur-sm select-none">
@@ -707,7 +614,6 @@ export function UpdatesHub() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/60 backdrop-blur-sm select-none">
           <div className="bg-white border border-neutral-200 rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative">
             <div className="flex items-center justify-between pb-3 border-b border-neutral-200 mb-5">
-              <h3 className="text-lg font-bold text-neutral-900">Post New Content</h3>
               <div>
                 <div className="text-[11px] font-mono uppercase tracking-widest text-neutral-500 font-semibold">
                   Admin Management
@@ -715,7 +621,6 @@ export function UpdatesHub() {
                 <h3 className="text-lg font-bold text-neutral-900">Post New Content</h3>
               </div>
               <button
-                onClick={() => setIsModalOpen(false)}
                 onClick={() => setIsAdminModalOpen(false)}
                 className="text-xs font-mono text-neutral-500 hover:text-neutral-900 cursor-pointer px-2 py-1"
               >
@@ -727,42 +632,34 @@ export function UpdatesHub() {
             <div className="grid grid-cols-2 gap-2 bg-neutral-100 p-1 rounded-xl mb-5 text-xs font-mono">
               <button
                 type="button"
-                onClick={() => setFormType('article')}
                 onClick={() => setFormType('event')}
                 className={`py-2 rounded-lg cursor-pointer transition-all ${
-                  formType === 'article'
                   formType === 'event'
-                    ? 'bg-neutral-900 text-white font-semibold'
-                    : 'text-neutral-600 hover:text-neutral-900'
-                }`}
-              >
-                News
-                Event
-              </button>
-              <button
-                type="button"
-                onClick={() => setFormType('event')}
-                onClick={() => setFormType('article')}
-                className={`py-2 rounded-lg cursor-pointer transition-all ${
-                  formType === 'event'
-                  formType === 'article'
                     ? 'bg-neutral-900 text-white font-semibold'
                     : 'text-neutral-600 hover:text-neutral-900'
                 }`}
               >
                 Event
+              </button>
+              <button
+                type="button"
+                onClick={() => setFormType('article')}
+                className={`py-2 rounded-lg cursor-pointer transition-all ${
+                  formType === 'article'
+                    ? 'bg-neutral-900 text-white font-semibold'
+                    : 'text-neutral-600 hover:text-neutral-900'
+                }`}
+              >
                 News
               </button>
             </div>
 
-            <form onSubmit={handlePublish} className="space-y-3.5 text-xs font-mono">
             <form onSubmit={handleAdminPublish} className="space-y-3.5 text-xs font-mono">
               <div>
                 <label className="block text-neutral-700 font-semibold mb-1">Title *</label>
                 <input
                   type="text"
                   required
-                  placeholder={formType === 'event' ? 'Event Name' : 'News Headline'}
                   placeholder={formType === 'event' ? 'Event Title' : 'News Headline'}
                   value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
@@ -786,13 +683,11 @@ export function UpdatesHub() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-neutral-700 font-semibold mb-1">Author / Org</label>
                   <label className="block text-neutral-700 font-semibold mb-1">
                     Author / Organization
                   </label>
                   <input
                     type="text"
-                    placeholder="ENTS Desk"
                     placeholder="ENTS Executive Board"
                     value={formAuthor}
                     onChange={(e) => setFormAuthor(e.target.value)}
@@ -800,13 +695,11 @@ export function UpdatesHub() {
                   />
                 </div>
                 <div>
-                  <label className="block text-neutral-700 font-semibold mb-1">Image URL (optional)</label>
                   <label className="block text-neutral-700 font-semibold mb-1">
                     Image URL (optional)
                   </label>
                   <input
                     type="text"
-                    placeholder={formType === 'event' ? '/events/demo-day.jpg' : '/news/coding-lab.jpg'}
                     placeholder={
                       formType === 'event' ? '/events/demo-day.jpg' : '/news/coding-lab.jpg'
                     }
@@ -819,7 +712,6 @@ export function UpdatesHub() {
 
               {formType === 'article' && (
                 <div>
-                  <label className="block text-neutral-700 font-semibold mb-1">External Link (optional)</label>
                   <label className="block text-neutral-700 font-semibold mb-1">
                     External Link (optional)
                   </label>
@@ -871,7 +763,6 @@ export function UpdatesHub() {
               <div className="pt-3 flex items-center justify-end gap-2.5 border-t border-neutral-100">
                 <button
                   type="button"
-                  onClick={() => setIsModalOpen(false)}
                   onClick={() => setIsAdminModalOpen(false)}
                   className="px-4 py-2 text-neutral-600 hover:text-neutral-900 cursor-pointer"
                 >
@@ -881,7 +772,6 @@ export function UpdatesHub() {
                   type="submit"
                   className="btn-skeuo-dark font-bold px-5 py-2 rounded-xl cursor-pointer"
                 >
-                  Publish
                   Publish as Admin
                 </button>
               </div>

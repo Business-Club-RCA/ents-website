@@ -367,8 +367,11 @@ h1, h2, h3, h4, h5, h6 {
 .card-hover.bg-neutral-950,
 .card-hover.bg-neutral-900,
 .card-hover[class*="bg-neutral-950"],
+.card-hover[class*="from-neutral-950"],
+.card-hover.card-skeuo-dark,
 .card-skeuo-dark {
   background: linear-gradient(180deg, #18181b 0%, #101012 50%, #09090b 100%) !important;
+  color: #ffffff !important;
   border: 1px solid rgba(255, 255, 255, 0.14) !important;
   box-shadow:
     0 1.5px 0 rgba(255, 255, 255, 0.18) inset,
@@ -379,9 +382,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .card-hover.bg-neutral-950:hover,
 .card-hover.bg-neutral-900:hover,
-.card-hover[class*="bg-neutral-950"]:hover,
+.card-hover[class*="bg-neutral-950"],
+.card-hover[class*="from-neutral-950"]:hover,
+.card-hover.card-skeuo-dark:hover,
 .card-skeuo-dark:hover {
-  border-color: rgba(255, 255, 255, 0.24) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
   box-shadow:
     0 1.5px 0 rgba(255, 255, 255, 0.25) inset,
     0 -1.5px 0 rgba(0, 0, 0, 0.9) inset,

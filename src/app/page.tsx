@@ -158,16 +158,16 @@ export default function HomePage() {
                   </p>
                 </div>
 
-                <div className="space-y-2.5 pt-4 border-t border-neutral-100 text-xs font-mono text-neutral-700">
-                  <div className="flex items-center gap-2.5">
+                <div className="border border-neutral-200/90 rounded-xl overflow-hidden bg-white divide-y divide-neutral-200/80 text-xs font-mono text-neutral-700 shadow-xs">
+                  <div className="px-3.5 py-2.5 flex items-center gap-2.5 bg-neutral-50/40">
                     <span className="w-1.5 h-1.5 rounded-full bg-neutral-900" />
                     <span>Lean Canvas Validation &amp; Investor Pitch Decks</span>
                   </div>
-                  <div className="flex items-center gap-2.5">
+                  <div className="px-3.5 py-2.5 flex items-center gap-2.5 bg-neutral-50/40">
                     <span className="w-1.5 h-1.5 rounded-full bg-neutral-900" />
                     <span>Campus Micro-Enterprises &amp; Mobile Money Logistics</span>
                   </div>
-                  <div className="flex items-center gap-2.5">
+                  <div className="px-3.5 py-2.5 flex items-center gap-2.5 bg-neutral-50/40">
                     <span className="w-1.5 h-1.5 rounded-full bg-neutral-900" />
                     <span>12-Month Pro-Forma Cash Flow Forecasting</span>
                   </div>
@@ -210,16 +210,16 @@ export default function HomePage() {
                   </p>
                 </div>
 
-                <div className="space-y-2.5 pt-4 border-t border-neutral-100 text-xs font-mono text-neutral-700">
-                  <div className="flex items-center gap-2.5">
+                <div className="border border-neutral-200/90 rounded-xl overflow-hidden bg-white divide-y divide-neutral-200/80 text-xs font-mono text-neutral-700 shadow-xs">
+                  <div className="px-3.5 py-2.5 flex items-center gap-2.5 bg-neutral-50/40">
                     <span className="w-1.5 h-1.5 rounded-full bg-neutral-900" />
                     <span>Market Structure, Liquidity Sweeps &amp; Order Blocks</span>
                   </div>
-                  <div className="flex items-center gap-2.5">
+                  <div className="px-3.5 py-2.5 flex items-center gap-2.5 bg-neutral-50/40">
                     <span className="w-1.5 h-1.5 rounded-full bg-neutral-900" />
                     <span>Strict 1% Risk Guardrails &amp; Execution Journals</span>
                   </div>
-                  <div className="flex items-center gap-2.5">
+                  <div className="px-3.5 py-2.5 flex items-center gap-2.5 bg-neutral-50/40">
                     <span className="w-1.5 h-1.5 rounded-full bg-neutral-900" />
                     <span>Weekly Simulated SIFS League Battles</span>
                   </div>

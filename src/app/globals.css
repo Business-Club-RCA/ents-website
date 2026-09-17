@@ -207,6 +207,8 @@ html {
   font-family: 'Power Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-family: 'GeistNumbers', 'Power Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-family: 'BigShouldersNumbers', 'Power Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 body {
@@ -220,6 +222,20 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Hide default scrollbars across all browsers */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {

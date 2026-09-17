@@ -23,13 +23,13 @@ export function HeroVisual() {
       {/* 1. Clean Atmospheric Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/hero-computer-clean.jpg"
-          alt="Vintage computer terminal in a grassy hillside landscape"
+          src="/footer-twilight-bg.jpg"
+          alt="Atmospheric space landscape"
           fill
           priority
           quality={95}
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-bottom"
         />
 
         {/* Top Vignette for Nav Contrast */}

@@ -15,13 +15,13 @@ export function PageHero({ kicker, title, description, children }: PageHeroProps
       {/* 1. Cinematic Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/hero-computer-clean.jpg"
+          src="/footer-twilight-bg.jpg"
           alt="Atmospheric landscape banner"
           fill
           priority
           quality={90}
           sizes="100vw"
-          className="object-cover object-center brightness-75 sm:brightness-85"
+          className="object-cover object-bottom brightness-75 sm:brightness-85"
         />
 
         {/* Top Vignette for Nav Contrast */}

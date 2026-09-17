@@ -7,8 +7,8 @@ import { Container } from '@/components/ui/Container';
 import { initialFeedItems } from '@/data/updates';
 import { FeedItem, UpdateType } from '@/types';
 
-const STORAGE_KEY = 'ents_feed_items_v3';
-const ATTENDANCE_STORAGE_KEY = 'ents_event_attendees_v1';
+const STORAGE_KEY = 'ents_feed_items_v4';
+const ATTENDANCE_STORAGE_KEY = 'ents_event_attendees_v2';
 
 export function UpdatesHub() {
   const [items, setItems] = useState<FeedItem[]>(initialFeedItems);
@@ -113,7 +113,6 @@ export function UpdatesHub() {
       // ignore
     }
 
-    // Reset Form
     setFormTitle('');
     setFormExcerpt('');
     setFormAuthor('');
@@ -165,7 +164,7 @@ export function UpdatesHub() {
   const upcomingEvents = items.filter((item) => item.type === 'event');
   const currentFeaturedEvent = upcomingEvents[featuredEventIndex % (upcomingEvents.length || 1)];
 
-  // Filter items for the main grid
+  // Filter items for main grid
   const filteredItems = items.filter((item) => {
     if (activeTab === 'news' && item.type === 'event') return false;
     if (activeTab === 'event' && item.type !== 'event') return false;
@@ -186,12 +185,12 @@ export function UpdatesHub() {
       <Container size="wide">
         {/* Simple Notification Toast */}
         {publishedToast && (
-          <div className="fixed bottom-6 right-6 z-50 bg-neutral-900 text-white px-5 py-3.5 rounded-xl shadow-2xl text-xs font-mono">
+          <div className="fixed bottom-6 right-6 z-50 bg-neutral-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl text-xs font-mono border border-neutral-700">
             {publishedToast}
           </div>
         )}
 
-        {/* 1. FEATURED EVENT SECTION (SINGLE FEATURED EVENT INSTEAD OF THREE) */}
+        {/* 1. FEATURED EVENT SECTION (SKEUOMORPHIC CARD) */}
         {currentFeaturedEvent && (
           <section className="mb-14 sm:mb-20">
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pb-4 border-b border-neutral-200 mb-6">
@@ -204,7 +203,7 @@ export function UpdatesHub() {
                 </h2>
               </div>
 
-              {/* Admin Post Event Key & Event Cycler */}
+              {/* Admin Post Event & Event Cycler */}
               <div className="flex items-center gap-3 self-start sm:self-auto">
                 {upcomingEvents.length > 1 && (
                   <div className="flex items-center gap-1.5 text-xs font-mono text-neutral-500 mr-2">
@@ -214,7 +213,7 @@ export function UpdatesHub() {
                           (prev) => (prev - 1 + upcomingEvents.length) % upcomingEvents.length
                         )
                       }
-                      className="px-2.5 py-1 rounded-lg border border-neutral-200 hover:border-neutral-900 bg-white cursor-pointer"
+                      className="btn-skeuo-light px-3 py-1 rounded-xl cursor-pointer"
                       aria-label="Previous event"
                     >
                       Prev
@@ -226,7 +225,7 @@ export function UpdatesHub() {
                       onClick={() =>
                         setFeaturedEventIndex((prev) => (prev + 1) % upcomingEvents.length)
                       }
-                      className="px-2.5 py-1 rounded-lg border border-neutral-200 hover:border-neutral-900 bg-white cursor-pointer"
+                      className="btn-skeuo-light px-3 py-1 rounded-xl cursor-pointer"
                       aria-label="Next event"
                     >
                       Next
@@ -239,15 +238,18 @@ export function UpdatesHub() {
                     setFormType('event');
                     setIsAdminModalOpen(true);
                   }}
-                  className="text-xs font-mono font-semibold px-4 py-2 rounded-xl bg-neutral-100 hover:bg-neutral-900 hover:text-white border border-neutral-300 transition-colors text-neutral-800 cursor-pointer"
+                  className="btn-skeuo-dark font-bold text-xs font-mono px-4 py-2 rounded-xl cursor-pointer"
                 >
                   Admin: Post Event
                 </button>
               </div>
             </div>
 
-            {/* The Single Featured Event Card */}
-            <div className="border border-neutral-200 rounded-3xl overflow-hidden bg-neutral-50/50 card-hover grid grid-cols-1 md:grid-cols-12 shadow-sm">
+            {/* The Single Featured Event Skeuomorphic Chassis */}
+            <div className="card-hover card-skeuo-static rounded-3xl overflow-hidden border border-neutral-300/80 shadow-[inset_0_1.5px_0_rgba(255,255,255,1),inset_0_-1.5px_0_rgba(0,0,0,0.04),0_8px_24px_-4px_rgba(0,0,0,0.08)] grid grid-cols-1 md:grid-cols-12 relative group">
+              {/* Top subtle highlight bar */}
+              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-neutral-300 to-transparent pointer-events-none" />
+
               {/* Event Image Banner */}
               <div className="md:col-span-6 relative min-h-[260px] sm:min-h-[340px] md:min-h-[380px] bg-neutral-100">
                 {currentFeaturedEvent.imageUrl && (
@@ -261,7 +263,7 @@ export function UpdatesHub() {
                   />
                 )}
                 <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 bg-white/95 backdrop-blur-md rounded-lg text-xs font-mono font-bold text-neutral-900 shadow-sm">
+                  <span className="px-3 py-1 bg-white/95 backdrop-blur-md rounded-xl text-xs font-mono font-bold text-neutral-900 shadow-sm border border-white/40">
                     Featured Event
                   </span>
                 </div>
@@ -282,7 +284,7 @@ export function UpdatesHub() {
                     {currentFeaturedEvent.title}
                   </h3>
 
-                  {/* Little / Short Description */}
+                  {/* Little Description */}
                   <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6 font-normal">
                     {currentFeaturedEvent.excerpt}
                   </p>
@@ -301,7 +303,7 @@ export function UpdatesHub() {
                   </span>
 
                   {registeredEvents.includes(currentFeaturedEvent.id) ? (
-                    <span className="px-4 py-2 rounded-xl bg-emerald-100 text-emerald-900 font-mono text-xs font-semibold">
+                    <span className="px-5 py-2.5 rounded-xl bg-emerald-50 text-emerald-800 font-mono text-xs font-bold border border-emerald-200">
                       Attendance Confirmed
                     </span>
                   ) : (
@@ -318,50 +320,44 @@ export function UpdatesHub() {
           </section>
         )}
 
-        {/* 2. CONTROL STRIP: Typographic Filters, Search & Admin Post Update Key */}
+        {/* 2. CONTROL STRIP: Typographic Filters, Search & Admin Post Key */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200 mb-8">
-          {/* Search Box (No icons) */}
+          {/* Skeuomorphic Search Box */}
           <div className="w-full sm:w-72">
             <input
               type="text"
               placeholder="Search news & updates..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-3.5 py-2 text-xs font-mono bg-neutral-50 border border-neutral-200 rounded-xl focus:outline-none focus:border-neutral-900 focus:bg-white transition-all text-neutral-900"
+              className="w-full px-4 py-2.5 text-xs font-mono bg-white border border-neutral-300/90 rounded-xl focus:outline-none focus:border-neutral-900 transition-all text-neutral-900 shadow-[inset_0_1.5px_2px_rgba(0,0,0,0.04)]"
             />
           </div>
 
-          {/* Clean Typographic Filter Pills */}
-          <div className="flex items-center gap-1 text-xs font-mono">
+          {/* Skeuomorphic Filter Tray */}
+          <div className="flex items-center gap-1.5 p-1.5 bg-neutral-200/60 rounded-2xl border border-neutral-300/80 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.07)] text-xs font-mono">
             <button
               onClick={() => setActiveTab('all')}
-              className={`px-3.5 py-1.5 rounded-lg cursor-pointer transition-all ${
-                activeTab === 'all'
-                  ? 'bg-neutral-900 text-white font-semibold'
-                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+              className={`px-4 py-1.5 rounded-xl cursor-pointer transition-all ${
+                activeTab === 'all' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
               }`}
             >
-              All
+              All ({items.length})
             </button>
             <button
               onClick={() => setActiveTab('news')}
-              className={`px-3.5 py-1.5 rounded-lg cursor-pointer transition-all ${
-                activeTab === 'news'
-                  ? 'bg-neutral-900 text-white font-semibold'
-                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+              className={`px-4 py-1.5 rounded-xl cursor-pointer transition-all ${
+                activeTab === 'news' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
               }`}
             >
-              News
+              News ({items.filter((i) => i.type !== 'event').length})
             </button>
             <button
               onClick={() => setActiveTab('event')}
-              className={`px-3.5 py-1.5 rounded-lg cursor-pointer transition-all ${
-                activeTab === 'event'
-                  ? 'bg-neutral-900 text-white font-semibold'
-                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+              className={`px-4 py-1.5 rounded-xl cursor-pointer transition-all ${
+                activeTab === 'event' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
               }`}
             >
-              Events
+              Events ({upcomingEvents.length})
             </button>
           </div>
 
@@ -371,15 +367,15 @@ export function UpdatesHub() {
               setFormType('article');
               setIsAdminModalOpen(true);
             }}
-            className="btn-skeuo-dark font-bold rounded-xl px-5 py-2 text-xs font-mono cursor-pointer"
+            className="btn-skeuo-dark font-bold rounded-xl px-5 py-2.5 text-xs font-mono cursor-pointer"
           >
             Admin: Post Update
           </button>
         </div>
 
-        {/* 3. NEWS & BLOGS GRID WITH IMAGES (NO ICONS) */}
+        {/* 3. SKEUOMORPHIC NEWS & BLOGS GRID */}
         {filteredItems.length === 0 ? (
-          <div className="py-16 text-center text-xs font-mono text-neutral-500 border border-neutral-200 rounded-xl bg-neutral-50">
+          <div className="py-16 text-center text-xs font-mono text-neutral-500 border border-neutral-200 rounded-2xl bg-neutral-50">
             No entries found.
           </div>
         ) : (
@@ -390,12 +386,18 @@ export function UpdatesHub() {
               return (
                 <article
                   key={item.id}
-                  className="bg-white border border-neutral-200 rounded-2xl overflow-hidden card-hover flex flex-col justify-between"
+                  className="card-hover card-skeuo-static rounded-2xl overflow-hidden border border-neutral-300/80 shadow-[inset_0_1.5px_0_rgba(255,255,255,1),inset_0_-1.5px_0_rgba(0,0,0,0.04),0_6px_20px_-4px_rgba(0,0,0,0.06)] flex flex-col justify-between relative group"
                 >
+                  {/* Subtle top hairline highlight */}
+                  <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-neutral-300 to-transparent pointer-events-none" />
+
                   <div>
-                    {/* Cover Image for Blogs & News */}
+                    {/* Cover Image */}
                     {item.imageUrl && (
-                      <Link href={isEvent ? '#' : `/updates/${item.id}`} className="block relative w-full h-48 sm:h-52 overflow-hidden bg-neutral-100">
+                      <Link
+                        href={isEvent ? '#' : `/updates/${item.id}`}
+                        className="block relative w-full h-48 sm:h-52 overflow-hidden bg-neutral-100 border-b border-neutral-200/70"
+                      >
                         <Image
                           src={item.imageUrl}
                           alt={item.title}
@@ -408,8 +410,8 @@ export function UpdatesHub() {
 
                     <div className="p-6">
                       {/* Category Label + Date */}
-                      <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400 mb-2">
-                        <span className="uppercase font-semibold tracking-wider text-neutral-800">
+                      <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400 mb-2.5">
+                        <span className="uppercase font-bold tracking-wider text-neutral-800 text-[10px] px-2 py-0.5 rounded-md bg-white border border-neutral-200/80 shadow-[inset_0_1px_0_rgba(255,255,255,1)]">
                           {isEvent ? 'Event' : 'News'}
                         </span>
                         <span>{item.date}</span>
@@ -433,22 +435,22 @@ export function UpdatesHub() {
 
                       {/* Event info line if event */}
                       {isEvent && item.eventDate && (
-                        <div className="text-xs font-mono text-neutral-700 bg-neutral-50 p-2.5 rounded-lg border border-neutral-200/70 mb-3">
-                          <div>
+                        <div className="text-xs font-mono text-neutral-700 bg-white p-3 rounded-xl border border-neutral-200/90 shadow-[inset_0_1px_0_rgba(255,255,255,1)] mb-3">
+                          <div className="font-semibold text-neutral-900">
                             {item.eventDate} &middot; {item.eventTime}
                           </div>
-                          <div className="text-neutral-500">{item.eventLocation}</div>
+                          <div className="text-neutral-500 mt-0.5">{item.eventLocation}</div>
                         </div>
                       )}
 
-                      {/* Tags */}
+                      {/* Tactile Tags */}
                       <div className="flex flex-wrap gap-1.5">
                         {item.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="text-[10px] font-mono bg-neutral-100 px-2 py-0.5 rounded text-neutral-600"
+                            className="text-[10px] font-mono bg-white border border-neutral-200/90 shadow-[inset_0_1px_0_rgba(255,255,255,1),0_1px_2px_rgba(0,0,0,0.03)] px-2 py-0.5 rounded-lg text-neutral-700"
                           >
-                            {tag}
+                            #{tag}
                           </span>
                         ))}
                       </div>
@@ -456,8 +458,8 @@ export function UpdatesHub() {
                   </div>
 
                   {/* Card Footer */}
-                  <div className="px-6 pb-6 pt-3 flex items-center justify-between text-xs font-mono border-t border-neutral-100">
-                    <span className="text-neutral-400">{item.author}</span>
+                  <div className="px-6 pb-6 pt-3.5 flex items-center justify-between text-xs font-mono border-t border-neutral-200/70">
+                    <span className="text-neutral-500 font-medium">{item.author}</span>
 
                     <div className="flex items-center gap-3">
                       {item.isCustom && (
@@ -471,13 +473,13 @@ export function UpdatesHub() {
 
                       {isEvent ? (
                         registeredEvents.includes(item.id) ? (
-                          <span className="text-emerald-700 font-semibold text-[11px]">
+                          <span className="text-emerald-700 font-bold text-[11px]">
                             Registered
                           </span>
                         ) : (
                           <button
                             onClick={() => setAttendanceModalEvent(item)}
-                            className="font-semibold text-neutral-900 hover:underline cursor-pointer"
+                            className="btn-skeuo-dark font-bold px-3.5 py-1.5 rounded-xl text-xs cursor-pointer"
                           >
                             RSVP
                           </button>
@@ -485,7 +487,7 @@ export function UpdatesHub() {
                       ) : (
                         <Link
                           href={`/updates/${item.id}`}
-                          className="font-semibold text-neutral-900 hover:underline"
+                          className="btn-skeuo-light font-bold px-3.5 py-1.5 rounded-xl text-xs cursor-pointer"
                         >
                           Read Article
                         </Link>
@@ -499,10 +501,10 @@ export function UpdatesHub() {
         )}
       </Container>
 
-      {/* 4. EVENT ATTENDANCE REGISTRATION FORM MODAL */}
+      {/* 4. EVENT ATTENDANCE REGISTRATION SKEUOMORPHIC MODAL */}
       {attendanceModalEvent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/60 backdrop-blur-sm select-none">
-          <div className="bg-white border border-neutral-200 rounded-2xl max-w-md w-full p-6 sm:p-7 shadow-2xl relative">
+          <div className="card-skeuo-static bg-white border border-neutral-300 rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-[0_24px_50px_rgba(0,0,0,0.25),inset_0_1.5px_0_rgba(255,255,255,1)] relative">
             <div className="flex items-center justify-between pb-3 border-b border-neutral-200 mb-4">
               <div>
                 <div className="text-[11px] font-mono uppercase tracking-widest text-neutral-500 font-semibold">
@@ -521,7 +523,7 @@ export function UpdatesHub() {
             </div>
 
             {/* Target Event Snippet */}
-            <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200 mb-4 text-xs font-mono">
+            <div className="p-3 bg-white rounded-xl border border-neutral-200/90 shadow-[inset_0_1.5px_2px_rgba(0,0,0,0.03)] mb-4 text-xs font-mono">
               <div className="font-bold text-neutral-900 mb-0.5">
                 {attendanceModalEvent.title}
               </div>
@@ -542,7 +544,7 @@ export function UpdatesHub() {
                   placeholder="e.g. Marie Uwase"
                   value={attendeeName}
                   onChange={(e) => setAttendeeName(e.target.value)}
-                  className="w-full px-3 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 focus:bg-white"
+                  className="w-full px-3 py-2 bg-white border border-neutral-300 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 shadow-[inset_0_1.5px_2px_rgba(0,0,0,0.03)]"
                 />
               </div>
 
@@ -554,7 +556,7 @@ export function UpdatesHub() {
                   placeholder="e.g. marie@rca.ac.rw"
                   value={attendeeEmail}
                   onChange={(e) => setAttendeeEmail(e.target.value)}
-                  className="w-full px-3 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 focus:bg-white"
+                  className="w-full px-3 py-2 bg-white border border-neutral-300 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 shadow-[inset_0_1.5px_2px_rgba(0,0,0,0.03)]"
                 />
               </div>
 
@@ -564,7 +566,7 @@ export function UpdatesHub() {
                   <select
                     value={attendeeCohort}
                     onChange={(e) => setAttendeeCohort(e.target.value)}
-                    className="w-full px-2.5 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 focus:bg-white"
+                    className="w-full px-2.5 py-2 bg-white border border-neutral-300 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 shadow-[inset_0_1.5px_2px_rgba(0,0,0,0.03)]"
                   >
                     <option value="Cohort 5 (Year 3)">Cohort 5 (Year 3)</option>
                     <option value="Cohort 6 (Year 2)">Cohort 6 (Year 2)</option>
@@ -579,7 +581,7 @@ export function UpdatesHub() {
                   <select
                     value={attendeeTrack}
                     onChange={(e) => setAttendeeTrack(e.target.value)}
-                    className="w-full px-2.5 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 focus:bg-white"
+                    className="w-full px-2.5 py-2 bg-white border border-neutral-300 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 shadow-[inset_0_1.5px_2px_rgba(0,0,0,0.03)]"
                   >
                     <option value="Traders">Traders Track</option>
                     <option value="Business Handlers">Business Handlers</option>
@@ -593,7 +595,7 @@ export function UpdatesHub() {
                 <button
                   type="button"
                   onClick={() => setAttendanceModalEvent(null)}
-                  className="px-4 py-2 text-neutral-600 hover:text-neutral-900 cursor-pointer"
+                  className="btn-skeuo-light px-4 py-2 rounded-xl text-neutral-700 cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -609,10 +611,10 @@ export function UpdatesHub() {
         </div>
       )}
 
-      {/* 5. ADMIN PUBLISHER MODAL (ADMIN ONLY) */}
+      {/* 5. ADMIN PUBLISHER SKEUOMORPHIC MODAL (ADMIN ONLY) */}
       {isAdminModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/60 backdrop-blur-sm select-none">
-          <div className="bg-white border border-neutral-200 rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative">
+          <div className="card-skeuo-static bg-white border border-neutral-300 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-[0_24px_50px_rgba(0,0,0,0.25),inset_0_1.5px_0_rgba(255,255,255,1)] relative">
             <div className="flex items-center justify-between pb-3 border-b border-neutral-200 mb-5">
               <div>
                 <div className="text-[11px] font-mono uppercase tracking-widest text-neutral-500 font-semibold">
@@ -628,15 +630,13 @@ export function UpdatesHub() {
               </button>
             </div>
 
-            {/* Type selector */}
-            <div className="grid grid-cols-2 gap-2 bg-neutral-100 p-1 rounded-xl mb-5 text-xs font-mono">
+            {/* Type selector tray */}
+            <div className="grid grid-cols-2 gap-2 bg-neutral-200/60 p-1.5 rounded-2xl mb-5 text-xs font-mono border border-neutral-300/80 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.07)]">
               <button
                 type="button"
                 onClick={() => setFormType('event')}
-                className={`py-2 rounded-lg cursor-pointer transition-all ${
-                  formType === 'event'
-                    ? 'bg-neutral-900 text-white font-semibold'
-                    : 'text-neutral-600 hover:text-neutral-900'
+                className={`py-2 rounded-xl cursor-pointer transition-all ${
+                  formType === 'event' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
                 }`}
               >
                 Event
@@ -644,10 +644,8 @@ export function UpdatesHub() {
               <button
                 type="button"
                 onClick={() => setFormType('article')}
-                className={`py-2 rounded-lg cursor-pointer transition-all ${
-                  formType === 'article'
-                    ? 'bg-neutral-900 text-white font-semibold'
-                    : 'text-neutral-600 hover:text-neutral-900'
+                className={`py-2 rounded-xl cursor-pointer transition-all ${
+                  formType === 'article' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
                 }`}
               >
                 News
@@ -663,7 +661,7 @@ export function UpdatesHub() {
                   placeholder={formType === 'event' ? 'Event Title' : 'News Headline'}
                   value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
-                  className="w-full px-3 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 focus:bg-white"
+                  className="w-full px-3 py-2 bg-white border border-neutral-300 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 shadow-[inset_0_1.5px_2px_rgba(0,0,0,0.03)]"
                 />
               </div>
 
@@ -677,7 +675,7 @@ export function UpdatesHub() {
                   placeholder="Provide a concise description..."
                   value={formExcerpt}
                   onChange={(e) => setFormExcerpt(e.target.value)}
-                  className="w-full px-3 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 focus:bg-white"
+                  className="w-full px-3 py-2 bg-white border border-neutral-300 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 shadow-[inset_0_1.5px_2px_rgba(0,0,0,0.03)]"
                 />
               </div>
 
@@ -691,7 +689,7 @@ export function UpdatesHub() {
                     placeholder="ENTS Executive Board"
                     value={formAuthor}
                     onChange={(e) => setFormAuthor(e.target.value)}
-                    className="w-full px-3 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900"
+                    className="w-full px-3 py-2 bg-white border border-neutral-300 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 shadow-[inset_0_1.5px_2px_rgba(0,0,0,0.03)]"
                   />
                 </div>
                 <div>
@@ -705,7 +703,7 @@ export function UpdatesHub() {
                     }
                     value={formImageUrl}
                     onChange={(e) => setFormImageUrl(e.target.value)}
-                    className="w-full px-3 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900"
+                    className="w-full px-3 py-2 bg-white border border-neutral-300 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 shadow-[inset_0_1.5px_2px_rgba(0,0,0,0.03)]"
                   />
                 </div>
               </div>
@@ -720,7 +718,7 @@ export function UpdatesHub() {
                     placeholder="https://..."
                     value={formSourceUrl}
                     onChange={(e) => setFormSourceUrl(e.target.value)}
-                    className="w-full px-3 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900"
+                    className="w-full px-3 py-2 bg-white border border-neutral-300 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 shadow-[inset_0_1.5px_2px_rgba(0,0,0,0.03)]"
                   />
                 </div>
               )}
@@ -734,7 +732,7 @@ export function UpdatesHub() {
                       placeholder="April 15, 2026"
                       value={formEventDate}
                       onChange={(e) => setFormEventDate(e.target.value)}
-                      className="w-full px-2.5 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900"
+                      className="w-full px-2.5 py-2 bg-white border border-neutral-300 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 shadow-[inset_0_1.5px_2px_rgba(0,0,0,0.03)]"
                     />
                   </div>
                   <div>
@@ -744,7 +742,7 @@ export function UpdatesHub() {
                       placeholder="16:00 CAT"
                       value={formEventTime}
                       onChange={(e) => setFormEventTime(e.target.value)}
-                      className="w-full px-2.5 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900"
+                      className="w-full px-2.5 py-2 bg-white border border-neutral-300 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 shadow-[inset_0_1.5px_2px_rgba(0,0,0,0.03)]"
                     />
                   </div>
                   <div>
@@ -754,7 +752,7 @@ export function UpdatesHub() {
                       placeholder="RCA Lab"
                       value={formEventLocation}
                       onChange={(e) => setFormEventLocation(e.target.value)}
-                      className="w-full px-2.5 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900"
+                      className="w-full px-2.5 py-2 bg-white border border-neutral-300 rounded-xl text-neutral-900 focus:outline-none focus:border-neutral-900 shadow-[inset_0_1.5px_2px_rgba(0,0,0,0.03)]"
                     />
                   </div>
                 </div>
@@ -764,7 +762,7 @@ export function UpdatesHub() {
                 <button
                   type="button"
                   onClick={() => setIsAdminModalOpen(false)}
-                  className="px-4 py-2 text-neutral-600 hover:text-neutral-900 cursor-pointer"
+                  className="btn-skeuo-light px-4 py-2 rounded-xl text-neutral-700 cursor-pointer"
                 >
                   Cancel
                 </button>

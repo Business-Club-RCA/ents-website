@@ -80,19 +80,19 @@ export function HeroVisual() {
 
           {/* Dual Pill CTA Buttons with Floating Stagger */}
           <div className="animate-hero-cta pt-2 flex flex-wrap items-center gap-3.5">
-            {/* Pill Button 1: Frosted Glass */}
+            {/* Tactile Skeuomorphic Button 1: Frosted Glass Key */}
             <Link
               href="/join"
-              className="inline-flex items-center justify-center px-7 py-3 rounded-full text-sm font-medium bg-white/15 hover:bg-white/25 text-white backdrop-blur-md border border-white/25 transition-all duration-150 cursor-pointer shadow-sm hover:scale-[1.02] active:scale-[0.98]"
+              className="btn-skeuo-glass inline-flex items-center justify-center px-7 py-3.5 rounded-full text-sm font-semibold cursor-pointer"
             >
               <span>Join the Club</span>
               <ArrowRight size={16} className="ml-2" />
             </Link>
 
-            {/* Pill Button 2: Dark Glass */}
+            {/* Tactile Skeuomorphic Button 2: Obsidian Key */}
             <Link
               href="/projects"
-              className="inline-flex items-center justify-center px-7 py-3 rounded-full text-sm font-medium bg-black/70 hover:bg-black/90 text-white backdrop-blur-md border border-white/15 transition-all duration-150 cursor-pointer shadow-sm hover:scale-[1.02] active:scale-[0.98]"
+              className="btn-skeuo-dark inline-flex items-center justify-center px-7 py-3.5 rounded-full text-sm font-semibold cursor-pointer border-neutral-700/80"
             >
               See how it works
             </Link>

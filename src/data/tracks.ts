@@ -48,7 +48,7 @@ export const tracksData: TrackInfo[] = [
       'Working campus pilot or software MVP with active user transactions',
       'Investment-ready pitch deck presented at the ENTS Demo Day',
     ],
-    toolsUsed: ['Notion', 'Google Sheets', 'Figma', 'Stripe / Paypack APIs', 'Linear', 'Pitch'],
+    toolsUsed: ['Notion', 'Google Sheets', 'Figma', 'Stripe & Paypack APIs', 'Linear', 'Pitch'],
   },
   {
     id: 'traders',
@@ -65,12 +65,12 @@ export const tracksData: TrackInfo[] = [
       {
         phase: 'Monday Macro Watch & Economic Calendar',
         description:
-          'Analyze central bank rate outlooks, US CPI/NFP data releases, and regional liquidity patterns for the trading week.',
+          'Analyze central bank rate outlooks, US CPI & NFP data releases, and regional liquidity patterns for the trading week.',
       },
       {
         phase: 'Tuesday & Thursday Live Market Analysis',
         description:
-          'Collaborative chart breakdown sessions on TradingView. Identify market structure shifts, order blocks, and key supply/demand levels.',
+          'Collaborative chart breakdown sessions on TradingView. Identify market structure shifts, order blocks, and key supply & demand levels.',
       },
       {
         phase: 'Wednesday Risk Audit',
@@ -97,7 +97,7 @@ export const tracksData: TrackInfo[] = [
       'Weekly economic digest contributions for the club terminal',
       'Active participation in the semester-long ENTS Trading Cup',
     ],
-    toolsUsed: ['TradingView', 'MetaTrader 5 (Demo)', 'Python (Pandas, Backtrader)', 'Excel / Notion Trade Logs', 'Forex Factory'],
+    toolsUsed: ['TradingView', 'MetaTrader 5 (Demo)', 'Python (Pandas, Backtrader)', 'Excel & Notion Trade Logs', 'Forex Factory'],
   },
 ];
 

@@ -28,13 +28,11 @@ export default function TracksPage() {
       <div className="border-b border-neutral-200 bg-white sticky top-20 z-30 py-3.5 backdrop-blur-md bg-white/95">
         <Container size="wide">
           <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-1.5 p-1 bg-neutral-100 rounded-xl border border-neutral-200 text-xs font-mono">
+            <div className="flex items-center gap-1.5 p-1.5 bg-neutral-200/50 rounded-xl border border-neutral-300/70 shadow-[inset_0_1px_2px_rgba(0,0,0,0.06)] text-xs font-mono">
               <button
                 onClick={() => setSelectedTrack('all')}
                 className={`px-3.5 py-1.5 rounded-lg cursor-pointer transition-all ${
-                  selectedTrack === 'all'
-                    ? 'bg-neutral-900 text-white font-bold shadow-sm'
-                    : 'text-neutral-600 hover:text-black'
+                  selectedTrack === 'all' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
                 }`}
               >
                 All Tracks
@@ -42,9 +40,7 @@ export default function TracksPage() {
               <button
                 onClick={() => setSelectedTrack('business-handlers')}
                 className={`px-3.5 py-1.5 rounded-lg cursor-pointer transition-all ${
-                  selectedTrack === 'business-handlers'
-                    ? 'bg-neutral-900 text-white font-bold shadow-sm'
-                    : 'text-neutral-600 hover:text-black'
+                  selectedTrack === 'business-handlers' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
                 }`}
               >
                 Business Handlers
@@ -52,9 +48,7 @@ export default function TracksPage() {
               <button
                 onClick={() => setSelectedTrack('traders')}
                 className={`px-3.5 py-1.5 rounded-lg cursor-pointer transition-all ${
-                  selectedTrack === 'traders'
-                    ? 'bg-neutral-900 text-white font-bold shadow-sm'
-                    : 'text-neutral-600 hover:text-black'
+                  selectedTrack === 'traders' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
                 }`}
               >
                 Traders

@@ -69,13 +69,11 @@ export function LeaderboardTable({ initialData }: LeaderboardTableProps) {
         </div>
 
         {/* Filter Pills */}
-        <div className="flex flex-wrap items-center gap-1.5 p-1 bg-neutral-100/80 rounded-xl border border-neutral-200 text-xs font-mono">
+        <div className="flex flex-wrap items-center gap-1.5 p-1.5 bg-neutral-200/50 rounded-xl border border-neutral-300/70 shadow-[inset_0_1px_2px_rgba(0,0,0,0.06)] text-xs font-mono">
           <button
             onClick={() => setFilter('All')}
             className={`px-3 py-1.5 rounded-lg cursor-pointer transition-all ${
-              filter === 'All'
-                ? 'bg-neutral-900 text-white font-bold shadow-sm'
-                : 'text-neutral-600 hover:text-black'
+              filter === 'All' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
             }`}
           >
             All ({initialData.length})
@@ -83,9 +81,7 @@ export function LeaderboardTable({ initialData }: LeaderboardTableProps) {
           <button
             onClick={() => setFilter('Top3')}
             className={`px-3 py-1.5 rounded-lg cursor-pointer transition-all ${
-              filter === 'Top3'
-                ? 'bg-neutral-900 text-white font-bold shadow-sm'
-                : 'text-neutral-600 hover:text-black'
+              filter === 'Top3' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
             }`}
           >
             Podium (Top 3)
@@ -93,9 +89,7 @@ export function LeaderboardTable({ initialData }: LeaderboardTableProps) {
           <button
             onClick={() => setFilter('HighWinRate')}
             className={`px-3 py-1.5 rounded-lg cursor-pointer transition-all ${
-              filter === 'HighWinRate'
-                ? 'bg-neutral-900 text-white font-bold shadow-sm'
-                : 'text-neutral-600 hover:text-black'
+              filter === 'HighWinRate' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
             }`}
           >
             Win Rate &gt; 60%
@@ -103,9 +97,7 @@ export function LeaderboardTable({ initialData }: LeaderboardTableProps) {
           <button
             onClick={() => setFilter('Traders')}
             className={`px-3 py-1.5 rounded-lg cursor-pointer transition-all ${
-              filter === 'Traders'
-                ? 'bg-neutral-900 text-white font-bold shadow-sm'
-                : 'text-neutral-600 hover:text-black'
+              filter === 'Traders' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
             }`}
           >
             Traders

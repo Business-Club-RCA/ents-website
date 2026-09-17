@@ -23,7 +23,7 @@ export default function HomePage() {
         <Container size="wide">
           <div className="max-w-3xl mb-12 sm:mb-16">
             <div className="text-xs uppercase font-mono tracking-widest text-neutral-500 mb-2.5">
-              01 / The Society Thesis
+              01 · The Society Thesis
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 leading-[1.08]">
               Where world-class code meets capital discipline.
@@ -100,7 +100,7 @@ export default function HomePage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-4">
             <div>
               <span className="text-xs uppercase font-mono tracking-widest text-neutral-500">
-                02 / Specialization
+                02 · Specialization
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 mt-2">
                 Two Dedicated Disciplines
@@ -243,18 +243,18 @@ export default function HomePage() {
             <div className="pt-4 flex flex-wrap gap-4">
               <Button
                 href="/join"
-                variant="outline"
+                variant="secondary"
                 size="lg"
-                className="bg-white text-black hover:bg-neutral-100 border-white font-bold rounded-full px-8"
+                className="btn-skeuo-light font-bold rounded-full px-8"
               >
                 <span>Apply to Join ENTS</span>
                 <ArrowRight size={18} />
               </Button>
               <Button
                 href="/about"
-                variant="ghost"
+                variant="primary"
                 size="lg"
-                className="text-white hover:bg-neutral-900 border border-neutral-800 rounded-full px-8"
+                className="btn-skeuo-dark font-semibold rounded-full px-8 border-neutral-700"
               >
                 Read Our Story
               </Button>

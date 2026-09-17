@@ -76,7 +76,7 @@ export default async function LeaderboardPage() {
                 Risk Constraint
               </div>
               <div className="text-xl sm:text-2xl font-bold text-neutral-900 mt-1.5 tabular-nums font-number">
-                1.00% / Trade
+                1.00% per Trade
               </div>
               <div className="text-xs text-neutral-500 font-mono mt-1">
                 hard circuit-breaker limit

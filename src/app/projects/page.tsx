@@ -125,7 +125,7 @@ export default function ProjectsPage() {
             All Products &amp; Ventures ({projectsData.length})
           </h3>
           <span className="text-xs font-mono text-neutral-400">
-            COHORT 2026/2027
+            COHORT 2026 - 2027
           </span>
         </div>
 

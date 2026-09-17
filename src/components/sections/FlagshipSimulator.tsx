@@ -103,37 +103,31 @@ export function FlagshipSimulator() {
                   <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
                   <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                  <span className="ml-2 text-neutral-200 font-semibold">SIFS // v2.4</span>
+                  <span className="ml-2 text-neutral-200 font-semibold">SIFS · v2.4</span>
                 </div>
 
                 {/* Tab Switchers */}
-                <div className="flex items-center gap-1 bg-black/60 p-0.5 rounded-lg border border-neutral-800 text-[11px]">
+                <div className="flex items-center gap-1 bg-black/90 p-1 rounded-xl border border-neutral-800/90 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.8)] text-[11px]">
                   <button
                     onClick={() => setActiveTab('terminal')}
-                    className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${
-                      activeTab === 'terminal'
-                        ? 'bg-neutral-800 text-white font-medium shadow-sm'
-                        : 'text-neutral-400 hover:text-white'
+                    className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
+                      activeTab === 'terminal' ? 'btn-skeuo-pill-active' : 'text-neutral-400 hover:text-white'
                     }`}
                   >
                     Console
                   </button>
                   <button
                     onClick={() => setActiveTab('orderbook')}
-                    className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${
-                      activeTab === 'orderbook'
-                        ? 'bg-neutral-800 text-white font-medium shadow-sm'
-                        : 'text-neutral-400 hover:text-white'
+                    className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
+                      activeTab === 'orderbook' ? 'btn-skeuo-pill-active' : 'text-neutral-400 hover:text-white'
                     }`}
                   >
                     Order Book
                   </button>
                   <button
                     onClick={() => setActiveTab('risk')}
-                    className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${
-                      activeTab === 'risk'
-                        ? 'bg-neutral-800 text-white font-medium shadow-sm'
-                        : 'text-neutral-400 hover:text-white'
+                    className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
+                      activeTab === 'risk' ? 'btn-skeuo-pill-active' : 'text-neutral-400 hover:text-white'
                     }`}
                   >
                     Risk Matrix
@@ -144,13 +138,13 @@ export function FlagshipSimulator() {
               {/* Dynamic Live Ticker Bar */}
               <div className="grid grid-cols-3 gap-2 px-5 py-3 border-b border-neutral-800/80 bg-black/40 font-mono text-xs">
                 <div>
-                  <div className="text-neutral-500 text-[10px]">EUR/USD</div>
+                  <div className="text-neutral-500 text-[10px]">EUR - USD</div>
                   <div className={`font-bold transition-colors ${lastDelta === 'up' ? 'text-emerald-400' : 'text-rose-400'}`}>
                     {eurUsd.toFixed(4)}
                   </div>
                 </div>
                 <div>
-                  <div className="text-neutral-500 text-[10px]">BTC/USD</div>
+                  <div className="text-neutral-500 text-[10px]">BTC - USD</div>
                   <div className="text-neutral-200 font-bold font-number">
                     ${btcUsd.toLocaleString()}
                   </div>
@@ -168,11 +162,11 @@ export function FlagshipSimulator() {
                 <div className="p-5 font-mono text-xs space-y-3 min-h-[260px] flex flex-col justify-between">
                   <div className="space-y-2">
                     <div className="text-neutral-400 text-[11px]">
-                      {'// INGESTION ENGINE: Nyabihu Node 01 · 14ms latency'}
+                      {'[INGESTION ENGINE] Nyabihu Node 01 · 14ms latency'}
                     </div>
                     <div className="p-3 bg-black/80 rounded-xl border border-neutral-800/80 space-y-1.5 text-[11px]">
                       <div className="text-emerald-400 flex items-center justify-between">
-                        <span>[EXEC 09:42:01] EUR/USD BUY LIMIT 2.0 LOTS @ {eurUsd.toFixed(4)}</span>
+                        <span>[EXEC 09:42:01] EUR - USD BUY LIMIT 2.0 LOTS @ {eurUsd.toFixed(4)}</span>
                         <span className="text-[10px] text-neutral-500 font-number">#ORD-8492</span>
                       </div>
                       <div className="text-neutral-400 flex items-center justify-between">
@@ -202,7 +196,7 @@ export function FlagshipSimulator() {
               {activeTab === 'orderbook' && (
                 <div className="p-5 font-mono text-xs space-y-3 min-h-[260px]">
                   <div className="text-neutral-400 text-[11px] mb-2">
-                    {'// REAL-TIME ORDER DEPTH (EUR/USD)'}
+                    {'[REAL-TIME ORDER DEPTH] EUR - USD'}
                   </div>
                   {/* Ask rows */}
                   <div className="space-y-1">
@@ -241,13 +235,13 @@ export function FlagshipSimulator() {
               {activeTab === 'risk' && (
                 <div className="p-5 font-mono text-xs space-y-4 min-h-[260px]">
                   <div className="text-neutral-400 text-[11px]">
-                    {'// PROGRAMMATIC RISK GUARDRAILS'}
+                    {'[PROGRAMMATIC RISK GUARDRAILS]'}
                   </div>
                   <div className="space-y-3">
                     <div>
                       <div className="flex items-center justify-between text-[11px] mb-1">
                         <span className="text-neutral-300">Max Portfolio VaR (Value at Risk)</span>
-                        <span className="text-emerald-400 font-bold">0.84% / 1.00% MAX</span>
+                        <span className="text-emerald-400 font-bold">0.84% of 1.00% MAX</span>
                       </div>
                       <div className="w-full h-2 bg-neutral-900 rounded-full overflow-hidden border border-neutral-800">
                         <div className="h-full bg-emerald-500 rounded-full" style={{ width: '84%' }} />

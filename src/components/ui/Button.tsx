@@ -20,23 +20,20 @@ export function Button({
   ...props
 }: ButtonProps) {
   const baseStyles =
-    'inline-flex items-center justify-center font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none select-none cursor-pointer';
+    'inline-flex items-center justify-center font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none select-none cursor-pointer rounded-xl';
 
   const sizeStyles = {
     sm: 'text-xs px-3.5 py-1.5 gap-1.5 tracking-tight',
     md: 'text-sm px-5 py-2.5 gap-2 tracking-tight',
-    lg: 'text-base px-7 py-3.5 gap-2.5 tracking-tight font-semibold',
+    lg: 'text-base px-7 py-3 gap-2.5 tracking-tight font-semibold',
   }[size];
 
   const variantStyles = {
-    primary:
-      'bg-black text-white hover:bg-neutral-800 active:bg-neutral-900 border border-black',
-    secondary:
-      'bg-neutral-100 text-black hover:bg-neutral-200 active:bg-neutral-300 border border-neutral-200',
-    outline:
-      'bg-white text-black border border-neutral-300 hover:border-black hover:bg-neutral-50 active:bg-neutral-100',
+    primary: 'btn-skeuo-dark',
+    secondary: 'btn-skeuo-light',
+    outline: 'btn-skeuo-light',
     ghost:
-      'bg-transparent text-black hover:bg-neutral-100 active:bg-neutral-200',
+      'bg-transparent text-neutral-800 hover:bg-neutral-100/80 active:translate-y-[1px] transition-all border border-transparent',
   }[variant];
 
   const combinedClasses = `${baseStyles} ${sizeStyles} ${variantStyles} ${className}`;
@@ -67,4 +64,3 @@ export function Button({
     </button>
   );
 }
-

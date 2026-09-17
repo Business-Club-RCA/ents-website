@@ -209,7 +209,7 @@ export function ApplicationForm() {
 
         <div>
           <label className="block text-xs font-mono uppercase tracking-wider text-neutral-600 mb-1.5 font-semibold">
-            RCA / Student Email *
+            RCA Student Email *
           </label>
           <input
             type="email"
@@ -232,7 +232,7 @@ export function ApplicationForm() {
       {/* 3. Class Year / Cohort Selector */}
       <div>
         <label className="block text-xs font-mono uppercase tracking-wider text-neutral-600 mb-2 font-semibold">
-          RCA Intake / Cohort *
+          RCA Intake · Cohort *
         </label>
         <div className="grid grid-cols-3 gap-3">
           {['Year 1 (Intake 7)', 'Year 2 (Intake 6)', 'Year 3 (Intake 5)'].map((year) => (
@@ -240,10 +240,10 @@ export function ApplicationForm() {
               key={year}
               type="button"
               onClick={() => setFormData((prev) => ({ ...prev, classYear: year }))}
-              className={`px-3 py-2.5 text-xs font-mono rounded-xl border text-center transition-all cursor-pointer ${
+              className={`px-3 py-2.5 text-xs font-mono rounded-xl text-center transition-all cursor-pointer ${
                 formData.classYear === year
-                  ? 'bg-neutral-900 text-white border-neutral-900 font-bold shadow-sm'
-                  : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-300'
+                  ? 'btn-skeuo-pill-active'
+                  : 'btn-skeuo-light'
               }`}
             >
               {year}

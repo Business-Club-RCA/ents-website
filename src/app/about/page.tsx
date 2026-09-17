@@ -16,7 +16,7 @@ export default function AboutPage() {
     <div className="flex flex-col">
       {/* Hero Banner with Cinematic Image */}
       <PageHero
-        kicker="01 / About The Society"
+        kicker="01 · About The Society"
         title="Building Software, Not Just Discussing Business."
         description="ENTS was founded at Rwanda Coding Academy on a singular premise: world-class founders and quantitative analysts do not merely theorize — they build, experiment, and execute with technical conviction."
       />
@@ -82,7 +82,7 @@ export default function AboutPage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 border-b border-neutral-200 pb-6">
             <div>
               <div className="text-xs uppercase font-mono tracking-widest text-neutral-500 mb-1">
-                02 / Governance
+                02 · Governance
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900">
                 Executive Committee
@@ -92,7 +92,7 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="text-xs font-mono text-neutral-400">
-              ACADEMIC YEAR 2026/2027
+              ACADEMIC YEAR 2026 - 2027
             </div>
           </div>
 

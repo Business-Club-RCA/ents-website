@@ -33,52 +33,61 @@ export default async function LeaderboardPage() {
       {/* Snapshot Metric Cards */}
       <div className="py-12 bg-white">
         <Container size="wide">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            <div className="border border-neutral-200 bg-white p-5 font-mono">
-              <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Top Performer</div>
-              <div className="text-xl sm:text-2xl font-bold text-black mt-1 font-sans">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="card-hover border border-neutral-200/90 bg-white p-6 rounded-2xl">
+              <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider font-semibold">
+                Top Performer
+              </div>
+              <div className="text-xl sm:text-2xl font-bold text-neutral-900 mt-1.5">
                 {topTrader.name}
               </div>
-              <div className="text-xs text-neutral-500 mt-1">
-                +{topTrader.pnlPercent.toFixed(2)}% net return
+              <div className="text-xs text-emerald-600 font-bold font-number mt-1 flex items-center gap-1">
+                <span>+{topTrader.pnlPercent.toFixed(2)}% net return</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               </div>
             </div>
 
-            <div className="border border-neutral-200 bg-white p-5">
-              <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider">Total Paper Capital</div>
-              <div className="text-xl sm:text-2xl font-bold text-black mt-1 tabular-nums font-number">
+            <div className="card-hover border border-neutral-200/90 bg-white p-6 rounded-2xl">
+              <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider font-semibold">
+                Total Paper Capital
+              </div>
+              <div className="text-xl sm:text-2xl font-bold text-neutral-900 mt-1.5 tabular-nums font-number">
                 ${totalCapital.toLocaleString('en-US', { maximumFractionDigits: 0 })}
               </div>
-              <div className="text-xs text-neutral-500 mt-1">
+              <div className="text-xs text-neutral-500 font-mono mt-1">
                 across {standings.length} tracked accounts
               </div>
             </div>
 
-            <div className="border border-neutral-200 bg-white p-5">
-              <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider">Orders Executed</div>
-              <div className="text-xl sm:text-2xl font-bold text-black mt-1 tabular-nums font-number">
+            <div className="card-hover border border-neutral-200/90 bg-white p-6 rounded-2xl">
+              <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider font-semibold">
+                Orders Executed
+              </div>
+              <div className="text-xl sm:text-2xl font-bold text-neutral-900 mt-1.5 tabular-nums font-number">
                 {totalTrades}
               </div>
-              <div className="text-xs text-neutral-500 mt-1">
+              <div className="text-xs text-neutral-500 font-mono mt-1">
                 logged in SIFS order book
               </div>
             </div>
 
-            <div className="border border-neutral-200 bg-white p-5">
-              <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider">Risk Constraint</div>
-              <div className="text-xl sm:text-2xl font-bold text-black mt-1 tabular-nums font-number">
+            <div className="card-hover border border-neutral-200/90 bg-white p-6 rounded-2xl">
+              <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider font-semibold">
+                Risk Constraint
+              </div>
+              <div className="text-xl sm:text-2xl font-bold text-neutral-900 mt-1.5 tabular-nums font-number">
                 1.00% / Trade
               </div>
-              <div className="text-xs text-neutral-500 mt-1">
-                max stop-loss violation
+              <div className="text-xs text-neutral-500 font-mono mt-1">
+                hard circuit-breaker limit
               </div>
             </div>
           </div>
         </Container>
       </div>
 
-      {/* Main Hairline Table */}
-      <section className="border-t border-b border-neutral-200 bg-neutral-50/30 py-12">
+      {/* Main Interactive Table */}
+      <section className="border-t border-b border-neutral-200 bg-neutral-50/40 py-12">
         <Container size="wide">
           <LeaderboardTable initialData={standings} />
         </Container>
@@ -92,35 +101,32 @@ export default async function LeaderboardPage() {
               <span className="text-xs uppercase font-mono tracking-widest text-neutral-500">
                 Governance
               </span>
-              <h3 className="text-2xl font-bold tracking-tight text-black mt-2">
-                League Rules & Integrity
+              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 mt-2">
+                League Rules &amp; Integrity
               </h3>
               <p className="text-sm text-neutral-600 mt-3 leading-relaxed">
-                ENTS strictly opposes reckless gambling or lottery trading. Our league is evaluated
-                on risk-adjusted consistency, maximum drawdown discipline, and trade journaling.
+                ENTS strictly opposes reckless gambling. Rankings evaluate risk-adjusted consistency, maximum drawdown discipline, and verified journal audits.
               </p>
             </div>
 
             <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="border border-neutral-200 p-6 space-y-3">
-                <div className="flex items-center gap-2 font-mono text-xs font-bold text-black">
+              <div className="card-hover border border-neutral-200/90 rounded-2xl p-6 sm:p-7 space-y-3 bg-neutral-50/50">
+                <div className="flex items-center gap-2 font-mono text-xs font-bold text-neutral-900">
                   <ShieldCheck size={16} />
                   <span>RULE 01 · STRICT 1% RISK CAP</span>
                 </div>
-                <p className="text-sm text-neutral-600 leading-relaxed">
-                  No individual position may risk more than 1% ($100 on standard accounts) of total
-                  account equity. SIFS automatically audits lot sizing before order execution.
+                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
+                  No single trade may risk &gt; 1% ($100 on standard demo accounts) of equity. SIFS automatically audits lot sizing before order execution.
                 </p>
               </div>
 
-              <div className="border border-neutral-200 p-6 space-y-3">
-                <div className="flex items-center gap-2 font-mono text-xs font-bold text-black">
+              <div className="card-hover border border-neutral-200/90 rounded-2xl p-6 sm:p-7 space-y-3 bg-neutral-50/50">
+                <div className="flex items-center gap-2 font-mono text-xs font-bold text-neutral-900">
                   <TrendingUp size={16} />
                   <span>RULE 02 · TRADE JOURNAL REVIEW</span>
                 </div>
-                <p className="text-sm text-neutral-600 leading-relaxed">
-                  To qualify for the semester awards, traders must log entry rationale, stop-loss
-                  placement, and post-trade reflections in their verified Notion trade journal.
+                <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
+                  To qualify for semester honors, traders must document entry thesis, stop placement, and post-execution reflections in their verified journal.
                 </p>
               </div>
             </div>

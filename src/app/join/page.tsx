@@ -17,55 +17,53 @@ export default function JoinPage() {
       <PageHero
         kicker="Membership Intake"
         title="Join the Society"
-        description="We are seeking dedicated builders, aspiring startup operators, and quantitative market analysts from Rwanda Coding Academy. All intakes are welcome to apply."
+        description="We are seeking dedicated student engineers, venture operators, and quantitative market analysts from Rwanda Coding Academy. Cohort admissions reviewed weekly."
       />
 
-      <div className="py-16 bg-white">
+      <div className="py-16 sm:py-20 bg-white">
         <Container size="default">
           <ApplicationForm />
         </Container>
       </div>
 
-      {/* Onboarding FAQ & Timeline */}
+      {/* Onboarding Timeline */}
       <section className="border-t border-neutral-200 bg-neutral-50/50 py-16 sm:py-24">
         <Container size="wide">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-4">
               <span className="text-xs uppercase font-mono tracking-widest text-neutral-500">
-                Timeline & Process
+                Timeline &amp; Process
               </span>
-              <h3 className="text-2xl font-bold tracking-tight text-black mt-2">
+              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 mt-2">
                 What happens after you apply?
               </h3>
               <p className="text-sm text-neutral-600 mt-3 leading-relaxed">
-                We review applications weekly to ensure small, high-touch cohort sizes during our
-                pitch teardowns and market breakdown sessions.
+                We review applications weekly to ensure high-touch mentoring during venture teardowns and trading audits.
               </p>
             </div>
 
             <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
-              <div className="border border-neutral-200 bg-white p-6 space-y-2">
-                <div className="font-mono text-xs text-neutral-400">STEP 01</div>
-                <h4 className="font-bold text-black text-base">Application Review</h4>
+              <div className="card-hover border border-neutral-200/90 rounded-2xl bg-white p-6 space-y-2.5">
+                <div className="font-mono text-xs text-neutral-400 font-semibold">STEP 01</div>
+                <h4 className="font-bold text-neutral-900 text-base">Application Review</h4>
                 <p className="text-xs text-neutral-600 leading-relaxed">
-                  The executive committee reads your motivation and track interest within 48 hours.
+                  The executive committee reviews your motivation and technical background within 48 hours.
                 </p>
               </div>
 
-              <div className="border border-neutral-200 bg-white p-6 space-y-2">
-                <div className="font-mono text-xs text-neutral-400">STEP 02</div>
-                <h4 className="font-bold text-black text-base">Orientation Session</h4>
+              <div className="card-hover border border-neutral-200/90 rounded-2xl bg-white p-6 space-y-2.5">
+                <div className="font-mono text-xs text-neutral-400 font-semibold">STEP 02</div>
+                <h4 className="font-bold text-neutral-900 text-base">Orientation Session</h4>
                 <p className="text-xs text-neutral-600 leading-relaxed">
-                  Attend the Friday intro session to meet track leads and receive your SIFS paper
-                  trading login.
+                  Attend the Friday intro briefing to meet track leads and receive your SIFS paper trading credentials.
                 </p>
               </div>
 
-              <div className="border border-neutral-200 bg-white p-6 space-y-2">
-                <div className="font-mono text-xs text-neutral-400">STEP 03</div>
-                <h4 className="font-bold text-black text-base">Sprint Assignment</h4>
+              <div className="card-hover border border-neutral-200/90 rounded-2xl bg-white p-6 space-y-2.5">
+                <div className="font-mono text-xs text-neutral-400 font-semibold">STEP 03</div>
+                <h4 className="font-bold text-neutral-900 text-base">Sprint Assignment</h4>
                 <p className="text-xs text-neutral-600 leading-relaxed">
-                  Join a venture squad or enter the next weekly league tournament.
+                  Join a venture squad or enter the next weekly league tournament with your $10,000 demo portfolio.
                 </p>
               </div>
             </div>

@@ -438,3 +438,28 @@ h1, h2, h3, h4, h5, h6 {
 .animate-menu-item-slow {
   animation: menuItemSlideSlow 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+/* Card interactive elevation and subtle tactile border */
+.card-hover {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* Subtle glow pulse */
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.88);
+  }
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 2.2s ease-in-out infinite;
+}

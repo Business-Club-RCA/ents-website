@@ -1,20 +1,17 @@
-import React from 'react';
-import type { Metadata } from 'next';
+'use client';
+
+import React, { useState } from 'react';
+import Link from 'next/link';
 import { Container } from '@/components/ui/Container';
-import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
-import { ArrowRight, Check, Briefcase, TrendingUp } from '@/components/ui/Icons';
+import { ArrowRight, Briefcase, TrendingUp } from '@/components/ui/Icons';
 import { tracksData } from '@/data/tracks';
 import { PageHero } from '@/components/layout/PageHero';
 
-export const metadata: Metadata = {
-  title: 'Tracks & Curriculum',
-  description:
-    'Comprehensive overview of the two tracks at ENTS: Business Handlers (Venture Building) and Traders (Quantitative Paper Trading).',
-};
-
 export default function TracksPage() {
+  const [selectedTrack, setSelectedTrack] = useState<'all' | 'business-handlers' | 'traders'>('all');
+
   const businessTrack = tracksData.find((t) => t.id === 'business-handlers')!;
   const tradersTrack = tracksData.find((t) => t.id === 'traders')!;
 
@@ -22,251 +19,206 @@ export default function TracksPage() {
     <div className="flex flex-col">
       {/* Hero Banner with Cinematic Image */}
       <PageHero
-        kicker="Curriculum & Weekly Schedules"
+        kicker="Curriculum & Operating Cadence"
         title="Two Disciplines. One Shared Rigor."
-        description="Whether you are building sustainable business models around software or learning how to trade global macro liquidity, ENTS provides a structured framework that turns theoretical concepts into tangible outcomes."
+        description="Whether engineering commercial business models or executing statistical paper trades, ENTS provides a structured framework for measurable outcomes."
       />
 
-      {/* Track 1: Business Handlers */}
-      <section id="business-handlers" className="border-t border-neutral-200 py-16 sm:py-24 bg-white scroll-mt-24">
+      {/* Track Filter Toggle */}
+      <div className="border-b border-neutral-200 bg-white sticky top-20 z-30 py-3.5 backdrop-blur-md bg-white/95">
         <Container size="wide">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-            <div className="lg:col-span-4 space-y-6">
-              <div className="flex items-center gap-3">
-                <div className="p-2.5 bg-black text-white">
-                  <Briefcase size={22} />
-                </div>
-                <Badge variant="dark">{businessTrack.shortTag}</Badge>
-              </div>
-
-              <h2 className="font-black text-3xl sm:text-4xl tracking-tighter text-black">
-                {businessTrack.title}
-              </h2>
-
-              <p className="text-base text-neutral-600 leading-relaxed">
-                {businessTrack.longDescription}
-              </p>
-
-              <div className="border-t border-neutral-200 pt-6 space-y-3">
-                <h4 className="text-xs uppercase font-mono tracking-wider text-neutral-500">
-                  Target Audience
-                </h4>
-                <p className="text-sm text-neutral-700">{businessTrack.targetAudience}</p>
-              </div>
-
-              <div className="border-t border-neutral-200 pt-6 space-y-3">
-                <h4 className="text-xs uppercase font-mono tracking-wider text-neutral-500">
-                  Tools & Stack
-                </h4>
-                <div className="flex flex-wrap gap-1.5">
-                  {businessTrack.toolsUsed.map((tool) => (
-                    <span
-                      key={tool}
-                      className="text-xs font-mono bg-neutral-100 border border-neutral-200 px-2.5 py-1 text-black"
-                    >
-                      {tool}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="pt-4">
-                <Button href="/join?track=business-handlers" variant="primary" size="md" className="w-full">
-                  Apply for Business Handlers
-                </Button>
-              </div>
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-1.5 p-1 bg-neutral-100 rounded-xl border border-neutral-200 text-xs font-mono">
+              <button
+                onClick={() => setSelectedTrack('all')}
+                className={`px-3.5 py-1.5 rounded-lg cursor-pointer transition-all ${
+                  selectedTrack === 'all'
+                    ? 'bg-neutral-900 text-white font-bold shadow-sm'
+                    : 'text-neutral-600 hover:text-black'
+                }`}
+              >
+                All Tracks
+              </button>
+              <button
+                onClick={() => setSelectedTrack('business-handlers')}
+                className={`px-3.5 py-1.5 rounded-lg cursor-pointer transition-all ${
+                  selectedTrack === 'business-handlers'
+                    ? 'bg-neutral-900 text-white font-bold shadow-sm'
+                    : 'text-neutral-600 hover:text-black'
+                }`}
+              >
+                Business Handlers
+              </button>
+              <button
+                onClick={() => setSelectedTrack('traders')}
+                className={`px-3.5 py-1.5 rounded-lg cursor-pointer transition-all ${
+                  selectedTrack === 'traders'
+                    ? 'bg-neutral-900 text-white font-bold shadow-sm'
+                    : 'text-neutral-600 hover:text-black'
+                }`}
+              >
+                Traders
+              </button>
             </div>
 
-            <div className="lg:col-span-8 space-y-12">
-              <div>
-                <h3 className="text-xs font-mono uppercase tracking-widest text-neutral-400 mb-4">
-                  Weekly Operating Cadence
+            <Link
+              href="/join"
+              className="text-xs font-mono font-bold text-neutral-900 hover:underline underline-offset-4 hidden sm:inline-flex items-center gap-1"
+            >
+              <span>Apply for Cohort 2026</span>
+              <ArrowRight size={14} />
+            </Link>
+          </div>
+        </Container>
+      </div>
+
+      {/* Track 1: Business Handlers */}
+      {(selectedTrack === 'all' || selectedTrack === 'business-handlers') && (
+        <section id="business-handlers" className="border-b border-neutral-200 py-16 sm:py-24 bg-white scroll-mt-24">
+          <Container size="wide">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+              <div className="lg:col-span-4 space-y-6">
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 bg-neutral-900 text-white rounded-xl shadow-sm">
+                    <Briefcase size={22} />
+                  </div>
+                  <Badge variant="dark">{businessTrack.shortTag}</Badge>
+                </div>
+
+                <h2 className="font-bold text-3xl sm:text-4xl tracking-tight text-neutral-900">
+                  {businessTrack.title}
+                </h2>
+
+                <p className="text-base text-neutral-600 leading-relaxed">
+                  Focuses on commercial incubation. We turn software code into viable products with clear unit economics, user retention, and monetization structures.
+                </p>
+
+                <div className="border-t border-neutral-100 pt-5 space-y-2.5">
+                  <h4 className="text-xs uppercase font-mono tracking-wider text-neutral-500 font-semibold">
+                    Tools &amp; Stack
+                  </h4>
+                  <div className="flex flex-wrap gap-1.5">
+                    {businessTrack.toolsUsed.map((tool) => (
+                      <span
+                        key={tool}
+                        className="text-xs font-mono bg-neutral-100 border border-neutral-200/80 px-2.5 py-1 rounded-md text-neutral-800"
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <Button href="/join?track=business-handlers" variant="primary" size="md" className="w-full rounded-xl">
+                    Apply for Business Handlers
+                  </Button>
+                </div>
+              </div>
+
+              <div className="lg:col-span-8 space-y-6">
+                <h3 className="text-xs font-mono uppercase tracking-widest text-neutral-500 font-semibold">
+                  Weekly Operating Stages
                 </h3>
-                <div className="divide-y divide-neutral-200 border border-neutral-200 bg-white">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {businessTrack.weeklyCadence.map((cadence, idx) => (
-                    <div key={cadence.phase} className="p-6 sm:p-7 hover:bg-neutral-50/50 transition-colors">
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="font-mono text-xs text-neutral-400">
+                    <div
+                      key={cadence.phase}
+                      className="card-hover p-6 rounded-2xl border border-neutral-200/90 bg-neutral-50/50 flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="text-[10px] font-mono text-neutral-400 uppercase font-semibold mb-2">
                           STAGE 0{idx + 1}
-                        </span>
-                        <h4 className="font-bold text-base sm:text-lg text-black">
+                        </div>
+                        <h4 className="font-bold text-neutral-900 text-lg mb-2">
                           {cadence.phase}
                         </h4>
+                        <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
+                          {cadence.description}
+                        </p>
                       </div>
-                      <p className="text-sm text-neutral-600 leading-relaxed pl-8">
-                        {cadence.description}
-                      </p>
                     </div>
                   ))}
                 </div>
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-4">
-                <Card className="space-y-4">
-                  <h4 className="text-sm font-mono uppercase tracking-wider text-black font-bold">
-                    Skills Developed
-                  </h4>
-                  <ul className="space-y-2.5 text-sm text-neutral-600">
-                    {businessTrack.skillsGained.map((skill) => (
-                      <li key={skill} className="flex items-start gap-2.5">
-                        <span className="text-black mt-0.5"><Check size={16} /></span>
-                        <span>{skill}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-
-                <Card className="space-y-4">
-                  <h4 className="text-sm font-mono uppercase tracking-wider text-black font-bold">
-                    Key Deliverables
-                  </h4>
-                  <ul className="space-y-2.5 text-sm text-neutral-600">
-                    {businessTrack.keyDeliverables.map((item) => (
-                      <li key={item} className="flex items-start gap-2.5">
-                        <span className="text-black mt-0.5"><Check size={16} /></span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-              </div>
             </div>
-          </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
+      )}
 
       {/* Track 2: Traders */}
-      <section id="traders" className="border-t border-neutral-200 py-16 sm:py-24 bg-neutral-50/40 scroll-mt-24">
-        <Container size="wide">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-            <div className="lg:col-span-4 space-y-6">
-              <div className="flex items-center gap-3">
-                <div className="p-2.5 bg-black text-white">
-                  <TrendingUp size={22} />
+      {(selectedTrack === 'all' || selectedTrack === 'traders') && (
+        <section id="traders" className="border-b border-neutral-200 py-16 sm:py-24 bg-neutral-50/30 scroll-mt-24">
+          <Container size="wide">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+              <div className="lg:col-span-4 space-y-6">
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 bg-neutral-900 text-white rounded-xl shadow-sm">
+                    <TrendingUp size={22} />
+                  </div>
+                  <Badge variant="dark">{tradersTrack.shortTag}</Badge>
                 </div>
-                <Badge variant="dark">{tradersTrack.shortTag}</Badge>
-              </div>
 
-              <h2 className="font-black text-3xl sm:text-4xl tracking-tighter text-black">
-                {tradersTrack.title}
-              </h2>
+                <h2 className="font-bold text-3xl sm:text-4xl tracking-tight text-neutral-900">
+                  {tradersTrack.title}
+                </h2>
 
-              <p className="text-base text-neutral-600 leading-relaxed">
-                {tradersTrack.longDescription}
-              </p>
+                <p className="text-base text-neutral-600 leading-relaxed">
+                  Focuses on quantitative market discipline. We simulate real FX, commodities, and index liquidity with mathematical risk boundaries and execution tracking.
+                </p>
 
-              <div className="border-t border-neutral-200 pt-6 space-y-3">
-                <h4 className="text-xs uppercase font-mono tracking-wider text-neutral-500">
-                  Target Audience
-                </h4>
-                <p className="text-sm text-neutral-700">{tradersTrack.targetAudience}</p>
-              </div>
+                <div className="border-t border-neutral-100 pt-5 space-y-2.5">
+                  <h4 className="text-xs uppercase font-mono tracking-wider text-neutral-500 font-semibold">
+                    Tools &amp; Stack
+                  </h4>
+                  <div className="flex flex-wrap gap-1.5">
+                    {tradersTrack.toolsUsed.map((tool) => (
+                      <span
+                        key={tool}
+                        className="text-xs font-mono bg-neutral-100 border border-neutral-200/80 px-2.5 py-1 rounded-md text-neutral-800"
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-              <div className="border-t border-neutral-200 pt-6 space-y-3">
-                <h4 className="text-xs uppercase font-mono tracking-wider text-neutral-500">
-                  Tools & Stack
-                </h4>
-                <div className="flex flex-wrap gap-1.5">
-                  {tradersTrack.toolsUsed.map((tool) => (
-                    <span
-                      key={tool}
-                      className="text-xs font-mono bg-white border border-neutral-200 px-2.5 py-1 text-black"
-                    >
-                      {tool}
-                    </span>
-                  ))}
+                <div className="pt-2">
+                  <Button href="/join?track=traders" variant="primary" size="md" className="w-full rounded-xl">
+                    Apply for Quantitative Traders
+                  </Button>
                 </div>
               </div>
 
-              <div className="pt-4">
-                <Button href="/join?track=traders" variant="primary" size="md" className="w-full">
-                  Apply for Traders Track
-                </Button>
-              </div>
-            </div>
-
-            <div className="lg:col-span-8 space-y-12">
-              <div>
-                <h3 className="text-xs font-mono uppercase tracking-widest text-neutral-400 mb-4">
-                  Weekly Operating Cadence
+              <div className="lg:col-span-8 space-y-6">
+                <h3 className="text-xs font-mono uppercase tracking-widest text-neutral-500 font-semibold">
+                  Weekly Operating Stages
                 </h3>
-                <div className="divide-y divide-neutral-200 border border-neutral-200 bg-white">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {tradersTrack.weeklyCadence.map((cadence, idx) => (
-                    <div key={cadence.phase} className="p-6 sm:p-7 hover:bg-neutral-50/50 transition-colors">
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="font-mono text-xs text-neutral-400">
+                    <div
+                      key={cadence.phase}
+                      className="card-hover p-6 rounded-2xl border border-neutral-200/90 bg-white flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="text-[10px] font-mono text-neutral-400 uppercase font-semibold mb-2">
                           STAGE 0{idx + 1}
-                        </span>
-                        <h4 className="font-bold text-base sm:text-lg text-black">
+                        </div>
+                        <h4 className="font-bold text-neutral-900 text-lg mb-2">
                           {cadence.phase}
                         </h4>
+                        <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
+                          {cadence.description}
+                        </p>
                       </div>
-                      <p className="text-sm text-neutral-600 leading-relaxed pl-8">
-                        {cadence.description}
-                      </p>
                     </div>
                   ))}
                 </div>
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-4">
-                <Card className="space-y-4">
-                  <h4 className="text-sm font-mono uppercase tracking-wider text-black font-bold">
-                    Skills Developed
-                  </h4>
-                  <ul className="space-y-2.5 text-sm text-neutral-600">
-                    {tradersTrack.skillsGained.map((skill) => (
-                      <li key={skill} className="flex items-start gap-2.5">
-                        <span className="text-black mt-0.5"><Check size={16} /></span>
-                        <span>{skill}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-
-                <Card className="space-y-4">
-                  <h4 className="text-sm font-mono uppercase tracking-wider text-black font-bold">
-                    Key Deliverables
-                  </h4>
-                  <ul className="space-y-2.5 text-sm text-neutral-600">
-                    {tradersTrack.keyDeliverables.map((item) => (
-                      <li key={item} className="flex items-start gap-2.5">
-                        <span className="text-black mt-0.5"><Check size={16} /></span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </Card>
-              </div>
             </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* Cross-track Collaboration Band */}
-      <section className="border-t border-neutral-200 py-16 bg-white">
-        <Container size="wide">
-          <div className="max-w-3xl space-y-4">
-            <span className="text-xs uppercase font-mono tracking-widest text-neutral-500">
-              Synergy
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-black">
-              Can members participate in both tracks?
-            </h3>
-            <p className="text-base text-neutral-600 leading-relaxed">
-              Yes. Many of our strongest student founders apply quantitative risk models from the
-              traders track to their software pricing models, while traders leverage full-stack web
-              development skills to automate paper trading order routing.
-            </p>
-            <div className="pt-2">
-              <Button href="/join" variant="outline" size="md">
-                <span>Start Application</span>
-                <ArrowRight size={16} />
-              </Button>
-            </div>
-          </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
+      )}
     </div>
   );
 }

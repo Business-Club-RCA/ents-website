@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/Button';
-import { Check } from '@/components/ui/Icons';
+import { Briefcase, TrendingUp, Check } from '@/components/ui/Icons';
 import { JoinApplication } from '@/types';
 
 export function ApplicationForm() {
@@ -25,19 +25,19 @@ export function ApplicationForm() {
     if (!formData.fullName.trim()) {
       errs.fullName = 'Full name is required.';
     } else if (formData.fullName.trim().length < 2) {
-      errs.fullName = 'Please enter your real full name.';
+      errs.fullName = 'Please enter your full name.';
     }
 
     if (!formData.email.trim()) {
       errs.email = 'Email address is required.';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    } else if (!/^[^s@]+@[^s@]+.[^s@]+$/.test(formData.email)) {
       errs.email = 'Please provide a valid email address.';
     }
 
     if (!formData.reason.trim()) {
-      errs.reason = 'Please share why you want to join ENTS.';
-    } else if (formData.reason.trim().length < 30) {
-      errs.reason = 'Please write at least a couple sentences (min. 30 characters).';
+      errs.reason = 'Please share your motivation for joining.';
+    } else if (formData.reason.trim().length < 20) {
+      errs.reason = 'Please write at least 20 characters.';
     }
 
     setErrors(errs);
@@ -49,20 +49,7 @@ export function ApplicationForm() {
     if (!validate()) return;
 
     setIsSubmitting(true);
-
-    // Simulate async network submission + console logging
     setTimeout(() => {
-      console.log('----------------------------------------------------');
-      console.log('📋 [ENTS Application Submitted]');
-      console.log('Applicant Name:', formData.fullName);
-      console.log('Email:', formData.email);
-      console.log('Cohort/Year:', formData.classYear);
-      console.log('Preferred Track:', formData.preferredTrack);
-      console.log('Reason for Joining:', formData.reason);
-      console.log('Skills/Background:', formData.experienceOrSkills || 'N/A');
-      console.log('Submitted At:', new Date().toISOString());
-      console.log('----------------------------------------------------');
-
       setIsSubmitting(false);
       setIsSubmitted(true);
     }, 600);
@@ -80,40 +67,25 @@ export function ApplicationForm() {
 
   if (isSubmitted) {
     return (
-      <div className="border border-neutral-300 bg-white p-8 sm:p-12 text-center max-w-2xl mx-auto space-y-6 animate-in fade-in duration-300">
-        <div className="w-14 h-14 bg-black text-white flex items-center justify-center mx-auto">
+      <div className="card-hover max-w-xl mx-auto p-8 sm:p-10 rounded-2xl border border-neutral-200 bg-white text-center space-y-6 shadow-sm">
+        <div className="w-14 h-14 bg-neutral-900 text-white rounded-2xl mx-auto flex items-center justify-center shadow-sm">
           <Check size={28} />
         </div>
-
-        <div className="space-y-2">
-          <h3 className="font-bold text-2xl sm:text-3xl tracking-tighter text-black">
-            Application Received
+        <div>
+          <h3 className="text-2xl font-bold text-neutral-900">
+            Application Confirmed
           </h3>
-          <p className="text-neutral-600 text-sm sm:text-base leading-relaxed">
-            Thank you, <span className="font-semibold text-black">{formData.fullName}</span>. Your
-            candidacy for the{' '}
-            <span className="font-semibold text-black capitalize">
-              {formData.preferredTrack.replace('-', ' ')}
-            </span>{' '}
-            track has been logged.
+          <p className="mt-2 text-sm text-neutral-600 leading-relaxed max-w-md mx-auto">
+            Thank you, <strong className="text-neutral-900">{formData.fullName}</strong>. Your intake submission for the{' '}
+            <strong className="text-neutral-900">
+              {formData.preferredTrack === 'business-handlers' ? 'Business Handlers' : 'Traders'}
+            </strong>{' '}
+            cohort is received. SIFS credentials and orientation details will be sent to{' '}
+            <span className="font-mono text-xs text-neutral-800">{formData.email}</span>.
           </p>
         </div>
-
-        <div className="border-t border-b border-neutral-200 py-4 text-xs font-mono text-neutral-500 text-left space-y-1 bg-neutral-50 p-4">
-          <div>COHORT: {formData.classYear}</div>
-          <div>REGISTERED EMAIL: {formData.email}</div>
-          <div>STATUS: QUEUED FOR INTERVIEW SPRINT</div>
-        </div>
-
-        <p className="text-xs text-neutral-500">
-          The leadership team will review applications ahead of the Friday pitch session. Check your
-          inbox or reach out via <span className="font-mono text-black">ents@rca.ac.rw</span>.
-        </p>
-
         <div className="pt-2">
           <Button
-            variant="outline"
-            size="md"
             onClick={() => {
               setIsSubmitted(false);
               setFormData({
@@ -125,6 +97,9 @@ export function ApplicationForm() {
                 experienceOrSkills: '',
               });
             }}
+            variant="outline"
+            size="sm"
+            className="rounded-xl"
           >
             Submit Another Application
           </Button>
@@ -134,166 +109,197 @@ export function ApplicationForm() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      noValidate
-      className="border border-neutral-200 bg-white p-6 sm:p-10 max-w-2xl mx-auto space-y-6"
-    >
-      <div className="border-b border-neutral-200 pb-4">
-        <h3 className="font-bold text-xl sm:text-2xl tracking-tighter text-black">
-          Club Membership Application
-        </h3>
-        <p className="text-xs sm:text-sm text-neutral-500 mt-1">
-          Open to all current Rwanda Coding Academy students across all cohorts.
-        </p>
-      </div>
-
-      {/* Full Name */}
-      <div className="space-y-1.5">
-        <label htmlFor="fullName" className="block text-xs font-mono uppercase tracking-wider text-black">
-          Full Name <span className="text-neutral-400">*</span>
+    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-8">
+      {/* 1. Track Selection Cards */}
+      <div>
+        <label className="block text-xs font-mono uppercase tracking-wider text-neutral-600 mb-3 font-semibold">
+          Select Preferred Specialization Track *
         </label>
-        <input
-          type="text"
-          id="fullName"
-          name="fullName"
-          value={formData.fullName}
-          onChange={handleChange}
-          placeholder="e.g. Cedric Mugisha"
-          className={`w-full px-3.5 py-2.5 text-sm border bg-white focus:outline-none focus:ring-1 focus:ring-black transition-colors ${
-            errors.fullName ? 'border-black bg-neutral-50' : 'border-neutral-300 focus:border-black'
-          }`}
-          aria-invalid={Boolean(errors.fullName)}
-          aria-describedby={errors.fullName ? 'fullName-error' : undefined}
-        />
-        {errors.fullName && (
-          <p id="fullName-error" className="text-xs font-mono text-black mt-1">
-            ⚠ {errors.fullName}
-          </p>
-        )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Card 1: Business Handlers */}
+          <div
+            onClick={() => setFormData((prev) => ({ ...prev, preferredTrack: 'business-handlers' }))}
+            className={`card-hover p-5 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between ${
+              formData.preferredTrack === 'business-handlers'
+                ? 'border-neutral-900 bg-neutral-50 shadow-sm'
+                : 'border-neutral-200 bg-white hover:border-neutral-300'
+            }`}
+          >
+            <div className="flex items-center justify-between mb-3">
+              <div className="p-2 rounded-lg bg-neutral-900 text-white">
+                <Briefcase size={18} />
+              </div>
+              <div
+                className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                  formData.preferredTrack === 'business-handlers'
+                    ? 'border-neutral-900 bg-neutral-900'
+                    : 'border-neutral-300'
+                }`}
+              >
+                {formData.preferredTrack === 'business-handlers' && (
+                  <div className="w-1.5 h-1.5 bg-white rounded-full" />
+                )}
+              </div>
+            </div>
+            <div>
+              <h4 className="font-bold text-neutral-900 text-base">Business Handlers</h4>
+              <p className="text-xs text-neutral-500 mt-1 leading-relaxed">
+                Ventures, unit economics, campus micro-enterprises, and pitch decks.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 2: Traders */}
+          <div
+            onClick={() => setFormData((prev) => ({ ...prev, preferredTrack: 'traders' }))}
+            className={`card-hover p-5 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between ${
+              formData.preferredTrack === 'traders'
+                ? 'border-neutral-900 bg-neutral-50 shadow-sm'
+                : 'border-neutral-200 bg-white hover:border-neutral-300'
+            }`}
+          >
+            <div className="flex items-center justify-between mb-3">
+              <div className="p-2 rounded-lg bg-neutral-900 text-white">
+                <TrendingUp size={18} />
+              </div>
+              <div
+                className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                  formData.preferredTrack === 'traders'
+                    ? 'border-neutral-900 bg-neutral-900'
+                    : 'border-neutral-300'
+                }`}
+              >
+                {formData.preferredTrack === 'traders' && (
+                  <div className="w-1.5 h-1.5 bg-white rounded-full" />
+                )}
+              </div>
+            </div>
+            <div>
+              <h4 className="font-bold text-neutral-900 text-base">Quantitative Traders</h4>
+              <p className="text-xs text-neutral-500 mt-1 leading-relaxed">
+                SIFS paper trading league, statistical edges, and 1% risk discipline.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Email */}
-      <div className="space-y-1.5">
-        <label htmlFor="email" className="block text-xs font-mono uppercase tracking-wider text-black">
-          School Email or Personal Email <span className="text-neutral-400">*</span>
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="e.g. c.mugisha@rca.ac.rw"
-          className={`w-full px-3.5 py-2.5 text-sm border bg-white focus:outline-none focus:ring-1 focus:ring-black transition-colors ${
-            errors.email ? 'border-black bg-neutral-50' : 'border-neutral-300 focus:border-black'
-          }`}
-          aria-invalid={Boolean(errors.email)}
-          aria-describedby={errors.email ? 'email-error' : undefined}
-        />
-        {errors.email && (
-          <p id="email-error" className="text-xs font-mono text-black mt-1">
-            ⚠ {errors.email}
-          </p>
-        )}
-      </div>
-
-      {/* Class / Year at RCA */}
+      {/* 2. Personal Information */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="space-y-1.5">
-          <label htmlFor="classYear" className="block text-xs font-mono uppercase tracking-wider text-black">
-            RCA Intake / Class <span className="text-neutral-400">*</span>
+        <div>
+          <label className="block text-xs font-mono uppercase tracking-wider text-neutral-600 mb-1.5 font-semibold">
+            Full Name *
           </label>
-          <select
-            id="classYear"
-            name="classYear"
-            value={formData.classYear}
+          <input
+            type="text"
+            name="fullName"
+            placeholder="e.g. Jean-Luc Habimana"
+            value={formData.fullName}
             onChange={handleChange}
-            className="w-full px-3.5 py-2.5 text-sm border border-neutral-300 bg-white text-black focus:outline-none focus:border-black focus:ring-1 focus:ring-black cursor-pointer"
-          >
-            <option value="Year 1 (Intake 7)">Year 1 (Intake 7)</option>
-            <option value="Year 2 (Intake 6)">Year 2 (Intake 6)</option>
-            <option value="Year 3 (Intake 5)">Year 3 (Intake 5)</option>
-            <option value="Alumni / Faculty">Alumni / Faculty Mentor</option>
-          </select>
+            className={`w-full px-4 py-2.5 text-sm rounded-xl border bg-white focus:outline-none transition-all ${
+              errors.fullName
+                ? 'border-rose-400 focus:border-rose-500'
+                : 'border-neutral-200 focus:border-neutral-900'
+            }`}
+          />
+          {errors.fullName && (
+            <p className="text-xs text-rose-500 mt-1">{errors.fullName}</p>
+          )}
         </div>
 
-        {/* Preferred Track */}
-        <div className="space-y-1.5">
-          <label htmlFor="preferredTrack" className="block text-xs font-mono uppercase tracking-wider text-black">
-            Preferred Track <span className="text-neutral-400">*</span>
+        <div>
+          <label className="block text-xs font-mono uppercase tracking-wider text-neutral-600 mb-1.5 font-semibold">
+            RCA / Student Email *
           </label>
-          <select
-            id="preferredTrack"
-            name="preferredTrack"
-            value={formData.preferredTrack}
+          <input
+            type="email"
+            name="email"
+            placeholder="name@student.rca.ac.rw"
+            value={formData.email}
             onChange={handleChange}
-            className="w-full px-3.5 py-2.5 text-sm border border-neutral-300 bg-white text-black focus:outline-none focus:border-black focus:ring-1 focus:ring-black cursor-pointer"
-          >
-            <option value="business-handlers">Business Handlers (Ventures &amp; Operations)</option>
-            <option value="traders">Traders (Forex, Markets &amp; League)</option>
-            <option value="undecided">Dual / Undecided (Attend Both Orientations)</option>
-          </select>
+            className={`w-full px-4 py-2.5 text-sm rounded-xl border bg-white focus:outline-none transition-all ${
+              errors.email
+                ? 'border-rose-400 focus:border-rose-500'
+                : 'border-neutral-200 focus:border-neutral-900'
+            }`}
+          />
+          {errors.email && (
+            <p className="text-xs text-rose-500 mt-1">{errors.email}</p>
+          )}
         </div>
       </div>
 
-      {/* Why do you want to join? */}
-      <div className="space-y-1.5">
-        <label htmlFor="reason" className="block text-xs font-mono uppercase tracking-wider text-black">
-          Why do you want to join ENTS? <span className="text-neutral-400">*</span>
+      {/* 3. Class Year / Cohort Selector */}
+      <div>
+        <label className="block text-xs font-mono uppercase tracking-wider text-neutral-600 mb-2 font-semibold">
+          RCA Intake / Cohort *
         </label>
-        <textarea
-          id="reason"
-          name="reason"
-          rows={4}
-          value={formData.reason}
-          onChange={handleChange}
-          placeholder="Tell us what excites you about business, quantitative markets, or building ventures at RCA..."
-          className={`w-full px-3.5 py-2.5 text-sm border bg-white focus:outline-none focus:ring-1 focus:ring-black transition-colors ${
-            errors.reason ? 'border-black bg-neutral-50' : 'border-neutral-300 focus:border-black'
-          }`}
-          aria-invalid={Boolean(errors.reason)}
-          aria-describedby={errors.reason ? 'reason-error' : undefined}
-        />
-        {errors.reason && (
-          <p id="reason-error" className="text-xs font-mono text-black mt-1">
-            ⚠ {errors.reason}
-          </p>
-        )}
+        <div className="grid grid-cols-3 gap-3">
+          {['Year 1 (Intake 7)', 'Year 2 (Intake 6)', 'Year 3 (Intake 5)'].map((year) => (
+            <button
+              key={year}
+              type="button"
+              onClick={() => setFormData((prev) => ({ ...prev, classYear: year }))}
+              className={`px-3 py-2.5 text-xs font-mono rounded-xl border text-center transition-all cursor-pointer ${
+                formData.classYear === year
+                  ? 'bg-neutral-900 text-white border-neutral-900 font-bold shadow-sm'
+                  : 'bg-white text-neutral-700 border-neutral-200 hover:border-neutral-300'
+              }`}
+            >
+              {year}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Prior Experience or Code/Math Skills */}
-      <div className="space-y-1.5">
-        <label htmlFor="experienceOrSkills" className="block text-xs font-mono uppercase tracking-wider text-black">
-          Prior Projects, Code Stack, or Interests <span className="text-neutral-400">(Optional)</span>
-        </label>
-        <textarea
-          id="experienceOrSkills"
-          name="experienceOrSkills"
-          rows={2}
-          value={formData.experienceOrSkills}
-          onChange={handleChange}
-          placeholder="e.g. Next.js, Python Pandas, pitched an idea at school hackathon, followed forex charts..."
-          className="w-full px-3.5 py-2.5 text-sm border border-neutral-300 bg-white text-black focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-colors"
-        />
+      {/* 4. Motivation & Skills */}
+      <div className="space-y-4">
+        <div>
+          <label className="block text-xs font-mono uppercase tracking-wider text-neutral-600 mb-1.5 font-semibold">
+            Why do you want to join ENTS? *
+          </label>
+          <textarea
+            name="reason"
+            rows={3}
+            placeholder="What project or trading strategy are you most excited to build?"
+            value={formData.reason}
+            onChange={handleChange}
+            className={`w-full px-4 py-2.5 text-sm rounded-xl border bg-white focus:outline-none transition-all ${
+              errors.reason
+                ? 'border-rose-400 focus:border-rose-500'
+                : 'border-neutral-200 focus:border-neutral-900'
+            }`}
+          />
+          {errors.reason && (
+            <p className="text-xs text-rose-500 mt-1">{errors.reason}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-xs font-mono uppercase tracking-wider text-neutral-600 mb-1.5 font-semibold">
+            Technical Background or Software Skills (Optional)
+          </label>
+          <input
+            type="text"
+            name="experienceOrSkills"
+            placeholder="e.g. Next.js, Python, financial modeling, Pine Script"
+            value={formData.experienceOrSkills}
+            onChange={handleChange}
+            className="w-full px-4 py-2.5 text-sm rounded-xl border border-neutral-200 bg-white focus:outline-none focus:border-neutral-900 transition-all"
+          />
+        </div>
       </div>
 
-      {/* Submission CTA */}
-      <div className="pt-2">
-        <Button
-          type="submit"
-          variant="primary"
-          size="lg"
-          className="w-full"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? 'Submitting Application...' : 'Submit Application to ENTS'}
-        </Button>
-        <p className="text-[11px] font-mono text-neutral-400 text-center mt-3">
-          No dues required. Review takes 48 hours. Validated on client and logged to session console.
-        </p>
-      </div>
+      {/* Submit Button */}
+      <Button
+        type="submit"
+        variant="primary"
+        size="lg"
+        disabled={isSubmitting}
+        className="w-full rounded-xl cursor-pointer"
+      >
+        {isSubmitting ? 'Submitting Application...' : 'Submit Application to ENTS'}
+      </Button>
     </form>
   );
 }
-

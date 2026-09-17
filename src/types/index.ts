@@ -63,6 +63,8 @@ export interface ClubMember {
   role: string;
   track?: 'Business Handlers' | 'Traders' | 'Engineering' | 'Executive' | 'Advisory' | string;
   classYear?: string;
+  bio?: string;
+  specialization?: string;
   avatarUrl?: string;
   initials: string;
   socials?: {
@@ -127,6 +129,34 @@ export interface FeedItem {
   eventLocation?: string;
   rsvpLink?: string;
   speakers?: string[];
+  attendees?: {
+    id: string;
+    fullName: string;
+    email: string;
+    classYear: string;
+    registeredAt: string;
+  }[];
+}
+
+export interface Testimonial {
+  id: string;
+  quote: string;
+  author: string;
+  role: string;
+  avatarUrl: string;
+  badgeBg: string;
+}
+
+export interface CohortApplication {
+  id: string;
+  fullName: string;
+  email: string;
+  classYear: string;
+  preferredTrack: string;
+  reason: string;
+  experienceOrSkills?: string;
+  submittedAt: string;
+  status: 'pending' | 'reviewed' | 'accepted' | 'rejected';
 }
 
 

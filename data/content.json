@@ -1,0 +1,1014 @@
+{
+  "siteConfig": {
+    "url": "https://ents.rca.ac.rw",
+    "name": "ENTS",
+    "socials": {
+      "x": "https://x.com/ents_rca",
+      "github": "https://github.com/ents-rca",
+      "linkedin": "https://linkedin.com/company/ents-rca",
+      "instagram": "https://instagram.com/ents_rca"
+    },
+    "tagline": "Where Code Meets Capital: Building ventures and mastering markets at Rwanda Coding Academy.",
+    "fullName": "Entrepreneurs & Traders Society",
+    "navItems": [
+      {
+        "href": "/about",
+        "label": "About"
+      },
+      {
+        "href": "/tracks",
+        "label": "Tracks"
+      },
+      {
+        "href": "/projects",
+        "label": "Projects"
+      },
+      {
+        "href": "/leaderboard",
+        "label": "Leaderboard"
+      },
+      {
+        "href": "/updates",
+        "label": "Updates"
+      }
+    ],
+    "institution": {
+      "url": "https://rca.ac.rw",
+      "name": "Rwanda Coding Academy",
+      "location": "Nyabihu, Western Province, Rwanda",
+      "shortName": "RCA"
+    },
+    "contactEmail": "ents@rca.ac.rw",
+    "shortDescription": "The student business & trading society at Rwanda Coding Academy."
+  },
+  "stats": [
+    {
+      "label": "Active Members",
+      "value": "48+",
+      "detail": "Across Years 1, 2, and 3 at RCA"
+    },
+    {
+      "label": "Ventures Pitched",
+      "value": "08",
+      "detail": "Validated business models & MVPs"
+    },
+    {
+      "label": "Trades Logged",
+      "value": "1,420+",
+      "detail": "Real-time paper trading journal entries"
+    },
+    {
+      "label": "Simulated AUM",
+      "value": "$250K",
+      "detail": "Active portfolio capital tracked in SIFS"
+    }
+  ],
+  "projects": [
+    {
+      "id": "sifs-simulator",
+      "tags": [
+        "Next.js",
+        "WebSockets",
+        "Financial APIs",
+        "PostgreSQL",
+        "Risk Engine"
+      ],
+      "links": {
+        "demo": "/leaderboard",
+        "github": "https://github.com/ents-rca/sifs-engine"
+      },
+      "title": "Student Investment Fund Simulator (SIFS)",
+      "status": "Live",
+      "metrics": [
+        {
+          "label": "Simulated AUM",
+          "value": "$250,000"
+        },
+        {
+          "label": "Active Portfolios",
+          "value": "48"
+        },
+        {
+          "label": "Paper Orders Processed",
+          "value": "1,420+"
+        },
+        {
+          "label": "Latency",
+          "value": "< 120ms"
+        }
+      ],
+      "tagline": "Our flagship web-based paper trading platform engineered specifically for Rwandan student traders.",
+      "category": "Fintech",
+      "featured": true,
+      "imageUrl": "/projects/sifs-dashboard.jpg",
+      "description": "A real-time portfolio management and simulated execution engine. SIFS pulls tick data from global markets, enforces strict 1% maximum risk-per-trade guardrails, and feeds real-time performance analytics straight into the ENTS club leaderboard."
+    },
+    {
+      "id": "rca-mart",
+      "tags": [
+        "Next.js",
+        "Tailwind CSS",
+        "Mobile First",
+        "Inventory Sync"
+      ],
+      "title": "RCA Campus Commerce Grid",
+      "status": "Live",
+      "metrics": [
+        {
+          "label": "Monthly Transactions",
+          "value": "380+"
+        },
+        {
+          "label": "Fulfillment Time",
+          "value": "15 mins"
+        },
+        {
+          "label": "Student Repeat Rate",
+          "value": "82%"
+        }
+      ],
+      "tagline": "Internal student marketplace streamlining snack, laundry, and equipment logistics on campus.",
+      "category": "Venture",
+      "imageUrl": "/projects/rca-mart.jpg",
+      "description": "A cashless micro-store web app built by the Business Handlers track. Solves on-campus procurement bottlenecks by enabling peer-to-peer pre-orders and inventory tracking within dorm clusters."
+    },
+    {
+      "id": "algo-bot-backtester",
+      "tags": [
+        "Python",
+        "FastAPI",
+        "Pandas",
+        "TimescaleDB",
+        "Backtrader"
+      ],
+      "title": "AlphaStream Backtester",
+      "status": "In Development",
+      "metrics": [
+        {
+          "label": "Strategies Tested",
+          "value": "14"
+        },
+        {
+          "label": "Historical Ticks",
+          "value": "1.2M+"
+        },
+        {
+          "label": "Max Win Rate Identified",
+          "value": "61.4%"
+        }
+      ],
+      "tagline": "Python-driven statistical backtesting suite for automated Forex breakout strategies.",
+      "category": "Quantitative",
+      "imageUrl": "/projects/alphastream.jpg",
+      "description": "A quantitative research workspace created by senior club members to backtest Moving Average Envelopes and London Breakout strategies over 5 years of tick data, evaluating Sharpe and Sortino ratios."
+    },
+    {
+      "id": "venture-fund-ledger",
+      "tags": [
+        "TypeScript",
+        "Supabase",
+        "Accounting Schema",
+        "Audit Trail"
+      ],
+      "title": "ENTS Micro-Grant Ledger",
+      "status": "In Development",
+      "metrics": [
+        {
+          "label": "Capital Allocated",
+          "value": "1,200,000 RWF"
+        },
+        {
+          "label": "Ventures Seeded",
+          "value": "4"
+        }
+      ],
+      "tagline": "Transparent student treasury tracker for seed funding campus software MVPs.",
+      "category": "Platform",
+      "imageUrl": "/projects/ledger.jpg",
+      "description": "A public financial ledger tracking club dues, sponsorship funds, and micro-grants distributed to student teams during quarterly pitch competitions."
+    },
+    {
+      "id": "macro-pulse-terminal",
+      "tags": [
+        "NLP",
+        "RSS Scraping",
+        "Financial News",
+        "Sentiment Score"
+      ],
+      "title": "MacroPulse Terminal",
+      "status": "Planned",
+      "tagline": "Lightweight financial news and central bank sentiment aggregator for high-school analysts.",
+      "category": "Fintech",
+      "imageUrl": "/projects/macropulse.jpg",
+      "description": "A minimalist terminal dashboard summarizing key macroeconomic calendar events, central bank speeches, and currency correlations for the weekly Traders track briefing."
+    },
+    {
+      "id": "rca-dev-agency",
+      "tags": [
+        "Contracts",
+        "Client Management",
+        "SLA",
+        "Revenue Share"
+      ],
+      "title": "RCA Freelance Business Unit",
+      "status": "Planned",
+      "tagline": "Client-facing agency pipeline connecting top RCA software engineers with local businesses.",
+      "category": "Venture",
+      "imageUrl": "/projects/agency.jpg",
+      "description": "A structured business conduit where Business Handlers source web and mobile software contracts from SMEs in Musanze and Kigali, managing scopes, contracts, and delivery."
+    }
+  ],
+  "updates": [
+    {
+      "id": "news-rca-leaders-2026",
+      "date": "March 14, 2026",
+      "tags": [
+        "News",
+        "RCA",
+        "Ventures",
+        "Incubation"
+      ],
+      "type": "article",
+      "title": "Inside Rwanda Coding Academy: Training Africa's Next Generation of Venture Engineers",
+      "author": "Tech & Markets Editorial",
+      "content": "At Rwanda Coding Academy, education does not pause at algorithmic syntax and distributed systems. Through the Entrepreneurs & Traders Society (ENTS), students are actively fusing software development with rigorous commercial viability.\n\nIn high-velocity weekly sprints, student engineering pods formulate product theses, build functional prototypes, and deploy them across campus micro-markets. The objective is not hypothetical case studies: it is the validation of real unit economics, user retention cohorts, and transactional reliability.\n\n\"We realized early on that software without distribution or financial discipline remains a school project,\" explains Cedric Mugisha, ENTS President. \"By treating campus utilities as active testbeds for venture incubation, our members learn how capital flows before they ever pitch to an institutional angel investor.\"\n\nFrom canteen billing escrows like KuraPay to full-stack quantitative simulators like SIFS, students are proving that secondary technical institutions can be powerful incubators of scalable fintech infrastructure.",
+      "excerpt": "Students in Nyabihu combine software engineering with venture building, testing digital cash flows and algorithmic market models in real-time.",
+      "imageUrl": "/news/coding-lab.jpg",
+      "readTime": "4 min read",
+      "sourceUrl": "https://rca.ac.rw",
+      "sourceName": "News"
+    },
+    {
+      "id": "event-sifs-round-04",
+      "date": "March 22, 2026",
+      "tags": [
+        "Competition",
+        "Trading"
+      ],
+      "type": "event",
+      "title": "SIFS Simulated League Tournament: Round 04",
+      "author": "Quant Committee",
+      "content": "Round 04 of the SIFS Paper Trading League brings together 24 qualified analysts to execute sub-50ms tick momentum strategies across synthetic foreign exchange and commodity pairs.\n\nParticipants must navigate dynamic volatility clusters while adhering strictly to the society's hard-coded 1% stop-loss guardrails. Any algorithm exceeding the maximum drawdown threshold is automatically disqualified by the matching engine.",
+      "excerpt": "Quant traders test momentum algorithms under strict 1% risk-per-trade rules on live campus feeds.",
+      "imageUrl": "/events/trading-league.jpg",
+      "readTime": "2 hours",
+      "rsvpLink": "/join",
+      "speakers": [
+        "Aline Umutoni",
+        "David Nshimiyimana"
+      ],
+      "eventDate": "Saturday, March 28, 2026",
+      "eventTime": "15:00 - 17:30 CAT",
+      "eventLocation": "RCA Innovation Lab"
+    },
+    {
+      "id": "news-sifs-v24",
+      "date": "March 11, 2026",
+      "tags": [
+        "News",
+        "SIFS",
+        "Engineering"
+      ],
+      "type": "announcement",
+      "title": "SIFS v2.4 Engine Deployed with Low-Latency Order Books",
+      "author": "Engineering Squad",
+      "content": "The ENTS Engineering Squad has officially pushed SIFS v2.4 to the campus local network and cloud telemetry cluster. This release marks a significant milestone in our quest to bring institutional trading mechanics to secondary school analysts.\n\nKey Architectural Enhancements:\n- Sub-50ms Tick Ingestion: Websocket buffers now process multi-pair pricing with under 35ms latency.\n- Hard-Coded 1% Maximum Drawdown Locks: Automated risk tripwires immediately freeze positions upon unexpected volatility spikes.\n- Live Telemetry Leaderboard Sync: Every confirmed fill and liquidation updates the public league rankings instantaneously.\n\nThe platform is open to all registered club members across Cohorts 5, 6, and 7.",
+      "excerpt": "Major architectural upgrades to the simulation engine introducing websocket streaming and automatic loss controls.",
+      "imageUrl": "/news/trading-terminal.jpg",
+      "readTime": "3 min read"
+    },
+    {
+      "id": "event-venture-pitch-day",
+      "date": "March 10, 2026",
+      "tags": [
+        "Pitch Day",
+        "Ventures"
+      ],
+      "type": "event",
+      "title": "ENTS Cohort Venture Demo Day",
+      "author": "Executive Committee",
+      "content": "Join us for the flagship semester demo day where five student venture teams present working software, audited cash flows, and institutional roadmaps to faculty advisors and guest industry leaders.",
+      "excerpt": "Student founders pitch live software ventures and campus revenue models to faculty mentors.",
+      "imageUrl": "/events/demo-day.jpg",
+      "readTime": "3 hours",
+      "rsvpLink": "/join",
+      "speakers": [
+        "Cedric Mugisha",
+        "Eng. Christian Niyitegeka"
+      ],
+      "eventDate": "Friday, April 03, 2026",
+      "eventTime": "17:00 - 19:30 CAT",
+      "eventLocation": "RCA Main Amphitheater"
+    },
+    {
+      "id": "news-quant-literacy",
+      "date": "February 28, 2026",
+      "tags": [
+        "News",
+        "Quantitative"
+      ],
+      "type": "article",
+      "title": "How Secondary Quantitative Societies Redefine Technical Literacy",
+      "author": "Markets & Policy",
+      "content": "Traditional financial education often relies on textbook memorization of macroeconomic theory, leaving students unprepared for the fast-paced realities of algorithmic execution and risk management.\n\nAt ENTS, we take an engineering approach to financial literacy:\n1. Probabilistic Reasoning: Traders learn to view market prices as stochastic processes rather than deterministic predictions.\n2. The 1% Rule: Capital preservation is the core metric of success, enforced through automated telemetry rather than discretionary willpower.\n3. Code as Strategy: Every hypothesis is backtested across historical tick datasets using Python before receiving live simulation rights.\n\nThis philosophy transforms students from passive spectators into disciplined analytical thinkers ready for global quantitative roles.",
+      "excerpt": "Moving beyond theory to enforce statistical models and disciplined capital management before graduation.",
+      "imageUrl": "/news/venture-sprint.jpg",
+      "readTime": "5 min read",
+      "sourceUrl": "https://rca.ac.rw",
+      "sourceName": "News"
+    },
+    {
+      "id": "event-macro-masterclass",
+      "date": "February 20, 2026",
+      "tags": [
+        "Workshop",
+        "Economics"
+      ],
+      "type": "event",
+      "title": "Macroeconomic & FX Volatility Masterclass",
+      "author": "Advisory Board",
+      "content": "An intensive two-hour masterclass exploring how global macroeconomic indicators impact frontier market foreign exchange stability. Led by student quantitative researchers with curated case studies.",
+      "excerpt": "Weekend deep dive into central bank rate cycles, regional liquidity, and currency hedging.",
+      "imageUrl": "/events/masterclass.jpg",
+      "readTime": "2 hours",
+      "rsvpLink": "/join",
+      "speakers": [
+        "Aline Umutoni"
+      ],
+      "eventDate": "Saturday, April 11, 2026",
+      "eventTime": "10:00 - 12:00 CAT",
+      "eventLocation": "Virtual Session Room"
+    }
+  ],
+  "tracks": [
+    {
+      "id": "business-handlers",
+      "title": "Business Handlers",
+      "tagline": "Ideate, pitch, and operate sustainable student-led enterprises on campus and beyond.",
+      "shortTag": "Ventures & Operations",
+      "toolsUsed": [
+        "Notion",
+        "Google Sheets",
+        "Figma",
+        "Stripe & Paypack APIs",
+        "Linear",
+        "Pitch"
+      ],
+      "description": "The incubator arm of ENTS. Members validate business models, design unit economics, run campus micro-services, and pitch real software ventures to mentors.",
+      "skillsGained": [
+        "Financial Modeling & Cash Flow Projections",
+        "Lean Canvas & Value Proposition Design",
+        "Customer Discovery & User Interviews",
+        "Pricing Architecture & Revenue Optimization",
+        "Pitch Deck Crafting & Public Presentation",
+        "Product Management & Operational Logistics"
+      ],
+      "weeklyCadence": [
+        {
+          "phase": "Monday Strategy Briefing",
+          "description": "Review campus venture metrics, customer feedback, and unit cash flow. Set weekly sprint targets."
+        },
+        {
+          "phase": "Wednesday Pitch & Teardown",
+          "description": "Present slide decks and interactive prototypes for peer critique. Stress-test value propositions and revenue models."
+        },
+        {
+          "phase": "Friday Venture Workshop",
+          "description": "Hands-on execution: customer acquisition funnels, unit economics modeling, legal basics, and operational logistics."
+        },
+        {
+          "phase": "Weekend Sprint & Deployment",
+          "description": "Ship new features, test campus pilot offerings, and analyze engagement or payment conversion numbers."
+        }
+      ],
+      "targetAudience": "Students interested in product strategy, venture capital, startup operations, marketing, unit economics, and building businesses around tech.",
+      "keyDeliverables": [
+        "Validated Business Model Canvas for a real school problem",
+        "Fully forecasted 12-month operational pro-forma spreadsheet",
+        "Working campus pilot or software MVP with active user transactions",
+        "Investment-ready pitch deck presented at the ENTS Demo Day"
+      ],
+      "longDescription": "At Rwanda Coding Academy, technical brilliance is standard. Business Handlers bridges the crucial gap between writing clean code and shipping viable, revenue-generating products. Members take full ownership of the venture lifecycle — from user interviews and financial projections to live deployment, pricing strategy, and campus operations."
+    },
+    {
+      "id": "traders",
+      "title": "Traders",
+      "tagline": "Master technical analysis, macroeconomics, and disciplined risk management in our paper trading league.",
+      "shortTag": "Markets & Quantitative Analysis",
+      "toolsUsed": [
+        "TradingView",
+        "MetaTrader 5 (Demo)",
+        "Python (Pandas, Backtrader)",
+        "Excel & Notion Trade Logs",
+        "Forex Factory"
+      ],
+      "description": "The quantitative and financial markets arm of ENTS. Members analyze global macro data, trade forex and indices, and compete in the weekly paper trading league.",
+      "skillsGained": [
+        "Technical Analysis & Market Structure Identification",
+        "Strict Risk Management & Asymmetric R:R Sizing",
+        "Macroeconomic Data Interpretation (Inflation, Rates, GDP)",
+        "Trading Psychology & Emotional Execution Discipline",
+        "Quantitative Backtesting & Performance Journaling",
+        "Financial Derivatives & Forex Liquidity Mechanics"
+      ],
+      "weeklyCadence": [
+        {
+          "phase": "Monday Macro Watch & Economic Calendar",
+          "description": "Analyze central bank rate outlooks, US CPI & NFP data releases, and regional liquidity patterns for the trading week."
+        },
+        {
+          "phase": "Tuesday & Thursday Live Market Analysis",
+          "description": "Collaborative chart breakdown sessions on TradingView. Identify market structure shifts, order blocks, and key supply & demand levels."
+        },
+        {
+          "phase": "Wednesday Risk Audit",
+          "description": "Mandatory trade journal review. Analyze maximum drawdown, position sizing violations, and risk-adjusted Sharpe performance."
+        },
+        {
+          "phase": "Friday League Settlement & Debrief",
+          "description": "Weekly leaderboard reset, trade autopsy on winners and losers, and discussion of cognitive biases during execution."
+        }
+      ],
+      "targetAudience": "Students passionate about capital markets, macroeconomic indicators, quantitative trading, algorithmic backtesting, and disciplined probabilistic thinking.",
+      "keyDeliverables": [
+        "Verified 60-day simulated trading journal with strict risk parameters",
+        "Algorithmic backtesting report or rule-based trading playbook",
+        "Weekly economic digest contributions for the club terminal",
+        "Active participation in the semester-long ENTS Trading Cup"
+      ],
+      "longDescription": "Modern financial markets reward analytical rigor, emotional control, and mathematical probability. The Traders track transforms students into disciplined market participants. Operating strictly in simulated environments (paper trading), members study market structure, order book dynamics, liquidity zones, and risk-to-reward ratios while competing for the top spot on the league leaderboard."
+    }
+  ],
+  "team": [
+    {
+      "id": "mentor",
+      "bio": "Guiding ENTS students in technical systems rigor, commercial feasibility, and ethical engineering leadership.",
+      "name": "Eng. Christian Niyitegeka",
+      "role": "Mentor",
+      "track": "Advisory",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://rca.ac.rw"
+      },
+      "initials": "CN",
+      "avatarUrl": "https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=600&q=80",
+      "classYear": "Faculty Advisor",
+      "specialization": "Software Architecture & Institutional Partnerships"
+    },
+    {
+      "id": "president",
+      "name": "Cedric Mugisha",
+      "role": "President",
+      "track": null,
+      "classYear": "Year 3",
+      "specialization": "Software Ventures & Ecosystem Development",
+      "bio": "Oversees society strategy, venture incubation, and external industry bridges between Rwanda Coding Academy and tech ecosystems.",
+      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789675594/ents/team/mldrqxh2sqlcw8n7f3wz.jpg",
+      "initials": "CM",
+      "socials": {}
+    },
+    {
+      "id": "vice-president",
+      "bio": "Directs the simulated paper trading floor, statistical risk controls, and weekly macroeconomic briefing sessions.",
+      "name": "Aline Umutoni",
+      "role": "Vice President",
+      "track": "Traders",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://aline.me"
+      },
+      "initials": "AU",
+      "avatarUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80",
+      "classYear": "Year 3",
+      "specialization": "Quantitative Analysis & Macroeconomic Markets"
+    },
+    {
+      "id": "secretary",
+      "bio": "Manages club records, session logistics, and oversees telemetry synchronization for the SIFS simulation platform.",
+      "name": "Divine Uwase",
+      "role": "Secretary",
+      "track": "Engineering",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://divine.tech"
+      },
+      "initials": "DU",
+      "avatarUrl": "https://images.unsplash.com/photo-1589156280159-27698a70f29e?auto=format&fit=crop&w=600&q=80",
+      "classYear": "Year 2",
+      "specialization": "Operations & SIFS Platform Architecture"
+    }
+  ],
+  "clubMembers": [
+    {
+      "id": "m1",
+      "name": "Kevine Ishimwe",
+      "role": "Quant Derivatives Analyst",
+      "track": "Traders",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://kevine.dev"
+      },
+      "initials": "KI",
+      "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 3"
+    },
+    {
+      "id": "m2",
+      "name": "David Nshimiyimana",
+      "role": "Venture Treasury Lead",
+      "track": "Business Handlers",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://david.dev"
+      },
+      "initials": "DN",
+      "avatarUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 3"
+    },
+    {
+      "id": "m3",
+      "name": "Grace Mukamana",
+      "role": "Full-Stack Venture Engineer",
+      "track": "Engineering",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://grace.tech"
+      },
+      "initials": "GM",
+      "avatarUrl": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 2"
+    },
+    {
+      "id": "m4",
+      "name": "Patrick Cyusa",
+      "role": "Market Depth & Arbitrage",
+      "track": "Traders",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com"
+      },
+      "initials": "PC",
+      "avatarUrl": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 2"
+    },
+    {
+      "id": "m5",
+      "name": "Diane Uwera",
+      "role": "Financial Modeling Analyst",
+      "track": "Business Handlers",
+      "socials": {
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://diane.me"
+      },
+      "initials": "DU",
+      "avatarUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 3"
+    },
+    {
+      "id": "m6",
+      "name": "Eric Manzi",
+      "role": "SIFS Engine Core Dev",
+      "track": "Engineering",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://manzi.dev"
+      },
+      "initials": "EM",
+      "avatarUrl": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 2"
+    },
+    {
+      "id": "m7",
+      "name": "Ange Mutoni",
+      "role": "Product UX Strategist",
+      "track": "Business Handlers",
+      "socials": {
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://angemutoni.com"
+      },
+      "initials": "AM",
+      "avatarUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 1"
+    },
+    {
+      "id": "m8",
+      "name": "Samuel Habineza",
+      "role": "FX Algorithm Backtester",
+      "track": "Traders",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com"
+      },
+      "initials": "SH",
+      "avatarUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 2"
+    },
+    {
+      "id": "m9",
+      "name": "Sandrine Ingabire",
+      "role": "Campus Micro-Ventures",
+      "track": "Business Handlers",
+      "socials": {
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://sandrine.dev"
+      },
+      "initials": "SI",
+      "avatarUrl": "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 1"
+    },
+    {
+      "id": "m10",
+      "name": "Claude Ndayishimiye",
+      "role": "Python Quant Pipelines",
+      "track": "Engineering",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://claude.io"
+      },
+      "initials": "CN",
+      "avatarUrl": "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 3"
+    },
+    {
+      "id": "m11",
+      "name": "Fiona Uwitonze",
+      "role": "Macroeconomic Researcher",
+      "track": "Traders",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com"
+      },
+      "initials": "FU",
+      "avatarUrl": "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 2"
+    },
+    {
+      "id": "m12",
+      "name": "Thierry Mugabo",
+      "role": "Growth & Retention Ops",
+      "track": "Business Handlers",
+      "socials": {
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://thierry.design"
+      },
+      "initials": "TM",
+      "avatarUrl": "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 1"
+    },
+    {
+      "id": "m13",
+      "name": "Yvette Uwimana",
+      "role": "Technical Chart Analyst",
+      "track": "Traders",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com"
+      },
+      "initials": "YU",
+      "avatarUrl": "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 2"
+    },
+    {
+      "id": "m14",
+      "name": "Brian Kwizera",
+      "role": "Index & Equity Strategist",
+      "track": "Traders",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://brian.codes"
+      },
+      "initials": "BK",
+      "avatarUrl": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 3"
+    },
+    {
+      "id": "m15",
+      "name": "Nadine Irakoze",
+      "role": "Pine Script Indicator Dev",
+      "track": "Engineering",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com"
+      },
+      "initials": "NI",
+      "avatarUrl": "https://images.unsplash.com/photo-1534751516642-a171edd2521d?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 2"
+    },
+    {
+      "id": "m16",
+      "name": "Jean-Luc Tuyishime",
+      "role": "Liquidity & Smart Contracts",
+      "track": "Engineering",
+      "socials": {
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://jeanluc.tech"
+      },
+      "initials": "JT",
+      "avatarUrl": "https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 3"
+    },
+    {
+      "id": "m17",
+      "name": "Peace Umwali",
+      "role": "Pitch & Lean Canvas",
+      "track": "Business Handlers",
+      "socials": {
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://peace.me"
+      },
+      "initials": "PU",
+      "avatarUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 1"
+    },
+    {
+      "id": "m18",
+      "name": "Fabrice Nsengiyumva",
+      "role": "Real-Time WebSockets Dev",
+      "track": "Engineering",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com"
+      },
+      "initials": "FN",
+      "avatarUrl": "https://images.unsplash.com/photo-1528892952291-009c663ce843?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 2"
+    },
+    {
+      "id": "m19",
+      "name": "Chantal Mukashyaka",
+      "role": "Risk Audit & Drawdowns",
+      "track": "Traders",
+      "socials": {
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://chantal.dev"
+      },
+      "initials": "CM",
+      "avatarUrl": "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 3"
+    },
+    {
+      "id": "m20",
+      "name": "Olivier Shema",
+      "role": "Routing & API Architect",
+      "track": "Engineering",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://shema.dev"
+      },
+      "initials": "OS",
+      "avatarUrl": "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 2"
+    },
+    {
+      "id": "m21",
+      "name": "Keza Uwase",
+      "role": "Consumer SaaS Strategist",
+      "track": "Business Handlers",
+      "socials": {
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://keza.design"
+      },
+      "initials": "KU",
+      "avatarUrl": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 1"
+    },
+    {
+      "id": "m22",
+      "name": "Bruce Gasana",
+      "role": "Commodities & Metals Trader",
+      "track": "Traders",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com"
+      },
+      "initials": "BG",
+      "avatarUrl": "https://images.unsplash.com/photo-1517462964-21fdcec3f25b?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 2"
+    },
+    {
+      "id": "m23",
+      "name": "Sonia Mutamuriza",
+      "role": "Data Visualization Dev",
+      "track": "Engineering",
+      "socials": {
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://sonia.me"
+      },
+      "initials": "SM",
+      "avatarUrl": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 1"
+    },
+    {
+      "id": "m24",
+      "name": "Alain Rukundo",
+      "role": "Quant Research Associate",
+      "track": "Traders",
+      "socials": {
+        "x": "https://x.com",
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://alain.codes"
+      },
+      "initials": "AR",
+      "avatarUrl": "https://images.unsplash.com/photo-1514626585111-9aa86183ac98?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 2"
+    },
+    {
+      "id": "m25",
+      "name": "Solange Umutoniwase",
+      "role": "Venture Operations Associate",
+      "track": "Business Handlers",
+      "socials": {
+        "linkedin": "https://linkedin.com",
+        "portfolio": "https://solange.dev"
+      },
+      "initials": "SU",
+      "avatarUrl": "https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&w=400&q=80",
+      "classYear": "Year 1"
+    }
+  ],
+  "leaderboard": [
+    {
+      "name": "Aline Umutoni",
+      "rank": 1,
+      "track": "Traders",
+      "status": "Active",
+      "winRate": 66.7,
+      "classYear": "Year 3",
+      "assetClass": "EUR-USD & Gold (XAU)",
+      "pnlPercent": 34.26,
+      "tradesCount": 42,
+      "initialValue": 10000,
+      "portfolioValue": 13425.8
+    },
+    {
+      "name": "Kevine Ishimwe",
+      "rank": 2,
+      "track": "Traders",
+      "status": "Active",
+      "winRate": 63.2,
+      "classYear": "Year 2",
+      "assetClass": "GBP-JPY & US100",
+      "pnlPercent": 28.9,
+      "tradesCount": 38,
+      "initialValue": 10000,
+      "portfolioValue": 12890.45
+    },
+    {
+      "name": "Cedric Mugisha",
+      "rank": 3,
+      "track": "Business Handlers",
+      "status": "Active",
+      "winRate": 58.6,
+      "classYear": "Year 3",
+      "assetClass": "US30 & USD-CAD",
+      "pnlPercent": 21.5,
+      "tradesCount": 29,
+      "initialValue": 10000,
+      "portfolioValue": 12150
+    },
+    {
+      "name": "Patrick Byiringiro",
+      "rank": 4,
+      "track": "Traders",
+      "status": "Active",
+      "winRate": 54.9,
+      "classYear": "Year 1",
+      "assetClass": "XAU-USD & EUR-JPY",
+      "pnlPercent": 17.2,
+      "tradesCount": 51,
+      "initialValue": 10000,
+      "portfolioValue": 11720.15
+    },
+    {
+      "name": "Divine Uwase",
+      "rank": 5,
+      "track": "Traders",
+      "status": "Active",
+      "winRate": 52.3,
+      "classYear": "Year 3",
+      "assetClass": "Algorithmic FX Pairs",
+      "pnlPercent": 14.81,
+      "tradesCount": 88,
+      "initialValue": 10000,
+      "portfolioValue": 11480.9
+    },
+    {
+      "name": "Jean-Paul Habimana",
+      "rank": 6,
+      "track": "Business Handlers",
+      "status": "Active",
+      "winRate": 59.1,
+      "classYear": "Year 2",
+      "assetClass": "S&P 500 & Oil",
+      "pnlPercent": 9.4,
+      "tradesCount": 22,
+      "initialValue": 10000,
+      "portfolioValue": 10940.3
+    },
+    {
+      "name": "Grace Mutoniwase",
+      "rank": 7,
+      "track": "Traders",
+      "status": "Active",
+      "winRate": 51.6,
+      "classYear": "Year 1",
+      "assetClass": "GBP-USD & AUD-USD",
+      "pnlPercent": 4.5,
+      "tradesCount": 31,
+      "initialValue": 10000,
+      "portfolioValue": 10450
+    },
+    {
+      "name": "David Nshimiyimana",
+      "rank": 8,
+      "track": "Business Handlers",
+      "status": "Active",
+      "winRate": 47.4,
+      "classYear": "Year 2",
+      "assetClass": "EUR-GBP & NZD-USD",
+      "pnlPercent": 1.21,
+      "tradesCount": 19,
+      "initialValue": 10000,
+      "portfolioValue": 10120.6
+    },
+    {
+      "name": "Emmanuel Kwizera",
+      "rank": 9,
+      "track": "Traders",
+      "status": "Active",
+      "winRate": 42.8,
+      "classYear": "Year 2",
+      "assetClass": "Forex Majors",
+      "pnlPercent": -1.9,
+      "tradesCount": 35,
+      "initialValue": 10000,
+      "portfolioValue": 9810
+    },
+    {
+      "name": "Sandrine Irakoze",
+      "rank": 10,
+      "track": "Traders",
+      "status": "Active",
+      "winRate": 40.9,
+      "classYear": "Year 1",
+      "assetClass": "Gold & Indices",
+      "pnlPercent": -5.5,
+      "tradesCount": 44,
+      "initialValue": 10000,
+      "portfolioValue": 9450.2
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "aline",
+      "role": "VP & Lead Quantitative Trader",
+      "quote": "\"From campus prototypes to live order routing 🚀, ENTS is a must-have society. I can't imagine analyzing markets without SIFS!\"",
+      "author": "Aline Umutoni",
+      "badgeBg": "bg-neutral-900 text-white",
+      "avatarUrl": "/testimonials/aline.jpg"
+    },
+    {
+      "id": "david",
+      "role": "Treasury Lead at KuraPay",
+      "quote": "\"Strict 1% risk guardrails 🌐, automated backtesting, and top-notch peer audits. ENTS has it all.\"",
+      "author": "David Nshimiyimana",
+      "badgeBg": "bg-neutral-800 text-white",
+      "avatarUrl": "/testimonials/david.jpg"
+    },
+    {
+      "id": "grace",
+      "role": "Full-Stack Venture Engineer",
+      "quote": "\"The weekly pitch teardowns and pro-forma forecasting ⚡ prepared our squad directly for institutional venture capital.\"",
+      "author": "Grace Mukamana",
+      "badgeBg": "bg-neutral-700 text-white",
+      "avatarUrl": "/testimonials/grace.jpg"
+    },
+    {
+      "id": "kevine",
+      "role": "Derivatives Analyst · Year 3",
+      "quote": "\"Trading simulated FX depth with real execution journals 📈 eliminated emotional bias from our algorithms entirely.\"",
+      "author": "Kevine Ishimwe",
+      "badgeBg": "bg-neutral-900 text-white",
+      "avatarUrl": "/testimonials/kevine.jpg"
+    },
+    {
+      "id": "patrick",
+      "role": "Market Depth & Arbitrage Lead",
+      "quote": "\"Campus micro-enterprises backed by student software 🤝 proved that RCA engineers can monetize while in school.\"",
+      "author": "Patrick Cyusa",
+      "badgeBg": "bg-neutral-800 text-white",
+      "avatarUrl": "/testimonials/patrick.jpg"
+    }
+  ],
+  "applications": []
+}

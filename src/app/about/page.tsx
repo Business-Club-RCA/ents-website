@@ -1,10 +1,8 @@
-'use client';
-
 import React from 'react';
 import Image from 'next/image';
 import { Container } from '@/components/ui/Container';
 import { Badge } from '@/components/ui/Badge';
-import { executiveTeam, clubMembers } from '@/data/team';
+import { getTeam, getClubMembers } from '@/lib/db';
 import { PageHero } from '@/components/layout/PageHero';
 import {
   LinkedInIcon,
@@ -19,7 +17,11 @@ import {
   TenetGovernanceIllustration,
 } from '@/components/ui/CardIllustrations';
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const [executiveTeam, clubMembers] = await Promise.all([
+    getTeam(),
+    getClubMembers(),
+  ]);
   return (
     <div className="flex flex-col">
       {/* 1. Hero Banner */}
@@ -354,7 +356,7 @@ export default function AboutPage() {
                 Club Members ({clubMembers.length})
               </h2>
               <p className="mt-1 text-sm text-neutral-600">
-                Student engineers, financial analysts, and venture builders across RCA Cohorts 5, 6, and 7.
+                Student engineers, financial analysts, and venture builders across RCA Years 1, 2, and 3.
               </p>
             </div>
             <div className="text-xs font-mono text-neutral-400">
@@ -370,7 +372,7 @@ export default function AboutPage() {
                 className="p-3.5 sm:p-4 flex flex-col justify-between group hover:bg-neutral-50/50 transition-colors duration-200"
               >
                 <div>
-                  {/* Round Photo Thumbnail with Skeuomorphic Bezel + Tactile Cohort Tag */}
+                  {/* Round Photo Thumbnail with Skeuomorphic Bezel + Tactile Class Tag */}
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <div className="avatar-skeuo-bezel-sm relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-neutral-100 shrink-0">
                       {member.avatarUrl ? (
@@ -390,7 +392,7 @@ export default function AboutPage() {
                     </div>
 
                     <span className="btn-skeuo-light text-[9px] sm:text-[10px] font-mono px-2 py-0.5 rounded-lg font-semibold">
-                      {member.classYear?.replace(' (', ' · ').replace(')', '') || 'RCA'}
+                      {member.classYear || 'RCA'}
                     </span>
                   </div>
 

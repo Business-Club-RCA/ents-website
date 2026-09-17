@@ -4,7 +4,7 @@ export const statsData: StatItem[] = [
   {
     value: '48+',
     label: 'Active Members',
-    detail: 'Across Intakes 5, 6, and 7 at RCA',
+    detail: 'Across Years 1, 2, and 3 at RCA',
   },
   {
     value: '08',

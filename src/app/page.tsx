@@ -8,7 +8,7 @@ import { StatsStrip } from '@/components/sections/StatsStrip';
 import { FlagshipSimulator } from '@/components/sections/FlagshipSimulator';
 import { HeroVisual } from '@/components/sections/HeroVisual';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
-import { tracksData } from '@/data/tracks';
+import { getTracks, getStats } from '@/lib/db';
 import {
   PillarVenturesIllustration,
   PillarDisciplineIllustration,
@@ -17,9 +17,10 @@ import {
   TradersTrackIllustration,
 } from '@/components/ui/CardIllustrations';
 
-export default function HomePage() {
-  const businessTrack = tracksData.find((t) => t.id === 'business-handlers') || tracksData[0];
-  const tradersTrack = tracksData.find((t) => t.id === 'traders') || tracksData[1];
+export default async function HomePage() {
+  const [tracks, stats] = await Promise.all([getTracks(), getStats()]);
+  const businessTrack = tracks.find((t) => t.id === 'business-handlers') || tracks[0];
+  const tradersTrack = tracks.find((t) => t.id === 'traders') || tracks[1];
 
   return (
     <div className="flex flex-col">
@@ -250,7 +251,7 @@ export default function HomePage() {
       <FlagshipSimulator />
 
       {/* 5. STATS STRIP: Big Shoulders numbers, tactile cards */}
-      <StatsStrip />
+      <StatsStrip stats={stats} />
 
       {/* 6. TESTIMONIALS: Social proof matching reference card layout */}
       <TestimonialsSection />

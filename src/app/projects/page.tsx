@@ -5,7 +5,7 @@ import { Container } from '@/components/ui/Container';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { ArrowRight, ArrowUpRight, TerminalIcon } from '@/components/ui/Icons';
-import { projectsData } from '@/data/projects';
+import { getProjects } from '@/lib/db';
 import { PageHero } from '@/components/layout/PageHero';
 
 export const metadata: Metadata = {
@@ -14,7 +14,8 @@ export const metadata: Metadata = {
     'Explore software products, fintech platforms, and student ventures engineered by ENTS at Rwanda Coding Academy.',
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projectsData = await getProjects();
   const featured = projectsData.find((p) => p.featured) || projectsData[0];
   const otherProjects = projectsData.filter((p) => !p.featured);
 

@@ -185,6 +185,8 @@ export function ShieldCheck({ size = 18, className = '', ...props }: IconProps) 
   );
 }
 
+export const Shield = ShieldCheck;
+
 export function ExternalLink({ size = 16, className = '', ...props }: IconProps) {
   return (
     <svg

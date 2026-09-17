@@ -4,12 +4,13 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Briefcase, TrendingUp, Check } from '@/components/ui/Icons';
 import { JoinApplication } from '@/types';
+import { submitApplicationAction } from '@/actions/adminActions';
 
 export function ApplicationForm() {
   const [formData, setFormData] = useState<JoinApplication>({
     fullName: '',
     email: '',
-    classYear: 'Year 1 (Intake 7)',
+    classYear: 'Year 1',
     preferredTrack: 'business-handlers',
     reason: '',
     experienceOrSkills: '',
@@ -44,15 +45,26 @@ export function ApplicationForm() {
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
+      await submitApplicationAction({
+        fullName: formData.fullName,
+        email: formData.email,
+        classYear: formData.classYear,
+        preferredTrack: formData.preferredTrack,
+        reason: formData.reason,
+        experienceOrSkills: formData.experienceOrSkills,
+      });
+    } catch {
+      // ignore network errors and show submitted confirmation
+    } finally {
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 600);
+    }
   };
 
   const handleChange = (
@@ -76,7 +88,7 @@ export function ApplicationForm() {
             Application Confirmed
           </h3>
           <p className="mt-2 text-sm text-neutral-600 leading-relaxed max-w-md mx-auto">
-            Thank you, <strong className="text-neutral-900">{formData.fullName}</strong>. Your intake submission for the{' '}
+            Thank you, <strong className="text-neutral-900">{formData.fullName}</strong>. Your membership application for the{' '}
             <strong className="text-neutral-900">
               {formData.preferredTrack === 'business-handlers' ? 'Business Handlers' : 'Traders'}
             </strong>{' '}
@@ -91,7 +103,7 @@ export function ApplicationForm() {
               setFormData({
                 fullName: '',
                 email: '',
-                classYear: 'Year 1 (Intake 7)',
+                classYear: 'Year 1',
                 preferredTrack: 'business-handlers',
                 reason: '',
                 experienceOrSkills: '',
@@ -232,10 +244,10 @@ export function ApplicationForm() {
       {/* 3. Class Year / Cohort Selector */}
       <div>
         <label className="block text-xs font-mono uppercase tracking-wider text-neutral-600 mb-2 font-semibold">
-          RCA Intake · Cohort *
+          Academic Year · Class *
         </label>
         <div className="grid grid-cols-3 gap-3">
-          {['Year 1 (Intake 7)', 'Year 2 (Intake 6)', 'Year 3 (Intake 5)'].map((year) => (
+          {['Year 1', 'Year 2', 'Year 3'].map((year) => (
             <button
               key={year}
               type="button"

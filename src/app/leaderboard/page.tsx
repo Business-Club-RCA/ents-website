@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { Container } from '@/components/ui/Container';
 import { LeaderboardTable } from '@/components/sections/LeaderboardTable';
-import { getLeaderboardData } from '@/data/leaderboard';
+import { getLeaderboard } from '@/lib/db';
 import { ShieldCheck, TrendingUp } from '@/components/ui/Icons';
 import { PageHero } from '@/components/layout/PageHero';
 
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function LeaderboardPage() {
-  const standings = await getLeaderboardData();
+  const standings = await getLeaderboard();
 
   const totalCapital = standings.reduce((acc, curr) => acc + curr.portfolioValue, 0);
   const totalTrades = standings.reduce((acc, curr) => acc + curr.tradesCount, 0);

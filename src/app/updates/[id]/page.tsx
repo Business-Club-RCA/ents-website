@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Container } from '@/components/ui/Container';
-import { initialFeedItems } from '@/data/updates';
+import { getUpdates, getUpdate } from '@/lib/db';
 import { FeedItem } from '@/types';
 
 interface Props {
@@ -12,14 +12,15 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  return initialFeedItems.map((item) => ({
+  const updates = await getUpdates();
+  return updates.map((item) => ({
     id: item.id,
   }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const item = initialFeedItems.find((i) => i.id === id);
+  const item = await getUpdate(id);
 
   if (!item) {
     return {
@@ -35,14 +36,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogDetailPage({ params }: Props) {
   const { id } = await params;
-  const item = initialFeedItems.find((i) => i.id === id);
+  const item = await getUpdate(id);
 
   if (!item) {
     notFound();
   }
 
   // Related articles (excluding current item)
-  const relatedItems = initialFeedItems
+  const allUpdates = await getUpdates();
+  const relatedItems = allUpdates
     .filter((i) => i.id !== item.id && i.type !== 'event')
     .slice(0, 2);
 

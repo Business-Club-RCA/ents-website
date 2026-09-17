@@ -6,12 +6,13 @@ import Link from 'next/link';
 import { Container } from '@/components/ui/Container';
 import { initialFeedItems } from '@/data/updates';
 import { FeedItem, UpdateType } from '@/types';
+import { saveUpdateAction, registerAttendanceAction } from '@/actions/adminActions';
 
 const STORAGE_KEY = 'ents_feed_items_v4';
 const ATTENDANCE_STORAGE_KEY = 'ents_event_attendees_v2';
 
-export function UpdatesHub() {
-  const [items, setItems] = useState<FeedItem[]>(initialFeedItems);
+export function UpdatesHub({ initialItems = initialFeedItems }: { initialItems?: FeedItem[] }) {
+  const [items, setItems] = useState<FeedItem[]>(initialItems);
   const [activeTab, setActiveTab] = useState<'all' | 'news' | 'event'>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -133,7 +134,19 @@ export function UpdatesHub() {
     e.preventDefault();
     if (!attendanceModalEvent || !attendeeName.trim() || !attendeeEmail.trim()) return;
 
-    const updated = [...registeredEvents, attendanceModalEvent.id];
+    const eventId = attendanceModalEvent.id;
+    const name = attendeeName.trim();
+    const email = attendeeEmail.trim();
+    const cohort = attendeeCohort;
+
+    // Trigger server action to record attendance in dynamic CMS database
+    registerAttendanceAction(eventId, {
+      fullName: name,
+      email: email,
+      classYear: cohort,
+    }).catch(() => {});
+
+    const updated = [...registeredEvents, eventId];
     setRegisteredEvents(updated);
 
     try {

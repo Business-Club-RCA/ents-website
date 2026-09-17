@@ -20,9 +20,24 @@ export const useSmoothScroll = () => useContext(SmoothScrollContext);
 export function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
   const pathname = usePathname();
+  const isAdmin = pathname?.startsWith('/admin');
 
   useEffect(() => {
     // 1. Initialize Lenis with slower, silky-smooth inertial scrolling physics
+    // Completely disable Lenis and scroll animations on admin CMS routes
+    if (isAdmin) {
+      if (lenisRef.current) {
+        lenisRef.current.destroy();
+        lenisRef.current = null;
+      }
+      document.documentElement.classList.remove('js-scroll-reveal');
+      document.documentElement.classList.remove('lenis');
+      document.documentElement.classList.remove('lenis-smooth');
+      document.documentElement.classList.remove('lenis-scrolling');
+      return;
+    }
+
+    // 1. Initialize Lenis for public website
     const lenis = new Lenis({
       // duration: 2.2s provides a slower, more deliberate and luxurious momentum glide (default is 1.2s)
       duration: 2.2,
@@ -100,21 +115,38 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, []);
+  }, [isAdmin]);
 
   // Reset scroll smoothly on route change
   useEffect(() => {
+    if (isAdmin) {
+      window.scrollTo(0, 0);
+      return;
+    }
+
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
     } else {
       window.scrollTo(0, 0);
     }
-  }, [pathname]);
+  }, [pathname, isAdmin]);
 
   const scrollTo = (
     target: string | HTMLElement | number,
     options?: Parameters<Lenis['scrollTo']>[1]
   ) => {
+    if (isAdmin) {
+      if (typeof target === 'number') {
+        window.scrollTo({ top: target, behavior: 'instant' });
+      } else if (typeof target === 'string') {
+        const el = document.querySelector(target);
+        el?.scrollIntoView();
+      } else if (target instanceof HTMLElement) {
+        target.scrollIntoView();
+      }
+      return;
+    }
+
     lenisRef.current?.scrollTo(target, {
       duration: 2.2,
       ...options,

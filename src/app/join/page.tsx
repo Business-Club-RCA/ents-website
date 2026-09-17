@@ -15,7 +15,7 @@ export default function JoinPage() {
     <div className="flex flex-col">
       {/* Hero Banner with Cinematic Image */}
       <PageHero
-        kicker="Membership Intake"
+        kicker="Society Membership"
         title="Join the Society"
         description="We are seeking dedicated student engineers, venture operators, and quantitative market analysts from Rwanda Coding Academy. Cohort admissions reviewed weekly."
       />

@@ -1,9 +1,19 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { siteConfig } from '@/data/site';
 
 export function Footer() {
+  const pathname = usePathname();
+
+  // Do not render footer on admin CMS routes
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
   return (
     <footer className="relative overflow-hidden border-t border-neutral-300/70 bg-[#dedede] text-neutral-900 select-none">
       {/* 1. Atmospheric Sky & Deep Space Horizon Background */}

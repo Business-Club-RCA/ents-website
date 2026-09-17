@@ -2,6 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/layout/PageHero';
 import { UpdatesHub } from '@/components/sections/UpdatesHub';
+import { getUpdates } from '@/lib/db';
 
 export const metadata: Metadata = {
   title: 'News & Events',
@@ -9,7 +10,9 @@ export const metadata: Metadata = {
     'Real-time dispatches from our incubation floor, curated industry news, and upcoming society events at Rwanda Coding Academy.',
 };
 
-export default function UpdatesPage() {
+export default async function UpdatesPage() {
+  const items = await getUpdates();
+
   return (
     <div className="flex flex-col">
       {/* Hero Banner with Cinematic Background */}
@@ -20,7 +23,7 @@ export default function UpdatesPage() {
       />
 
       {/* Main Updates, Articles & Events Hub */}
-      <UpdatesHub />
+      <UpdatesHub initialItems={items} />
     </div>
   );
 }

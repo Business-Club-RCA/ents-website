@@ -36,6 +36,11 @@ export function Header() {
     };
   }, [menuOpen]);
 
+  // Do not render public header on admin CMS routes
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
   return (
     <header className="fixed top-4 sm:top-6 inset-x-0 z-50 flex flex-col items-center px-4 pointer-events-none">
       <div ref={headerRef} className="w-full max-w-fit flex flex-col items-center">

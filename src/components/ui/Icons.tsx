@@ -205,4 +205,101 @@ export function ExternalLink({ size = 16, className = '', ...props }: IconProps)
     </svg>
   );
 }
+export function LinkedInIcon({ size = 18, className = '', ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      className={className}
+      {...props}
+    >
+      <rect width="24" height="24" rx="5" fill="#0A66C2" />
+      <path
+        d="M19 19h-2.9v-4.5c0-1.07-.02-2.45-1.49-2.45-1.5 0-1.73 1.17-1.73 2.38V19h-2.9V9.6h2.78v1.28h.04c.39-.73 1.34-1.5 2.74-1.5 2.93 0 3.47 1.93 3.47 4.44V19zM6.88 8.32a1.69 1.69 0 1 1 0-3.38 1.69 1.69 0 0 1 0 3.38zM8.33 19H5.43V9.6h2.9V19z"
+        fill="#ffffff"
+      />
+    </svg>
+  );
+}
 
+export function XIcon({ size = 18, className = '', ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      className={className}
+      {...props}
+    >
+      <rect width="24" height="24" rx="5" fill="#000000" />
+      <path
+        d="M17.06 6.5h2.07l-4.52 5.17 5.32 7.03h-4.16l-3.26-4.26-3.73 4.26H6.7l4.84-5.53L6.4 6.5h4.27l2.95 3.9 3.44-3.9zm-.73 10.96h1.15L9.73 7.68H8.5l7.83 9.78z"
+        fill="#ffffff"
+      />
+    </svg>
+  );
+}
+
+export function GlobeIcon({ size = 18, className = '', ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      className={className}
+      {...props}
+    >
+      <rect width="24" height="24" rx="5" fill="#0284C7" />
+      <circle cx="12" cy="12" r="7" stroke="#ffffff" strokeWidth="1.6" fill="none" />
+      <path d="M5 12h14" stroke="#ffffff" strokeWidth="1.6" strokeLinecap="round" />
+      <path
+        d="M12 5c2 2.5 3 4.5 3 7s-1 4.5-3 7c-2-2.5-3-4.5-3-7s1-4.5 3-7z"
+        stroke="#ffffff"
+        strokeWidth="1.6"
+        fill="none"
+      />
+    </svg>
+  );
+}
+
+export function TargetIcon({ size = 18, className = '', ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      {...props}
+    >
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="6" />
+      <circle cx="12" cy="12" r="2" />
+    </svg>
+  );
+}
+
+export function CompassIcon({ size = 18, className = '', ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      {...props}
+    >
+      <circle cx="12" cy="12" r="10" />
+      <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+    </svg>
+  );
+}

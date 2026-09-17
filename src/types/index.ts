@@ -42,15 +42,33 @@ export interface TeamMember {
   id: string;
   name: string;
   role: string;
-  track: 'Executive' | 'Business Handlers' | 'Traders' | 'Engineering';
-  classYear: string; // e.g., 'Year 3 (Intake 5)'
-  bio: string;
-  specialization: string;
+  track?: 'Executive' | 'Business Handlers' | 'Traders' | 'Engineering' | 'Club Member' | 'Advisory';
+  classYear?: string;
+  bio?: string;
+  specialization?: string;
+  avatarUrl?: string;
   initials: string;
   socials?: {
     linkedin?: string;
     github?: string;
     x?: string;
+    portfolio?: string;
+  };
+}
+
+export interface ClubMember {
+  id: string;
+  name: string;
+  role: string;
+  track?: 'Business Handlers' | 'Traders' | 'Engineering';
+  classYear?: string;
+  avatarUrl?: string;
+  initials: string;
+  socials?: {
+    linkedin?: string;
+    x?: string;
+    portfolio?: string;
+    github?: string;
   };
 }
 

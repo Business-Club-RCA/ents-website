@@ -532,7 +532,7 @@ export function UpdatesHub() {
 
       {/* 4. EVENT ATTENDANCE REGISTRATION SKEUOMORPHIC MODAL */}
       {attendanceModalEvent && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/60 backdrop-blur-sm select-none">
+        <div data-lenis-prevent className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/60 backdrop-blur-sm select-none">
           <div className="card-skeuo-static bg-white border border-neutral-300 rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-[0_24px_50px_rgba(0,0,0,0.25),inset_0_1.5px_0_rgba(255,255,255,1)] relative">
             <div className="flex items-center justify-between pb-3 border-b border-neutral-200 mb-4">
               <div>
@@ -642,7 +642,7 @@ export function UpdatesHub() {
 
       {/* 5. ADMIN PUBLISHER SKEUOMORPHIC MODAL (ADMIN ONLY) */}
       {isAdminModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/60 backdrop-blur-sm select-none">
+        <div data-lenis-prevent className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/60 backdrop-blur-sm select-none">
           <div className="card-skeuo-static bg-white border border-neutral-300 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-[0_24px_50px_rgba(0,0,0,0.25),inset_0_1.5px_0_rgba(255,255,255,1)] relative">
             <div className="flex items-center justify-between pb-3 border-b border-neutral-200 mb-5">
               <div>

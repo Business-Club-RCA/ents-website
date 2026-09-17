@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { SmoothScrollProvider } from '@/components/providers/SmoothScrollProvider';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ents.rca.ac.rw'),
@@ -66,9 +67,11 @@ export default function RootLayout({
       className="h-full antialiased"
     >
       <body className="min-h-full flex flex-col bg-white text-neutral-900 selection:bg-neutral-900 selection:text-white">
-        <Header />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+        <SmoothScrollProvider>
+          <Header />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </SmoothScrollProvider>
       </body>
     </html>
   );

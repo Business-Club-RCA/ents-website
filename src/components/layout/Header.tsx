@@ -40,15 +40,15 @@ export function Header() {
     <header className="fixed top-4 sm:top-6 inset-x-0 z-50 flex flex-col items-center px-4 pointer-events-none">
       <div ref={headerRef} className="w-full max-w-fit flex flex-col items-center">
         {/* Floating Segmented Capsule Bar */}
-        <div className="pointer-events-auto bg-white/95 backdrop-blur-md rounded-2xl border border-neutral-200/90 shadow-[0_8px_30px_rgb(0,0,0,0.12),0_1px_3px_rgb(0,0,0,0.06)] flex items-center divide-x divide-neutral-200 transition-all select-none">
-          {/* Segment 1: Logo (Light Gray Background + Black Mark) + Brand */}
+        <div className="pointer-events-auto bg-white/95 backdrop-blur-md rounded-2xl border border-neutral-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.04)] flex items-center divide-x divide-neutral-200 transition-all select-none">
+          {/* Segment 1: Logo + Brand */}
           <Link
             href="/"
             onClick={() => setMenuOpen(false)}
             className="flex items-center gap-2.5 px-3.5 sm:px-4 py-2 hover:opacity-85 transition-opacity focus:outline-none"
             aria-label="ENTS Home"
           >
-            <div className="w-8 h-8 rounded-xl bg-neutral-100 border border-neutral-200/80 flex items-center justify-center p-1.5 shadow-[inset_0_1px_1px_rgba(0,0,0,0.04)]">
+            <div className="w-8 h-8 rounded-xl bg-neutral-100/90 border border-neutral-200 flex items-center justify-center p-1.5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)]">
               <Image
                 src="/ents.svg"
                 alt="ENTS Logo"
@@ -67,7 +67,7 @@ export function Header() {
           {/* Segment 2: Smooth Deliberate Menu Trigger (= to X) */}
           <button
             onClick={() => setMenuOpen((prev) => !prev)}
-            className="px-5 sm:px-6 py-3 flex items-center justify-center text-neutral-800 hover:text-black hover:bg-neutral-50 transition-colors focus:outline-none cursor-pointer group"
+            className="px-5 sm:px-6 py-3 flex items-center justify-center text-neutral-800 hover:text-neutral-950 hover:bg-neutral-50 transition-colors focus:outline-none cursor-pointer group"
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
           >
@@ -103,7 +103,7 @@ export function Header() {
 
         {/* Dropdown Navigation Menu with Slower, Graceful Staggered Items */}
         {menuOpen && (
-          <div className="pointer-events-auto mt-2.5 w-72 sm:w-80 bg-white/95 backdrop-blur-xl border border-neutral-200/90 rounded-2xl shadow-[0_24px_50px_-12px_rgba(0,0,0,0.2),0_1px_3px_rgba(0,0,0,0.06)] p-2.5 animate-menu-panel-slow select-none">
+          <div className="pointer-events-auto mt-2.5 w-[calc(100vw-2rem)] max-w-xs sm:w-80 bg-white/95 backdrop-blur-xl border border-neutral-200/90 rounded-2xl shadow-[0_24px_50px_-12px_rgba(0,0,0,0.2),0_1px_3px_rgba(0,0,0,0.06)] p-2.5 animate-menu-panel-slow select-none">
             <nav className="flex flex-col space-y-1">
               {siteConfig.navItems.map((item, index) => {
                 const isActive = pathname === item.href;
@@ -118,7 +118,7 @@ export function Header() {
                     className={`animate-menu-item-slow group/item flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 hover:translate-x-1 ${
                       isActive
                         ? 'bg-neutral-900 text-white font-semibold shadow-sm'
-                        : 'text-neutral-700 hover:text-black hover:bg-neutral-100/80'
+                        : 'text-neutral-700 hover:text-neutral-950 hover:bg-neutral-100/80'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">

@@ -34,8 +34,8 @@ export default async function LeaderboardPage() {
       <div className="py-12 bg-white">
         <Container size="wide">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            <div className="card-hover border border-neutral-200/90 bg-white p-6 rounded-2xl">
-              <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider font-semibold">
+            <div className="card-hover card-skeuo-light p-6 rounded-2xl border border-neutral-200/90">
+              <div className="text-[11px] font-mono text-neutral-600 uppercase tracking-wider font-semibold">
                 Top Performer
               </div>
               <div className="text-xl sm:text-2xl font-bold text-neutral-900 mt-1.5">

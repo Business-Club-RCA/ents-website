@@ -33,9 +33,9 @@ export function FlagshipSimulator() {
   return (
     <section className="py-20 sm:py-28 bg-white border-b border-neutral-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Column: Product Story & Architectural Specs */}
-          <div className="lg:col-span-6 space-y-6">
+          <div className="md:col-span-6 space-y-6">
             <div className="flex items-center gap-3">
               <span className="text-xs uppercase font-mono tracking-widest text-neutral-500">
                 Flagship Project
@@ -95,7 +95,7 @@ export function FlagshipSimulator() {
           </div>
 
           {/* Right Column: Interactive SIFS Terminal */}
-          <div className="lg:col-span-6">
+          <div className="md:col-span-6">
             <div className="card-skeuo-dark text-white rounded-2xl overflow-hidden shadow-[0_24px_50px_-12px_rgba(0,0,0,0.45)]">
               {/* Terminal Titlebar with Interactive Tabs */}
               <div className="flex flex-wrap items-center justify-between border-b border-neutral-800 px-4 py-3 text-xs font-mono bg-neutral-900/90 gap-2">
@@ -107,7 +107,7 @@ export function FlagshipSimulator() {
                 </div>
 
                 {/* Tab Switchers */}
-                <div className="flex items-center gap-1 bg-black/90 p-1 rounded-xl border border-neutral-800/90 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.8)] text-[11px]">
+                <div className="flex items-center gap-1 bg-[#121215]/90 p-1 rounded-xl border border-neutral-800/90 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.8)] text-[11px]">
                   <button
                     onClick={() => setActiveTab('terminal')}
                     className={`px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
@@ -136,7 +136,7 @@ export function FlagshipSimulator() {
               </div>
 
               {/* Dynamic Live Ticker Bar */}
-              <div className="grid grid-cols-3 gap-2 px-5 py-3 border-b border-neutral-800/80 bg-black/40 font-mono text-xs">
+              <div className="grid grid-cols-3 gap-2 px-5 py-3 border-b border-neutral-800/80 bg-[#121215]/40 font-mono text-xs">
                 <div>
                   <div className="text-neutral-500 text-[10px]">EUR - USD</div>
                   <div className={`font-bold transition-colors ${lastDelta === 'up' ? 'text-emerald-400' : 'text-rose-400'}`}>
@@ -164,7 +164,7 @@ export function FlagshipSimulator() {
                     <div className="text-neutral-400 text-[11px]">
                       {'[INGESTION ENGINE] Nyabihu Node 01 · 14ms latency'}
                     </div>
-                    <div className="p-3 bg-black/80 rounded-xl border border-neutral-800/80 space-y-1.5 text-[11px]">
+                    <div className="p-3 bg-[#121215]/80 rounded-xl border border-neutral-800/80 space-y-1.5 text-[11px]">
                       <div className="text-emerald-400 flex items-center justify-between">
                         <span>[EXEC 09:42:01] EUR - USD BUY LIMIT 2.0 LOTS @ {eurUsd.toFixed(4)}</span>
                         <span className="text-[10px] text-neutral-500 font-number">#ORD-8492</span>

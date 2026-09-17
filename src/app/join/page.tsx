@@ -42,7 +42,7 @@ export default function JoinPage() {
               </p>
             </div>
 
-            <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="card-hover border border-neutral-200/90 rounded-2xl bg-white p-6 space-y-2.5">
                 <div className="font-mono text-xs text-neutral-400 font-semibold">STEP 01</div>
                 <h4 className="font-bold text-neutral-900 text-base">Application Review</h4>

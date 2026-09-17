@@ -19,7 +19,7 @@ export function HeroVisual() {
   }, []);
 
   return (
-    <section className="relative w-full min-h-[92vh] sm:min-h-screen flex flex-col justify-between overflow-hidden bg-black text-white select-none">
+    <section className="relative w-full min-h-[92vh] sm:min-h-screen flex flex-col justify-between overflow-hidden bg-[#0e0e11] text-white select-none">
       {/* 1. Clean Atmospheric Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -33,13 +33,13 @@ export function HeroVisual() {
         />
 
         {/* Top Vignette for Nav Contrast */}
-        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/70 via-black/35 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#0e0e11]/80 via-[#0e0e11]/40 to-transparent pointer-events-none" />
 
         {/* Bottom Deep Vignette for Text & Button Legibility */}
-        <div className="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-black via-black/70 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-[#0e0e11] via-[#0e0e11]/70 to-transparent pointer-events-none" />
 
-        {/* Subtle overall depth */}
-        <div className="absolute inset-0 bg-radial from-transparent via-black/10 to-black/30 pointer-events-none" />
+        {/* Subtle overall depth vignette */}
+        <div className="absolute inset-0 bg-radial from-transparent via-[#0e0e11]/10 to-[#0e0e11]/30 pointer-events-none" />
       </div>
 
       {/* Spacer for Top Floating Navigation */}
@@ -47,27 +47,31 @@ export function HeroVisual() {
 
       {/* 2. Hero Content with Staged Animations */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 lg:pb-20">
-        <div className="max-w-2xl space-y-4 sm:space-y-5">
+        <div className="max-w-2xl lg:max-w-3xl space-y-4 sm:space-y-5">
           {/* Institution Kicker Badge */}
-          <div className="animate-hero-badge inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-black/40 backdrop-blur-md border border-white/20 text-xs font-mono text-white/90 shadow-sm">
+          <div className="animate-hero-badge inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#121215]/60 backdrop-blur-md border border-white/15 text-xs font-mono text-neutral-300 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             <span>SIFS LEAGUE 2026</span>
           </div>
 
           {/* Bold Headline with Kinetic Word Roller Animation */}
           <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight text-white leading-[1.04]">
-            <span className="inline-block overflow-hidden align-bottom">
-              <span className="inline-block animate-hero-word-1">Make</span>
-            </span>{' '}
-            <span className="inline-block overflow-hidden align-bottom">
-              <span className="inline-block animate-hero-word-2">ideas</span>
-            </span>{' '}
-            <span className="inline-flex overflow-hidden align-bottom h-[1.14em] relative">
-              <span
-                key={wordIndex}
-                className="inline-block animate-word-roller text-white underline decoration-white/30 underline-offset-8"
-              >
-                {ROTATING_WORDS[wordIndex]}
+            <span className="block">
+              <span className="inline-block overflow-hidden align-bottom">
+                <span className="inline-block animate-hero-word-1">Make</span>
+              </span>{' '}
+              <span className="inline-block overflow-hidden align-bottom">
+                <span className="inline-block animate-hero-word-2">ideas</span>
+              </span>
+            </span>
+            <span className="block">
+              <span className="inline-flex overflow-hidden align-bottom h-[1.14em] relative">
+                <span
+                  key={wordIndex}
+                  className="inline-block animate-word-roller text-white underline decoration-white/30 underline-offset-8"
+                >
+                  {ROTATING_WORDS[wordIndex]}
+                </span>
               </span>
             </span>
           </h1>

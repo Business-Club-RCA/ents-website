@@ -25,7 +25,7 @@ export function SectionHeading({
         </div>
       )}
       <h2
-        className={`font-bold tracking-tighter text-black ${
+        className={`font-bold tracking-tighter text-neutral-900 ${
           size === 'large'
             ? 'text-3xl sm:text-5xl lg:text-6xl leading-[1.08]'
             : 'text-2xl sm:text-4xl lg:text-5xl leading-[1.12]'

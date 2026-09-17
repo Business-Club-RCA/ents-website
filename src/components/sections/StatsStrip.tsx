@@ -28,12 +28,12 @@ export function StatsStrip() {
                   <span className="text-[11px] font-mono uppercase tracking-widest text-neutral-500 font-semibold">
                     {stat.label}
                   </span>
-                  <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-lg bg-neutral-100 text-neutral-700 border border-neutral-200/80 font-medium">
+                  <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-lg bg-neutral-100 text-neutral-700 border border-neutral-200 font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
                     {METRIC_BADGES[idx] || 'Live'}
                   </span>
                 </div>
 
-                <div className="font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-neutral-900 tabular-nums font-number group-hover:text-black transition-colors">
+                <div className="font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-neutral-900 tabular-nums font-number group-hover:text-neutral-950 transition-colors">
                   {stat.value}
                 </div>
               </div>

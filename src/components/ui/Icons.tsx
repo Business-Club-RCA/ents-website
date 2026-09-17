@@ -232,7 +232,7 @@ export function XIcon({ size = 18, className = '', ...props }: IconProps) {
       className={className}
       {...props}
     >
-      <rect width="24" height="24" rx="5" fill="#000000" />
+      <rect width="24" height="24" rx="5" fill="#18181b" />
       <path
         d="M17.06 6.5h2.07l-4.52 5.17 5.32 7.03h-4.16l-3.26-4.26-3.73 4.26H6.7l4.84-5.53L6.4 6.5h4.27l2.95 3.9 3.44-3.9zm-.73 10.96h1.15L9.73 7.68H8.5l7.83 9.78z"
         fill="#ffffff"

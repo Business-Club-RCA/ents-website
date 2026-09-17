@@ -43,9 +43,9 @@ export function LeaderboardTable({ initialData }: LeaderboardTableProps) {
   return (
     <div className="space-y-6">
       {/* Control Strip: Search & Filter Tabs */}
-      <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 pb-4 border-b border-neutral-200">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pb-4 border-b border-neutral-200">
         {/* Search Bar */}
-        <div className="relative w-full lg:w-72">
+        <div className="relative w-full sm:w-64 lg:w-72">
           <input
             type="text"
             placeholder="Search trader or asset..."
@@ -105,7 +105,7 @@ export function LeaderboardTable({ initialData }: LeaderboardTableProps) {
         </div>
 
         {/* Sort Selector */}
-        <div className="flex items-center gap-2 text-xs font-mono text-neutral-500 self-end lg:self-auto">
+        <div className="flex items-center gap-2 text-xs font-mono text-neutral-500 self-start sm:self-auto">
           <span>Sort:</span>
           <select
             value={sortBy}
@@ -127,11 +127,11 @@ export function LeaderboardTable({ initialData }: LeaderboardTableProps) {
               <tr className="border-b border-neutral-200 bg-neutral-50/75 text-[11px] font-mono text-neutral-500 uppercase tracking-wider">
                 <th className="py-3.5 px-4 font-semibold">Rank</th>
                 <th className="py-3.5 px-4 font-semibold">Participant</th>
-                <th className="py-3.5 px-4 font-semibold">Focus</th>
+                <th className="py-3.5 px-4 font-semibold hidden sm:table-cell">Focus</th>
                 <th className="py-3.5 px-4 font-semibold text-right">Balance</th>
                 <th className="py-3.5 px-4 font-semibold text-right">Net Return</th>
-                <th className="py-3.5 px-4 font-semibold text-right">Win Rate</th>
-                <th className="py-3.5 px-4 font-semibold text-right">Trades</th>
+                <th className="py-3.5 px-4 font-semibold text-right hidden md:table-cell">Win Rate</th>
+                <th className="py-3.5 px-4 font-semibold text-right hidden md:table-cell">Trades</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-neutral-100 text-sm">
@@ -171,7 +171,7 @@ export function LeaderboardTable({ initialData }: LeaderboardTableProps) {
 
                       {/* Participant */}
                       <td className="py-3.5 px-4">
-                        <div className="font-semibold text-neutral-900 group-hover:text-black">
+                        <div className="font-semibold text-neutral-900 group-hover:text-neutral-950">
                           {entry.name}
                         </div>
                         <div className="text-xs text-neutral-500 font-mono">
@@ -180,7 +180,7 @@ export function LeaderboardTable({ initialData }: LeaderboardTableProps) {
                       </td>
 
                       {/* Track / Asset */}
-                      <td className="py-3.5 px-4">
+                      <td className="py-3.5 px-4 hidden sm:table-cell">
                         <span className="text-xs font-mono px-2.5 py-0.5 rounded-lg bg-neutral-100 border border-neutral-200/80 text-neutral-700">
                           {entry.assetClass}
                         </span>
@@ -205,12 +205,12 @@ export function LeaderboardTable({ initialData }: LeaderboardTableProps) {
                       </td>
 
                       {/* Win Rate */}
-                      <td className="py-3.5 px-4 text-right font-mono text-xs tabular-nums text-neutral-700">
+                      <td className="py-3.5 px-4 text-right font-mono text-xs tabular-nums text-neutral-700 hidden md:table-cell">
                         {entry.winRate}%
                       </td>
 
                       {/* Trades */}
-                      <td className="py-3.5 px-4 text-right font-mono text-xs tabular-nums text-neutral-500">
+                      <td className="py-3.5 px-4 text-right font-mono text-xs tabular-nums text-neutral-500 hidden md:table-cell">
                         {entry.tradesCount}
                       </td>
                     </tr>

@@ -91,12 +91,12 @@ export default function AboutPage() {
             </div>
 
             {/* The Vision Card */}
-            <div className="card-hover bg-neutral-950 text-white rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group shadow-sm">
-              <div className="absolute top-0 inset-x-0 h-1.5 bg-neutral-400" />
+            <div className="card-hover bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 border border-neutral-800 text-white rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group shadow-sm">
+              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-neutral-700 via-neutral-400 to-neutral-700" />
               
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white/10 text-neutral-200 border border-white/15 text-xs font-mono shadow-sm">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-neutral-900/80 text-neutral-300 border border-neutral-700 text-xs font-mono shadow-sm">
                     <CompassIcon size={14} />
                     <span>02 · OUR VISION</span>
                   </div>
@@ -160,7 +160,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             <div className="card-hover p-7 rounded-2xl space-y-3">
               <div className="text-xs font-mono uppercase text-neutral-400 font-semibold">
                 TENET 01
@@ -255,7 +255,7 @@ export default function AboutPage() {
                   </div>
 
                   <div className="mt-1">
-                    <h3 className="text-lg sm:text-xl font-bold text-neutral-900 group-hover:text-black transition-colors">
+                    <h3 className="text-lg sm:text-xl font-bold text-neutral-900 group-hover:text-neutral-950 transition-colors">
                       {member.name}
                     </h3>
                     <div className="text-xs font-mono text-neutral-500 mt-0.5 font-medium">
@@ -366,7 +366,7 @@ export default function AboutPage() {
                   </div>
 
                   {/* Name & Role */}
-                  <h4 className="text-xs sm:text-sm font-bold text-neutral-900 truncate group-hover:text-black">
+                  <h4 className="text-xs sm:text-sm font-bold text-neutral-900 truncate group-hover:text-neutral-950">
                     {member.name}
                   </h4>
                   <p className="text-[10px] sm:text-[11px] font-mono text-neutral-500 truncate mt-0.5 font-medium">

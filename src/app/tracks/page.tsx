@@ -28,7 +28,7 @@ export default function TracksPage() {
       <div className="border-b border-neutral-200 bg-white sticky top-20 z-30 py-3.5 backdrop-blur-md bg-white/95">
         <Container size="wide">
           <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-1.5 p-1.5 bg-neutral-200/50 rounded-xl border border-neutral-300/70 shadow-[inset_0_1px_2px_rgba(0,0,0,0.06)] text-xs font-mono">
+            <div className="flex flex-wrap items-center gap-1.5 p-1.5 bg-neutral-200/50 rounded-xl border border-neutral-300/70 shadow-[inset_0_1px_2px_rgba(0,0,0,0.06)] text-xs font-mono">
               <button
                 onClick={() => setSelectedTrack('all')}
                 className={`px-3.5 py-1.5 rounded-lg cursor-pointer transition-all ${
@@ -76,7 +76,7 @@ export default function TracksPage() {
                   <div className="p-2.5 bg-neutral-900 text-white rounded-xl shadow-sm">
                     <Briefcase size={22} />
                   </div>
-                  <Badge variant="dark">{businessTrack.shortTag}</Badge>
+                  <Badge variant="neutral">{businessTrack.shortTag}</Badge>
                 </div>
 
                 <h2 className="font-bold text-3xl sm:text-4xl tracking-tight text-neutral-900">
@@ -150,7 +150,7 @@ export default function TracksPage() {
                   <div className="p-2.5 bg-neutral-900 text-white rounded-xl shadow-sm">
                     <TrendingUp size={22} />
                   </div>
-                  <Badge variant="dark">{tradersTrack.shortTag}</Badge>
+                  <Badge variant="neutral">{tradersTrack.shortTag}</Badge>
                 </div>
 
                 <h2 className="font-bold text-3xl sm:text-4xl tracking-tight text-neutral-900">

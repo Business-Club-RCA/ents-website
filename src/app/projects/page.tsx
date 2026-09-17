@@ -36,7 +36,7 @@ export default function ProjectsPage() {
                   Featured Platform
                 </span>
                 <Badge variant={featured.status}>{featured.status}</Badge>
-                <Badge variant="outline">{featured.category}</Badge>
+                <Badge variant="neutral">{featured.category}</Badge>
               </div>
 
               <h2 className="font-bold text-3xl sm:text-4xl lg:text-5xl tracking-tight text-neutral-900">
@@ -91,7 +91,7 @@ export default function ProjectsPage() {
                       Telemetry Overview
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono bg-neutral-900 text-white rounded-lg px-2.5 py-0.5 font-semibold">
+                  <span className="text-[10px] font-mono bg-neutral-100 text-neutral-800 border border-neutral-200 rounded-lg px-2.5 py-0.5 font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
                     RCA PROD
                   </span>
                 </div>

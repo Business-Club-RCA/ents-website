@@ -20,7 +20,7 @@ export function Card({
         padded ? 'p-6 sm:p-8' : ''
       } ${
         hoverable
-          ? 'hover:border-black hover:bg-neutral-50/40 cursor-default'
+          ? 'hover:border-neutral-800 hover:bg-neutral-50/40 cursor-default'
           : ''
       } ${className}`}
       {...props}

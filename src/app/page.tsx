@@ -7,6 +7,7 @@ import { ArrowRight, Briefcase, TrendingUp } from '@/components/ui/Icons';
 import { StatsStrip } from '@/components/sections/StatsStrip';
 import { FlagshipSimulator } from '@/components/sections/FlagshipSimulator';
 import { HeroVisual } from '@/components/sections/HeroVisual';
+import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { tracksData } from '@/data/tracks';
 
 export default function HomePage() {
@@ -33,7 +34,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8">
             {/* Column 1 */}
             <div className="card-hover bg-neutral-50/50 border border-neutral-200/90 rounded-2xl p-7 flex flex-col justify-between">
               <div>
@@ -222,39 +223,41 @@ export default function HomePage() {
       {/* 5. STATS STRIP: Big Shoulders numbers, tactile cards */}
       <StatsStrip />
 
-      {/* 6. FINAL CTA BAND: Clean high-contrast typography */}
-      <section className="bg-neutral-950 text-white py-24 sm:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-radial from-neutral-900/40 via-transparent to-transparent pointer-events-none" />
+      {/* 6. TESTIMONIALS: Social proof matching reference card layout */}
+      <TestimonialsSection />
+
+      {/* 7. FINAL CTA BAND: Clean high-contrast typography */}
+      <section className="bg-white text-neutral-900 py-24 sm:py-32 relative overflow-hidden border-t border-neutral-200">
         <Container size="wide" className="relative z-10">
           <div className="max-w-4xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 text-xs font-mono text-neutral-200 shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-neutral-100 border border-neutral-200 text-xs font-mono text-neutral-600 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               <span>Applications Open · Cohorts 5, 6 &amp; 7</span>
             </div>
 
-            <h2 className="font-bold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-white leading-[1.04]">
+            <h2 className="font-bold text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-neutral-900 leading-[1.04]">
               Ready to build ventures and master markets?
             </h2>
 
-            <p className="text-lg sm:text-xl text-neutral-300 max-w-2xl leading-relaxed font-normal">
+            <p className="text-lg sm:text-xl text-neutral-500 max-w-xl sm:max-w-2xl leading-relaxed font-normal">
               Join the society of founders, operators, and quantitative analysts at Rwanda Coding Academy. Rolling admissions reviewed weekly.
             </p>
 
             <div className="pt-4 flex flex-wrap gap-4">
               <Button
                 href="/join"
-                variant="secondary"
+                variant="primary"
                 size="lg"
-                className="btn-skeuo-light font-bold rounded-xl px-8"
+                className="btn-skeuo-dark font-bold rounded-xl px-5 sm:px-8"
               >
                 <span>Apply to Join ENTS</span>
                 <ArrowRight size={18} />
               </Button>
               <Button
                 href="/about"
-                variant="primary"
+                variant="secondary"
                 size="lg"
-                className="btn-skeuo-dark font-semibold rounded-xl px-8 border-neutral-700"
+                className="btn-skeuo-light font-semibold rounded-xl px-5 sm:px-8"
               >
                 Read Our Story
               </Button>

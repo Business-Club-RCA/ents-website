@@ -18,6 +18,7 @@ export default async function AdminPage() {
         team: db.team,
         clubMembers: db.clubMembers || [],
         leaderboard: db.leaderboard,
+        testimonials: db.testimonials || [],
         applications: db.applications || [],
       }}
     />

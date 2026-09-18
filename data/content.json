@@ -534,10 +534,10 @@
       "name": "KAWACU RUGIRANEZA Arnaud Kennedy",
       "role": "Software Engineer",
       "track": "Business Handlers",
-      "classYear": "Year 3",
-      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789740607/ents/members/cityaps3aeylne1kkqni.jpg",
+      "socials": {},
       "initials": "KR",
-      "socials": {}
+      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789740607/ents/members/cityaps3aeylne1kkqni.jpg",
+      "classYear": "Year 3"
     }
   ],
   "leaderboard": [
@@ -674,11 +674,23 @@
   ],
   "testimonials": [
     {
+      "id": "cedric",
+      "author": "ISHIMWE Amani Samuel",
+      "role": "President at ENTS · Founder at KuraPay",
+      "quote": "ENTS has completely transformed our engineering workflow into production ventures! By treating campus utilities as active testbeds for venture incubation, our members learn how capital flows before pitching to institutional investors.",
+      "rating": 5,
+      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789754459/ents/testimonials/rrxijg2zmsb3az2syvxr.jpg",
+      "featured": true,
+      "badgeBg": "bg-neutral-900 text-white"
+    },
+    {
       "id": "aline",
       "role": "VP & Lead Quantitative Trader",
       "quote": "\"From campus prototypes to live order routing 🚀, ENTS is a must-have society. I can't imagine analyzing markets without SIFS!\"",
       "author": "Aline Umutoni",
-      "badgeBg": "bg-neutral-900 text-white",
+      "rating": 5,
+      "badgeBg": "bg-orange-500 text-white",
+      "featured": false,
       "avatarUrl": "/testimonials/aline.jpg"
     },
     {
@@ -686,7 +698,9 @@
       "role": "Treasury Lead at KuraPay",
       "quote": "\"Strict 1% risk guardrails 🌐, automated backtesting, and top-notch peer audits. ENTS has it all.\"",
       "author": "David Nshimiyimana",
-      "badgeBg": "bg-neutral-800 text-white",
+      "rating": 5,
+      "badgeBg": "bg-indigo-600 text-white",
+      "featured": false,
       "avatarUrl": "/testimonials/david.jpg"
     },
     {
@@ -694,7 +708,9 @@
       "role": "Full-Stack Venture Engineer",
       "quote": "\"The weekly pitch teardowns and pro-forma forecasting ⚡ prepared our squad directly for institutional venture capital.\"",
       "author": "Grace Mukamana",
-      "badgeBg": "bg-neutral-700 text-white",
+      "rating": 5,
+      "badgeBg": "bg-emerald-600 text-white",
+      "featured": false,
       "avatarUrl": "/testimonials/grace.jpg"
     },
     {
@@ -702,7 +718,9 @@
       "role": "Derivatives Analyst · Year 3",
       "quote": "\"Trading simulated FX depth with real execution journals 📈 eliminated emotional bias from our algorithms entirely.\"",
       "author": "Kevine Ishimwe",
-      "badgeBg": "bg-neutral-900 text-white",
+      "rating": 5,
+      "badgeBg": "bg-purple-600 text-white",
+      "featured": false,
       "avatarUrl": "/testimonials/kevine.jpg"
     },
     {
@@ -710,7 +728,9 @@
       "role": "Market Depth & Arbitrage Lead",
       "quote": "\"Campus micro-enterprises backed by student software 🤝 proved that RCA engineers can monetize while in school.\"",
       "author": "Patrick Cyusa",
-      "badgeBg": "bg-neutral-800 text-white",
+      "rating": 5,
+      "badgeBg": "bg-amber-500 text-white",
+      "featured": false,
       "avatarUrl": "/testimonials/patrick.jpg"
     }
   ],

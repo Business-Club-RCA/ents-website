@@ -25,6 +25,9 @@ import {
   deleteClubMember,
   saveLeaderboardEntry,
   deleteLeaderboardEntry,
+  saveTestimonial,
+  deleteTestimonial,
+  setFeaturedTestimonial,
   updateStats,
   updateSiteConfig,
   submitApplication,
@@ -37,6 +40,7 @@ import {
   TeamMember,
   ClubMember,
   LeaderboardEntry,
+  Testimonial,
   StatItem,
   CohortApplication,
 } from '@/types';
@@ -250,6 +254,31 @@ export async function deleteClubMemberAction(id: string) {
   await requireAuth();
   await deleteClubMember(id);
   revalidatePath('/about');
+  revalidatePath('/admin');
+  return { success: true };
+}
+
+// 6c. TESTIMONIALS CMS
+export async function saveTestimonialAction(testimonial: Testimonial) {
+  await requireAuth();
+  await saveTestimonial(testimonial);
+  revalidatePath('/');
+  revalidatePath('/admin');
+  return { success: true };
+}
+
+export async function deleteTestimonialAction(id: string) {
+  await requireAuth();
+  await deleteTestimonial(id);
+  revalidatePath('/');
+  revalidatePath('/admin');
+  return { success: true };
+}
+
+export async function setFeaturedTestimonialAction(id: string) {
+  await requireAuth();
+  await setFeaturedTestimonial(id);
+  revalidatePath('/');
   revalidatePath('/admin');
   return { success: true };
 }

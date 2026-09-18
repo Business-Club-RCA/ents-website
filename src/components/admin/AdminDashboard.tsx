@@ -11,6 +11,7 @@ import {
   LeaderboardEntry,
   StatItem,
   CohortApplication,
+  Testimonial,
 } from '@/types';
 import {
   saveProjectAction,
@@ -24,6 +25,9 @@ import {
   deleteClubMemberAction,
   saveLeaderboardAction,
   deleteLeaderboardAction,
+  saveTestimonialAction,
+  deleteTestimonialAction,
+  setFeaturedTestimonialAction,
   saveStatsAction,
   saveSiteConfigAction,
   updateApplicationStatusAction,
@@ -53,6 +57,7 @@ interface AdminDashboardProps {
     team: TeamMember[];
     clubMembers: ClubMember[];
     leaderboard: LeaderboardEntry[];
+    testimonials: Testimonial[];
     applications: CohortApplication[];
   };
 }
@@ -66,6 +71,7 @@ type TabType =
   | 'leaderboard'
   | 'team'
   | 'members'
+  | 'testimonials'
   | 'applications';
 
 export function AdminDashboard({ initialData }: AdminDashboardProps) {
@@ -97,9 +103,14 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
   const [editingClubMember, setEditingClubMember] = useState<ClubMember | null>(null);
   const [isClubMemberModalOpen, setIsClubMemberModalOpen] = useState(false);
 
+  // Testimonial Modal State
+  const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
+  const [isTestimonialModalOpen, setIsTestimonialModalOpen] = useState(false);
+
   // Dynamic Image States for Cloudinary Uploads
   const [teamAvatarUrl, setTeamAvatarUrl] = useState('');
   const [memberAvatarUrl, setMemberAvatarUrl] = useState('');
+  const [testimonialAvatarUrl, setTestimonialAvatarUrl] = useState('');
 
   const showStatus = (text: string, type: 'success' | 'error' = 'success') => {
     setStatusMessage({ type, text });
@@ -524,6 +535,103 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
   };
 
   // -------------------------------------------------------------
+  // TESTIMONIAL HANDLERS
+  // -------------------------------------------------------------
+  const handleSaveTestimonial = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const id = (formData.get('id') as string) || `test-${Date.now()}`;
+    const author = formData.get('author') as string;
+    const role = formData.get('role') as string;
+    const quote = formData.get('quote') as string;
+    const rating = Number(formData.get('rating') || 5);
+    const avatarUrl = testimonialAvatarUrl || (formData.get('avatarUrl') as string) || '';
+    const featured = formData.get('featured') === 'on';
+    const badgeBg = (formData.get('badgeBg') as string) || 'bg-neutral-900 text-white';
+
+    const newTestimonial: Testimonial = {
+      id,
+      author,
+      role,
+      quote,
+      rating,
+      avatarUrl,
+      featured,
+      badgeBg,
+    };
+
+    startTransition(async () => {
+      try {
+        await saveTestimonialAction(newTestimonial);
+        setData((prev) => {
+          const currentList = prev.testimonials || [];
+          let updatedList = currentList.map((t) => {
+            if (t.id === id) return newTestimonial;
+            // If new one is featured, unfeature others
+            if (featured) return { ...t, featured: false };
+            return t;
+          });
+          if (!updatedList.some((t) => t.id === id)) {
+            if (featured) {
+              updatedList = updatedList.map((t) => ({ ...t, featured: false }));
+            }
+            updatedList.push(newTestimonial);
+          }
+          return {
+            ...prev,
+            testimonials: updatedList,
+          };
+        });
+        setIsTestimonialModalOpen(false);
+        setEditingTestimonial(null);
+        showStatus(`Testimonial from "${author}" saved successfully.`);
+      } catch (err: any) {
+        showStatus(err?.message || 'Failed to save testimonial', 'error');
+      }
+    });
+  };
+
+  const handleDeleteTestimonial = (id: string, name: string) => {
+    if (!confirm(`Remove testimonial from "${name}"?`)) return;
+    startTransition(async () => {
+      try {
+        await deleteTestimonialAction(id);
+        setData((prev) => {
+          const remaining = (prev.testimonials || []).filter((t) => t.id !== id);
+          if (remaining.length > 0 && !remaining.some((t) => t.featured)) {
+            remaining[0].featured = true;
+          }
+          return {
+            ...prev,
+            testimonials: remaining,
+          };
+        });
+        showStatus(`Testimonial from "${name}" deleted.`);
+      } catch (err: any) {
+        showStatus(err?.message || 'Failed to delete testimonial', 'error');
+      }
+    });
+  };
+
+  const handleSetFeaturedTestimonial = (id: string, name: string) => {
+    startTransition(async () => {
+      try {
+        await setFeaturedTestimonialAction(id);
+        setData((prev) => ({
+          ...prev,
+          testimonials: (prev.testimonials || []).map((t) => ({
+            ...t,
+            featured: t.id === id,
+          })),
+        }));
+        showStatus(`"${name}" is now the featured showcase testimonial on the homepage.`);
+      } catch (err: any) {
+        showStatus(err?.message || 'Failed to set featured testimonial', 'error');
+      }
+    });
+  };
+
+  // -------------------------------------------------------------
   // COHORT APPLICATION STATUS
   // -------------------------------------------------------------
   const handleUpdateAppStatus = (id: string, status: CohortApplication['status']) => {
@@ -649,6 +757,14 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
             Club Members ({data.clubMembers?.length || 0})
           </button>
           <button
+            onClick={() => setActiveTab('testimonials')}
+            className={`px-3.5 py-1.5 rounded-xl cursor-pointer transition-all ${
+              activeTab === 'testimonials' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
+            }`}
+          >
+            Testimonials ({data.testimonials?.length || 0})
+          </button>
+          <button
             onClick={() => setActiveTab('applications')}
             className={`px-3.5 py-1.5 rounded-xl cursor-pointer transition-all ${
               activeTab === 'applications' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
@@ -772,6 +888,21 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                 </div>
                 <h4 className="font-bold text-neutral-900 text-sm mb-1 group-hover:underline">Add Club Member</h4>
                 <p className="text-xs text-neutral-500 font-normal">Create profile with Cloudinary photo</p>
+              </button>
+
+              <button
+                onClick={() => {
+                  setEditingTestimonial(null);
+                  setTestimonialAvatarUrl('');
+                  setIsTestimonialModalOpen(true);
+                }}
+                className="p-5 rounded-2xl border border-neutral-200 bg-neutral-50/50 hover:bg-neutral-100/80 transition-all text-left group cursor-pointer"
+              >
+                <div className="w-9 h-9 rounded-xl bg-neutral-900 text-white flex items-center justify-center mb-3">
+                  <span className="text-amber-400 text-base leading-none">★</span>
+                </div>
+                <h4 className="font-bold text-neutral-900 text-sm mb-1 group-hover:underline">Add Testimonial</h4>
+                <p className="text-xs text-neutral-500 font-normal">Add quote, rating, and set featured</p>
               </button>
             </div>
           </div>
@@ -1341,6 +1472,140 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                         className="text-red-600 hover:underline cursor-pointer"
                       >
                         Remove
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* -------------------------------------------------------------
+          TAB: TESTIMONIALS CMS
+          ------------------------------------------------------------- */}
+      {activeTab === 'testimonials' && (
+        <div className="space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-bold text-neutral-900">Member Testimonials &amp; Social Proof</h2>
+              <p className="text-xs text-neutral-500 font-mono">
+                Manage student quotes, star ratings, portrait photos, and select which testimonial is featured on the homepage
+              </p>
+            </div>
+            <button
+              onClick={() => {
+                setEditingTestimonial(null);
+                setTestimonialAvatarUrl('');
+                setIsTestimonialModalOpen(true);
+              }}
+              className="btn-skeuo-dark font-bold text-xs font-mono px-4 py-2 rounded-xl cursor-pointer self-start sm:self-auto"
+            >
+              + Add Testimonial
+            </button>
+          </div>
+
+          {(data.testimonials || []).length === 0 ? (
+            <div className="py-16 text-center text-xs font-mono text-neutral-500 border border-neutral-200 rounded-2xl bg-white">
+              No testimonials published yet. Click &quot;+ Add Testimonial&quot; to add your first member quote.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {(data.testimonials || []).map((t) => (
+                <div
+                  key={t.id}
+                  className={`bg-white border rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col justify-between space-y-4 transition-all ${
+                    t.featured
+                      ? 'border-neutral-900 ring-2 ring-neutral-900/10 shadow-md'
+                      : 'border-neutral-200/90 hover:border-neutral-300'
+                  }`}
+                >
+                  <div>
+                    {/* Header with Featured Indicator & Stars */}
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      {t.featured ? (
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-neutral-900 text-white text-[10px] font-mono font-bold uppercase tracking-wider">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                          ★ Featured Showcase
+                        </span>
+                      ) : (
+                        <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider">
+                          Standard Card
+                        </span>
+                      )}
+
+                      {/* Star Rating Display */}
+                      <div className="flex items-center gap-1 text-orange-500 text-sm leading-none" title={`${t.rating || 5} out of 5 stars`}>
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <span key={i} className={i < (t.rating || 5) ? 'text-orange-500' : 'text-neutral-300'}>
+                            ★
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Feedback / Quote */}
+                    <blockquote className="text-xs sm:text-[13px] text-neutral-700 italic font-medium leading-relaxed mb-4 line-clamp-4">
+                      &ldquo;{t.quote}&rdquo;
+                    </blockquote>
+
+                    {/* Author & Photo Details */}
+                    <div className="flex items-center gap-3 pt-3 border-t border-neutral-100">
+                      <div className="avatar-skeuo-bezel relative w-11 h-11 rounded-full overflow-hidden bg-neutral-100 shrink-0">
+                        <ProfileAvatar
+                          src={t.avatarUrl}
+                          name={t.author}
+                          size="sm"
+                          className="w-full h-full"
+                        />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <h4 className="font-bold text-xs sm:text-sm text-neutral-900 truncate">
+                          {t.author}
+                        </h4>
+                        <p className="text-[11px] font-mono text-neutral-500 truncate">
+                          {t.role}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card Actions Footer */}
+                  <div className="pt-3 border-t border-neutral-100 flex items-center justify-between text-xs font-mono">
+                    <div>
+                      {!t.featured ? (
+                        <button
+                          type="button"
+                          onClick={() => handleSetFeaturedTestimonial(t.id, t.author)}
+                          className="text-[11px] text-amber-700 hover:text-amber-900 font-semibold underline cursor-pointer"
+                        >
+                          Feature on Homepage
+                        </button>
+                      ) : (
+                        <span className="text-[11px] text-emerald-700 font-semibold">
+                          Active Homepage Hero
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setEditingTestimonial(t);
+                          setTestimonialAvatarUrl(t.avatarUrl || '');
+                          setIsTestimonialModalOpen(true);
+                        }}
+                        className="text-neutral-800 hover:underline cursor-pointer font-bold"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteTestimonial(t.id, t.author)}
+                        className="text-red-600 hover:underline cursor-pointer"
+                      >
+                        Delete
                       </button>
                     </div>
                   </div>
@@ -2380,6 +2645,151 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                   className="btn-skeuo-dark px-5 py-2 rounded-xl font-bold"
                 >
                   {isPending ? 'Saving...' : 'Save Member'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* -------------------------------------------------------------
+          TESTIMONIAL MODAL
+          ------------------------------------------------------------- */}
+      {isTestimonialModalOpen && (
+        <div data-lenis-prevent className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/60 backdrop-blur-sm">
+          <div className="bg-white border border-neutral-300 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-3 border-b border-neutral-200 mb-5">
+              <h3 className="text-lg font-bold text-neutral-900">
+                {editingTestimonial ? 'Edit Testimonial' : 'Add Testimonial'}
+              </h3>
+              <button
+                type="button"
+                onClick={() => {
+                  setIsTestimonialModalOpen(false);
+                  setEditingTestimonial(null);
+                }}
+                className="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 border border-neutral-200/80 flex items-center justify-center text-neutral-600 hover:text-neutral-900 transition-colors cursor-pointer"
+                title="Close modal"
+                aria-label="Close modal"
+              >
+                <CloseIcon size={14} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveTestimonial} className="space-y-4 text-xs font-mono">
+              <input type="hidden" name="id" defaultValue={editingTestimonial?.id || ''} />
+
+              <div>
+                <label className="block text-neutral-600 mb-1 font-semibold">Author Name *</label>
+                <input
+                  name="author"
+                  defaultValue={editingTestimonial?.author || ''}
+                  required
+                  placeholder="e.g. Cedric Mugisha"
+                  className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl font-bold text-neutral-900"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-neutral-600 mb-1 font-semibold">Role / Affiliation *</label>
+                  <input
+                    name="role"
+                    defaultValue={editingTestimonial?.role || ''}
+                    required
+                    placeholder="e.g. VP & Lead Trader"
+                    className="w-full px-3 py-2 bg-neutral-50 border border-neutral-300 rounded-xl"
+                  />
+                </div>
+                <div>
+                  <label className="block text-neutral-600 mb-1 font-semibold">Star Rating (1-5) *</label>
+                  <select
+                    name="rating"
+                    defaultValue={editingTestimonial?.rating ?? 5}
+                    className="w-full px-3 py-2 bg-neutral-50 border border-neutral-300 rounded-xl"
+                  >
+                    <option value={5}>★★★★★ (5 Stars)</option>
+                    <option value={4}>★★★★☆ (4 Stars)</option>
+                    <option value={3}>★★★☆☆ (3 Stars)</option>
+                    <option value={2}>★★☆☆☆ (2 Stars)</option>
+                    <option value={1}>★☆☆☆☆ (1 Star)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-neutral-600 mb-1 font-semibold">Feedback / Quote *</label>
+                <textarea
+                  name="quote"
+                  defaultValue={editingTestimonial?.quote || ''}
+                  rows={4}
+                  required
+                  placeholder="What did this member say about ENTS, SIFS, or club ventures? Emojis supported..."
+                  className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl"
+                />
+              </div>
+
+              {/* Cloudinary Profile Photo Uploader */}
+              <CloudinaryImageInput
+                label="Portrait Photo"
+                value={testimonialAvatarUrl}
+                onChange={setTestimonialAvatarUrl}
+                folder="ents/testimonials"
+              />
+              <input type="hidden" name="avatarUrl" value={testimonialAvatarUrl} />
+
+              {/* Featured Showcase Checkbox */}
+              <div className="p-3.5 bg-amber-50/80 border border-amber-200/80 rounded-2xl flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="featured-testimonial-check"
+                  name="featured"
+                  defaultChecked={Boolean(editingTestimonial?.featured)}
+                  className="mt-0.5 rounded border-amber-300 text-neutral-900 focus:ring-amber-500 cursor-pointer w-4 h-4"
+                />
+                <label htmlFor="featured-testimonial-check" className="cursor-pointer">
+                  <span className="block font-bold text-amber-950 text-xs">
+                    Feature as Primary Homepage Showcase
+                  </span>
+                  <span className="block text-[11px] text-amber-800 font-normal mt-0.5 leading-snug">
+                    Displays this testimonial prominently in the large portrait card in the center of the homepage.
+                  </span>
+                </label>
+              </div>
+
+              <div>
+                <label className="block text-neutral-600 mb-1 font-semibold">Card Accent Style</label>
+                <select
+                  name="badgeBg"
+                  defaultValue={editingTestimonial?.badgeBg || 'bg-neutral-900 text-white'}
+                  className="w-full px-3 py-2 bg-neutral-50 border border-neutral-300 rounded-xl text-[11px]"
+                >
+                  <option value="bg-neutral-900 text-white">Classic Dark (Neutral 900)</option>
+                  <option value="bg-orange-500 text-white">Vibrant Orange</option>
+                  <option value="bg-indigo-600 text-white">Royal Indigo</option>
+                  <option value="bg-emerald-600 text-white">Emerald Green</option>
+                  <option value="bg-purple-600 text-white">Deep Purple</option>
+                  <option value="bg-amber-500 text-white">Amber Gold</option>
+                </select>
+              </div>
+
+              <div className="pt-4 flex justify-end gap-3 border-t border-neutral-200">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsTestimonialModalOpen(false);
+                    setEditingTestimonial(null);
+                  }}
+                  className="btn-skeuo-light px-4 py-2 rounded-xl cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isPending}
+                  className="btn-skeuo-dark px-5 py-2 rounded-xl font-bold cursor-pointer"
+                >
+                  {isPending ? 'Saving...' : 'Save Testimonial'}
                 </button>
               </div>
             </form>

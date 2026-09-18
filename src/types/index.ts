@@ -140,11 +140,14 @@ export interface FeedItem {
 
 export interface Testimonial {
   id: string;
-  quote: string;
-  author: string;
-  role: string;
-  avatarUrl: string;
-  badgeBg: string;
+  quote: string; // feedback
+  author: string; // name
+  role: string; // role
+  avatarUrl: string; // photo
+  badgeBg?: string; // badge background color / accent
+  badgeIcon?: string; // optional badge text or icon
+  rating?: number; // rate (1-5 stars, default 5)
+  featured?: boolean; // whether this is the featured showcase testimonial
 }
 
 export interface CohortApplication {

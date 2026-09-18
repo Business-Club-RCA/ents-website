@@ -3,41 +3,46 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Container } from '@/components/ui/Container';
+import { ProfileAvatar } from '@/components/ui/ProfileAvatar';
+import { Testimonial } from '@/types';
 
-interface TestimonialCard {
-  id: string;
-  quote: string;
-  author: string;
-  role: string;
-  avatarUrl: string;
-  badgeBg: string;
-  badgeIcon: React.ReactNode;
+interface TestimonialsSectionProps {
+  testimonials?: Testimonial[];
 }
 
-const TESTIMONIALS: TestimonialCard[] = [
+const DEFAULT_TESTIMONIALS: Testimonial[] = [
+  {
+    id: 'cedric',
+    quote:
+      'ENTS has completely transformed our engineering workflow into production ventures! By treating campus utilities as active testbeds for venture incubation, our members learn how capital flows before pitching to institutional investors.',
+    author: 'Cedric Mugisha',
+    role: 'President at ENTS · Founder at KuraPay',
+    avatarUrl: '/testimonials/cedric.jpg',
+    badgeBg: 'bg-neutral-900 text-white',
+    rating: 5,
+    featured: true,
+  },
   {
     id: 'aline',
     quote:
-      '"From campus prototypes to live order routing 🚀, ENTS is a must-have society. I can\'t ❤️ imagine analyzing markets without SIFS!"',
+      '"From campus prototypes to live order routing 🚀, ENTS is a must-have society. I can\'t imagine analyzing markets without SIFS!"',
     author: 'Aline Umutoni',
     role: 'VP & Lead Quantitative Trader',
     avatarUrl: '/testimonials/aline.jpg',
     badgeBg: 'bg-orange-500 text-white',
-    badgeIcon: (
-      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-      </svg>
-    ),
+    rating: 5,
+    featured: false,
   },
   {
     id: 'david',
     quote:
-      '"Strict 1% risk guardrails 🌐, automated backtesting, and top-notch 🎯 peer audits. ENTS has it all."',
+      '"Strict 1% risk guardrails 🌐, automated backtesting, and top-notch peer audits. ENTS has it all."',
     author: 'David Nshimiyimana',
     role: 'Treasury Lead at KuraPay',
     avatarUrl: '/testimonials/david.jpg',
     badgeBg: 'bg-indigo-600 text-white',
-    badgeIcon: <span className="font-bold text-xs font-mono">S</span>,
+    rating: 5,
+    featured: false,
   },
   {
     id: 'grace',
@@ -47,11 +52,8 @@ const TESTIMONIALS: TestimonialCard[] = [
     role: 'Full-Stack Venture Engineer',
     avatarUrl: '/testimonials/grace.jpg',
     badgeBg: 'bg-emerald-600 text-white',
-    badgeIcon: (
-      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-        <polyline points="20 6 9 17 4 12" />
-      </svg>
-    ),
+    rating: 5,
+    featured: false,
   },
   {
     id: 'kevine',
@@ -61,11 +63,8 @@ const TESTIMONIALS: TestimonialCard[] = [
     role: 'Derivatives Analyst · Year 3',
     avatarUrl: '/testimonials/kevine.jpg',
     badgeBg: 'bg-purple-600 text-white',
-    badgeIcon: (
-      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-        <circle cx="12" cy="12" r="9" />
-      </svg>
-    ),
+    rating: 5,
+    featured: false,
   },
   {
     id: 'patrick',
@@ -75,46 +74,52 @@ const TESTIMONIALS: TestimonialCard[] = [
     role: 'Market Depth & Arbitrage Lead',
     avatarUrl: '/testimonials/patrick.jpg',
     badgeBg: 'bg-amber-500 text-white',
-    badgeIcon: (
-      <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-      </svg>
-    ),
+    rating: 5,
+    featured: false,
   },
 ];
 
-export function TestimonialsSection() {
+export function TestimonialsSection({ testimonials = DEFAULT_TESTIMONIALS }: TestimonialsSectionProps) {
+  const activeTestimonials = testimonials.length > 0 ? testimonials : DEFAULT_TESTIMONIALS;
+
+  // Dynamic Featured Testimonial (either explicitly marked or first in list)
+  const featured = activeTestimonials.find((t) => t.featured) || activeTestimonials[0];
+
+  // Sliding cards (exclude featured if we have other cards)
+  const nonFeatured = activeTestimonials.filter((t) => t.id !== featured?.id);
+  const slidingPool = nonFeatured.length > 0 ? nonFeatured : activeTestimonials;
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [slideDirection, setSlideDirection] = useState<'up' | 'down'>('up');
 
   // Automatic slide up and down interval: items slide and transition smoothly
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || slidingPool.length <= 1) return;
     const interval = setInterval(() => {
       setSlideDirection('up');
-      setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length);
+      setCurrentIndex((prev) => (prev + 1) % slidingPool.length);
     }, 4200);
 
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, slidingPool.length]);
 
   const handleNext = () => {
     setSlideDirection('up');
-    setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length);
+    setCurrentIndex((prev) => (prev + 1) % slidingPool.length);
   };
 
   const handlePrev = () => {
     setSlideDirection('down');
-    setCurrentIndex((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+    setCurrentIndex((prev) => (prev - 1 + slidingPool.length) % slidingPool.length);
   };
 
-  // Visible items window (shows 3 items, sliding gracefully)
+  // Visible items window (shows up to 3 items, sliding gracefully)
   const visibleCards = [
-    TESTIMONIALS[currentIndex % TESTIMONIALS.length],
-    TESTIMONIALS[(currentIndex + 1) % TESTIMONIALS.length],
-    TESTIMONIALS[(currentIndex + 2) % TESTIMONIALS.length],
-  ];
+    slidingPool[currentIndex % slidingPool.length],
+    slidingPool.length > 1 ? slidingPool[(currentIndex + 1) % slidingPool.length] : null,
+    slidingPool.length > 2 ? slidingPool[(currentIndex + 2) % slidingPool.length] : null,
+  ].filter(Boolean) as Testimonial[];
 
   return (
     <section className="py-20 sm:py-28 bg-neutral-50/40 border-b border-neutral-200 relative overflow-hidden select-none">
@@ -160,26 +165,41 @@ export function TestimonialsSection() {
           <div className="lg:col-span-4 flex justify-center">
             <div className="relative w-full max-w-md h-[470px] sm:h-[510px] lg:h-[540px] rounded-3xl overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.12)] border border-neutral-200/80 group">
               {/* Feature Portrait Image with smooth zoom on hover */}
-              <Image
-                src="/testimonials/cedric.jpg"
-                alt="Cedric Mugisha, ENTS President"
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover object-center group-hover:scale-[1.03] transition-transform duration-700 ease-out"
-                priority={false}
-              />
+              {featured?.avatarUrl ? (
+                <Image
+                  src={featured.avatarUrl}
+                  alt={`${featured.author}, ${featured.role}`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover object-center group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+                  priority={false}
+                />
+              ) : (
+                <div className="w-full h-full bg-neutral-900 flex items-center justify-center text-white">
+                  <span className="text-6xl font-bold font-mono text-neutral-500">
+                    {(featured?.author || 'E')[0]}
+                  </span>
+                </div>
+              )}
 
               {/* Bottom Gradient Vignette */}
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/95 via-neutral-950/40 to-transparent flex flex-col justify-end p-6 sm:p-7 text-white select-none">
-                <blockquote className="text-base sm:text-lg font-medium leading-snug mb-3 drop-shadow-sm text-white/95">
-                  &ldquo;ENTS has completely transformed our engineering workflow into production ventures!&rdquo;
+                <div className="flex items-center gap-1 text-orange-400 text-sm mb-2" aria-label={`${featured?.rating || 5} out of 5 stars`}>
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span key={i} className={i < (featured?.rating || 5) ? 'text-orange-400' : 'text-neutral-500'}>
+                      ★
+                    </span>
+                  ))}
+                </div>
+                <blockquote className="text-base sm:text-lg font-medium leading-snug mb-3 drop-shadow-sm text-white/95 line-clamp-4">
+                  &ldquo;{featured?.quote}&rdquo;
                 </blockquote>
                 <div>
                   <div className="font-bold text-sm sm:text-base text-white tracking-tight">
-                    Cedric Mugisha
+                    {featured?.author}
                   </div>
                   <div className="text-xs text-neutral-300 font-mono mt-0.5">
-                    President at ENTS &middot; Founder at KuraPay
+                    {featured?.role}
                   </div>
                 </div>
               </div>
@@ -209,26 +229,29 @@ export function TestimonialsSection() {
                     key={`${item.id}-${idx}`}
                     className="bg-white border border-neutral-200/90 rounded-2xl p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] card-hover flex flex-col justify-between space-y-3 transition-transform duration-300 hover:scale-[1.01]"
                   >
-                    {/* Quote with Emoji */}
+                    {/* Quote / Feedback */}
                     <p className="text-xs sm:text-[13px] text-neutral-700 font-medium leading-relaxed">
                       {item.quote}
                     </p>
 
-                    {/* 5 Orange Stars */}
-                    <div className="flex items-center gap-1 text-orange-500 text-sm leading-none" aria-label="5 out of 5 stars">
-                      {'★★★★★'}
+                    {/* Dynamic Orange Stars */}
+                    <div className="flex items-center gap-1 text-orange-500 text-xs sm:text-sm leading-none" aria-label={`${item.rating || 5} out of 5 stars`}>
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <span key={i} className={i < (item.rating || 5) ? 'text-orange-500' : 'text-neutral-300'}>
+                          ★
+                        </span>
+                      ))}
                     </div>
 
-                    {/* Author Row with Avatar + Info + Company Icon Badge */}
+                    {/* Author Row with Avatar + Info + Badge */}
                     <div className="flex items-center justify-between pt-1 border-t border-neutral-100">
                       <div className="flex items-center gap-3">
                         <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-neutral-200 bg-neutral-100 shrink-0">
-                          <Image
+                          <ProfileAvatar
                             src={item.avatarUrl}
-                            alt={item.author}
-                            fill
-                            sizes="40px"
-                            className="object-cover"
+                            name={item.author}
+                            size="sm"
+                            className="w-full h-full"
                           />
                         </div>
                         <div>
@@ -241,11 +264,13 @@ export function TestimonialsSection() {
                         </div>
                       </div>
 
-                      {/* Brand Badge */}
+                      {/* Brand / Initials Badge */}
                       <div
-                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shadow-sm shrink-0 ${item.badgeBg}`}
+                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shadow-sm shrink-0 font-bold text-xs font-mono uppercase ${
+                          item.badgeBg || 'bg-neutral-900 text-white'
+                        }`}
                       >
-                        {item.badgeIcon}
+                        {(item.author || 'E').split(' ').pop()?.[0] || 'E'}
                       </div>
                     </div>
                   </div>
@@ -256,7 +281,7 @@ export function TestimonialsSection() {
             {/* Subtle Controls at Bottom: Up/Down Slide Arrows & Active Indicators */}
             <div className="pt-2 flex items-center justify-between text-neutral-500 text-xs font-mono">
               <div className="flex items-center gap-1.5">
-                {TESTIMONIALS.map((_, i) => (
+                {slidingPool.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => {

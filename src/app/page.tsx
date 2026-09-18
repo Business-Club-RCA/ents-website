@@ -8,7 +8,7 @@ import { StatsStrip } from '@/components/sections/StatsStrip';
 import { FlagshipSimulator } from '@/components/sections/FlagshipSimulator';
 import { HeroVisual } from '@/components/sections/HeroVisual';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
-import { getTracks, getStats } from '@/lib/db';
+import { getTracks, getStats, getTestimonials } from '@/lib/db';
 import {
   PillarVenturesIllustration,
   PillarDisciplineIllustration,
@@ -18,7 +18,11 @@ import {
 } from '@/components/ui/CardIllustrations';
 
 export default async function HomePage() {
-  const [tracks, stats] = await Promise.all([getTracks(), getStats()]);
+  const [tracks, stats, testimonials] = await Promise.all([
+    getTracks(),
+    getStats(),
+    getTestimonials(),
+  ]);
   const businessTrack = tracks.find((t) => t.id === 'business-handlers') || tracks[0];
   const tradersTrack = tracks.find((t) => t.id === 'traders') || tracks[1];
 
@@ -254,7 +258,7 @@ export default async function HomePage() {
       <StatsStrip stats={stats} />
 
       {/* 6. TESTIMONIALS: Social proof matching reference card layout */}
-      <TestimonialsSection />
+      <TestimonialsSection testimonials={testimonials} />
 
       {/* 7. FINAL CTA BAND: Clean high-contrast typography */}
       <section className="bg-white text-neutral-900 py-24 sm:py-32 relative overflow-hidden border-t border-neutral-200">

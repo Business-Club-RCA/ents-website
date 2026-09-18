@@ -46,13 +46,26 @@ let writeQueue = Promise.resolve();
 
 const initialTestimonials: Testimonial[] = [
   {
+    id: 'cedric',
+    quote:
+      'ENTS has completely transformed our engineering workflow into production ventures! By treating campus utilities as active testbeds for venture incubation, our members learn how capital flows before pitching to institutional investors.',
+    author: 'Cedric Mugisha',
+    role: 'President at ENTS · Founder at KuraPay',
+    avatarUrl: '/testimonials/cedric.jpg',
+    badgeBg: 'bg-neutral-900 text-white',
+    rating: 5,
+    featured: true,
+  },
+  {
     id: 'aline',
     quote:
       '"From campus prototypes to live order routing 🚀, ENTS is a must-have society. I can\'t imagine analyzing markets without SIFS!"',
     author: 'Aline Umutoni',
     role: 'VP & Lead Quantitative Trader',
     avatarUrl: '/testimonials/aline.jpg',
-    badgeBg: 'bg-neutral-900 text-white',
+    badgeBg: 'bg-orange-500 text-white',
+    rating: 5,
+    featured: false,
   },
   {
     id: 'david',
@@ -61,7 +74,9 @@ const initialTestimonials: Testimonial[] = [
     author: 'David Nshimiyimana',
     role: 'Treasury Lead at KuraPay',
     avatarUrl: '/testimonials/david.jpg',
-    badgeBg: 'bg-neutral-800 text-white',
+    badgeBg: 'bg-indigo-600 text-white',
+    rating: 5,
+    featured: false,
   },
   {
     id: 'grace',
@@ -70,7 +85,9 @@ const initialTestimonials: Testimonial[] = [
     author: 'Grace Mukamana',
     role: 'Full-Stack Venture Engineer',
     avatarUrl: '/testimonials/grace.jpg',
-    badgeBg: 'bg-neutral-700 text-white',
+    badgeBg: 'bg-emerald-600 text-white',
+    rating: 5,
+    featured: false,
   },
   {
     id: 'kevine',
@@ -79,7 +96,9 @@ const initialTestimonials: Testimonial[] = [
     author: 'Kevine Ishimwe',
     role: 'Derivatives Analyst · Year 3',
     avatarUrl: '/testimonials/kevine.jpg',
-    badgeBg: 'bg-neutral-900 text-white',
+    badgeBg: 'bg-purple-600 text-white',
+    rating: 5,
+    featured: false,
   },
   {
     id: 'patrick',
@@ -88,7 +107,9 @@ const initialTestimonials: Testimonial[] = [
     author: 'Patrick Cyusa',
     role: 'Market Depth & Arbitrage Lead',
     avatarUrl: '/testimonials/patrick.jpg',
-    badgeBg: 'bg-neutral-800 text-white',
+    badgeBg: 'bg-amber-500 text-white',
+    rating: 5,
+    featured: false,
   },
 ];
 
@@ -120,8 +141,31 @@ export async function readDB(): Promise<SiteContentDB> {
           ...initial,
           ...pgData,
           clubMembers: pgData.clubMembers || initial.clubMembers,
+          testimonials: pgData.testimonials || initial.testimonials,
           applications: pgData.applications || [],
         } as SiteContentDB;
+
+        // Ensure testimonials include Cedric and have rating and featured flag
+        let needsPgSync = false;
+        if (!cachedDB.testimonials.some((t) => t.id === 'cedric')) {
+          cachedDB.testimonials = [initialTestimonials[0], ...cachedDB.testimonials];
+          needsPgSync = true;
+        }
+        cachedDB.testimonials = cachedDB.testimonials.map((t, idx) => {
+          const rating = typeof t.rating === 'number' ? t.rating : 5;
+          const featured = typeof t.featured === 'boolean' ? t.featured : (idx === 0);
+          if (t.rating !== rating || t.featured !== featured) needsPgSync = true;
+          return { ...t, rating, featured };
+        });
+        if (!cachedDB.testimonials.some((t) => t.featured) && cachedDB.testimonials.length > 0) {
+          cachedDB.testimonials[0].featured = true;
+          needsPgSync = true;
+        }
+
+        if (needsPgSync) {
+          await writeDB(cachedDB);
+        }
+
         return cachedDB;
       } else {
         // Postgres connected but database is fresh/empty -> auto-seed from local data
@@ -146,13 +190,28 @@ export async function readDB(): Promise<SiteContentDB> {
     const raw = await fs.readFile(DB_FILE, 'utf-8');
     const parsed = JSON.parse(raw);
     const initial = getInitialDB();
-    const needsMigration = !parsed.clubMembers;
+    const needsMigration = !parsed.clubMembers || !parsed.testimonials || !parsed.testimonials.some((t: any) => t.id === 'cedric');
     cachedDB = {
       ...initial,
       ...parsed,
       clubMembers: parsed.clubMembers || initial.clubMembers,
+      testimonials: parsed.testimonials || initial.testimonials,
       applications: parsed.applications || [],
     } as SiteContentDB;
+
+    // Ensure testimonials include Cedric and have rating and featured flag
+    if (!cachedDB.testimonials.some((t) => t.id === 'cedric')) {
+      cachedDB.testimonials = [initialTestimonials[0], ...cachedDB.testimonials];
+    }
+    cachedDB.testimonials = cachedDB.testimonials.map((t, idx) => ({
+      ...t,
+      rating: typeof t.rating === 'number' ? t.rating : 5,
+      featured: typeof t.featured === 'boolean' ? t.featured : (idx === 0),
+    }));
+    if (!cachedDB.testimonials.some((t) => t.featured) && cachedDB.testimonials.length > 0) {
+      cachedDB.testimonials[0].featured = true;
+    }
+
     if (needsMigration) {
       await writeDB(cachedDB);
     }
@@ -444,26 +503,76 @@ export async function deleteLeaderboardEntry(name: string): Promise<boolean> {
 // 8. Testimonials
 export async function getTestimonials(): Promise<Testimonial[]> {
   const db = await readDB();
-  return db.testimonials;
+  return db.testimonials || [];
 }
 
 export async function saveTestimonial(testimonial: Testimonial): Promise<Testimonial> {
   const db = await readDB();
-  const existingIdx = db.testimonials.findIndex((t) => t.id === testimonial.id);
-  if (existingIdx >= 0) {
-    db.testimonials[existingIdx] = testimonial;
-  } else {
-    db.testimonials.push(testimonial);
+  if (!db.testimonials) db.testimonials = [];
+
+  const sanitized: Testimonial = {
+    ...testimonial,
+    rating: Number(testimonial.rating) || 5,
+    featured: Boolean(testimonial.featured),
+  };
+
+  // If this testimonial is set to featured, unfeature all others
+  if (sanitized.featured) {
+    db.testimonials.forEach((t) => {
+      if (t.id !== sanitized.id) {
+        t.featured = false;
+      }
+    });
   }
+
+  const existingIdx = db.testimonials.findIndex((t) => t.id === sanitized.id);
+  if (existingIdx >= 0) {
+    db.testimonials[existingIdx] = sanitized;
+  } else {
+    db.testimonials.push(sanitized);
+  }
+
+  // Ensure at least one testimonial is marked featured if list is not empty
+  if (!db.testimonials.some((t) => t.featured) && db.testimonials.length > 0) {
+    db.testimonials[0].featured = true;
+  }
+
   await writeDB(db);
-  return testimonial;
+  return sanitized;
+}
+
+export async function setFeaturedTestimonial(id: string): Promise<Testimonial | null> {
+  const db = await readDB();
+  if (!db.testimonials) db.testimonials = [];
+
+  let featuredItem: Testimonial | null = null;
+  db.testimonials = db.testimonials.map((t) => {
+    if (t.id === id) {
+      t.featured = true;
+      featuredItem = t;
+    } else {
+      t.featured = false;
+    }
+    return t;
+  });
+
+  await writeDB(db);
+  return featuredItem;
 }
 
 export async function deleteTestimonial(id: string): Promise<boolean> {
   const db = await readDB();
+  if (!db.testimonials) return false;
+
   const initialLength = db.testimonials.length;
+  const wasFeatured = db.testimonials.find((t) => t.id === id)?.featured;
   db.testimonials = db.testimonials.filter((t) => t.id !== id);
+
   if (db.testimonials.length !== initialLength) {
+    // If the deleted one was featured, make the first one featured
+    if (wasFeatured && db.testimonials.length > 0) {
+      db.testimonials[0].featured = true;
+    }
     await writeDB(db);
     return true;
   }

@@ -4,17 +4,21 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Container } from '@/components/ui/Container';
-import { initialFeedItems } from '@/data/updates';
 import { FeedItem, UpdateType } from '@/types';
 import { saveUpdateAction, registerAttendanceAction } from '@/actions/adminActions';
 
 const STORAGE_KEY = 'ents_feed_items_v4';
 const ATTENDANCE_STORAGE_KEY = 'ents_event_attendees_v2';
 
-export function UpdatesHub({ initialItems = initialFeedItems }: { initialItems?: FeedItem[] }) {
+export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] }) {
   const [items, setItems] = useState<FeedItem[]>(initialItems);
   const [activeTab, setActiveTab] = useState<'all' | 'news' | 'event'>('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Keep items in sync when initialItems changes
+  useEffect(() => {
+    setItems(initialItems);
+  }, [initialItems]);
 
   // Featured Event Index (Shows 1 event at a time)
   const [featuredEventIndex, setFeaturedEventIndex] = useState(0);
@@ -51,7 +55,7 @@ export function UpdatesHub({ initialItems = initialFeedItems }: { initialItems?:
         const parsed: FeedItem[] = JSON.parse(saved);
         const customItems = parsed.filter((p) => p.isCustom);
         if (customItems.length > 0) {
-          setItems([...customItems, ...initialFeedItems]);
+          setItems([...customItems, ...initialItems]);
         }
       }
 

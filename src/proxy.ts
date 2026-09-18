@@ -1,25 +1,27 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { SESSION_COOKIE_NAME, verifySessionToken } from '@/lib/auth';
 
-const SESSION_COOKIE_NAME = 'ents_admin_session';
-
-export function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Only guard /admin routes
+  // Guard all /admin routes
   if (pathname.startsWith('/admin')) {
     const sessionCookie = request.cookies.get(SESSION_COOKIE_NAME);
     const isLoginPage = pathname === '/admin/login';
 
-    // If attempting to access /admin (and not /admin/login) without a cookie, redirect to /admin/login
-    if (!sessionCookie?.value && !isLoginPage) {
+    const authResult = await verifySessionToken(sessionCookie?.value);
+    const isAuthed = authResult.valid;
+
+    // If attempting to access /admin (and not /admin/login) without a valid HMAC session, redirect to /admin/login
+    if (!isAuthed && !isLoginPage) {
       const loginUrl = new URL('/admin/login', request.url);
       loginUrl.searchParams.set('redirect', pathname);
       return NextResponse.redirect(loginUrl);
     }
 
-    // If already logged in and visiting /admin/login, redirect to /admin
-    if (sessionCookie?.value && isLoginPage) {
+    // If already authenticated and visiting /admin/login, redirect to /admin
+    if (isAuthed && isLoginPage) {
       return NextResponse.redirect(new URL('/admin', request.url));
     }
   }

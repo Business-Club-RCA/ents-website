@@ -102,12 +102,12 @@ export default function AdminLoginPage() {
           {/* Machined Footer Groove */}
           <div className="skeuo-groove px-2 pt-4 mt-6 border-t border-neutral-200/80 text-[11px] font-mono text-neutral-500 flex flex-col gap-2">
             <div className="flex items-center justify-between">
-              <span>SECURITY LEVEL:</span>
-              <span className="font-bold text-neutral-800">LEVEL 3 ENCRYPTED</span>
+              <span>SECURITY PROTOCOL:</span>
+              <span className="font-bold text-neutral-800">HMAC-SHA256 &middot; 8H SESSION</span>
             </div>
             <div className="flex items-center justify-between text-[10px] text-neutral-400">
-              <span>DEFAULT LOCAL KEY:</span>
-              <code className="bg-neutral-100 px-1.5 py-0.5 rounded border border-neutral-200 text-neutral-600">ents2026</code>
+              <span>ACCESS POLICY:</span>
+              <span className="text-neutral-500 font-semibold">AUTHORIZED RCA PERSONNEL ONLY</span>
             </div>
           </div>
         </div>

@@ -34,7 +34,14 @@ import {
   ArrowRight,
   Shield,
   Check,
+  CloseIcon,
+  GithubIcon,
+  LinkedInIcon,
+  XIcon,
+  GlobeIcon,
+  UserIcon,
 } from '@/components/ui/Icons';
+import { ProfileAvatar } from '@/components/ui/ProfileAvatar';
 
 interface AdminDashboardProps {
   initialData: {
@@ -399,9 +406,10 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
       avatarUrl: avatarUrl || undefined,
       initials,
       socials: {
-        linkedin: (formData.get('linkedin') as string) || undefined,
-        x: (formData.get('x') as string) || undefined,
-        portfolio: (formData.get('portfolio') as string) || undefined,
+        x: (formData.get('x') as string)?.trim() || undefined,
+        linkedin: (formData.get('linkedin') as string)?.trim() || undefined,
+        github: (formData.get('github') as string)?.trim() || undefined,
+        portfolio: (formData.get('portfolio') as string)?.trim() || undefined,
       },
     };
 
@@ -472,10 +480,10 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
       avatarUrl,
       initials,
       socials: {
-        linkedin: (formData.get('linkedin') as string) || undefined,
-        x: (formData.get('x') as string) || undefined,
-        portfolio: (formData.get('portfolio') as string) || undefined,
-        github: (formData.get('github') as string) || undefined,
+        x: (formData.get('x') as string)?.trim() || undefined,
+        linkedin: (formData.get('linkedin') as string)?.trim() || undefined,
+        github: (formData.get('github') as string)?.trim() || undefined,
+        portfolio: (formData.get('portfolio') as string)?.trim() || undefined,
       },
     };
 
@@ -1101,22 +1109,79 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
             {data.team.map((member) => (
               <div key={member.id} className="bg-white p-5 flex flex-col justify-between">
                 <div>
-                  {member.avatarUrl && (
-                    <div className="skeuo-recessed rounded-2xl overflow-hidden relative w-full h-44 mb-3">
-                      <Image
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="avatar-skeuo-bezel relative w-24 h-24 rounded-full overflow-hidden bg-neutral-100">
+                      <ProfileAvatar
                         src={member.avatarUrl}
-                        alt={member.name}
-                        fill
-                        className="object-cover"
+                        name={member.name}
+                        initials={member.initials}
+                        size="lg"
+                        className="w-full h-full"
                       />
                     </div>
-                  )}
+                  </div>
                   <div className="text-[10px] font-mono text-neutral-500 uppercase font-semibold">
                     {member.role}
                   </div>
                   <h3 className="font-bold text-base text-neutral-900 mt-1">{member.name}</h3>
                   <p className="text-xs text-neutral-500 font-mono">{member.classYear}</p>
                   <p className="text-xs text-neutral-600 mt-2 line-clamp-3 font-normal">{member.bio}</p>
+
+                  {/* Social Profile Badges in CMS Card */}
+                  {Boolean(
+                    member.socials &&
+                      (member.socials.x ||
+                        member.socials.linkedin ||
+                        member.socials.github ||
+                        member.socials.portfolio)
+                  ) && (
+                    <div className="flex items-center gap-1.5 mt-3 pt-2.5 border-t border-neutral-100">
+                      {member.socials?.x && (
+                        <a
+                          href={member.socials.x}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-5 h-5 rounded flex items-center justify-center bg-neutral-900 text-white hover:opacity-80"
+                          title="X Profile"
+                        >
+                          <XIcon size={12} />
+                        </a>
+                      )}
+                      {member.socials?.linkedin && (
+                        <a
+                          href={member.socials.linkedin}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-5 h-5 rounded flex items-center justify-center bg-[#0A66C2] text-white hover:opacity-80"
+                          title="LinkedIn"
+                        >
+                          <LinkedInIcon size={12} />
+                        </a>
+                      )}
+                      {member.socials?.github && (
+                        <a
+                          href={member.socials.github}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-5 h-5 rounded flex items-center justify-center bg-[#18181b] text-white hover:opacity-80"
+                          title="GitHub"
+                        >
+                          <GithubIcon size={12} />
+                        </a>
+                      )}
+                      {member.socials?.portfolio && (
+                        <a
+                          href={member.socials.portfolio}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-5 h-5 rounded flex items-center justify-center bg-[#0284C7] text-white hover:opacity-80"
+                          title="Portfolio"
+                        >
+                          <GlobeIcon size={12} />
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 <div className="pt-3 mt-4 border-t border-neutral-100 flex items-center justify-between text-xs font-mono">
@@ -1174,23 +1239,16 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
               {(data.clubMembers || []).map((member) => (
                 <div key={member.id} className="bg-white p-4 sm:p-5 flex flex-col justify-between group hover:bg-neutral-50/50 transition-colors">
                   <div>
-                    {/* Round Avatar with Skeuomorphic Bezel */}
+                    {/* Round Avatar with Skeuomorphic Bezel & Profile Icon fallback */}
                     <div className="flex items-center gap-3.5 mb-3.5">
                       <div className="avatar-skeuo-bezel relative w-14 h-14 rounded-full overflow-hidden bg-neutral-100 shrink-0">
-                        {member.avatarUrl ? (
-                          <Image
-                            src={member.avatarUrl}
-                            alt={member.name}
-                            fill
-                            sizes="56px"
-                            className="object-cover object-top"
-                            unoptimized
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center font-mono font-bold text-sm text-neutral-900">
-                            {member.initials}
-                          </div>
-                        )}
+                        <ProfileAvatar
+                          src={member.avatarUrl}
+                          name={member.name}
+                          initials={member.initials}
+                          size="md"
+                          className="w-full h-full"
+                        />
                       </div>
                       <div className="min-w-0 flex-1">
                         <h3 className="font-bold text-sm text-neutral-900 truncate">{member.name}</h3>
@@ -1219,18 +1277,29 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                     )}
                   </div>
 
-                  {/* Actions & Social Links */}
+                  {/* Actions & Real-World Social Links */}
                   <div className="pt-3 mt-4 border-t border-neutral-100 flex items-center justify-between text-xs font-mono">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5">
+                      {member.socials?.x && (
+                        <a
+                          href={member.socials.x}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="w-5 h-5 rounded flex items-center justify-center bg-neutral-900 text-white hover:opacity-80 transition-opacity"
+                          title="X Profile"
+                        >
+                          <XIcon size={12} />
+                        </a>
+                      )}
                       {member.socials?.linkedin && (
                         <a
                           href={member.socials.linkedin}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-neutral-400 hover:text-neutral-900"
+                          className="w-5 h-5 rounded flex items-center justify-center bg-[#0A66C2] text-white hover:opacity-80 transition-opacity"
                           title="LinkedIn"
                         >
-                          LI
+                          <LinkedInIcon size={12} />
                         </a>
                       )}
                       {member.socials?.github && (
@@ -1238,10 +1307,10 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                           href={member.socials.github}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-neutral-400 hover:text-neutral-900"
+                          className="w-5 h-5 rounded flex items-center justify-center bg-[#18181b] text-white hover:opacity-80 transition-opacity"
                           title="GitHub"
                         >
-                          GH
+                          <GithubIcon size={12} />
                         </a>
                       )}
                       {member.socials?.portfolio && (
@@ -1249,10 +1318,10 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                           href={member.socials.portfolio}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-neutral-400 hover:text-neutral-900"
+                          className="w-5 h-5 rounded flex items-center justify-center bg-[#0284C7] text-white hover:opacity-80 transition-opacity"
                           title="Portfolio"
                         >
-                          WEB
+                          <GlobeIcon size={12} />
                         </a>
                       )}
                     </div>
@@ -1370,13 +1439,16 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                 {editingProject ? 'Edit Venture Project' : 'Create New Venture Project'}
               </h3>
               <button
+                type="button"
                 onClick={() => {
                   setIsProjectModalOpen(false);
                   setEditingProject(null);
                 }}
-                className="text-neutral-500 hover:text-neutral-900 cursor-pointer font-bold text-lg"
+                className="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 border border-neutral-200/80 flex items-center justify-center text-neutral-600 hover:text-neutral-900 transition-colors cursor-pointer"
+                title="Close modal"
+                aria-label="Close modal"
               >
-                &times;
+                <CloseIcon size={14} />
               </button>
             </div>
 
@@ -1551,13 +1623,16 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                 {editingUpdate ? 'Edit Dispatch / Event' : 'Publish New Dispatch / Event'}
               </h3>
               <button
+                type="button"
                 onClick={() => {
                   setIsUpdateModalOpen(false);
                   setEditingUpdate(null);
                 }}
-                className="text-neutral-500 hover:text-neutral-900 cursor-pointer font-bold text-lg"
+                className="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 border border-neutral-200/80 flex items-center justify-center text-neutral-600 hover:text-neutral-900 transition-colors cursor-pointer"
+                title="Close modal"
+                aria-label="Close modal"
               >
-                &times;
+                <CloseIcon size={14} />
               </button>
             </div>
 
@@ -1799,13 +1874,16 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                 {editingLeaderboard ? 'Edit Trader Standings' : 'Add Ranked Trader'}
               </h3>
               <button
+                type="button"
                 onClick={() => {
                   setIsLeaderboardModalOpen(false);
                   setEditingLeaderboard(null);
                 }}
-                className="text-neutral-500 hover:text-neutral-900 cursor-pointer font-bold text-lg"
+                className="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 border border-neutral-200/80 flex items-center justify-center text-neutral-600 hover:text-neutral-900 transition-colors cursor-pointer"
+                title="Close modal"
+                aria-label="Close modal"
               >
-                &times;
+                <CloseIcon size={14} />
               </button>
             </div>
 
@@ -1962,13 +2040,16 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                 {editingTeamMember ? 'Edit Executive Member' : 'Add Executive Member'}
               </h3>
               <button
+                type="button"
                 onClick={() => {
                   setIsTeamModalOpen(false);
                   setEditingTeamMember(null);
                 }}
-                className="text-neutral-500 hover:text-neutral-900 cursor-pointer font-bold text-lg"
+                className="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 border border-neutral-200/80 flex items-center justify-center text-neutral-600 hover:text-neutral-900 transition-colors cursor-pointer"
+                title="Close modal"
+                aria-label="Close modal"
               >
-                &times;
+                <CloseIcon size={14} />
               </button>
             </div>
 
@@ -2040,6 +2121,60 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                 <input type="hidden" name="avatarUrl" value={teamAvatarUrl} />
               </div>
 
+              {/* Social Profiles Section */}
+              <div className="border-t border-neutral-200 pt-3">
+                <span className="block text-neutral-700 mb-1.5 font-semibold">Social Profiles (Optional)</span>
+                <p className="text-[11px] text-neutral-500 mb-2.5 font-normal">
+                  Add links for the profiles you want to display. If left blank, the icon will not appear on the profile.
+                </p>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-7 h-7 rounded-lg bg-neutral-900 text-white flex items-center justify-center shrink-0 shadow-xs" title="X">
+                      <XIcon size={14} />
+                    </span>
+                    <input
+                      name="x"
+                      defaultValue={editingTeamMember?.socials?.x || ''}
+                      placeholder="X (Twitter) URL (e.g. https://x.com/username)"
+                      className="flex-1 px-3 py-1.5 bg-neutral-50 border border-neutral-300 rounded-xl text-[11px]"
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-7 h-7 rounded-lg bg-[#0A66C2] text-white flex items-center justify-center shrink-0 shadow-xs" title="LinkedIn">
+                      <LinkedInIcon size={14} />
+                    </span>
+                    <input
+                      name="linkedin"
+                      defaultValue={editingTeamMember?.socials?.linkedin || ''}
+                      placeholder="LinkedIn URL (e.g. https://linkedin.com/in/username)"
+                      className="flex-1 px-3 py-1.5 bg-neutral-50 border border-neutral-300 rounded-xl text-[11px]"
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-7 h-7 rounded-lg bg-[#18181b] text-white flex items-center justify-center shrink-0 shadow-xs" title="GitHub">
+                      <GithubIcon size={14} />
+                    </span>
+                    <input
+                      name="github"
+                      defaultValue={editingTeamMember?.socials?.github || ''}
+                      placeholder="GitHub URL (e.g. https://github.com/username)"
+                      className="flex-1 px-3 py-1.5 bg-neutral-50 border border-neutral-300 rounded-xl text-[11px]"
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-7 h-7 rounded-lg bg-[#0284C7] text-white flex items-center justify-center shrink-0 shadow-xs" title="Portfolio">
+                      <GlobeIcon size={14} />
+                    </span>
+                    <input
+                      name="portfolio"
+                      defaultValue={editingTeamMember?.socials?.portfolio || ''}
+                      placeholder="Portfolio / Website URL (e.g. https://portfolio.com)"
+                      className="flex-1 px-3 py-1.5 bg-neutral-50 border border-neutral-300 rounded-xl text-[11px]"
+                    />
+                  </div>
+                </div>
+              </div>
+
               <div className="pt-4 flex justify-end gap-3 border-t border-neutral-200">
                 <button
                   type="button"
@@ -2075,13 +2210,16 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                 {editingClubMember ? 'Edit Club Member Profile' : 'Add Club Member Profile'}
               </h3>
               <button
+                type="button"
                 onClick={() => {
                   setIsClubMemberModalOpen(false);
                   setEditingClubMember(null);
                 }}
-                className="text-neutral-500 hover:text-neutral-900 cursor-pointer font-bold text-lg"
+                className="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 border border-neutral-200/80 flex items-center justify-center text-neutral-600 hover:text-neutral-900 transition-colors cursor-pointer"
+                title="Close modal"
+                aria-label="Close modal"
               >
-                &times;
+                <CloseIcon size={14} />
               </button>
             </div>
 
@@ -2170,27 +2308,57 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
               />
               <input type="hidden" name="avatarUrl" value={memberAvatarUrl} />
 
+              {/* Social Profiles Section */}
               <div className="border-t border-neutral-200 pt-3">
-                <span className="block text-neutral-600 mb-2 font-semibold">Social Links (Optional)</span>
+                <span className="block text-neutral-700 mb-1.5 font-semibold">Social Profiles (Optional)</span>
+                <p className="text-[11px] text-neutral-500 mb-2.5 font-normal">
+                  Add links for the profiles you want to display. If left blank, the icon will not appear on the profile.
+                </p>
                 <div className="space-y-2">
-                  <input
-                    name="linkedin"
-                    defaultValue={editingClubMember?.socials?.linkedin || ''}
-                    placeholder="LinkedIn Profile URL"
-                    className="w-full px-3 py-1.5 bg-neutral-50 border border-neutral-300 rounded-xl text-[11px]"
-                  />
-                  <input
-                    name="github"
-                    defaultValue={editingClubMember?.socials?.github || ''}
-                    placeholder="GitHub Profile URL"
-                    className="w-full px-3 py-1.5 bg-neutral-50 border border-neutral-300 rounded-xl text-[11px]"
-                  />
-                  <input
-                    name="portfolio"
-                    defaultValue={editingClubMember?.socials?.portfolio || ''}
-                    placeholder="Portfolio / Personal Website URL"
-                    className="w-full px-3 py-1.5 bg-neutral-50 border border-neutral-300 rounded-xl text-[11px]"
-                  />
+                  <div className="flex items-center gap-2">
+                    <span className="w-7 h-7 rounded-lg bg-neutral-900 text-white flex items-center justify-center shrink-0 shadow-xs" title="X">
+                      <XIcon size={14} />
+                    </span>
+                    <input
+                      name="x"
+                      defaultValue={editingClubMember?.socials?.x || ''}
+                      placeholder="X (Twitter) URL (e.g. https://x.com/username)"
+                      className="flex-1 px-3 py-1.5 bg-neutral-50 border border-neutral-300 rounded-xl text-[11px]"
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-7 h-7 rounded-lg bg-[#0A66C2] text-white flex items-center justify-center shrink-0 shadow-xs" title="LinkedIn">
+                      <LinkedInIcon size={14} />
+                    </span>
+                    <input
+                      name="linkedin"
+                      defaultValue={editingClubMember?.socials?.linkedin || ''}
+                      placeholder="LinkedIn URL (e.g. https://linkedin.com/in/username)"
+                      className="flex-1 px-3 py-1.5 bg-neutral-50 border border-neutral-300 rounded-xl text-[11px]"
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-7 h-7 rounded-lg bg-[#18181b] text-white flex items-center justify-center shrink-0 shadow-xs" title="GitHub">
+                      <GithubIcon size={14} />
+                    </span>
+                    <input
+                      name="github"
+                      defaultValue={editingClubMember?.socials?.github || ''}
+                      placeholder="GitHub URL (e.g. https://github.com/username)"
+                      className="flex-1 px-3 py-1.5 bg-neutral-50 border border-neutral-300 rounded-xl text-[11px]"
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-7 h-7 rounded-lg bg-[#0284C7] text-white flex items-center justify-center shrink-0 shadow-xs" title="Portfolio">
+                      <GlobeIcon size={14} />
+                    </span>
+                    <input
+                      name="portfolio"
+                      defaultValue={editingClubMember?.socials?.portfolio || ''}
+                      placeholder="Portfolio / Website URL (e.g. https://portfolio.com)"
+                      className="flex-1 px-3 py-1.5 bg-neutral-50 border border-neutral-300 rounded-xl text-[11px]"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -2326,10 +2494,11 @@ function CloudinaryImageInput({
           <button
             type="button"
             onClick={() => onChange('')}
-            className="text-xs text-neutral-400 hover:text-red-600 font-bold px-1 cursor-pointer"
-            title="Clear image"
+            className="w-6 h-6 rounded-md bg-neutral-200/80 hover:bg-red-100 hover:text-red-700 flex items-center justify-center text-neutral-500 transition-colors cursor-pointer shrink-0 ml-1"
+            title="Remove photo"
+            aria-label="Remove photo"
           >
-            &times;
+            <CloseIcon size={12} />
           </button>
         </div>
       )}

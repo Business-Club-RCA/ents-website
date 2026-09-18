@@ -458,15 +458,19 @@
     },
     {
       "id": "president",
-      "name": "Cedric Mugisha",
+      "name": "ISHIMWE Amani Samuel",
       "role": "President",
       "track": null,
       "classYear": "Year 3",
       "specialization": "Software Ventures & Ecosystem Development",
       "bio": "Oversees society strategy, venture incubation, and external industry bridges between Rwanda Coding Academy and tech ecosystems.",
-      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789675594/ents/team/mldrqxh2sqlcw8n7f3wz.jpg",
-      "initials": "CM",
-      "socials": {}
+      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789717137/ents/team/lhiqvjave91wsp6dol3m.jpg",
+      "initials": "IA",
+      "socials": {
+        "linkedin": "https://www.linkedin.com/in/amani-ishimwe-409825331/",
+        "github": "https://github.com/Amani-Ishimwe",
+        "portfolio": "https://www.amanisamuel.online/"
+      }
     },
     {
       "id": "vice-president",
@@ -487,353 +491,43 @@
     {
       "id": "secretary",
       "bio": "Manages club records, session logistics, and oversees telemetry synchronization for the SIFS simulation platform.",
-      "name": "Divine Uwase",
+      "name": "HAPPY David",
       "role": "Secretary",
-      "track": "Engineering",
-      "socials": {
-        "x": "https://x.com",
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://divine.tech"
-      },
-      "initials": "DU",
-      "avatarUrl": "https://images.unsplash.com/photo-1589156280159-27698a70f29e?auto=format&fit=crop&w=600&q=80",
-      "classYear": "Year 2",
+      "track": null,
+      "socials": {},
+      "initials": "HD",
+      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789717624/ents/team/eymgnpqqlr05aumkbqpu.jpg",
+      "classYear": "Year 3",
       "specialization": "Operations & SIFS Platform Architecture"
     }
   ],
   "clubMembers": [
     {
       "id": "m1",
-      "name": "Kevine Ishimwe",
-      "role": "Quant Derivatives Analyst",
-      "track": "Traders",
+      "name": "IRATUZI Justin",
+      "role": "Software Engineer",
+      "track": "Business Handlers",
       "socials": {
-        "x": "https://x.com",
         "linkedin": "https://linkedin.com",
         "portfolio": "https://kevine.dev"
       },
-      "initials": "KI",
-      "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 3"
+      "initials": "IJ",
+      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789718215/ents/members/olw7gc2cfhd5dunge6oh.jpg",
+      "classYear": "Year 2"
     },
     {
       "id": "m2",
-      "name": "David Nshimiyimana",
-      "role": "Venture Treasury Lead",
+      "name": "KAYIRANGA Don Jesus",
+      "role": "Software Engineer",
       "track": "Business Handlers",
       "socials": {
-        "x": "https://x.com",
+        "github": "https://github.com/Amani-Ishimwe",
         "linkedin": "https://linkedin.com",
-        "portfolio": "https://david.dev"
+        "portfolio": "https://x.com/KDonJesus"
       },
-      "initials": "DN",
-      "avatarUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 3"
-    },
-    {
-      "id": "m3",
-      "name": "Grace Mukamana",
-      "role": "Full-Stack Venture Engineer",
-      "track": "Engineering",
-      "socials": {
-        "x": "https://x.com",
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://grace.tech"
-      },
-      "initials": "GM",
-      "avatarUrl": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
+      "initials": "KD",
+      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789717910/ents/members/kxefz85sjirypsihbgfu.jpg",
       "classYear": "Year 2"
-    },
-    {
-      "id": "m4",
-      "name": "Patrick Cyusa",
-      "role": "Market Depth & Arbitrage",
-      "track": "Traders",
-      "socials": {
-        "x": "https://x.com",
-        "linkedin": "https://linkedin.com"
-      },
-      "initials": "PC",
-      "avatarUrl": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 2"
-    },
-    {
-      "id": "m5",
-      "name": "Diane Uwera",
-      "role": "Financial Modeling Analyst",
-      "track": "Business Handlers",
-      "socials": {
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://diane.me"
-      },
-      "initials": "DU",
-      "avatarUrl": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 3"
-    },
-    {
-      "id": "m6",
-      "name": "Eric Manzi",
-      "role": "SIFS Engine Core Dev",
-      "track": "Engineering",
-      "socials": {
-        "x": "https://x.com",
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://manzi.dev"
-      },
-      "initials": "EM",
-      "avatarUrl": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 2"
-    },
-    {
-      "id": "m7",
-      "name": "Ange Mutoni",
-      "role": "Product UX Strategist",
-      "track": "Business Handlers",
-      "socials": {
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://angemutoni.com"
-      },
-      "initials": "AM",
-      "avatarUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 1"
-    },
-    {
-      "id": "m8",
-      "name": "Samuel Habineza",
-      "role": "FX Algorithm Backtester",
-      "track": "Traders",
-      "socials": {
-        "x": "https://x.com",
-        "linkedin": "https://linkedin.com"
-      },
-      "initials": "SH",
-      "avatarUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 2"
-    },
-    {
-      "id": "m9",
-      "name": "Sandrine Ingabire",
-      "role": "Campus Micro-Ventures",
-      "track": "Business Handlers",
-      "socials": {
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://sandrine.dev"
-      },
-      "initials": "SI",
-      "avatarUrl": "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 1"
-    },
-    {
-      "id": "m10",
-      "name": "Claude Ndayishimiye",
-      "role": "Python Quant Pipelines",
-      "track": "Engineering",
-      "socials": {
-        "x": "https://x.com",
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://claude.io"
-      },
-      "initials": "CN",
-      "avatarUrl": "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 3"
-    },
-    {
-      "id": "m11",
-      "name": "Fiona Uwitonze",
-      "role": "Macroeconomic Researcher",
-      "track": "Traders",
-      "socials": {
-        "x": "https://x.com",
-        "linkedin": "https://linkedin.com"
-      },
-      "initials": "FU",
-      "avatarUrl": "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 2"
-    },
-    {
-      "id": "m12",
-      "name": "Thierry Mugabo",
-      "role": "Growth & Retention Ops",
-      "track": "Business Handlers",
-      "socials": {
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://thierry.design"
-      },
-      "initials": "TM",
-      "avatarUrl": "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 1"
-    },
-    {
-      "id": "m13",
-      "name": "Yvette Uwimana",
-      "role": "Technical Chart Analyst",
-      "track": "Traders",
-      "socials": {
-        "x": "https://x.com",
-        "linkedin": "https://linkedin.com"
-      },
-      "initials": "YU",
-      "avatarUrl": "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 2"
-    },
-    {
-      "id": "m14",
-      "name": "Brian Kwizera",
-      "role": "Index & Equity Strategist",
-      "track": "Traders",
-      "socials": {
-        "x": "https://x.com",
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://brian.codes"
-      },
-      "initials": "BK",
-      "avatarUrl": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 3"
-    },
-    {
-      "id": "m15",
-      "name": "Nadine Irakoze",
-      "role": "Pine Script Indicator Dev",
-      "track": "Engineering",
-      "socials": {
-        "x": "https://x.com",
-        "linkedin": "https://linkedin.com"
-      },
-      "initials": "NI",
-      "avatarUrl": "https://images.unsplash.com/photo-1534751516642-a171edd2521d?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 2"
-    },
-    {
-      "id": "m16",
-      "name": "Jean-Luc Tuyishime",
-      "role": "Liquidity & Smart Contracts",
-      "track": "Engineering",
-      "socials": {
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://jeanluc.tech"
-      },
-      "initials": "JT",
-      "avatarUrl": "https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 3"
-    },
-    {
-      "id": "m17",
-      "name": "Peace Umwali",
-      "role": "Pitch & Lean Canvas",
-      "track": "Business Handlers",
-      "socials": {
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://peace.me"
-      },
-      "initials": "PU",
-      "avatarUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 1"
-    },
-    {
-      "id": "m18",
-      "name": "Fabrice Nsengiyumva",
-      "role": "Real-Time WebSockets Dev",
-      "track": "Engineering",
-      "socials": {
-        "x": "https://x.com",
-        "linkedin": "https://linkedin.com"
-      },
-      "initials": "FN",
-      "avatarUrl": "https://images.unsplash.com/photo-1528892952291-009c663ce843?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 2"
-    },
-    {
-      "id": "m19",
-      "name": "Chantal Mukashyaka",
-      "role": "Risk Audit & Drawdowns",
-      "track": "Traders",
-      "socials": {
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://chantal.dev"
-      },
-      "initials": "CM",
-      "avatarUrl": "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 3"
-    },
-    {
-      "id": "m20",
-      "name": "Olivier Shema",
-      "role": "Routing & API Architect",
-      "track": "Engineering",
-      "socials": {
-        "x": "https://x.com",
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://shema.dev"
-      },
-      "initials": "OS",
-      "avatarUrl": "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 2"
-    },
-    {
-      "id": "m21",
-      "name": "Keza Uwase",
-      "role": "Consumer SaaS Strategist",
-      "track": "Business Handlers",
-      "socials": {
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://keza.design"
-      },
-      "initials": "KU",
-      "avatarUrl": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 1"
-    },
-    {
-      "id": "m22",
-      "name": "Bruce Gasana",
-      "role": "Commodities & Metals Trader",
-      "track": "Traders",
-      "socials": {
-        "x": "https://x.com",
-        "linkedin": "https://linkedin.com"
-      },
-      "initials": "BG",
-      "avatarUrl": "https://images.unsplash.com/photo-1517462964-21fdcec3f25b?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 2"
-    },
-    {
-      "id": "m23",
-      "name": "Sonia Mutamuriza",
-      "role": "Data Visualization Dev",
-      "track": "Engineering",
-      "socials": {
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://sonia.me"
-      },
-      "initials": "SM",
-      "avatarUrl": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 1"
-    },
-    {
-      "id": "m24",
-      "name": "Alain Rukundo",
-      "role": "Quant Research Associate",
-      "track": "Traders",
-      "socials": {
-        "x": "https://x.com",
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://alain.codes"
-      },
-      "initials": "AR",
-      "avatarUrl": "https://images.unsplash.com/photo-1514626585111-9aa86183ac98?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 2"
-    },
-    {
-      "id": "m25",
-      "name": "Solange Umutoniwase",
-      "role": "Venture Operations Associate",
-      "track": "Business Handlers",
-      "socials": {
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://solange.dev"
-      },
-      "initials": "SU",
-      "avatarUrl": "https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&w=400&q=80",
-      "classYear": "Year 1"
     }
   ],
   "leaderboard": [

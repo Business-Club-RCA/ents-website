@@ -8,9 +8,11 @@ import {
   LinkedInIcon,
   XIcon,
   GlobeIcon,
+  GithubIcon,
   TargetIcon,
   CompassIcon,
 } from '@/components/ui/Icons';
+import { ProfileAvatar } from '@/components/ui/ProfileAvatar';
 import {
   TenetCodeIllustration,
   TenetRiskIllustration,
@@ -258,20 +260,13 @@ export default async function AboutPage() {
                   {/* Skeuomorphic Recessed Bezel with Round Portrait */}
                   <div className="relative mb-4">
                     <div className="avatar-skeuo-bezel relative w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden bg-neutral-100 transition-all duration-300">
-                      {member.avatarUrl ? (
-                        <Image
-                          src={member.avatarUrl}
-                          alt={member.name}
-                          fill
-                          sizes="(max-width: 768px) 128px, 144px"
-                          className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                          unoptimized
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center font-mono font-bold text-xl text-neutral-900">
-                          {member.initials}
-                        </div>
-                      )}
+                      <ProfileAvatar
+                        src={member.avatarUrl}
+                        name={member.name}
+                        initials={member.initials}
+                        size="xl"
+                        className="w-full h-full"
+                      />
                     </div>
 
                     {/* Tactile Skeuomorphic Role Badge Overlay */}
@@ -299,45 +294,65 @@ export default async function AboutPage() {
                   </p>
                 </div>
 
-                {/* Tactile Skeuomorphic Social Keycaps & Chiseled Divider */}
-                <div className="border-t border-neutral-200/80 mt-6 pt-4 flex items-center justify-center gap-2.5">
-                  {member.socials?.linkedin && (
-                    <a
-                      href={member.socials.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-skeuo-btn"
-                      aria-label={`${member.name} LinkedIn`}
-                      title="LinkedIn"
-                    >
-                      <LinkedInIcon size={20} />
-                    </a>
-                  )}
-                  {member.socials?.x && (
-                    <a
-                      href={member.socials.x}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-skeuo-btn"
-                      aria-label={`${member.name} X`}
-                      title="X"
-                    >
-                      <XIcon size={20} />
-                    </a>
-                  )}
-                  {member.socials?.portfolio && (
-                    <a
-                      href={member.socials.portfolio}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-skeuo-btn"
-                      aria-label={`${member.name} Portfolio`}
-                      title="Portfolio Website"
-                    >
-                      <GlobeIcon size={20} />
-                    </a>
-                  )}
-                </div>
+                {/* Tactile Skeuomorphic Social Keycaps - Only renders if at least one social exists */}
+                {Boolean(
+                  member.socials &&
+                    (member.socials.x ||
+                      member.socials.linkedin ||
+                      member.socials.github ||
+                      member.socials.portfolio)
+                ) && (
+                  <div className="border-t border-neutral-200/80 mt-6 pt-4 flex items-center justify-center gap-2.5">
+                    {member.socials?.x && (
+                      <a
+                        href={member.socials.x}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-skeuo-btn"
+                        aria-label={`${member.name} on X`}
+                        title="X (Twitter)"
+                      >
+                        <XIcon size={20} />
+                      </a>
+                    )}
+                    {member.socials?.linkedin && (
+                      <a
+                        href={member.socials.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-skeuo-btn"
+                        aria-label={`${member.name} on LinkedIn`}
+                        title="LinkedIn"
+                      >
+                        <LinkedInIcon size={20} />
+                      </a>
+                    )}
+                    {member.socials?.github && (
+                      <a
+                        href={member.socials.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-skeuo-btn"
+                        aria-label={`${member.name} on GitHub`}
+                        title="GitHub"
+                      >
+                        <GithubIcon size={20} />
+                      </a>
+                    )}
+                    {member.socials?.portfolio && (
+                      <a
+                        href={member.socials.portfolio}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-skeuo-btn"
+                        aria-label={`${member.name} Portfolio`}
+                        title="Portfolio Website"
+                      >
+                        <GlobeIcon size={20} />
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -375,20 +390,13 @@ export default async function AboutPage() {
                   {/* Round Photo Thumbnail with Skeuomorphic Bezel + Tactile Class Tag */}
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <div className="avatar-skeuo-bezel-sm relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-neutral-100 shrink-0">
-                      {member.avatarUrl ? (
-                        <Image
-                          src={member.avatarUrl}
-                          alt={member.name}
-                          fill
-                          sizes="48px"
-                          className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                          unoptimized
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center font-mono font-bold text-xs text-neutral-900 rounded-full">
-                          {member.initials}
-                        </div>
-                      )}
+                      <ProfileAvatar
+                        src={member.avatarUrl}
+                        name={member.name}
+                        initials={member.initials}
+                        size="sm"
+                        className="w-full h-full"
+                      />
                     </div>
 
                     <span className="btn-skeuo-light text-[9px] sm:text-[10px] font-mono px-2 py-0.5 rounded-lg font-semibold">
@@ -408,45 +416,65 @@ export default async function AboutPage() {
                   </p>
                 </div>
 
-                {/* Tactile Skeuomorphic Social Keycaps & Chiseled Divider */}
-                <div className="border-t border-neutral-200/70 mt-3 pt-2.5 flex items-center gap-1.5">
-                  {member.socials?.linkedin && (
-                    <a
-                      href={member.socials.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-skeuo-btn-sm"
-                      aria-label={`${member.name} LinkedIn`}
-                      title="LinkedIn"
-                    >
-                      <LinkedInIcon size={16} />
-                    </a>
-                  )}
-                  {member.socials?.x && (
-                    <a
-                      href={member.socials.x}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-skeuo-btn-sm"
-                      aria-label={`${member.name} X`}
-                      title="X"
-                    >
-                      <XIcon size={16} />
-                    </a>
-                  )}
-                  {member.socials?.portfolio && (
-                    <a
-                      href={member.socials.portfolio}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-skeuo-btn-sm"
-                      aria-label={`${member.name} Portfolio`}
-                      title="Portfolio"
-                    >
-                      <GlobeIcon size={16} />
-                    </a>
-                  )}
-                </div>
+                {/* Tactile Skeuomorphic Social Keycaps - Only renders if at least one social exists */}
+                {Boolean(
+                  member.socials &&
+                    (member.socials.x ||
+                      member.socials.linkedin ||
+                      member.socials.github ||
+                      member.socials.portfolio)
+                ) && (
+                  <div className="border-t border-neutral-200/70 mt-3 pt-2.5 flex items-center gap-1.5 flex-wrap">
+                    {member.socials?.x && (
+                      <a
+                        href={member.socials.x}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-skeuo-btn-sm"
+                        aria-label={`${member.name} on X`}
+                        title="X (Twitter)"
+                      >
+                        <XIcon size={16} />
+                      </a>
+                    )}
+                    {member.socials?.linkedin && (
+                      <a
+                        href={member.socials.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-skeuo-btn-sm"
+                        aria-label={`${member.name} on LinkedIn`}
+                        title="LinkedIn"
+                      >
+                        <LinkedInIcon size={16} />
+                      </a>
+                    )}
+                    {member.socials?.github && (
+                      <a
+                        href={member.socials.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-skeuo-btn-sm"
+                        aria-label={`${member.name} on GitHub`}
+                        title="GitHub"
+                      >
+                        <GithubIcon size={16} />
+                      </a>
+                    )}
+                    {member.socials?.portfolio && (
+                      <a
+                        href={member.socials.portfolio}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-skeuo-btn-sm"
+                        aria-label={`${member.name} Portfolio`}
+                        title="Portfolio Website"
+                      >
+                        <GlobeIcon size={16} />
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>

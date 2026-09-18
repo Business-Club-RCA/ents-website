@@ -2,11 +2,15 @@
 
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { headers } from 'next/headers';
 import {
   verifyPassword,
   setAdminSession,
   clearAdminSession,
   isAuthenticated,
+  checkRateLimit,
+  recordFailedAttempt,
+  clearFailedAttempts,
 } from '@/lib/auth';
 import {
   saveProject,
@@ -42,10 +46,33 @@ import { uploadImageBuffer, isCloudinaryConfigured } from '@/lib/cloudinary';
 // 1. AUTHENTICATION ACTIONS
 // -------------------------------------------------------------
 
+async function getClientIp(): Promise<string> {
+  try {
+    const headersList = await headers();
+    const forwarded = headersList.get('x-forwarded-for');
+    if (forwarded) {
+      return forwarded.split(',')[0].trim();
+    }
+    return headersList.get('x-real-ip') || '127.0.0.1';
+  } catch {
+    return '127.0.0.1';
+  }
+}
+
 export async function loginAction(
   prevState: { error?: string; success?: boolean } | null,
   formData: FormData
 ) {
+  const clientIp = await getClientIp();
+
+  // Check rate limit & brute force lockout
+  const rateLimit = checkRateLimit(clientIp);
+  if (!rateLimit.allowed) {
+    return {
+      error: `Too many failed attempts. Security lockout active. Please wait ${rateLimit.remainingSeconds}s before retrying.`,
+    };
+  }
+
   const passcode = formData.get('passcode') as string;
   if (!passcode) {
     return { error: 'Passcode is required.' };
@@ -53,9 +80,18 @@ export async function loginAction(
 
   const isValid = await verifyPassword(passcode);
   if (!isValid) {
+    recordFailedAttempt(clientIp);
+    const updatedLimit = checkRateLimit(clientIp);
+    if (!updatedLimit.allowed) {
+      return {
+        error: `Invalid admin passcode. Security lockout triggered for 15 minutes.`,
+      };
+    }
     return { error: 'Invalid admin passcode. Access denied.' };
   }
 
+  // Clear failed attempts upon successful authentication
+  clearFailedAttempts(clientIp);
   await setAdminSession();
   redirect('/admin');
 }
@@ -66,10 +102,10 @@ export async function logoutAction() {
 }
 
 // Helper to ensure action callers are authenticated
-async function requireAuth() {
+export async function requireAuth() {
   const authed = await isAuthenticated();
   if (!authed) {
-    throw new Error('Unauthorized');
+    throw new Error('Unauthorized. Valid admin session required.');
   }
 }
 
@@ -121,7 +157,26 @@ export async function registerAttendanceAction(eventId: string, attendee: {
   email: string;
   classYear: string;
 }) {
-  const success = await registerEventAttendance(eventId, attendee);
+  if (!eventId || typeof eventId !== 'string' || eventId.length > 100) {
+    return { success: false, error: 'Invalid event ID' };
+  }
+  const cleanName = attendee?.fullName?.trim() || '';
+  const cleanEmail = attendee?.email?.trim() || '';
+  const cleanClass = attendee?.classYear?.trim() || '';
+
+  if (!cleanName || cleanName.length > 100) {
+    return { success: false, error: 'Name must be between 1 and 100 characters' };
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!cleanEmail || !emailRegex.test(cleanEmail) || cleanEmail.length > 120) {
+    return { success: false, error: 'Invalid email address' };
+  }
+
+  const success = await registerEventAttendance(eventId, {
+    fullName: cleanName,
+    email: cleanEmail,
+    classYear: cleanClass.slice(0, 50),
+  });
   revalidatePath('/updates');
   revalidatePath('/admin');
   return { success };

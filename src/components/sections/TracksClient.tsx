@@ -60,10 +60,10 @@ export function TracksClient({ tracks }: { tracks: TrackInfo[] }) {
             </div>
 
             <Link
-              href="/join"
+              href="/about"
               className="text-xs font-mono font-bold text-neutral-900 hover:underline underline-offset-4 hidden sm:inline-flex items-center gap-1"
             >
-              <span>Apply for Cohort 2026</span>
+              <span>Get to Know ENTS</span>
               <ArrowRight size={14} />
             </Link>
           </div>
@@ -194,12 +194,12 @@ export function TracksClient({ tracks }: { tracks: TrackInfo[] }) {
                     Incubating RCA Ventures · Est. 2026
                   </span>
                   <Button
-                    href="/join?track=business-handlers"
+                    href="/about"
                     variant="primary"
                     size="md"
                     className="btn-skeuo-dark font-bold rounded-xl px-6"
                   >
-                    <span>Apply for Business Handlers</span>
+                    <span>Get to Know ENTS</span>
                     <ArrowRight size={14} />
                   </Button>
                 </div>
@@ -328,12 +328,12 @@ export function TracksClient({ tracks }: { tracks: TrackInfo[] }) {
                     SIFS League Simulated Execution
                   </span>
                   <Button
-                    href="/join?track=traders"
+                    href="/about"
                     variant="primary"
                     size="md"
                     className="btn-skeuo-dark font-bold rounded-xl px-6"
                   >
-                    <span>Apply for Quantitative Traders</span>
+                    <span>Get to Know ENTS</span>
                     <ArrowRight size={14} />
                   </Button>
                 </div>
@@ -403,12 +403,12 @@ export function TracksClient({ tracks }: { tracks: TrackInfo[] }) {
 
                     <div className="pt-8 mt-8 border-t border-neutral-100 relative z-10">
                       <Button
-                        href={`/join?track=${activeTrack.id}`}
+                        href="/about"
                         variant="primary"
                         size="lg"
                         className="btn-skeuo-dark font-bold w-full rounded-xl"
                       >
-                        Apply for {activeTrack.title}
+                        Get to Know ENTS
                       </Button>
                     </div>
 

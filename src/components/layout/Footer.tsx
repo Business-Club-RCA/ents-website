@@ -127,8 +127,8 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/join" className="text-white/90 hover:text-white font-semibold transition-colors uppercase block">
-                    Apply for 2026
+                  <Link href="/about" className="text-white/90 hover:text-white font-semibold transition-colors uppercase block">
+                    About Society
                   </Link>
                 </li>
               </ul>

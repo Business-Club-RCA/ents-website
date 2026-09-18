@@ -230,8 +230,8 @@ export default async function ProjectsPage() {
               Pitch your prototype at the next Wednesday ENTS Venture Teardown session.
             </p>
           </div>
-          <Button href="/join" variant="primary" size="md" className="rounded-xl">
-            <span>Pitch Your Venture</span>
+          <Button href="/about" variant="primary" size="md" className="rounded-xl">
+            <span>Get to Know ENTS</span>
             <ArrowRight size={16} />
           </Button>
         </Container>

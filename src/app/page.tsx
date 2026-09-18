@@ -262,7 +262,7 @@ export default async function HomePage() {
           <div className="max-w-4xl space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-neutral-100 border border-neutral-200 text-xs font-mono text-neutral-600 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Applications Open · Cohorts 5, 6 &amp; 7</span>
+              <span>Rwanda Coding Academy · Society Active</span>
             </div>
 
             <h2 className="font-bold text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-neutral-900 leading-[1.04]">
@@ -270,26 +270,26 @@ export default async function HomePage() {
             </h2>
 
             <p className="text-lg sm:text-xl text-neutral-500 max-w-xl sm:max-w-2xl leading-relaxed font-normal">
-              Join the society of founders, operators, and quantitative analysts at Rwanda Coding Academy. Rolling admissions reviewed weekly.
+              Discover the society of founders, operators, and quantitative analysts at Rwanda Coding Academy.
             </p>
 
             <div className="pt-4 flex flex-wrap gap-4">
               <Button
-                href="/join"
+                href="/about"
                 variant="primary"
                 size="lg"
                 className="btn-skeuo-dark font-bold rounded-xl px-5 sm:px-8"
               >
-                <span>Apply to Join ENTS</span>
+                <span>Get to Know ENTS</span>
                 <ArrowRight size={18} />
               </Button>
               <Button
-                href="/about"
+                href="/projects"
                 variant="secondary"
                 size="lg"
                 className="btn-skeuo-light font-semibold rounded-xl px-5 sm:px-8"
               >
-                Read Our Story
+                Explore Ventures
               </Button>
             </div>
           </div>

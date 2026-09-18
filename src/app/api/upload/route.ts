@@ -3,6 +3,8 @@ import { uploadImageBuffer, isCloudinaryConfigured } from '@/lib/cloudinary';
 import { isAuthenticated } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
+export const maxDuration = 60; // Allow up to 60s for Cloudinary upload
+
 
 export async function POST(request: NextRequest) {
   try {
@@ -36,11 +38,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 4. Validate file size (max 8MB)
-    const MAX_SIZE = 8 * 1024 * 1024;
+    // 4. Validate file size (max 10MB)
+    const MAX_SIZE = 10 * 1024 * 1024;
     if (file.size > MAX_SIZE) {
       return NextResponse.json(
-        { success: false, error: 'File size exceeds 8MB limit.' },
+        { success: false, error: 'File size exceeds 10MB limit. Please choose a smaller image.' },
         { status: 400 }
       );
     }
@@ -61,7 +63,7 @@ export async function POST(request: NextRequest) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    const uploadResult = await uploadImageBuffer(buffer, folder);
+    const uploadResult = await uploadImageBuffer(buffer, folder, file.type);
 
     if (!uploadResult.success) {
       return NextResponse.json(
@@ -85,4 +87,3 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-

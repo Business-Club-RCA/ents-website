@@ -103,7 +103,7 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
             eventDate: formEventDate.trim() || 'Upcoming Session',
             eventTime: formEventTime.trim() || '16:00 CAT',
             eventLocation: formEventLocation.trim() || 'RCA Campus',
-            rsvpLink: '/join',
+            rsvpLink: '/about',
           }
         : {}),
     };

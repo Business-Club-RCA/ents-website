@@ -97,11 +97,11 @@ export function Header() {
           {/* Segment 3: Get Started Button */}
           <div className="px-3 sm:px-3.5 py-2 flex items-center">
             <Link
-              href="/join"
+              href="/about"
               onClick={() => setMenuOpen(false)}
               className="btn-skeuo-dark inline-flex items-center justify-center px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold cursor-pointer"
             >
-              Get started
+              Get to Know ENTS
             </Link>
           </div>
         </div>

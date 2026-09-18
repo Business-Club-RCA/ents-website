@@ -1357,8 +1357,9 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
       {activeTab === 'applications' && (
         <div className="space-y-6">
           <div>
-            <h2 className="text-xl font-bold text-neutral-900">Cohort 2026 Admissions Applications</h2>
-            <p className="text-xs text-neutral-500 font-mono">Review student submissions from the `/join` application form</p>
+            
+            <h2 className="text-xl font-bold text-neutral-900">Admissions &amp; Applications Archive</h2>
+            <p className="text-xs text-neutral-500 font-mono">Society membership submissions and historical candidates</p>
           </div>
 
           {data.applications.length === 0 ? (
@@ -2390,6 +2391,52 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
 }
 
 // -------------------------------------------------------------
+// CLIENT-SIDE IMAGE COMPRESSION HELPER
+// Always compresses to WebP at max 1200px on longest side and
+// quality 0.75 so uploads stay well under server payload limits.
+// -------------------------------------------------------------
+async function compressImageClient(file: File): Promise<File> {
+  const MAX_DIM = 1200;
+  const QUALITY = 0.75;
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = document.createElement('img');
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > MAX_DIM || height > MAX_DIM) {
+          if (width > height) {
+            height = Math.round((height * MAX_DIM) / width);
+            width = MAX_DIM;
+          } else {
+            width = Math.round((width * MAX_DIM) / height);
+            height = MAX_DIM;
+          }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return resolve(file);
+        ctx.drawImage(img, 0, 0, width, height);
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) return resolve(file);
+            resolve(new File([blob], file.name.replace(/\.[^.]+$/, '.webp'), { type: 'image/webp' }));
+          },
+          'image/webp',
+          QUALITY
+        );
+      };
+      img.onerror = () => resolve(file);
+      img.src = e.target?.result as string;
+    };
+    reader.onerror = () => resolve(file);
+    reader.readAsDataURL(file);
+  });
+}
+
+// -------------------------------------------------------------
 // CLOUDINARY IMAGE INPUT WITH LIVE UPLOAD & PREVIEW
 // -------------------------------------------------------------
 function CloudinaryImageInput({
@@ -2407,23 +2454,53 @@ function CloudinaryImageInput({
   const [uploadError, setUploadError] = useState<string | null>(null);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const rawFile = e.target.files?.[0];
+    if (!rawFile) return;
 
     setIsUploading(true);
     setUploadError(null);
 
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('folder', folder);
-
     try {
+      // 1. Client-side size limit validation (15MB)
+      if (rawFile.size > 15 * 1024 * 1024) {
+        throw new Error('Image exceeds 15MB limit. Please choose a smaller image.');
+      }
+
+      // 2. Client-side compression: always compress raster images to WebP
+      let uploadFile = rawFile;
+      if (
+        rawFile.type.startsWith('image/') &&
+        !rawFile.type.includes('svg') &&
+        !rawFile.type.includes('gif')
+      ) {
+        try {
+          uploadFile = await compressImageClient(rawFile);
+        } catch {
+          uploadFile = rawFile;
+        }
+      }
+
+      const formData = new FormData();
+      formData.append('file', uploadFile);
+      formData.append('folder', folder);
+
       const res = await fetch('/api/upload', {
         method: 'POST',
         body: formData,
       });
-      const data = await res.json();
-      if (!data.success) {
+
+      const responseText = await res.text();
+      let data: any;
+      try {
+        data = JSON.parse(responseText);
+      } catch {
+        if (res.status === 413) {
+          throw new Error('Image is too large for upload. Please choose an image under 10MB.');
+        }
+        throw new Error(`Upload server error (${res.status}): ${responseText.slice(0, 100)}`);
+      }
+
+      if (!res.ok || !data.success) {
         setUploadError(data.error || 'Upload to Cloudinary failed.');
       } else {
         onChange(data.url);
@@ -2432,6 +2509,7 @@ function CloudinaryImageInput({
       setUploadError(err?.message || 'Network error during upload.');
     } finally {
       setIsUploading(false);
+      e.target.value = '';
     }
   };
 

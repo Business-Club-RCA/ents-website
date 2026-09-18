@@ -86,10 +86,10 @@ export function HeroVisual() {
           <div className="animate-hero-cta pt-2 flex flex-wrap items-center gap-3.5">
             {/* Tactile Skeuomorphic Button 1: Frosted Glass Key */}
             <Link
-              href="/join"
+              href="/about"
               className="btn-skeuo-glass inline-flex items-center justify-center px-7 py-3.5 rounded-xl text-sm font-semibold cursor-pointer"
             >
-              <span>Join the Club</span>
+              <span>Get To Know ENTS</span>
               <ArrowRight size={16} className="ml-2" />
             </Link>
 

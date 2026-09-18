@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Container } from '@/components/ui/Container';
 import { ApplicationForm } from '@/components/sections/ApplicationForm';
 import { PageHero } from '@/components/layout/PageHero';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Apply to Join ENTS',
@@ -72,4 +73,5 @@ export default function JoinPage() {
       </section>
     </div>
   );
+  redirect('/about');
 }

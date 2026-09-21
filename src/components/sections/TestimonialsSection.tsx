@@ -164,8 +164,8 @@ export function TestimonialsSection({ testimonials = DEFAULT_TESTIMONIALS }: Tes
           {/* Middle Column: Large Feature Portrait Card with Bottom Overlay */}
           <div className="lg:col-span-4 flex justify-center">
             <div className="relative w-full max-w-md h-[470px] sm:h-[510px] lg:h-[540px] rounded-3xl overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.12)] border border-neutral-200/80 group">
-              {/* Feature Portrait Image with smooth zoom on hover */}
-              {featured?.avatarUrl ? (
+              {/* Feature Portrait: Real photo if uploaded, otherwise institutional executive studio crest */}
+              {featured?.avatarUrl && !featured.avatarUrl.includes('dicebear') && !featured.avatarUrl.includes('placeholder') ? (
                 <Image
                   src={featured.avatarUrl}
                   alt={`${featured.author}, ${featured.role}`}
@@ -175,10 +175,28 @@ export function TestimonialsSection({ testimonials = DEFAULT_TESTIMONIALS }: Tes
                   priority={false}
                 />
               ) : (
-                <div className="w-full h-full bg-neutral-900 flex items-center justify-center text-white">
-                  <span className="text-6xl font-bold font-mono text-neutral-500">
-                    {(featured?.author || 'E')[0]}
-                  </span>
+                <div className="w-full h-full bg-gradient-to-br from-neutral-900 via-neutral-950 to-neutral-900 flex flex-col items-center justify-center relative select-none p-8">
+                  {/* Subtle Studio Lighting Glow */}
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.08)_0%,transparent_70%)]" />
+                  
+                  {/* Executive Monogram Shield */}
+                  <div className="relative z-10 flex flex-col items-center text-center">
+                    <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-white/[0.06] border border-white/15 backdrop-blur-md flex items-center justify-center shadow-2xl mb-4">
+                      <span className="font-mono text-3xl sm:text-4xl font-bold tracking-wider text-white">
+                        {(() => {
+                          const parts = (featured?.author || 'ENTS').trim().split(/\s+/);
+                          if (parts.length > 1) {
+                            return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+                          }
+                          return (featured?.author || 'E').slice(0, 2).toUpperCase();
+                        })()}
+                      </span>
+                    </div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono tracking-widest uppercase text-neutral-400 font-semibold">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      ENTS · SOCIETY FELLOW
+                    </div>
+                  </div>
                 </div>
               )}
 

@@ -675,13 +675,13 @@
   "testimonials": [
     {
       "id": "cedric",
-      "author": "ISHIMWE Amani Samuel",
-      "role": "President at ENTS · Founder at KuraPay",
+      "role": "President at ENTS · Founder at Rateva",
       "quote": "ENTS has completely transformed our engineering workflow into production ventures! By treating campus utilities as active testbeds for venture incubation, our members learn how capital flows before pitching to institutional investors.",
+      "author": "ISHIMWE Amani Samuel",
       "rating": 5,
-      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789754459/ents/testimonials/rrxijg2zmsb3az2syvxr.jpg",
+      "badgeBg": "bg-neutral-900 text-white",
       "featured": true,
-      "badgeBg": "bg-neutral-900 text-white"
+      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789754459/ents/testimonials/rrxijg2zmsb3az2syvxr.jpg"
     },
     {
       "id": "aline",

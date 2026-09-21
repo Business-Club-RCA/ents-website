@@ -43,23 +43,23 @@
   },
   "stats": [
     {
+      "value": "25+",
       "label": "Active Members",
-      "value": "48+",
       "detail": "Across Years 1, 2, and 3 at RCA"
     },
     {
+      "value": "05",
       "label": "Ventures Pitched",
-      "value": "08",
       "detail": "Validated business models & MVPs"
     },
     {
-      "label": "Trades Logged",
       "value": "1,420+",
+      "label": "Trades Logged",
       "detail": "Real-time paper trading journal entries"
     },
     {
+      "value": "$10k",
       "label": "Simulated AUM",
-      "value": "$250K",
       "detail": "Active portfolio capital tracked in SIFS"
     }
   ],
@@ -276,29 +276,6 @@
       "excerpt": "Major architectural upgrades to the simulation engine introducing websocket streaming and automatic loss controls.",
       "imageUrl": "/news/trading-terminal.jpg",
       "readTime": "3 min read"
-    },
-    {
-      "id": "event-venture-pitch-day",
-      "date": "March 10, 2026",
-      "tags": [
-        "Pitch Day",
-        "Ventures"
-      ],
-      "type": "event",
-      "title": "ENTS Cohort Venture Demo Day",
-      "author": "Executive Committee",
-      "content": "Join us for the flagship semester demo day where five student venture teams present working software, audited cash flows, and institutional roadmaps to faculty advisors and guest industry leaders.",
-      "excerpt": "Student founders pitch live software ventures and campus revenue models to faculty mentors.",
-      "imageUrl": "/events/demo-day.jpg",
-      "readTime": "3 hours",
-      "rsvpLink": "/join",
-      "speakers": [
-        "Cedric Mugisha",
-        "Eng. Christian Niyitegeka"
-      ],
-      "eventDate": "Friday, April 03, 2026",
-      "eventTime": "17:00 - 19:30 CAT",
-      "eventLocation": "RCA Main Amphitheater"
     },
     {
       "id": "news-quant-literacy",
@@ -553,6 +530,19 @@
       "tradesCount": 42,
       "initialValue": 10000,
       "portfolioValue": 13425.8
+    },
+    {
+      "rank": 1,
+      "name": "UWIMANA KRIF",
+      "classYear": "Year 3",
+      "track": "Traders",
+      "assetClass": "EUR-USD & Gold (XAU)",
+      "portfolioValue": 13425.8,
+      "initialValue": 10000,
+      "pnlPercent": 34.26,
+      "tradesCount": 42,
+      "winRate": 66.7,
+      "status": "Active"
     },
     {
       "name": "Kevine Ishimwe",

@@ -25,61 +25,76 @@ export default async function LeaderboardPage() {
     <div className="flex flex-col">
       {/* Hero Banner with Cinematic Image */}
       <PageHero
-        kicker="Simulated League Standings"
+        kicker="Simulated League Standings · Upcoming Release"
         title="ENTS Trading League"
-        description="Real-time rankings from the Student Investment Fund Simulator. All participants trade with identical $10,000 demo accounts and adhere to institutional 1% risk rules."
+        description="The SIFS Paper Trading League is currently preparing for its official Season 01 tournament release. All student accounts will receive identical $10,000 demo capital under automated 1% stop-loss guardrails."
       />
 
-      {/* Snapshot Metric Cards */}
-      <div className="py-12 bg-white">
+      {/* Snapshot Metric Cards (Blurred with Calibration Notice) */}
+      <div className="py-12 bg-white relative overflow-hidden">
         <Container size="wide">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            <div className="card-hover card-skeuo-light p-6 rounded-2xl border border-neutral-200/90">
-              <div className="text-[11px] font-mono text-neutral-600 uppercase tracking-wider font-semibold">
-                Top Performer
+          <div className="relative">
+            {/* Blurred Underlying Metric Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 filter blur-[6px] opacity-40 select-none pointer-events-none transition-all">
+              <div className="card-skeuo-light p-6 rounded-2xl border border-neutral-200/90">
+                <div className="text-[11px] font-mono text-neutral-600 uppercase tracking-wider font-semibold">
+                  Top Performer
+                </div>
+                <div className="text-xl sm:text-2xl font-bold text-neutral-900 mt-1.5">
+                  {topTrader.name}
+                </div>
+                <div className="text-xs text-neutral-600 font-mono mt-1 flex items-center gap-1">
+                  <span>+{topTrader.pnlPercent.toFixed(2)}% net return</span>
+                </div>
               </div>
-              <div className="text-xl sm:text-2xl font-bold text-neutral-900 mt-1.5">
-                {topTrader.name}
+
+              <div className="border border-neutral-200/90 bg-white p-6 rounded-2xl">
+                <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider font-semibold">
+                  Total Paper Capital
+                </div>
+                <div className="text-xl sm:text-2xl font-bold text-neutral-900 mt-1.5 tabular-nums font-number">
+                  ${totalCapital.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+                </div>
+                <div className="text-xs text-neutral-500 font-mono mt-1">
+                  across {standings.length} tracked accounts
+                </div>
               </div>
-              <div className="text-xs text-emerald-600 font-bold font-number mt-1 flex items-center gap-1">
-                <span>+{topTrader.pnlPercent.toFixed(2)}% net return</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+
+              <div className="border border-neutral-200/90 bg-white p-6 rounded-2xl">
+                <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider font-semibold">
+                  Orders Executed
+                </div>
+                <div className="text-xl sm:text-2xl font-bold text-neutral-900 mt-1.5 tabular-nums font-number">
+                  {totalTrades}
+                </div>
+                <div className="text-xs text-neutral-500 font-mono mt-1">
+                  logged in SIFS order book
+                </div>
+              </div>
+
+              <div className="border border-neutral-200/90 bg-white p-6 rounded-2xl">
+                <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider font-semibold">
+                  Risk Constraint
+                </div>
+                <div className="text-xl sm:text-2xl font-bold text-neutral-900 mt-1.5 tabular-nums font-number">
+                  1.00% per Trade
+                </div>
+                <div className="text-xs text-neutral-500 font-mono mt-1">
+                  hard circuit-breaker limit
+                </div>
               </div>
             </div>
 
-            <div className="card-hover border border-neutral-200/90 bg-white p-6 rounded-2xl">
-              <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider font-semibold">
-                Total Paper Capital
-              </div>
-              <div className="text-xl sm:text-2xl font-bold text-neutral-900 mt-1.5 tabular-nums font-number">
-                ${totalCapital.toLocaleString('en-US', { maximumFractionDigits: 0 })}
-              </div>
-              <div className="text-xs text-neutral-500 font-mono mt-1">
-                across {standings.length} tracked accounts
-              </div>
-            </div>
-
-            <div className="card-hover border border-neutral-200/90 bg-white p-6 rounded-2xl">
-              <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider font-semibold">
-                Orders Executed
-              </div>
-              <div className="text-xl sm:text-2xl font-bold text-neutral-900 mt-1.5 tabular-nums font-number">
-                {totalTrades}
-              </div>
-              <div className="text-xs text-neutral-500 font-mono mt-1">
-                logged in SIFS order book
-              </div>
-            </div>
-
-            <div className="card-hover border border-neutral-200/90 bg-white p-6 rounded-2xl">
-              <div className="text-[11px] font-mono text-neutral-500 uppercase tracking-wider font-semibold">
-                Risk Constraint
-              </div>
-              <div className="text-xl sm:text-2xl font-bold text-neutral-900 mt-1.5 tabular-nums font-number">
-                1.00% per Trade
-              </div>
-              <div className="text-xs text-neutral-500 font-mono mt-1">
-                hard circuit-breaker limit
+            {/* Clean Center Floating Badge */}
+            <div className="absolute inset-0 z-10 flex items-center justify-center p-4 select-none pointer-events-none">
+              <div className="px-5 py-3 rounded-2xl bg-neutral-900/90 border border-neutral-700 text-white shadow-2xl backdrop-blur-md text-center max-w-md">
+                <div className="flex items-center justify-center gap-2 text-xs font-mono font-bold tracking-wider uppercase mb-1">
+                  <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                  <span>Telemetry Metrics in Calibration</span>
+                </div>
+                <p className="text-[11px] font-mono text-neutral-300">
+                  Performance metrics and live order depth will stream upon Season 01 start.
+                </p>
               </div>
             </div>
           </div>

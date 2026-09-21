@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Container } from '@/components/ui/Container';
+import { SocialShareBar } from '@/components/ui/SocialShareBar';
 import { getUpdates, getUpdate } from '@/lib/db';
 import { FeedItem } from '@/types';
 
@@ -83,6 +84,15 @@ export default async function BlogDetailPage({ params }: Props) {
           <div className="flex items-center gap-3 pt-2 text-xs font-mono text-neutral-600">
             <span>Written by <strong className="text-neutral-900">{item.author}</strong></span>
           </div>
+
+          {/* Social Share Bar Top */}
+          <div className="pt-2">
+            <SocialShareBar
+              title={item.title}
+              description={item.excerpt}
+              compact={false}
+            />
+          </div>
         </header>
 
         {/* 3. Hero Feature Cover Image */}
@@ -148,6 +158,15 @@ export default async function BlogDetailPage({ params }: Props) {
               #{tag}
             </span>
           ))}
+        </div>
+
+        {/* Bottom Social Share */}
+        <div className="mt-6">
+          <SocialShareBar
+            title={item.title}
+            description={item.excerpt}
+            compact={false}
+          />
         </div>
 
         {/* 8. Society Publisher Bio Box */}

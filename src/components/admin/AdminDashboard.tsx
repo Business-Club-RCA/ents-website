@@ -111,6 +111,8 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
   const [teamAvatarUrl, setTeamAvatarUrl] = useState('');
   const [memberAvatarUrl, setMemberAvatarUrl] = useState('');
   const [testimonialAvatarUrl, setTestimonialAvatarUrl] = useState('');
+  const [projectImageUrl, setProjectImageUrl] = useState('');
+  const [updateImageUrl, setUpdateImageUrl] = useState('');
 
   const showStatus = (text: string, type: 'success' | 'error' = 'success') => {
     setStatusMessage({ type, text });
@@ -130,7 +132,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
     const status = formData.get('status') as Project['status'];
     const category = formData.get('category') as Project['category'];
     const featured = formData.get('featured') === 'on';
-    const imageUrl = formData.get('imageUrl') as string;
+    const imageUrl = projectImageUrl || (formData.get('imageUrl') as string) || '';
     const tags = (formData.get('tags') as string)
       .split(',')
       .map((t) => t.trim())
@@ -206,7 +208,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
     const content = formData.get('content') as string;
     const author = formData.get('author') as string;
     const date = formData.get('date') as string;
-    const imageUrl = formData.get('imageUrl') as string;
+    const imageUrl = updateImageUrl || (formData.get('imageUrl') as string) || '';
     const tags = (formData.get('tags') as string)
       .split(',')
       .map((t) => t.trim())
@@ -825,6 +827,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
               <button
                 onClick={() => {
                   setEditingProject(null);
+                  setProjectImageUrl('');
                   setIsProjectModalOpen(true);
                 }}
                 className="p-5 rounded-2xl border border-neutral-200 bg-neutral-50/50 hover:bg-neutral-100/80 transition-all text-left group cursor-pointer"
@@ -839,6 +842,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
               <button
                 onClick={() => {
                   setEditingUpdate(null);
+                  setUpdateImageUrl('');
                   setIsUpdateModalOpen(true);
                 }}
                 className="p-5 rounded-2xl border border-neutral-200 bg-neutral-50/50 hover:bg-neutral-100/80 transition-all text-left group cursor-pointer"
@@ -922,6 +926,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
             <button
               onClick={() => {
                 setEditingProject(null);
+                setProjectImageUrl('');
                 setIsProjectModalOpen(true);
               }}
               className="btn-skeuo-dark font-bold text-xs font-mono px-4 py-2 rounded-xl cursor-pointer"
@@ -970,6 +975,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                   <button
                     onClick={() => {
                       setEditingProject(project);
+                      setProjectImageUrl(project.imageUrl || '');
                       setIsProjectModalOpen(true);
                     }}
                     className="font-bold text-neutral-800 hover:underline cursor-pointer"
@@ -1002,6 +1008,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
             <button
               onClick={() => {
                 setEditingUpdate(null);
+                setUpdateImageUrl('');
                 setIsUpdateModalOpen(true);
               }}
               className="btn-skeuo-dark font-bold text-xs font-mono px-4 py-2 rounded-xl cursor-pointer"
@@ -1044,6 +1051,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                       <button
                         onClick={() => {
                           setEditingUpdate(item);
+                          setUpdateImageUrl(item.imageUrl || '');
                           setIsUpdateModalOpen(true);
                         }}
                         className="font-bold text-neutral-800 hover:underline cursor-pointer"
@@ -1784,30 +1792,30 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
               </div>
 
               <div>
-                <label className="block text-neutral-600 font-semibold mb-1">
-                  Dashboard Preview Image (Select Preset or Enter URL)
-                </label>
-                <select
-                  onChange={(e) => {
-                    const input = document.getElementById('project-image-input') as HTMLInputElement;
-                    if (input && e.target.value) input.value = e.target.value;
-                  }}
-                  className="w-full px-3 py-2 bg-neutral-50 border border-neutral-300 rounded-xl mb-2 text-[11px]"
-                >
-                  <option value="">-- Choose from Real Dashboard Presets --</option>
-                  {dashboardPresets.map((p) => (
-                    <option key={p.value} value={p.value}>
-                      {p.label}
-                    </option>
-                  ))}
-                </select>
-                <input
-                  id="project-image-input"
-                  name="imageUrl"
-                  defaultValue={editingProject?.imageUrl || ''}
-                  placeholder="/projects/sifs-dashboard.jpg or external https URL"
-                  className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl text-neutral-900 text-[11px]"
+                <CloudinaryImageInput
+                  label="Project Cover / Dashboard Photo"
+                  value={projectImageUrl}
+                  onChange={setProjectImageUrl}
+                  folder="ents/projects"
                 />
+                <input type="hidden" name="imageUrl" value={projectImageUrl} />
+                <div className="mt-2 text-[11px] text-neutral-500 flex items-center gap-2">
+                  <span>Or select a preset:</span>
+                  <select
+                    value=""
+                    onChange={(e) => {
+                      if (e.target.value) setProjectImageUrl(e.target.value);
+                    }}
+                    className="px-2 py-1 bg-neutral-50 border border-neutral-300 rounded-lg text-neutral-700 text-xs"
+                  >
+                    <option value="">-- Choose Dashboard Preset --</option>
+                    {dashboardPresets.map((p) => (
+                      <option key={p.value} value={p.value}>
+                        {p.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <div>
@@ -2018,13 +2026,13 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
               </div>
 
               <div>
-                <label className="block text-neutral-600 font-semibold mb-1">Header Image URL</label>
-                <input
-                  name="imageUrl"
-                  defaultValue={editingUpdate?.imageUrl || ''}
-                  placeholder="/news/coding-lab.jpg or external URL"
-                  className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl"
+                <CloudinaryImageInput
+                  label="Header / Event Cover Photo"
+                  value={updateImageUrl}
+                  onChange={setUpdateImageUrl}
+                  folder="ents/updates"
                 />
+                <input type="hidden" name="imageUrl" value={updateImageUrl} />
               </div>
 
               <div>

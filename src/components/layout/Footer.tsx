@@ -36,37 +36,8 @@ export function Footer() {
         {/* 2. Top Navigation Grid: Real ENTS Content */}
         <div className="flex flex-col lg:flex-row justify-between gap-10 sm:gap-14 lg:gap-16">
           {/* Categorized Columns */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12 lg:gap-16">
-            {/* Column 1: PRODUCTS / VENTURES */}
-            <div className="space-y-3 sm:space-y-3.5">
-              <h4 className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-white/50 font-semibold">
-                Ventures &amp; Labs
-              </h4>
-              <ul className="space-y-2 text-xs sm:text-[13px] font-mono tracking-wide">
-                <li>
-                  <Link href="/projects#sifs" className="text-white/90 hover:text-white font-semibold transition-colors uppercase block">
-                    SIFS Simulator
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/projects#kurapay" className="text-white/90 hover:text-white font-semibold transition-colors uppercase block">
-                    KuraPay
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/projects#tradeforge" className="text-white/90 hover:text-white font-semibold transition-colors uppercase block">
-                    TradeForge
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/projects" className="text-white/90 hover:text-white font-semibold transition-colors uppercase block">
-                    Campus Ventures
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Column 2: MISSION AREAS / DISCIPLINES */}
+          <div className="grid grid-cols-2 gap-8 sm:gap-14 lg:gap-20">
+            {/* Column 1: MISSION AREAS / DISCIPLINES */}
             <div className="space-y-3 sm:space-y-3.5">
               <h4 className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-white/50 font-semibold">
                 Disciplines
@@ -95,8 +66,8 @@ export function Footer() {
               </ul>
             </div>
 
-            {/* Column 3: COMPANY / SOCIETY */}
-            <div className="space-y-3 sm:space-y-3.5 col-span-2 sm:col-span-1">
+            {/* Column 2: COMPANY / SOCIETY */}
+            <div className="space-y-3 sm:space-y-3.5">
               <h4 className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-white/50 font-semibold">
                 Society
               </h4>

@@ -175,7 +175,7 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
 
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8">
                 {/* Event Image Banner in Recessed Photographic Bezel */}
-                <div className="md:col-span-6 skeuo-recessed rounded-2xl overflow-hidden relative min-h-[260px] sm:min-h-[340px] md:min-h-[380px]">
+                <div className="md:col-span-6 skeuo-recessed rounded-2xl overflow-hidden relative min-h-65 sm:min-h-85 md:min-h-95">
                   {currentFeaturedEvent.imageUrl && (
                     <Image
                       src={currentFeaturedEvent.imageUrl}
@@ -314,7 +314,7 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
             No articles or dispatches found matching your search.
           </div>
         ) : (
-          <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-[1px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 shadow-sm">
+          <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-px grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 shadow-sm">
             {filteredItems.map((item) => {
               const isEvent = item.type === 'event';
               const articleHref = isEvent ? '#' : `/updates/${item.id}`;
@@ -392,7 +392,7 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                   {/* Card Machined Footer with Social Share Bar */}
                   <div className="skeuo-groove px-1 pb-1 pt-3.5 mt-4 flex flex-col gap-3 text-xs font-mono">
                     <div className="flex items-center justify-between">
-                      <span className="text-neutral-500 font-medium text-[11px] truncate max-w-[140px]">
+                      <span className="text-neutral-500 font-medium text-[11px] truncate max-w-35">
                         {item.author}
                       </span>
 

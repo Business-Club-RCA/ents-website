@@ -287,7 +287,7 @@ export function ProjectsPipeline({ projects }: ProjectsPipelineProps) {
         </div>
 
         {/* The Grid of Coming Soon Projects */}
-        <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-[1px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 shadow-sm">
+        <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-px grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 shadow-sm">
           {filteredProjects.map((project) => {
             const isWatched = watchedProjects.includes(project.id);
 

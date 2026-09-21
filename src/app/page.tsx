@@ -194,7 +194,7 @@ export default async function HomePage() {
 
               {/* Background Illustration */}
               <div className="absolute right-0 bottom-0 pointer-events-none select-none transition-all duration-700 ease-out group-hover:scale-105 group-hover:-translate-y-1">
-                <BusinessTrackIllustration className="text-neutral-900/[0.13] group-hover:text-neutral-900/28 transition-colors duration-500" size={270} />
+                <BusinessTrackIllustration className="text-neutral-900/13 group-hover:text-neutral-900/28 transition-colors duration-500" size={270} />
               </div>
             </div>
 
@@ -246,7 +246,7 @@ export default async function HomePage() {
 
               {/* Background Illustration */}
               <div className="absolute right-0 bottom-0 pointer-events-none select-none transition-all duration-700 ease-out group-hover:scale-105 group-hover:-translate-y-1">
-                <TradersTrackIllustration className="text-neutral-900/[0.13] group-hover:text-neutral-900/28 transition-colors duration-500" size={270} />
+                <TradersTrackIllustration className="text-neutral-900/13 group-hover:text-neutral-900/28 transition-colors duration-500" size={270} />
               </div>
             </div>
           </div>

@@ -98,7 +98,7 @@ export function FlagshipSimulator() {
               </div>
 
               {/* Dashboard Photo Container with Clean Coming Soon Overlay */}
-              <div className="skeuo-recessed rounded-2xl overflow-hidden relative w-full h-[280px] sm:h-[340px] border border-neutral-200">
+              <div className="skeuo-recessed rounded-2xl overflow-hidden relative w-full h-70 sm:h-85 border border-neutral-200">
                 <Image
                   src="/projects/sifs-dashboard.jpg"
                   alt="SIFS Student Investment Fund Simulator Dashboard"

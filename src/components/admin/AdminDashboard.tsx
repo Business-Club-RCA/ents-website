@@ -783,7 +783,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
       {activeTab === 'overview' && (
         <div className="space-y-8">
           {/* Quick Metrics Divided Strip */}
-          <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-[1px] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 shadow-sm">
+          <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-px grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 shadow-sm">
             <div className="bg-white p-6 flex flex-col justify-between">
               <span className="text-[10px] font-mono text-neutral-400 uppercase font-semibold">Active Ventures</span>
               <div className="text-3xl font-bold font-mono text-neutral-900 mt-2">{data.projects.length}</div>
@@ -935,7 +935,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
             </button>
           </div>
 
-          <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-[1px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 shadow-sm">
+          <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-px grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 shadow-sm">
             {data.projects.map((project) => (
               <div key={project.id} className="bg-white p-5 flex flex-col justify-between relative group">
                 <div>
@@ -1017,7 +1017,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
             </button>
           </div>
 
-          <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-[1px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 shadow-sm">
+          <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-px grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 shadow-sm">
             {data.updates.map((item) => {
               const isEvent = item.type === 'event';
               const attendeeCount = item.attendees?.length || 0;
@@ -1244,7 +1244,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
             </button>
           </div>
 
-          <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-[1px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 shadow-sm">
+          <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-px grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 shadow-sm">
             {data.team.map((member) => (
               <div key={member.id} className="bg-white p-5 flex flex-col justify-between">
                 <div>
@@ -1374,7 +1374,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
               No club members registered yet. Click &quot;+ Add Club Member&quot; to create the first profile.
             </div>
           ) : (
-            <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-[1px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 shadow-sm">
+            <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-px grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 shadow-sm">
               {(data.clubMembers || []).map((member) => (
                 <div key={member.id} className="bg-white p-4 sm:p-5 flex flex-col justify-between group hover:bg-neutral-50/50 transition-colors">
                   <div>

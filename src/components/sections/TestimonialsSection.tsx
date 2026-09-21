@@ -163,7 +163,7 @@ export function TestimonialsSection({ testimonials = DEFAULT_TESTIMONIALS }: Tes
 
           {/* Middle Column: Large Feature Portrait Card with Bottom Overlay */}
           <div className="lg:col-span-4 flex justify-center">
-            <div className="relative w-full max-w-md h-[470px] sm:h-[510px] lg:h-[540px] rounded-3xl overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.12)] border border-neutral-200/80 group">
+            <div className="relative w-full max-w-md h-117.5 sm:h-127.5 lg:h-135 rounded-3xl overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.12)] border border-neutral-200/80 group">
               {/* Feature Portrait: Real photo if uploaded, otherwise institutional executive studio crest */}
               {featured?.avatarUrl && !featured.avatarUrl.includes('dicebear') && !featured.avatarUrl.includes('placeholder') ? (
                 <Image
@@ -175,13 +175,13 @@ export function TestimonialsSection({ testimonials = DEFAULT_TESTIMONIALS }: Tes
                   priority={false}
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-neutral-900 via-neutral-950 to-neutral-900 flex flex-col items-center justify-center relative select-none p-8">
+                <div className="w-full h-full bg-linear-to-br from-neutral-900 via-neutral-950 to-neutral-900 flex flex-col items-center justify-center relative select-none p-8">
                   {/* Subtle Studio Lighting Glow */}
                   <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.08)_0%,transparent_70%)]" />
                   
                   {/* Executive Monogram Shield */}
                   <div className="relative z-10 flex flex-col items-center text-center">
-                    <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-white/[0.06] border border-white/15 backdrop-blur-md flex items-center justify-center shadow-2xl mb-4">
+                    <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-white/6 border border-white/15 backdrop-blur-md flex items-center justify-center shadow-2xl mb-4">
                       <span className="font-mono text-3xl sm:text-4xl font-bold tracking-wider text-white">
                         {(() => {
                           const parts = (featured?.author || 'ENTS').trim().split(/\s+/);
@@ -201,7 +201,7 @@ export function TestimonialsSection({ testimonials = DEFAULT_TESTIMONIALS }: Tes
               )}
 
               {/* Bottom Gradient Vignette */}
-              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/95 via-neutral-950/40 to-transparent flex flex-col justify-end p-6 sm:p-7 text-white select-none">
+              <div className="absolute inset-0 bg-linear-to-t from-neutral-950/95 via-neutral-950/40 to-transparent flex flex-col justify-end p-6 sm:p-7 text-white select-none">
                 <div className="flex items-center gap-1 text-orange-400 text-sm mb-2" aria-label={`${featured?.rating || 5} out of 5 stars`}>
                   {Array.from({ length: 5 }).map((_, i) => (
                     <span key={i} className={i < (featured?.rating || 5) ? 'text-orange-400' : 'text-neutral-500'}>
@@ -226,12 +226,12 @@ export function TestimonialsSection({ testimonials = DEFAULT_TESTIMONIALS }: Tes
 
           {/* Right Column: Vertically Sliding Testimonial Cards (Slide Up/Down, Appear & Disappear) */}
           <div
-            className="lg:col-span-4 relative h-[470px] sm:h-[510px] lg:h-[540px] flex flex-col justify-between"
+            className="lg:col-span-4 relative h-117.5 sm:h-127.5 lg:h-135 flex flex-col justify-between"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
             {/* Sliding Container with Top & Bottom Fade Masks (Disappear on Top/Bottom edges) */}
-            <div className="relative w-full h-full overflow-hidden [mask-image:linear-gradient(to_bottom,transparent_0%,black_8%,black_92%,transparent_100%)]">
+            <div className="relative w-full h-full overflow-hidden mask-[linear-gradient(to_bottom,transparent_0%,black_8%,black_92%,transparent_100%)]">
               <div
                 key={currentIndex}
                 className="space-y-4 py-2 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"

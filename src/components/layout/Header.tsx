@@ -80,14 +80,14 @@ export function Header() {
               <span
                 className={`h-0.5 bg-current rounded-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center ${
                   menuOpen
-                    ? 'w-4 translate-y-[5px] rotate-45'
+                    ? 'w-4 translate-y-1.25 rotate-45'
                     : 'w-4 translate-y-0 rotate-0'
                 }`}
               />
               <span
                 className={`h-0.5 bg-current rounded-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center ${
                   menuOpen
-                    ? 'w-4 -translate-y-[5px] -rotate-45'
+                    ? 'w-4 -translate-y-1.25 -rotate-45'
                     : 'w-4 translate-y-0 rotate-0'
                 }`}
               />

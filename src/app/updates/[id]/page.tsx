@@ -12,6 +12,8 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   const updates = await getUpdates();
   return updates.map((item) => ({

@@ -24,6 +24,18 @@ export async function GET(request: NextRequest) {
       count: members.length,
       data: members,
     });
+    return NextResponse.json(
+      {
+        success: true,
+        count: members.length,
+        data: members,
+      },
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=120, stale-while-revalidate=600',
+        },
+      }
+    );
   } catch (error) {
     return NextResponse.json(
       { success: false, error: (error as Error).message },

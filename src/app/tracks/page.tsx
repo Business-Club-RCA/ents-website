@@ -9,6 +9,8 @@ export const metadata: Metadata = {
     'Two dedicated disciplines at Rwanda Coding Academy: Business Handlers and Quantitative Traders.',
 };
 
+export const revalidate = 60;
+
 export default async function TracksPage() {
   const tracks = await getTracks();
 

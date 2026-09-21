@@ -10,6 +10,8 @@ export const metadata: Metadata = {
     'Real-time dispatches from our incubation floor, curated industry news, and upcoming society events at Rwanda Coding Academy.',
 };
 
+export const revalidate = 60;
+
 export default async function UpdatesPage() {
   const items = await getUpdates();
 

@@ -134,7 +134,7 @@ export function TestimonialsSection({ testimonials = DEFAULT_TESTIMONIALS }: Tes
 
             <h2 className="text-3xl sm:text-5xl lg:text-[3.25rem] font-bold tracking-tight text-neutral-900 leading-[1.06]">
               Trusted by Over <br className="hidden sm:inline" />
-              <span className="font-number tabular-nums">15k+</span> Satisfied <br className="hidden sm:inline" />
+              <span className="font-number tabular-nums">25+</span> Satisfied <br className="hidden sm:inline" />
               Builders
             </h2>
 
@@ -145,7 +145,7 @@ export function TestimonialsSection({ testimonials = DEFAULT_TESTIMONIALS }: Tes
             {/* Quick Metrics Strip in Power Grotesk Numbers */}
             <div className="pt-2 flex items-center gap-6 text-neutral-900 border-t border-neutral-200/80">
               <div>
-                <div className="font-number text-2xl font-bold tracking-tight">45+</div>
+                <div className="font-number text-2xl font-bold tracking-tight">25+</div>
                 <div className="text-[11px] text-neutral-500 font-mono uppercase mt-0.5">Active Fellows</div>
               </div>
               <div className="w-px h-8 bg-neutral-200" />

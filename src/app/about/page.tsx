@@ -19,6 +19,8 @@ import {
   TenetGovernanceIllustration,
 } from '@/components/ui/CardIllustrations';
 
+export const revalidate = 60;
+
 export default async function AboutPage() {
   const [executiveTeam, clubMembers] = await Promise.all([
     getTeam(),

@@ -10,6 +10,8 @@ export const metadata: Metadata = {
     'Explore upcoming fintech platforms, student ventures, and quantitative trading architecture currently in active incubation at Rwanda Coding Academy.',
 };
 
+export const revalidate = 60;
+
 export default async function ProjectsPage() {
   const projectsData = await getProjects();
 

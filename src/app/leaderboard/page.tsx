@@ -12,6 +12,8 @@ export const metadata: Metadata = {
     'Live simulated performance rankings and portfolio returns for the ENTS Trading League at Rwanda Coding Academy.',
 };
 
+export const revalidate = 60;
+
 export default async function LeaderboardPage() {
   const standings = await getLeaderboard();
 

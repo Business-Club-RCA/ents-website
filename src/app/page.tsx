@@ -17,6 +17,8 @@ import {
   TradersTrackIllustration,
 } from '@/components/ui/CardIllustrations';
 
+export const revalidate = 60;
+
 export default async function HomePage() {
   const [tracks, stats, testimonials] = await Promise.all([
     getTracks(),

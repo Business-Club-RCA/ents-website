@@ -40,6 +40,11 @@ export async function GET() {
       clubMembersCount: db.clubMembers?.length || 0,
       executiveTeamCount: db.team?.length || 0,
       applicationsCount: db.applications?.length || 0,
+      uptimeSeconds: Math.round(process.uptime()),
+    },
+  }, {
+    headers: {
+      'Cache-Control': 'no-store, no-cache, must-revalidate',
     },
   });
 }

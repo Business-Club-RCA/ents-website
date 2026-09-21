@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import fs from 'fs/promises';
 import path from 'path';
 import {
@@ -254,10 +255,10 @@ export async function writeDB(data: SiteContentDB): Promise<void> {
 // -------------------------------------------------------------
 
 // 1. Site Config
-export async function getSiteConfig(): Promise<typeof siteConfig> {
+export const getSiteConfig = cache(async (): Promise<typeof siteConfig> => {
   const db = await readDB();
   return db.siteConfig;
-}
+});
 
 export async function updateSiteConfig(partial: Partial<typeof siteConfig>): Promise<typeof siteConfig> {
   const db = await readDB();
@@ -267,10 +268,10 @@ export async function updateSiteConfig(partial: Partial<typeof siteConfig>): Pro
 }
 
 // 2. Stats
-export async function getStats(): Promise<StatItem[]> {
+export const getStats = cache(async (): Promise<StatItem[]> => {
   const db = await readDB();
   return db.stats;
-}
+});
 
 export async function updateStats(stats: StatItem[]): Promise<StatItem[]> {
   const db = await readDB();
@@ -280,15 +281,15 @@ export async function updateStats(stats: StatItem[]): Promise<StatItem[]> {
 }
 
 // 3. Projects
-export async function getProjects(): Promise<Project[]> {
+export const getProjects = cache(async (): Promise<Project[]> => {
   const db = await readDB();
   return db.projects;
-}
+});
 
-export async function getProject(id: string): Promise<Project | null> {
+export const getProject = cache(async (id: string): Promise<Project | null> => {
   const db = await readDB();
   return db.projects.find((p) => p.id === id) || null;
-}
+});
 
 export async function saveProject(project: Project): Promise<Project> {
   const db = await readDB();
@@ -314,15 +315,15 @@ export async function deleteProject(id: string): Promise<boolean> {
 }
 
 // 4. Updates & Events
-export async function getUpdates(): Promise<FeedItem[]> {
+export const getUpdates = cache(async (): Promise<FeedItem[]> => {
   const db = await readDB();
   return db.updates;
-}
+});
 
-export async function getUpdate(id: string): Promise<FeedItem | null> {
+export const getUpdate = cache(async (id: string): Promise<FeedItem | null> => {
   const db = await readDB();
   return db.updates.find((u) => u.id === id) || null;
-}
+});
 
 export async function saveUpdate(item: FeedItem): Promise<FeedItem> {
   const db = await readDB();
@@ -378,15 +379,15 @@ export async function registerEventAttendance(
 }
 
 // 5. Tracks
-export async function getTracks(): Promise<TrackInfo[]> {
+export const getTracks = cache(async (): Promise<TrackInfo[]> => {
   const db = await readDB();
   return db.tracks;
-}
+});
 
-export async function getTrack(id: string): Promise<TrackInfo | null> {
+export const getTrack = cache(async (id: string): Promise<TrackInfo | null> => {
   const db = await readDB();
   return db.tracks.find((t) => t.id === id) || null;
-}
+});
 
 export async function saveTrack(track: TrackInfo): Promise<TrackInfo> {
   const db = await readDB();
@@ -401,10 +402,10 @@ export async function saveTrack(track: TrackInfo): Promise<TrackInfo> {
 }
 
 // 6. Team Members
-export async function getTeam(): Promise<TeamMember[]> {
+export const getTeam = cache(async (): Promise<TeamMember[]> => {
   const db = await readDB();
   return db.team;
-}
+});
 
 export async function saveTeamMember(member: TeamMember): Promise<TeamMember> {
   const db = await readDB();
@@ -430,15 +431,15 @@ export async function deleteTeamMember(id: string): Promise<boolean> {
 }
 
 // 6b. Club Members
-export async function getClubMembers(): Promise<ClubMember[]> {
+export const getClubMembers = cache(async (): Promise<ClubMember[]> => {
   const db = await readDB();
   return db.clubMembers || [];
-}
+});
 
-export async function getClubMember(id: string): Promise<ClubMember | null> {
+export const getClubMember = cache(async (id: string): Promise<ClubMember | null> => {
   const db = await readDB();
   return db.clubMembers?.find((m) => m.id === id) || null;
-}
+});
 
 export async function saveClubMember(member: ClubMember): Promise<ClubMember> {
   const db = await readDB();
@@ -466,10 +467,10 @@ export async function deleteClubMember(id: string): Promise<boolean> {
 }
 
 // 7. Leaderboard
-export async function getLeaderboard(): Promise<LeaderboardEntry[]> {
+export const getLeaderboard = cache(async (): Promise<LeaderboardEntry[]> => {
   const db = await readDB();
   return db.leaderboard;
-}
+});
 
 export async function saveLeaderboardEntry(entry: LeaderboardEntry): Promise<LeaderboardEntry> {
   const db = await readDB();
@@ -501,10 +502,10 @@ export async function deleteLeaderboardEntry(name: string): Promise<boolean> {
 }
 
 // 8. Testimonials
-export async function getTestimonials(): Promise<Testimonial[]> {
+export const getTestimonials = cache(async (): Promise<Testimonial[]> => {
   const db = await readDB();
   return db.testimonials || [];
-}
+});
 
 export async function saveTestimonial(testimonial: Testimonial): Promise<Testimonial> {
   const db = await readDB();
@@ -580,10 +581,10 @@ export async function deleteTestimonial(id: string): Promise<boolean> {
 }
 
 // 9. Applications
-export async function getApplications(): Promise<CohortApplication[]> {
+export const getApplications = cache(async (): Promise<CohortApplication[]> => {
   const db = await readDB();
   return db.applications || [];
-}
+});
 
 export async function submitApplication(
   appData: Omit<CohortApplication, 'id' | 'submittedAt' | 'status'>
@@ -618,4 +619,3 @@ export async function updateApplicationStatus(
   }
   return false;
 }
-

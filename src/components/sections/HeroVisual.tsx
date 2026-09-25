@@ -28,8 +28,8 @@ export function HeroVisual({ announcement }: HeroVisualProps) {
     : null;
 
   return (
-    <section className="relative w-full min-h-[92vh] sm:min-h-screen flex flex-col justify-between overflow-hidden bg-[#0e0e11] text-white select-none">
-      {/* 1. Atmospheric Background Image */}
+    <section className="relative w-full min-h-[92vh] sm:min-h-screen flex flex-col overflow-hidden bg-[#0e0e11] text-white select-none">
+      {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/footer-twilight-bg.jpg"
@@ -40,126 +40,123 @@ export function HeroVisual({ announcement }: HeroVisualProps) {
           sizes="100vw"
           className="object-cover object-bottom"
         />
-        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#0e0e11]/80 via-[#0e0e11]/40 to-transparent pointer-events-none" />
-        <div className="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-[#0e0e11] via-[#0e0e11]/70 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 bg-radial from-transparent via-[#0e0e11]/10 to-[#0e0e11]/30 pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-[#0e0e11]/90 via-[#0e0e11]/50 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-[65%] bg-gradient-to-t from-[#0e0e11] via-[#0e0e11]/75 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-radial from-transparent via-[#0e0e11]/10 to-[#0e0e11]/35 pointer-events-none" />
       </div>
 
       {/* Spacer for top nav */}
-      <div className="relative z-10 pt-28 sm:pt-32" />
+      <div className="relative z-10 pt-28 sm:pt-32 flex-shrink-0" />
 
-      {/* 2. Hero Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 sm:pb-20 lg:pb-24">
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10 lg:gap-16">
+      {/* Hero Content — grows to fill space */}
+      <div className="relative z-10 flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-10 sm:pb-14 lg:pb-0">
 
-          {/* LEFT: Headline + Subtitle + CTAs */}
-          <div className="flex-1 max-w-2xl space-y-5">
-            {/* Institutional Kicker Badge */}
-            <div className="animate-hero-badge inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.06] backdrop-blur-md border border-white/15 text-xs font-mono text-neutral-300 shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="tracking-wider uppercase">Rwanda Coding Academy · SIFS League</span>
-            </div>
+        {/* Headline + Subtitle + CTAs — sits above the bottom panel */}
+        <div className="pb-8 sm:pb-12 lg:pb-16 max-w-3xl space-y-5 sm:space-y-6">
 
-            {/* Bold Headline */}
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight text-white leading-[1.04]">
-              <span className="block">
-                <span className="inline-block overflow-hidden align-bottom">
-                  <span className="inline-block animate-hero-word-1">Make</span>
-                </span>{' '}
-                <span className="inline-block overflow-hidden align-bottom">
-                  <span className="inline-block animate-hero-word-2">ideas</span>
-                </span>
-              </span>
-              <span className="block">
-                <span className="inline-flex overflow-hidden align-bottom h-[1.14em] relative">
-                  <span
-                    key={wordIndex}
-                    className="inline-block animate-word-roller text-white underline decoration-white/30 underline-offset-8"
-                  >
-                    {ROTATING_WORDS[wordIndex]}
-                  </span>
-                </span>
-              </span>
-            </h1>
-
-            {/* Subtitle */}
-            <p className="animate-hero-desc text-base sm:text-lg md:text-xl text-neutral-200/95 max-w-xl leading-relaxed font-normal">
-              A focused society for student builders and quantitative analysts at Rwanda Coding
-              Academy to incubate software ventures, master global markets, and get things done.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="animate-hero-cta pt-1 flex flex-wrap items-center gap-3.5">
-              <Link
-                href="/about"
-                className="btn-skeuo-glass inline-flex items-center justify-center px-7 py-3.5 rounded-xl text-sm font-semibold cursor-pointer"
-              >
-                <span>Get To Know ENTS</span>
-                <ArrowRight size={16} className="ml-2" />
-              </Link>
-              <Link
-                href="/projects"
-                className="btn-skeuo-dark inline-flex items-center justify-center px-7 py-3.5 rounded-xl text-sm font-semibold cursor-pointer border-neutral-700/80"
-              >
-                See how it works
-              </Link>
-            </div>
+          {/* Kicker Badge — solid, clearly visible */}
+          <div className="animate-hero-badge inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/15 border border-white/30 text-xs font-mono text-white tracking-wider uppercase shadow-md backdrop-blur-md">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+            <span>Rwanda Coding Academy · SIFS League 2026</span>
           </div>
 
-          {/* RIGHT: Single Announcement Card */}
-          {announcement && announcementSlug && (
-            <div className="animate-hero-cta w-full lg:w-[400px] xl:w-[440px] shrink-0">
-              <div className="relative group rounded-3xl overflow-hidden border border-white/20 hover:border-white/35 transition-all duration-300 shadow-[0_20px_60px_rgba(0,0,0,0.85)] bg-[#0a0a0d]/90 backdrop-blur-2xl">
-                {/* Top specular chamfer */}
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
+          {/* Bold Headline */}
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight text-white leading-[1.04]">
+            <span className="block">
+              <span className="inline-block overflow-hidden align-bottom">
+                <span className="inline-block animate-hero-word-1">Make</span>
+              </span>{' '}
+              <span className="inline-block overflow-hidden align-bottom">
+                <span className="inline-block animate-hero-word-2">ideas</span>
+              </span>
+            </span>
+            <span className="block">
+              <span className="inline-flex overflow-hidden align-bottom h-[1.14em] relative">
+                <span
+                  key={wordIndex}
+                  className="inline-block animate-word-roller text-white underline decoration-white/30 underline-offset-8"
+                >
+                  {ROTATING_WORDS[wordIndex]}
+                </span>
+              </span>
+            </span>
+          </h1>
 
-                <div className="p-6 sm:p-7">
-                  {/* Card Header */}
-                  <div className="flex items-center justify-between gap-3 mb-5">
-                    <div className="flex items-center gap-2.5">
-                      {/* Green live beacon */}
-                      <span className="flex h-2.5 w-2.5 relative shrink-0">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
-                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-                      </span>
-                      <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-neutral-300 bg-white/[0.08] border border-white/15 px-2.5 py-1 rounded-md">
-                        Official Announcement
-                      </span>
-                    </div>
-                    <span className="text-[11px] font-mono text-neutral-500 shrink-0">
-                      {announcement.date}
-                    </span>
-                  </div>
+          {/* Subtitle */}
+          <p className="animate-hero-desc text-base sm:text-lg md:text-xl text-neutral-200/90 max-w-xl leading-relaxed font-normal">
+            A focused society for student builders and quantitative analysts at Rwanda Coding
+            Academy to incubate software ventures, master global markets, and get things done.
+          </p>
 
-                  {/* Card Body */}
-                  <Link href={`/updates/${announcementSlug}`} className="block group/inner">
-                    <h3 className="text-xl sm:text-2xl font-bold text-white leading-snug mb-3 line-clamp-2 group-hover/inner:text-neutral-200 transition-colors">
-                      {announcement.title}
-                    </h3>
-                    <p className="text-sm text-neutral-400 line-clamp-3 leading-relaxed font-normal">
-                      {announcement.excerpt}
-                    </p>
-                  </Link>
-
-                  {/* Card Footer */}
-                  <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between gap-4 text-xs font-mono">
-                    <span className="text-neutral-500 truncate">
-                      By <span className="text-neutral-300 font-semibold">{announcement.author}</span>
-                    </span>
-                    <Link
-                      href={`/updates/${announcementSlug}`}
-                      className="btn-skeuo-light shrink-0 px-4 py-2 rounded-xl text-xs font-bold text-neutral-900 inline-flex items-center gap-2 hover:bg-white transition-all"
-                    >
-                      <span>Read Details</span>
-                      <ArrowRight size={13} />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
+          {/* CTA Buttons */}
+          <div className="animate-hero-cta flex flex-wrap items-center gap-3.5">
+            <Link
+              href="/about"
+              className="btn-skeuo-glass inline-flex items-center justify-center px-7 py-3.5 rounded-xl text-sm font-semibold cursor-pointer"
+            >
+              <span>Get To Know ENTS</span>
+              <ArrowRight size={16} className="ml-2" />
+            </Link>
+            <Link
+              href="/projects"
+              className="btn-skeuo-dark inline-flex items-center justify-center px-7 py-3.5 rounded-xl text-sm font-semibold cursor-pointer border-neutral-700/80"
+            >
+              See how it works
+            </Link>
+          </div>
         </div>
+
+        {/* ── ANNOUNCEMENT PANEL — pinned at the very bottom of the hero ── */}
+        {announcement && announcementSlug && (
+          <div className="animate-hero-cta relative border-t border-white/[0.12] pt-5 pb-8 sm:pb-10 lg:pb-12">
+            {/* Subtle left accent rule */}
+            <div className="absolute left-0 top-5 bottom-0 w-px bg-gradient-to-b from-emerald-400/60 via-emerald-400/20 to-transparent" />
+
+            <div className="pl-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 sm:gap-8">
+
+              {/* Left: label + title + excerpt */}
+              <div className="flex-1 min-w-0 space-y-2">
+                {/* Inline status label */}
+                <div className="flex items-center gap-2">
+                  <span className="flex h-2 w-2 relative shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.9)]" />
+                  </span>
+                  <span className="text-[10px] font-mono font-bold tracking-[0.18em] uppercase text-white/60">
+                    Official Announcement
+                  </span>
+                  <span className="text-[10px] font-mono text-white/30 hidden sm:inline">·</span>
+                  <span className="text-[10px] font-mono text-white/40 hidden sm:inline">{announcement.date}</span>
+                </div>
+
+                <Link href={`/updates/${announcementSlug}`} className="block group/title">
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white leading-snug line-clamp-1 group-hover/title:text-neutral-200 transition-colors">
+                    {announcement.title}
+                  </h3>
+                  <p className="mt-1 text-sm text-neutral-400 line-clamp-1 leading-relaxed font-normal">
+                    {announcement.excerpt}
+                  </p>
+                </Link>
+              </div>
+
+              {/* Right: author + CTA */}
+              <div className="flex items-center gap-4 shrink-0">
+                <span className="hidden md:block text-xs font-mono text-neutral-500">
+                  By <span className="text-neutral-300 font-semibold">{announcement.author}</span>
+                </span>
+                <Link
+                  href={`/updates/${announcementSlug}`}
+                  className="group/cta inline-flex items-center gap-2 bg-white text-[#0e0e11] px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-neutral-100 transition-all shadow-lg shadow-black/30"
+                >
+                  <span>Read Announcement</span>
+                  <ArrowRight size={14} className="group-hover/cta:translate-x-0.5 transition-transform" />
+                </Link>
+              </div>
+
+            </div>
+          </div>
+        )}
+
       </div>
     </section>
   );

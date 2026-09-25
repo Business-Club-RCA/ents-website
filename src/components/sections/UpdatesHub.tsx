@@ -256,7 +256,6 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                       <SocialShareBar
                         title={currentFeaturedEvent.title}
                         description={currentFeaturedEvent.excerpt}
-                        url={`https://www.entsclub.online/updates/${slugify(currentFeaturedEvent.title) || currentFeaturedEvent.id}`}
                         compact={true}
                       />
 
@@ -335,7 +334,10 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
               const isEvent = item.type === 'event';
               const slug = slugify(item.title) || item.id;
               const articleHref = isEvent ? '#' : `/updates/${slug}`;
-              const shareUrl = `https://www.entsclub.online/updates/${slug}`;
+              const shareUrl =
+                typeof window !== 'undefined'
+                  ? `${window.location.origin}/updates/${slug}`
+                  : `https://www.entsclub.online/updates/${slug}`;
 
               return (
                 <article

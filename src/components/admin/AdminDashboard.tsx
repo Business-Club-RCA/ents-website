@@ -5,6 +5,7 @@ import Image from 'next/image';
 import {
   Project,
   FeedItem,
+  UpdateType,
   TrackInfo,
   TeamMember,
   ClubMember,
@@ -49,6 +50,7 @@ import {
 import { ProfileAvatar } from '@/components/ui/ProfileAvatar';
 import { isEventPassed } from '@/lib/dateUtils';
 import { slugify } from '@/lib/slug';
+import { getUpdateTypeBadge, getUpdateTypeLabel } from '@/lib/contentTypes';
 
 interface AdminDashboardProps {
   initialData: {
@@ -90,6 +92,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
   // Update Modal State
   const [editingUpdate, setEditingUpdate] = useState<FeedItem | null>(null);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [updateType, setUpdateType] = useState<UpdateType>('announcement');
 
   // Event Attendees Viewer Modal
   const [viewingAttendeesEvent, setViewingAttendeesEvent] = useState<FeedItem | null>(null);
@@ -218,6 +221,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
       .filter(Boolean);
 
     const isEvent = type === 'event';
+    const isExternal = type === 'external';
     const featured = formData.get('featured') === 'on' || formData.get('featured') === 'true';
 
     const item: FeedItem = {
@@ -232,9 +236,12 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
       imageUrl: imageUrl || undefined,
       isCustom: true,
       featured,
+      sourceUrl: isExternal ? (formData.get('sourceUrl') as string) : undefined,
+      sourceName: isExternal ? (formData.get('sourceName') as string) : undefined,
       eventDate: isEvent ? (formData.get('eventDate') as string) : undefined,
       eventTime: isEvent ? (formData.get('eventTime') as string) : undefined,
       eventLocation: isEvent ? (formData.get('eventLocation') as string) : undefined,
+      rsvpLink: isEvent ? (formData.get('rsvpLink') as string) : undefined,
       speakers: isEvent
         ? (formData.get('speakers') as string)
             .split(',')
@@ -874,6 +881,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                 onClick={() => {
                   setEditingUpdate(null);
                   setUpdateImageUrl('');
+                  setUpdateType('announcement');
                   setIsUpdateModalOpen(true);
                 }}
                 className="p-5 rounded-2xl border border-neutral-200 bg-neutral-50/50 hover:bg-neutral-100/80 transition-all text-left group cursor-pointer"
@@ -1040,6 +1048,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
               onClick={() => {
                 setEditingUpdate(null);
                 setUpdateImageUrl('');
+                setUpdateType('announcement');
                 setIsUpdateModalOpen(true);
               }}
               className="btn-skeuo-dark font-bold text-xs font-mono px-4 py-2 rounded-xl cursor-pointer"
@@ -1057,12 +1066,12 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                 <div key={item.id} className="bg-white p-5 flex flex-col justify-between relative group">
                   <div>
                     <div className="flex items-center justify-between text-[11px] font-mono text-neutral-500 mb-2">
-                      <div className="flex items-center gap-1.5">
-                        <span className="uppercase font-bold px-2 py-0.5 rounded bg-neutral-100 border border-neutral-200 text-neutral-800">
-                          {item.type}
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="uppercase font-bold px-2 py-0.5 rounded bg-neutral-100 border border-neutral-200 text-neutral-800 text-[10px]">
+                          {getUpdateTypeBadge(item.type)}
                         </span>
                         {item.featured && (
-                          <span className="px-1.5 py-0.5 rounded bg-amber-100 border border-amber-300 text-amber-900 text-[10px] font-bold">
+                          <span className="px-1.5 py-0.5 rounded bg-neutral-900 text-white border border-neutral-800 text-[10px] font-bold">
                             ★ Hero Featured
                           </span>
                         )}
@@ -1084,6 +1093,17 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                     <h3 className="font-bold text-base text-neutral-900 mb-1 leading-snug">{item.title}</h3>
                     <p className="text-xs text-neutral-600 line-clamp-2 mb-3">{item.excerpt}</p>
 
+                    {item.type === 'external' && (
+                      <div className="p-2.5 bg-neutral-50 rounded-xl border border-neutral-200 text-[11px] font-mono mb-3 text-neutral-600 flex items-center justify-between">
+                        <span>Source: <strong className="text-neutral-900">{item.sourceName || 'External Publication'}</strong></span>
+                        {item.sourceUrl && (
+                          <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-neutral-900 underline font-semibold">
+                            Visit URL ↗
+                          </a>
+                        )}
+                      </div>
+                    )}
+
                     {isEvent && (
                       <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200 text-xs font-mono space-y-1 mb-4">
                         <div className="font-bold text-neutral-900">{item.eventDate} &middot; {item.eventTime}</div>
@@ -1101,6 +1121,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                         onClick={() => {
                           setEditingUpdate(item);
                           setUpdateImageUrl(item.imageUrl || '');
+                          setUpdateType(item.type);
                           setIsUpdateModalOpen(true);
                         }}
                         className="font-bold text-neutral-800 hover:underline cursor-pointer"
@@ -1118,7 +1139,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                       <button
                         onClick={() => handleToggleFeaturedUpdate(item.id, item.title)}
                         className={`font-bold hover:underline cursor-pointer ${
-                          item.featured ? 'text-amber-700' : 'text-neutral-500 hover:text-neutral-900'
+                          item.featured ? 'text-neutral-950 font-extrabold' : 'text-neutral-500 hover:text-neutral-900'
                         }`}
                       >
                         {item.featured ? '★ Featured on Hero' : '☆ Feature on Hero'}
@@ -1983,15 +2004,17 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-neutral-600 font-semibold mb-1">Type</label>
+                  <label className="block text-neutral-600 font-semibold mb-1">Content Type</label>
                   <select
                     name="type"
-                    defaultValue={editingUpdate?.type || 'article'}
-                    className="w-full px-3 py-2 bg-neutral-50 border border-neutral-300 rounded-xl"
+                    value={updateType}
+                    onChange={(e) => setUpdateType(e.target.value as UpdateType)}
+                    className="w-full px-3 py-2 bg-neutral-50 border border-neutral-300 rounded-xl font-medium text-neutral-900"
                   >
-                    <option value="article">News Article</option>
-                    <option value="event">Scheduled Event</option>
-                    <option value="announcement">Announcement</option>
+                    <option value="announcement">1. Announcement</option>
+                    <option value="event">2. Scheduled Event</option>
+                    <option value="article">3. Article</option>
+                    <option value="external">4. External Reference</option>
                   </select>
                 </div>
                 <div>
@@ -2006,7 +2029,9 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
               </div>
 
               <div>
-                <label className="block text-neutral-600 font-semibold mb-1">Author / Committee</label>
+                <label className="block text-neutral-600 font-semibold mb-1">
+                  {updateType === 'external' ? 'Curator / Submitting Committee (Optional)' : updateType === 'event' ? 'Organizer / Committee' : 'Author / Committee'}
+                </label>
                 <input
                   name="author"
                   defaultValue={editingUpdate?.author || 'ENTS Editorial'}
@@ -2015,8 +2040,114 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                 />
               </div>
 
+              {/* Conditional: External Reference Fields */}
+              {updateType === 'external' && (
+                <div className="p-4 bg-neutral-50 rounded-2xl border border-neutral-200 space-y-3">
+                  <div>
+                    <div className="font-bold text-neutral-900 uppercase text-[10px] tracking-wider">
+                      External Reference Details
+                    </div>
+                    <p className="text-[10px] text-neutral-500 font-mono mt-0.5">
+                      Links directly to external publications, news coverage, partner articles, or press releases.
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-neutral-600 font-semibold mb-1">Original Source / Publication Name *</label>
+                      <input
+                        name="sourceName"
+                        defaultValue={editingUpdate?.sourceName || ''}
+                        required={updateType === 'external'}
+                        placeholder="e.g. The New Times / TechInAfrica"
+                        className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-neutral-600 font-semibold mb-1">External Publication URL *</label>
+                      <input
+                        name="sourceUrl"
+                        type="url"
+                        defaultValue={editingUpdate?.sourceUrl || ''}
+                        required={updateType === 'external'}
+                        placeholder="https://www.newtimes.co.rw/..."
+                        className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Conditional: Scheduled Event Logistics */}
+              {updateType === 'event' && (
+                <div className="p-4 bg-neutral-50 rounded-2xl border border-neutral-200 space-y-3">
+                  <div>
+                    <div className="font-bold text-neutral-900 uppercase text-[10px] tracking-wider">
+                      Event Logistics
+                    </div>
+                    <p className="text-[10px] text-neutral-500 font-mono mt-0.5">
+                      Live events appear on the public site while upcoming. Once the event date &amp; time concludes, it is automatically archived from the public feed.
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-neutral-500 mb-1">Event Date *</label>
+                      <input
+                        name="eventDate"
+                        defaultValue={editingUpdate?.eventDate || ''}
+                        required={updateType === 'event'}
+                        placeholder="e.g. Saturday, March 28, 2026"
+                        className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-neutral-500 mb-1">Event Time *</label>
+                      <input
+                        name="eventTime"
+                        defaultValue={editingUpdate?.eventTime || ''}
+                        required={updateType === 'event'}
+                        placeholder="e.g. 15:00 - 17:30 CAT"
+                        className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-neutral-500 mb-1">Event Venue / Location *</label>
+                      <input
+                        name="eventLocation"
+                        defaultValue={editingUpdate?.eventLocation || ''}
+                        required={updateType === 'event'}
+                        placeholder="e.g. RCA Innovation Lab"
+                        className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-neutral-500 mb-1">Registration / RSVP Link (Optional)</label>
+                      <input
+                        name="rsvpLink"
+                        type="url"
+                        defaultValue={editingUpdate?.rsvpLink || ''}
+                        placeholder="https://lu.ma/..."
+                        className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-neutral-500 mb-1">Speakers / Hosts (Comma-separated)</label>
+                    <input
+                      name="speakers"
+                      defaultValue={editingUpdate?.speakers?.join(', ') || ''}
+                      placeholder="Aline Umutoni, David Nshimiyimana"
+                      className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
+                    />
+                  </div>
+                </div>
+              )}
+
               <div>
-                <label className="block text-neutral-600 font-semibold mb-1">Short Excerpt (Summary)</label>
+                <label className="block text-neutral-600 font-semibold mb-1">
+                  {updateType === 'event' ? 'Short Description *' : 'Short Excerpt / Summary *'}
+                </label>
                 <textarea
                   name="excerpt"
                   defaultValue={editingUpdate?.excerpt || ''}
@@ -2028,7 +2159,15 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
               </div>
 
               <div>
-                <label className="block text-neutral-600 font-semibold mb-1">Full Article / Details Content</label>
+                <label className="block text-neutral-600 font-semibold mb-1">
+                  {updateType === 'article'
+                    ? 'Full Article Content (Markdown)'
+                    : updateType === 'event'
+                    ? 'Full Event Details (Markdown)'
+                    : updateType === 'announcement'
+                    ? 'Full Announcement Details (Markdown)'
+                    : 'Summary & Notes (Markdown)'}
+                </label>
                 <textarea
                   name="content"
                   defaultValue={editingUpdate?.content || ''}
@@ -2036,55 +2175,6 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                   placeholder="Full text / Markdown content for detail page..."
                   className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl"
                 />
-              </div>
-
-              <div className="p-4 bg-neutral-50 rounded-2xl border border-neutral-200 space-y-3">
-                <div>
-                  <div className="font-bold text-neutral-800 uppercase text-[10px]">
-                    Event Logistics (Only required if type is &quot;Scheduled Event&quot;)
-                  </div>
-                  <p className="text-[10px] text-neutral-500 font-mono mt-0.5">
-                    Live events appear on the public site while upcoming. Once the event date &amp; time concludes, it is automatically archived from the public feed.
-                  </p>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-neutral-500 mb-1">Event Date</label>
-                    <input
-                      name="eventDate"
-                      defaultValue={editingUpdate?.eventDate || ''}
-                      placeholder="e.g. Saturday, March 28, 2026"
-                      className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-neutral-500 mb-1">Event Time</label>
-                    <input
-                      name="eventTime"
-                      defaultValue={editingUpdate?.eventTime || ''}
-                      placeholder="e.g. 15:00 - 17:30 CAT"
-                      className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-neutral-500 mb-1">Event Venue / Location</label>
-                  <input
-                    name="eventLocation"
-                    defaultValue={editingUpdate?.eventLocation || ''}
-                    placeholder="e.g. RCA Innovation Lab"
-                    className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
-                  />
-                </div>
-                <div>
-                  <label className="block text-neutral-500 mb-1">Speakers / Hosts (Comma-separated)</label>
-                  <input
-                    name="speakers"
-                    defaultValue={editingUpdate?.speakers?.join(', ') || ''}
-                    placeholder="Aline Umutoni, David Nshimiyimana"
-                    className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
-                  />
-                </div>
               </div>
 
               <div>
@@ -2101,21 +2191,21 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                 <label className="block text-neutral-600 font-semibold mb-1">Tags (Comma-separated)</label>
                 <input
                   name="tags"
-                  defaultValue={editingUpdate?.tags.join(', ') || 'RCA, Ventures, Fintech'}
+                  defaultValue={editingUpdate?.tags?.join(', ') || 'RCA, Ventures, Innovation'}
                   className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl"
                 />
               </div>
 
-              <div className="flex items-center gap-3 p-3 bg-amber-50/70 border border-amber-200/80 rounded-xl">
+              <div className="flex items-center gap-3 p-3.5 bg-neutral-50 border border-neutral-200 rounded-xl hover:bg-neutral-100/60 transition-colors">
                 <input
                   type="checkbox"
                   id="featured"
                   name="featured"
                   defaultChecked={editingUpdate?.featured ?? false}
-                  className="w-4 h-4 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer"
+                  className="w-4 h-4 rounded border-neutral-400 text-neutral-900 focus:ring-neutral-900 cursor-pointer accent-neutral-900"
                 />
-                <label htmlFor="featured" className="text-neutral-800 font-bold cursor-pointer text-xs">
-                  Feature on Hero Section (Announcement banner &amp; highlight card)
+                <label htmlFor="featured" className="text-neutral-900 font-bold cursor-pointer text-xs">
+                  Feature on Hero Section (Announcement pill banner &amp; highlight chassis)
                 </label>
               </div>
 

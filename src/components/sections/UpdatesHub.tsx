@@ -9,12 +9,15 @@ import { registerAttendanceAction } from '@/actions/adminActions';
 import { SocialShareBar } from '@/components/ui/SocialShareBar';
 import { slugify } from '@/lib/slug';
 import { isEventPassed } from '@/lib/dateUtils';
+import { getUpdateTypeBadge, getUpdateTypeLabel } from '@/lib/contentTypes';
 
 const ATTENDANCE_STORAGE_KEY = 'ents_event_attendees_v2';
 
+type TabFilter = 'all' | 'announcement' | 'event' | 'article' | 'external';
+
 export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] }) {
   const [items, setItems] = useState<FeedItem[]>(initialItems);
-  const [activeTab, setActiveTab] = useState<'all' | 'news' | 'event'>('all');
+  const [activeTab, setActiveTab] = useState<TabFilter>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   // Keep items in sync when initialItems changes
@@ -98,8 +101,7 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
 
   // Filter items for main grid
   const filteredItems = activePublicItems.filter((item) => {
-    if (activeTab === 'news' && item.type === 'event') return false;
-    if (activeTab === 'event' && item.type !== 'event') return false;
+    if (activeTab !== 'all' && item.type !== activeTab) return false;
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       return (
@@ -293,30 +295,46 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
           </div>
 
           {/* Filter Tray */}
-          <div className="flex items-center gap-1.5 p-1.5 bg-neutral-200/60 rounded-2xl border border-neutral-300/80 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.07)] text-xs font-mono">
+          <div className="flex items-center gap-1.5 p-1.5 bg-neutral-200/60 rounded-2xl border border-neutral-300/80 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.07)] text-xs font-mono overflow-x-auto max-w-full">
             <button
               onClick={() => setActiveTab('all')}
-              className={`px-4 py-1.5 rounded-xl cursor-pointer transition-all ${
+              className={`px-3 sm:px-4 py-1.5 rounded-xl cursor-pointer transition-all whitespace-nowrap ${
                 activeTab === 'all' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
               }`}
             >
-              All Dispatches ({activePublicItems.length})
+              All ({activePublicItems.length})
             </button>
             <button
-              onClick={() => setActiveTab('news')}
-              className={`px-4 py-1.5 rounded-xl cursor-pointer transition-all ${
-                activeTab === 'news' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
+              onClick={() => setActiveTab('announcement')}
+              className={`px-3 sm:px-4 py-1.5 rounded-xl cursor-pointer transition-all whitespace-nowrap ${
+                activeTab === 'announcement' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
               }`}
             >
-              Business Articles ({items.filter((i) => i.type !== 'event').length})
+              Announcements ({activePublicItems.filter((i) => i.type === 'announcement').length})
             </button>
             <button
               onClick={() => setActiveTab('event')}
-              className={`px-4 py-1.5 rounded-xl cursor-pointer transition-all ${
+              className={`px-3 sm:px-4 py-1.5 rounded-xl cursor-pointer transition-all whitespace-nowrap ${
                 activeTab === 'event' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
               }`}
             >
-              Events ({upcomingEvents.length})
+              Scheduled Events ({upcomingEvents.length})
+            </button>
+            <button
+              onClick={() => setActiveTab('article')}
+              className={`px-3 sm:px-4 py-1.5 rounded-xl cursor-pointer transition-all whitespace-nowrap ${
+                activeTab === 'article' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
+              }`}
+            >
+              Articles ({activePublicItems.filter((i) => i.type === 'article').length})
+            </button>
+            <button
+              onClick={() => setActiveTab('external')}
+              className={`px-3 sm:px-4 py-1.5 rounded-xl cursor-pointer transition-all whitespace-nowrap ${
+                activeTab === 'external' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
+              }`}
+            >
+              External References ({activePublicItems.filter((i) => i.type === 'external').length})
             </button>
           </div>
         </div>
@@ -351,7 +369,7 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                       <div className="flex items-center gap-2 text-[10px] font-mono text-neutral-500">
                         <span className="w-1.5 h-1.5 rounded-full bg-neutral-400" />
                         <span className="uppercase tracking-wider font-semibold text-neutral-600">
-                          {isEvent ? 'EVENT DISPATCH' : 'BUSINESS DISPATCH'}
+                          {getUpdateTypeLabel(item.type).toUpperCase()}
                         </span>
                       </div>
                       <span className="skeuo-rivet" />
@@ -372,7 +390,7 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                         />
                         <div className="absolute top-2.5 left-2.5">
                           <span className="skeuo-badge px-2 py-0.5 rounded-md text-[9px] font-mono font-bold text-neutral-900">
-                            {isEvent ? 'EVENT' : 'ARTICLE'}
+                            {getUpdateTypeBadge(item.type)}
                           </span>
                         </div>
                       </Link>
@@ -382,13 +400,29 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                     <div className="mt-3.5 space-y-2">
                       <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400">
                         <span>{item.date}</span>
-                        <span>{item.readTime || '4 min read'}</span>
+                        <span>
+                          {item.type === 'external' && item.sourceName
+                            ? item.sourceName
+                            : item.readTime || '4 min read'}
+                        </span>
                       </div>
 
                       <h3 className="font-bold text-base sm:text-lg text-neutral-900 leading-snug group-hover:text-neutral-950">
-                        <Link href={articleHref} className="hover:underline">
-                          {item.title}
-                        </Link>
+                        {item.type === 'external' && item.sourceUrl ? (
+                          <a
+                            href={item.sourceUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:underline inline-flex items-center gap-1.5"
+                          >
+                            <span>{item.title}</span>
+                            <span className="text-xs text-neutral-400">↗</span>
+                          </a>
+                        ) : (
+                          <Link href={articleHref} className="hover:underline">
+                            {item.title}
+                          </Link>
+                        )}
                       </h3>
 
                       <p className="text-xs text-neutral-600 leading-relaxed line-clamp-3">
@@ -430,6 +464,16 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                               RSVP
                             </button>
                           )
+                        ) : item.type === 'external' ? (
+                          <a
+                            href={item.sourceUrl || articleHref}
+                            target={item.sourceUrl ? '_blank' : undefined}
+                            rel={item.sourceUrl ? 'noopener noreferrer' : undefined}
+                            className="btn-skeuo-light font-bold px-3 py-1.5 rounded-xl text-[11px] cursor-pointer hover:border-neutral-900 inline-flex items-center gap-1"
+                          >
+                            <span>Read Original</span>
+                            <span>↗</span>
+                          </a>
                         ) : (
                           <Link
                             href={articleHref}

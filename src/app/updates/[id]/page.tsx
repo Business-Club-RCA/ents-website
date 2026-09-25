@@ -8,6 +8,7 @@ import { SocialShareBar } from '@/components/ui/SocialShareBar';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 import { getUpdates, getUpdate } from '@/lib/db';
 import { slugify } from '@/lib/slug';
+import { getUpdateTypeBadge } from '@/lib/contentTypes';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -105,7 +106,7 @@ export default async function BlogDetailPage({ params }: Props) {
         <header className="space-y-4 mb-8 sm:mb-10 max-w-3xl">
           <div className="flex items-center gap-3 text-xs font-mono text-neutral-500">
             <span className="px-2.5 py-0.5 rounded-md bg-neutral-100 text-neutral-800 font-semibold uppercase tracking-wider text-[10px]">
-              {item.type === 'event' ? 'Event' : 'News'}
+              {getUpdateTypeBadge(item.type)}
             </span>
             <span>&middot;</span>
             <span>{item.date}</span>
@@ -149,11 +150,87 @@ export default async function BlogDetailPage({ params }: Props) {
         )}
 
         {/* 4. Article Excerpt Box */}
-        <div className="p-5 sm:p-6 rounded-2xl bg-neutral-50 border border-neutral-200/90 mb-10">
+        <div className="p-5 sm:p-6 rounded-2xl bg-neutral-50 border border-neutral-200/90 mb-8">
           <p className="text-base sm:text-lg text-neutral-700 font-medium leading-relaxed italic">
             &ldquo;{item.excerpt}&rdquo;
           </p>
         </div>
+
+        {/* 4.1 Event Logistics Panel (if Scheduled Event) */}
+        {item.type === 'event' && (
+          <div className="mb-10 p-6 rounded-2xl border border-neutral-200 bg-neutral-50/70 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-500 font-bold">
+                Event Logistics &amp; Schedule
+              </span>
+              <span className="px-2 py-0.5 rounded bg-neutral-900 text-white font-mono text-[10px] font-bold uppercase">
+                Scheduled Session
+              </span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-mono">
+              {item.eventDate && (
+                <div>
+                  <div className="text-neutral-400 uppercase text-[10px] font-semibold mb-0.5">Date</div>
+                  <div className="font-bold text-neutral-900">{item.eventDate}</div>
+                </div>
+              )}
+              {item.eventTime && (
+                <div>
+                  <div className="text-neutral-400 uppercase text-[10px] font-semibold mb-0.5">Time</div>
+                  <div className="font-bold text-neutral-900">{item.eventTime}</div>
+                </div>
+              )}
+              {item.eventLocation && (
+                <div>
+                  <div className="text-neutral-400 uppercase text-[10px] font-semibold mb-0.5">Location</div>
+                  <div className="font-bold text-neutral-900">{item.eventLocation}</div>
+                </div>
+              )}
+            </div>
+            {item.speakers && item.speakers.length > 0 && (
+              <div className="pt-2 text-xs font-mono">
+                <span className="text-neutral-400 uppercase text-[10px] font-semibold mr-2">Hosts / Speakers:</span>
+                <span className="font-bold text-neutral-900">{item.speakers.join(', ')}</span>
+              </div>
+            )}
+            {item.rsvpLink && (
+              <div className="pt-3">
+                <a
+                  href={item.rsvpLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-skeuo-dark font-bold text-xs font-mono px-5 py-2.5 rounded-xl inline-flex items-center gap-2"
+                >
+                  <span>Register / RSVP for Event</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 4.2 External Reference Top Banner (if External Reference) */}
+        {item.type === 'external' && item.sourceUrl && (
+          <div className="mb-10 p-5 rounded-2xl border border-neutral-200 bg-neutral-50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-500 font-bold">
+                External Publication Notice
+              </span>
+              <p className="text-xs text-neutral-700 font-mono">
+                This report is curated from <strong className="text-neutral-900">{item.sourceName || 'external media'}</strong>. Read the full release at the source.
+              </p>
+            </div>
+            <a
+              href={item.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-skeuo-dark font-bold text-xs font-mono px-4 py-2 rounded-xl shrink-0 inline-flex items-center gap-1.5"
+            >
+              <span>Visit Original Article</span>
+              <span>↗</span>
+            </a>
+          </div>
+        )}
 
         {/* 5. Main Body Content (Rendered via MarkdownRenderer) */}
         <div className="max-w-none text-neutral-800 text-base sm:text-lg leading-relaxed font-normal">

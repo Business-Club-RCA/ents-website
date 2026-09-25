@@ -43,23 +43,23 @@
   },
   "stats": [
     {
-      "value": "25+",
       "label": "Active Members",
+      "value": "25+",
       "detail": "Across Years 1, 2, and 3 at RCA"
     },
     {
-      "value": "05",
       "label": "Ventures Pitched",
+      "value": "05",
       "detail": "Validated business models & MVPs"
     },
     {
-      "value": "1,420+",
       "label": "Trades Logged",
+      "value": "1,420+",
       "detail": "Real-time paper trading journal entries"
     },
     {
-      "value": "$10k",
       "label": "Simulated AUM",
+      "value": "$10k",
       "detail": "Active portfolio capital tracked in SIFS"
     }
   ],
@@ -220,46 +220,20 @@
   ],
   "updates": [
     {
-      "id": "news-rca-leaders-2026",
-      "date": "March 14, 2026",
+      "id": "item-1790319505952",
+      "date": "September 25, 2026",
       "tags": [
-        "News",
         "RCA",
-        "Ventures",
-        "Incubation"
+        "Ventures"
       ],
       "type": "article",
-      "title": "Inside Rwanda Coding Academy: Training Africa's Next Generation of Venture Engineers",
-      "author": "Tech & Markets Editorial",
-      "content": "At Rwanda Coding Academy, education does not pause at algorithmic syntax and distributed systems. Through the Entrepreneurs & Traders Society (ENTS), students are actively fusing software development with rigorous commercial viability.\n\nIn high-velocity weekly sprints, student engineering pods formulate product theses, build functional prototypes, and deploy them across campus micro-markets. The objective is not hypothetical case studies: it is the validation of real unit economics, user retention cohorts, and transactional reliability.\n\n\"We realized early on that software without distribution or financial discipline remains a school project,\" explains Cedric Mugisha, ENTS President. \"By treating campus utilities as active testbeds for venture incubation, our members learn how capital flows before they ever pitch to an institutional angel investor.\"\n\nFrom canteen billing escrows like KuraPay to full-stack quantitative simulators like SIFS, students are proving that secondary technical institutions can be powerful incubators of scalable fintech infrastructure.",
-      "excerpt": "Students in Nyabihu combine software engineering with venture building, testing digital cash flows and algorithmic market models in real-time.",
-      "imageUrl": "/news/coding-lab.jpg",
-      "readTime": "4 min read",
-      "sourceUrl": "https://rca.ac.rw",
-      "sourceName": "News"
-    },
-    {
-      "id": "event-sifs-round-04",
-      "date": "March 22, 2026",
-      "tags": [
-        "Competition",
-        "Trading"
-      ],
-      "type": "event",
-      "title": "SIFS Simulated League Tournament: Round 04",
-      "author": "Quant Committee",
-      "content": "Round 04 of the SIFS Paper Trading League brings together 24 qualified analysts to execute sub-50ms tick momentum strategies across synthetic foreign exchange and commodity pairs.\n\nParticipants must navigate dynamic volatility clusters while adhering strictly to the society's hard-coded 1% stop-loss guardrails. Any algorithm exceeding the maximum drawdown threshold is automatically disqualified by the matching engine.",
-      "excerpt": "Quant traders test momentum algorithms under strict 1% risk-per-trade rules on live campus feeds.",
-      "imageUrl": "/events/trading-league.jpg",
-      "readTime": "2 hours",
-      "rsvpLink": "/join",
-      "speakers": [
-        "Aline Umutoni",
-        "David Nshimiyimana"
-      ],
-      "eventDate": "Saturday, March 28, 2026",
-      "eventTime": "15:00 - 17:30 CAT",
-      "eventLocation": "RCA Innovation Lab"
+      "title": "Start Small, Learn Fast: The Power of Validated Innovation",
+      "author": "ENTS Editorial",
+      "content": "# Start Small, Learn Fast: The Power of Validated Innovation\n\nInnovation is often associated with big ideas, ambitious products, and breakthrough success. However, successful innovation does not always begin with a large investment or a fully developed product. Sometimes, it begins with a small experiment and a willingness to learn.\n\nIn *The Lean Startup*, Eric Ries emphasizes the importance of learning through real-world evidence rather than relying entirely on assumptions. When an idea has produced no product, no users, and no data, it is easy to imagine that it could become successful. There is nothing yet to challenge our expectations.\n\nThis is where starting small becomes valuable.\n\nInstead of spending months building a complete product based on assumptions, a team can create a simple version that tests the most important part of the idea. This allows the team to observe what real users do, what they value, what they ignore, and what problems they encounter.\n\n## From Assumptions to Evidence\n\nEvery new product begins with assumptions.\n\nYou might assume that customers have a particular problem. You might assume they will use your solution. You might even assume that they will pay for it.\n\nBut an assumption is not the same as evidence.\n\nFor example, asking someone, \"Would you use this product?\" may produce encouraging answers. However, seeing that person actually use the product provides stronger evidence. Seeing them return to the product provides even more information. If they are willing to pay for it, the evidence becomes even stronger.\n\nThis is the principle behind validated learning.\n\nThe objective is not simply to build something quickly. The objective is to learn quickly.\n\n## Why Small Numbers Matter\n\nAt the beginning of a project, the numbers may be very small.\n\nYou might have:\n\n- 10 users\n- 5 active users\n- 2 paying customers\n- 20 pieces of feedback\n\nThese numbers may seem insignificant compared with the large audience you hope to reach one day. However, they can provide something much more valuable: evidence.\n\nFor example, if only 2 out of 20 users continue using a product, that tells you something. Perhaps the problem is not important enough. Perhaps the product is difficult to use. Perhaps the target audience is wrong.\n\nInstead of treating this as failure, a team can treat it as information and use it to improve the next experiment.\n\n## Build, Measure, Learn\n\nOne of the central ideas of the Lean Startup approach is the **Build-Measure-Learn** cycle.\n\n**Build:** Create the smallest version of the solution that can test an important assumption.\n\n**Measure:** Observe what users actually do and collect meaningful data.\n\n**Learn:** Use the evidence to decide what should change, continue, or be tested next.\n\nThe cycle then begins again.\n\nThis approach helps teams avoid spending large amounts of time building features that users may never need.\n\n## Validation Is More Than Positive Feedback\n\nIt is important to understand that validation does not simply mean hearing people say that an idea is good.\n\nSomeone saying, \"That is a great idea,\" is encouraging, but it is not strong evidence of demand.\n\nStronger signals come from behavior:\n\n- Do people actually use the product?\n- Do they come back?\n- Do they recommend it?\n- Do they complete the intended action?\n- Are they willing to pay?\n- Do they ask for the product when it is unavailable?\n\nReal behavior can reveal information that opinions alone cannot.\n\n## Applying the Idea\n\nThis principle can be applied to startups, student projects, businesses, and even community initiatives.\n\nSuppose a team wants to create a platform for organizing community discussions. Instead of immediately developing a complete application, the team could first run the process manually with a small group.\n\nThey could organize one discussion each week, observe participation, collect feedback, and identify what works and what does not.\n\nIf people actively participate and continue requesting the experience, the team has evidence that the concept may be worth developing further.\n\nIf participation is low, the team has also learned something valuable before investing heavily in software development.\n\n## Innovation as a Learning Process\n\nThe deeper lesson is that innovation is not only about having creative ideas. It is about discovering which ideas work in the real world.\n\nStarting small does not mean thinking small.\n\nIt means reducing the cost of being wrong.\n\nA team can test an assumption with a small experiment, learn from the results, make improvements, and gradually increase its investment as evidence becomes stronger.\n\nInstead of asking only:\n\n> \"How successful could this idea become?\"\n\nwe can also ask:\n\n> \"What can we test this week to learn whether this idea actually works?\"\n\nThat change in mindset can transform how products and businesses are built.\n\n## Conclusion\n\nGreat products do not have to begin with certainty. They can begin with a hypothesis.\n\nThe important thing is to expose that hypothesis to reality as early as possible.\n\nStart small. Build something real. Measure what happens. Listen to users. Learn from the evidence. Then improve.\n\nThe goal is not simply to build faster. It is to **learn faster and make better decisions with each iteration**.\n\nInnovation becomes more meaningful when ideas move beyond imagination and are tested against reality.",
+      "excerpt": "Successful innovation does not always begin with a big launch. By starting small, testing ideas, and learning from real user feedback and data, teams can reduce uncertainty and build products that solve genuine problems.",
+      "imageUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1790319812/ents/updates/sqxm4jybgoqqolfy3nxl.jpg",
+      "isCustom": true,
+      "attendees": []
     },
     {
       "id": "news-sifs-v24",
@@ -274,48 +248,55 @@
       "author": "Engineering Squad",
       "content": "The ENTS Engineering Squad has officially pushed SIFS v2.4 to the campus local network and cloud telemetry cluster. This release marks a significant milestone in our quest to bring institutional trading mechanics to secondary school analysts.\n\nKey Architectural Enhancements:\n- Sub-50ms Tick Ingestion: Websocket buffers now process multi-pair pricing with under 35ms latency.\n- Hard-Coded 1% Maximum Drawdown Locks: Automated risk tripwires immediately freeze positions upon unexpected volatility spikes.\n- Live Telemetry Leaderboard Sync: Every confirmed fill and liquidation updates the public league rankings instantaneously.\n\nThe platform is open to all registered club members across Cohorts 5, 6, and 7.",
       "excerpt": "Major architectural upgrades to the simulation engine introducing websocket streaming and automatic loss controls.",
+      "featured": true,
       "imageUrl": "/news/trading-terminal.jpg",
-      "readTime": "3 min read",
-      "featured": true
+      "readTime": "3 min read"
     },
     {
-      "id": "news-quant-literacy",
-      "date": "February 28, 2026",
+      "id": "event-venture-summit-2026",
+      "date": "September 24, 2026",
       "tags": [
-        "News",
-        "Quantitative"
-      ],
-      "type": "article",
-      "title": "How Secondary Quantitative Societies Redefine Technical Literacy",
-      "author": "Markets & Policy",
-      "content": "Traditional financial education often relies on textbook memorization of macroeconomic theory, leaving students unprepared for the fast-paced realities of algorithmic execution and risk management.\n\nAt ENTS, we take an engineering approach to financial literacy:\n1. Probabilistic Reasoning: Traders learn to view market prices as stochastic processes rather than deterministic predictions.\n2. The 1% Rule: Capital preservation is the core metric of success, enforced through automated telemetry rather than discretionary willpower.\n3. Code as Strategy: Every hypothesis is backtested across historical tick datasets using Python before receiving live simulation rights.\n\nThis philosophy transforms students from passive spectators into disciplined analytical thinkers ready for global quantitative roles.",
-      "excerpt": "Moving beyond theory to enforce statistical models and disciplined capital management before graduation.",
-      "imageUrl": "/news/venture-sprint.jpg",
-      "readTime": "5 min read",
-      "sourceUrl": "https://rca.ac.rw",
-      "sourceName": "News"
-    },
-    {
-      "id": "event-macro-masterclass",
-      "date": "February 20, 2026",
-      "tags": [
-        "Workshop",
-        "Economics"
+        "DemoDay",
+        "Ventures",
+        "SIFS",
+        "RCA"
       ],
       "type": "event",
-      "title": "Macroeconomic & FX Volatility Masterclass",
-      "author": "Advisory Board",
-      "content": "An intensive two-hour masterclass exploring how global macroeconomic indicators impact frontier market foreign exchange stability. Led by student quantitative researchers with curated case studies.",
-      "excerpt": "Weekend deep dive into central bank rate cycles, regional liquidity, and currency hedging.",
-      "imageUrl": "/events/masterclass.jpg",
-      "readTime": "2 hours",
-      "rsvpLink": "/join",
+      "title": "ENTS Venture & Demo Summit 2026",
+      "author": "ENTS Executive Board",
+      "content": "Join us for the flagship ENTS Demo Day and Quantitative Symposium at Rwanda Coding Academy.\n\n### Summit Agenda\n\n- **14:00 - 14:30**: Opening Keynote & SIFS Season 03 Recap\n- **14:30 - 16:00**: Live Venture Pitches: 6 Student Teams Demo Working Products\n- **16:00 - 17:00**: Algorithmic Execution Showcase & Quant Backtests\n- **17:00 - 17:30**: Awards Presentation & Networking Mixer\n\nAll students, faculty, and industry partners are warmly welcomed.",
+      "excerpt": "Annual student venture showcase and algorithmic simulation championship held live at Rwanda Coding Academy.",
+      "eventDate": "Saturday, October 24, 2026",
+      "eventTime": "14:00 - 17:30 CAT",
+      "eventLocation": "RCA Innovation Auditorium, Nyabihu",
+      "rsvpLink": "https://www.entsclub.online/updates",
       "speakers": [
-        "Aline Umutoni"
+        "Aline Umutoni",
+        "David Nshimiyimana",
+        "Jean-Luc Habimana"
       ],
-      "eventDate": "Saturday, April 11, 2026",
-      "eventTime": "10:00 - 12:00 CAT",
-      "eventLocation": "Virtual Session Room"
+      "imageUrl": "/projects/rca-mart.jpg",
+      "isCustom": true,
+      "attendees": []
+    },
+    {
+      "id": "external-newtimes-ents-2026",
+      "date": "September 22, 2026",
+      "tags": [
+        "Press",
+        "The New Times",
+        "Fintech",
+        "RCA"
+      ],
+      "type": "external",
+      "title": "Rwanda's Young Minds Crafting Real-World Tech Ventures at RCA",
+      "author": "The New Times Rwanda",
+      "sourceName": "The New Times",
+      "sourceUrl": "https://www.newtimes.co.rw",
+      "excerpt": "National press feature highlighting how student developers at Rwanda Coding Academy combine systems software engineering with quantitative financial discipline.",
+      "content": "National coverage spotlighting the Entrepreneurs & Traders Society (ENTS) at Rwanda Coding Academy.\n\nThe feature explores how students are constructing their own order-matching engines and testing campus venture ideas before graduation.\n\n*Read the complete investigative report on The New Times.*",
+      "imageUrl": "/news/trading-terminal.jpg",
+      "isCustom": true
     }
   ],
   "tracks": [
@@ -425,14 +406,12 @@
       "role": "Mentor",
       "track": null,
       "socials": {
-        "x": "https://x.com",
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://rca.ac.rw"
+        "linkedin": "https://www.linkedin.com/in/olivier-habumugisha-407a4116a"
       },
       "initials": "HO",
-      "avatarUrl": "https://images.unsplash.com/photo-1531384441138-2736e62e0919?auto=format&fit=crop&w=600&q=80",
+      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789982201/ents/team/jbrqkgbftw0rz7pkgvjt.jpg",
       "classYear": "Faculty Advisor",
-      "specialization": "Software Architecture & Institutional Partnerships"
+      "specialization": "Instructor At Rwanda Coding Academy"
     },
     {
       "id": "president",
@@ -441,6 +420,7 @@
       "role": "President",
       "track": null,
       "socials": {
+        "x": "https://x.com/SamuelIshi81695",
         "github": "https://github.com/Amani-Ishimwe",
         "linkedin": "https://www.linkedin.com/in/amani-ishimwe-409825331/",
         "portfolio": "https://www.amanisamuel.online/"
@@ -457,12 +437,11 @@
       "role": "Vice President",
       "track": null,
       "socials": {
-        "x": "https://x.com",
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://aline.me"
+        "x": "https://x.com/krif014",
+        "github": "https://github.com/krif014"
       },
       "initials": "UK",
-      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789724382/ents/team/xdm3fmwon25oxd5rlmon.jpg",
+      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1790103902/ents/team/xk762zsxseptyy7z5imc.jpg",
       "classYear": "Year 2",
       "specialization": "Quantitative Analysis & Macroeconomic Markets"
     },
@@ -470,7 +449,7 @@
       "id": "secretary",
       "bio": "Manages club records, session logistics, and oversees telemetry synchronization for the SIFS simulation platform.",
       "name": "HAPPY David",
-      "role": "Secretary",
+      "role": "Chief Treasurer ",
       "track": null,
       "socials": {},
       "initials": "HD",
@@ -486,8 +465,9 @@
       "role": "Software Engineer",
       "track": "Business Handlers",
       "socials": {
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://kevine.dev"
+        "x": "https://x.com/irmjustin",
+        "github": "https://github.com/irmjustin",
+        "linkedin": "https://www.linkedin.com/in/irmjustin/"
       },
       "initials": "IJ",
       "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789718215/ents/members/olw7gc2cfhd5dunge6oh.jpg",
@@ -499,9 +479,9 @@
       "role": "Software Engineer",
       "track": "Business Handlers",
       "socials": {
-        "github": "https://github.com/Amani-Ishimwe",
-        "linkedin": "https://linkedin.com",
-        "portfolio": "https://x.com/KDonJesus"
+        "x": "https://x.com/KDonJesus",
+        "github": "http://github.com/D-Audit",
+        "linkedin": "https://www.linkedin.com/in/don-jesus-kayiranga-565710437/"
       },
       "initials": "KD",
       "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789717910/ents/members/kxefz85sjirypsihbgfu.jpg",
@@ -512,15 +492,79 @@
       "name": "KAWACU RUGIRANEZA Arnaud Kennedy",
       "role": "Software Engineer",
       "track": "Business Handlers",
-      "socials": {},
+      "socials": {
+        "x": "https://x.com/Arnaud_Kennedy",
+        "github": "https://github.com/kawacukennedy",
+        "linkedin": "https://www.linkedin.com/in/kawacu-kennedy-47470a3a6/"
+      },
       "initials": "KR",
       "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789740607/ents/members/cityaps3aeylne1kkqni.jpg",
       "classYear": "Year 3"
+    },
+    {
+      "id": "member-1789982773692",
+      "name": "CYUBAHIRO Emmy",
+      "role": "Blockchain Specialist",
+      "track": "Traders",
+      "socials": {
+        "x": "http://x.com/0xCEmmy",
+        "github": "http://github.com/OxEmmyb2"
+      },
+      "initials": "CE",
+      "classYear": "Year 2"
+    },
+    {
+      "id": "member-1789982879083",
+      "name": "IGIRIMPUHWE Noah",
+      "role": "Software Engineer",
+      "track": "Business Handlers",
+      "socials": {},
+      "initials": "IN",
+      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789982871/ents/members/kkufjwesa50u7wrtipqu.jpg",
+      "classYear": "Year 3"
+    },
+    {
+      "id": "member-1789991858169",
+      "name": "IRAKOZE Prince Bohneur",
+      "role": "Software Engineer",
+      "track": "Business Handlers",
+      "socials": {
+        "github": "http://github.com/Ki-Will",
+        "linkedin": "http://linkedin.com/in/prince-bonheur"
+      },
+      "initials": "IP",
+      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1789991825/ents/members/cpk3dbw3utvx8jjp4r6p.jpg",
+      "classYear": "Year 3"
+    },
+    {
+      "id": "member-1790000107540",
+      "name": "ABIJURU Serge",
+      "role": "Software Engineer",
+      "track": "Business Handlers",
+      "socials": {
+        "github": "https://github.com/wise-coder/"
+      },
+      "initials": "AS",
+      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1790000180/ents/members/fxbuobepwbnwb6vrfqfr.jpg",
+      "classYear": "Year 2"
+    },
+    {
+      "id": "member-1790104011819",
+      "name": "NIBEZA  MUGISHA Bruce ",
+      "role": "AI & ML Engineer",
+      "track": "Traders",
+      "socials": {
+        "github": "https://github.com/Bruxe-Dev",
+        "linkedin": "https://www.linkedin.com/in/bruce-nibeza-mugisha-9595993a1/"
+      },
+      "initials": "NM",
+      "avatarUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1790103955/ents/members/lrtq4s90azigfbedfefu.jpg",
+      "classYear": "Year 2"
     }
   ],
   "leaderboard": [
     {
-      "name": "Aline Umutoni",
+      "name": "UWIMANA KRIF",
       "rank": 1,
       "track": "Traders",
       "status": "Active",
@@ -531,19 +575,6 @@
       "tradesCount": 42,
       "initialValue": 10000,
       "portfolioValue": 13425.8
-    },
-    {
-      "rank": 1,
-      "name": "UWIMANA KRIF",
-      "classYear": "Year 3",
-      "track": "Traders",
-      "assetClass": "EUR-USD & Gold (XAU)",
-      "portfolioValue": 13425.8,
-      "initialValue": 10000,
-      "pnlPercent": 34.26,
-      "tradesCount": 42,
-      "winRate": 66.7,
-      "status": "Active"
     },
     {
       "name": "Kevine Ishimwe",
@@ -676,53 +707,43 @@
     },
     {
       "id": "aline",
-      "role": "VP & Lead Quantitative Trader",
+      "role": "Secretary",
       "quote": "\"From campus prototypes to live order routing 🚀, ENTS is a must-have society. I can't imagine analyzing markets without SIFS!\"",
-      "author": "Aline Umutoni",
+      "author": "Happy David",
       "rating": 5,
-      "badgeBg": "bg-orange-500 text-white",
+      "badgeBg": "bg-neutral-900 text-white",
       "featured": false,
-      "avatarUrl": "/testimonials/aline.jpg"
+      "avatarUrl": ""
     },
     {
       "id": "david",
-      "role": "Treasury Lead at KuraPay",
+      "role": "Software Engineer",
       "quote": "\"Strict 1% risk guardrails 🌐, automated backtesting, and top-notch peer audits. ENTS has it all.\"",
-      "author": "David Nshimiyimana",
+      "author": "Debrice",
       "rating": 5,
-      "badgeBg": "bg-indigo-600 text-white",
+      "badgeBg": "bg-neutral-900 text-white",
       "featured": false,
-      "avatarUrl": "/testimonials/david.jpg"
+      "avatarUrl": ""
     },
     {
       "id": "grace",
-      "role": "Full-Stack Venture Engineer",
+      "role": "Market Analyst",
       "quote": "\"The weekly pitch teardowns and pro-forma forecasting ⚡ prepared our squad directly for institutional venture capital.\"",
-      "author": "Grace Mukamana",
+      "author": "Abayo Moise",
       "rating": 5,
-      "badgeBg": "bg-emerald-600 text-white",
+      "badgeBg": "bg-neutral-900 text-white",
       "featured": false,
-      "avatarUrl": "/testimonials/grace.jpg"
+      "avatarUrl": ""
     },
     {
       "id": "kevine",
-      "role": "Derivatives Analyst · Year 3",
+      "role": "Trader",
       "quote": "\"Trading simulated FX depth with real execution journals 📈 eliminated emotional bias from our algorithms entirely.\"",
-      "author": "Kevine Ishimwe",
+      "author": "Uwimana Krif",
       "rating": 5,
       "badgeBg": "bg-purple-600 text-white",
       "featured": false,
-      "avatarUrl": "/testimonials/kevine.jpg"
-    },
-    {
-      "id": "patrick",
-      "role": "Market Depth & Arbitrage Lead",
-      "quote": "\"Campus micro-enterprises backed by student software 🤝 proved that RCA engineers can monetize while in school.\"",
-      "author": "Patrick Cyusa",
-      "rating": 5,
-      "badgeBg": "bg-amber-500 text-white",
-      "featured": false,
-      "avatarUrl": "/testimonials/patrick.jpg"
+      "avatarUrl": ""
     }
   ],
   "applications": []

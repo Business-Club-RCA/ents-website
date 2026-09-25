@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -56,10 +56,10 @@ export function HeroVisual({ announcements = [] }: HeroVisualProps) {
           sizes="100vw"
           className="object-cover object-bottom"
         />
-        {/* Very light top vignette for nav only */}
+        {/* Top vignette for nav */}
         <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#0e0e11]/70 to-transparent pointer-events-none" />
-        {/* Bottom vignette — enough to make text readable without hiding the photo */}
-        <div className="absolute inset-x-0 bottom-0 h-[50%] bg-gradient-to-t from-[#0e0e11]/80 via-[#0e0e11]/40 to-transparent pointer-events-none" />
+        {/* Strong bottom vignette — fully dark at the announcement band */}
+        <div className="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-[#0e0e11] via-[#0e0e11]/85 to-transparent pointer-events-none" />
       </div>
 
       {/* Spacer for top nav */}
@@ -90,22 +90,22 @@ export function HeroVisual({ announcements = [] }: HeroVisualProps) {
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.9)]" />
                     </span>
-                    <span className="text-[10px] font-mono font-bold tracking-[0.18em] uppercase text-white/80">
+                    <span className="text-[10px] font-mono font-bold tracking-[0.18em] uppercase text-white">
                       Official Announcement
                     </span>
                     {announcements.length > 1 && (
-                      <span className="text-[10px] font-mono text-white/40 hidden sm:inline">
+                      <span className="text-[10px] font-mono text-white/60 hidden sm:inline">
                         {announceIndex + 1}&thinsp;/&thinsp;{announcements.length}
                       </span>
                     )}
-                    <span className="text-[10px] font-mono text-white/40 hidden sm:inline">· {current.date}</span>
+                    <span className="text-[10px] font-mono text-white/60 hidden sm:inline">· {current.date}</span>
                   </div>
 
                   <Link href={`/updates/${currentSlug}`} className="block group/title">
-                    <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white leading-snug line-clamp-1 group-hover/title:text-neutral-200 transition-colors">
+                    <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white leading-snug line-clamp-1 group-hover/title:text-white transition-colors">
                       {current.title}
                     </h3>
-                    <p className="mt-0.5 text-sm text-neutral-300 line-clamp-1 leading-relaxed">
+                    <p className="mt-0.5 text-sm text-white/80 line-clamp-1 leading-relaxed">
                       {current.excerpt}
                     </p>
                   </Link>
@@ -132,8 +132,8 @@ export function HeroVisual({ announcements = [] }: HeroVisualProps) {
                       ))}
                     </div>
                   )}
-                  <span className="hidden lg:block text-xs font-mono text-white/50">
-                    By <span className="text-white/80 font-semibold">{current.author}</span>
+                  <span className="hidden lg:block text-xs font-mono text-white/70">
+                    By <span className="text-white font-semibold">{current.author}</span>
                   </span>
                   <Link
                     href={`/updates/${currentSlug}`}

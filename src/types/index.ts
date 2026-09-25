@@ -104,7 +104,7 @@ export interface JoinApplication {
   experienceOrSkills?: string;
 }
 
-export type UpdateType = 'announcement' | 'event' | 'article' | 'external';
+export type UpdateType = 'announcement' | 'article' | 'event';
 
 export interface FeedItem {
   id: string;

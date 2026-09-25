@@ -5,7 +5,6 @@ import Image from 'next/image';
 import {
   Project,
   FeedItem,
-  UpdateType,
   TrackInfo,
   TeamMember,
   ClubMember,
@@ -49,7 +48,6 @@ import {
 import { ProfileAvatar } from '@/components/ui/ProfileAvatar';
 import { isEventPassed } from '@/lib/dateUtils';
 import { slugify } from '@/lib/slug';
-import { CONTENT_TYPES, getUpdateTypeLabel } from '@/lib/contentTypes';
 
 interface AdminDashboardProps {
   initialData: {
@@ -90,7 +88,6 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
 
   // Update Modal State
   const [editingUpdate, setEditingUpdate] = useState<FeedItem | null>(null);
-  const [selectedUpdateType, setSelectedUpdateType] = useState<UpdateType>('article');
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
 
   // Event Attendees Viewer Modal
@@ -207,11 +204,12 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const id = (formData.get('id') as string) || `item-${Date.now()}`;
-    const title = (formData.get('title') as string)?.trim();
-    const type = ((formData.get('type') as UpdateType) || selectedUpdateType) as UpdateType;
-    const excerpt = (formData.get('excerpt') as string)?.trim();
-    const content = (formData.get('content') as string)?.trim();
-    const date = (formData.get('date') as string)?.trim();
+    const title = formData.get('title') as string;
+    const type = formData.get('type') as FeedItem['type'];
+    const excerpt = formData.get('excerpt') as string;
+    const content = formData.get('content') as string;
+    const author = formData.get('author') as string;
+    const date = formData.get('date') as string;
     const imageUrl = updateImageUrl || (formData.get('imageUrl') as string) || '';
     const tags = (formData.get('tags') as string)
       .split(',')
@@ -219,37 +217,21 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
       .filter(Boolean);
 
     const isEvent = type === 'event';
-    const isExternal = type === 'external';
-
-    const sourceName = isExternal ? (formData.get('sourceName') as string)?.trim() : undefined;
-    const sourceUrl = isExternal ? (formData.get('sourceUrl') as string)?.trim() : undefined;
-
-    let author = (formData.get('author') as string)?.trim();
-    if (isExternal) {
-      author = sourceName || author || 'External Source';
-    } else if (isEvent) {
-      author = author || 'Events Committee';
-    } else {
-      author = author || 'ENTS Editorial';
-    }
 
     const item: FeedItem = {
       id,
       title,
       type,
       excerpt,
-      content: content || undefined,
+      content,
       author,
       date,
       tags,
       imageUrl: imageUrl || undefined,
       isCustom: true,
-      sourceUrl,
-      sourceName,
-      eventDate: isEvent ? (formData.get('eventDate') as string)?.trim() : undefined,
-      eventTime: isEvent ? (formData.get('eventTime') as string)?.trim() : undefined,
-      eventLocation: isEvent ? (formData.get('eventLocation') as string)?.trim() : undefined,
-      rsvpLink: isEvent ? (formData.get('rsvpLink') as string)?.trim() : undefined,
+      eventDate: isEvent ? (formData.get('eventDate') as string) : undefined,
+      eventTime: isEvent ? (formData.get('eventTime') as string) : undefined,
+      eventLocation: isEvent ? (formData.get('eventLocation') as string) : undefined,
       speakers: isEvent
         ? (formData.get('speakers') as string)
             .split(',')
@@ -862,7 +844,6 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
               <button
                 onClick={() => {
                   setEditingUpdate(null);
-                  setSelectedUpdateType('article');
                   setUpdateImageUrl('');
                   setIsUpdateModalOpen(true);
                 }}
@@ -871,8 +852,8 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                 <div className="w-9 h-9 rounded-xl bg-neutral-900 text-white flex items-center justify-center mb-3">
                   <span className="font-mono text-sm font-bold">+</span>
                 </div>
-                <h4 className="font-bold text-neutral-900 text-sm mb-1 group-hover:underline">Post Update or Event</h4>
-                <p className="text-xs text-neutral-500 font-normal">Publish announcement, article, event, or reference</p>
+                <h4 className="font-bold text-neutral-900 text-sm mb-1 group-hover:underline">Post News or Event</h4>
+                <p className="text-xs text-neutral-500 font-normal">Schedule tournament or article</p>
               </button>
 
               <button
@@ -1029,7 +1010,6 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
             <button
               onClick={() => {
                 setEditingUpdate(null);
-                setSelectedUpdateType('article');
                 setUpdateImageUrl('');
                 setIsUpdateModalOpen(true);
               }}
@@ -1042,7 +1022,6 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
           <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-px grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 shadow-sm">
             {data.updates.map((item) => {
               const isEvent = item.type === 'event';
-              const isExternal = item.type === 'external';
               const attendeeCount = item.attendees?.length || 0;
 
               return (
@@ -1051,7 +1030,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                     <div className="flex items-center justify-between text-[11px] font-mono text-neutral-500 mb-2">
                       <div className="flex items-center gap-1.5">
                         <span className="uppercase font-bold px-2 py-0.5 rounded bg-neutral-100 border border-neutral-200 text-neutral-800">
-                          {getUpdateTypeLabel(item.type)}
+                          {item.type}
                         </span>
                         {isEvent && (
                           isEventPassed(item.eventDate, item.eventTime) ? (
@@ -1071,30 +1050,10 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                     <h3 className="font-bold text-base text-neutral-900 mb-1 leading-snug">{item.title}</h3>
                     <p className="text-xs text-neutral-600 line-clamp-2 mb-3">{item.excerpt}</p>
 
-                    {isExternal && (
-                      <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200 text-xs font-mono space-y-1 mb-4">
-                        <div className="text-neutral-500 text-[10px] uppercase font-bold">External Publication</div>
-                        <div className="font-bold text-neutral-900">{item.sourceName || 'External Source'}</div>
-                        {item.sourceUrl && (
-                          <a
-                            href={item.sourceUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:underline block truncate text-[11px]"
-                          >
-                            {item.sourceUrl} ↗
-                          </a>
-                        )}
-                      </div>
-                    )}
-
                     {isEvent && (
                       <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200 text-xs font-mono space-y-1 mb-4">
                         <div className="font-bold text-neutral-900">{item.eventDate} &middot; {item.eventTime}</div>
                         <div className="text-neutral-500">{item.eventLocation}</div>
-                        {item.rsvpLink && (
-                          <div className="text-blue-600 text-[10px] truncate">Link: {item.rsvpLink}</div>
-                        )}
                         <div className="text-emerald-700 font-bold pt-1">
                           ✓ {attendeeCount} Confirmed Attendees
                         </div>
@@ -1107,7 +1066,6 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                       <button
                         onClick={() => {
                           setEditingUpdate(item);
-                          setSelectedUpdateType(item.type || 'article');
                           setUpdateImageUrl(item.imageUrl || '');
                           setIsUpdateModalOpen(true);
                         }}
@@ -1971,44 +1929,31 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
               <input type="hidden" name="id" defaultValue={editingUpdate?.id || ''} />
 
               <div>
-                <label className="block text-neutral-600 font-semibold mb-1">
-                  {selectedUpdateType === 'event' ? 'Event Title' : 'Headline / Title'} <span className="text-red-500">*</span>
-                </label>
+                <label className="block text-neutral-600 font-semibold mb-1">Headline / Title</label>
                 <input
                   name="title"
                   defaultValue={editingUpdate?.title || ''}
                   required
-                  placeholder={
-                    selectedUpdateType === 'event'
-                      ? 'e.g. SIFS League Tournament: Round 04'
-                      : selectedUpdateType === 'external'
-                      ? 'e.g. Rwanda’s Emerging Fintech Landscape in 2026'
-                      : 'e.g. SIFS v2.4 Engine Deployed with Live Matching'
-                  }
+                  placeholder="e.g. SIFS League Tournament: Round 04"
                   className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl font-bold text-neutral-900"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-neutral-600 font-semibold mb-1">Content Type</label>
+                  <label className="block text-neutral-600 font-semibold mb-1">Type</label>
                   <select
                     name="type"
-                    value={selectedUpdateType}
-                    onChange={(e) => setSelectedUpdateType(e.target.value as UpdateType)}
-                    className="w-full px-3 py-2 bg-neutral-50 border border-neutral-300 rounded-xl font-semibold text-neutral-900"
+                    defaultValue={editingUpdate?.type || 'article'}
+                    className="w-full px-3 py-2 bg-neutral-50 border border-neutral-300 rounded-xl"
                   >
-                    {CONTENT_TYPES.map((ct) => (
-                      <option key={ct.type} value={ct.type}>
-                        {ct.label}
-                      </option>
-                    ))}
+                    <option value="article">News Article</option>
+                    <option value="event">Scheduled Event</option>
+                    <option value="announcement">Announcement</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-neutral-600 font-semibold mb-1">
-                    {selectedUpdateType === 'event' ? 'Scheduled Date' : 'Publication Date'} <span className="text-red-500">*</span>
-                  </label>
+                  <label className="block text-neutral-600 font-semibold mb-1">Publication Date</label>
                   <input
                     name="date"
                     defaultValue={editingUpdate?.date || new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
@@ -2018,182 +1963,87 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                 </div>
               </div>
 
-              {/* Attribution and type-specific fields */}
-              {selectedUpdateType === 'external' ? (
-                <>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-neutral-600 font-semibold mb-1">
-                        Source / Organization <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        name="sourceName"
-                        defaultValue={editingUpdate?.sourceName || ''}
-                        required
-                        placeholder="e.g. Bloomberg, TechCabal, Bank of Kigali"
-                        className="w-full px-3.5 py-2 bg-neutral-50 border border-neutral-300 rounded-xl font-bold text-neutral-900"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-neutral-600 font-semibold mb-1">
-                        Curator / Attributed Author <span className="text-neutral-400 font-normal">(Optional)</span>
-                      </label>
-                      <input
-                        name="author"
-                        defaultValue={editingUpdate?.author || ''}
-                        placeholder="e.g. Market Desk / Analyst"
-                        className="w-full px-3.5 py-2 bg-neutral-50 border border-neutral-300 rounded-xl"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-neutral-600 font-semibold mb-1">
-                      External Link / URL <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      name="sourceUrl"
-                      type="url"
-                      defaultValue={editingUpdate?.sourceUrl || ''}
-                      required
-                      placeholder="https://example.com/article-or-report"
-                      className="w-full px-3.5 py-2 bg-neutral-50 border border-neutral-300 rounded-xl font-mono text-neutral-900"
-                    />
-                    <p className="text-[10px] text-neutral-500 font-mono mt-1">
-                      Must start with https:// or http://. Users will be directed to this external publication.
-                    </p>
-                  </div>
-                </>
-              ) : selectedUpdateType === 'event' ? (
-                <div>
-                  <label className="block text-neutral-600 font-semibold mb-1">
-                    Organizer / Committee <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    name="author"
-                    defaultValue={editingUpdate?.author || 'Events Committee'}
-                    required
-                    placeholder="e.g. SIFS Tournament Committee, Trading Track"
-                    className="w-full px-3.5 py-2 bg-neutral-50 border border-neutral-300 rounded-xl"
-                  />
-                </div>
-              ) : (
-                <div>
-                  <label className="block text-neutral-600 font-semibold mb-1">
-                    Author / Committee <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    name="author"
-                    defaultValue={editingUpdate?.author || (selectedUpdateType === 'announcement' ? 'Executive Committee' : 'ENTS Editorial')}
-                    required
-                    placeholder="e.g. ENTS Editorial Desk, Executive Committee"
-                    className="w-full px-3.5 py-2 bg-neutral-50 border border-neutral-300 rounded-xl"
-                  />
-                </div>
-              )}
+              <div>
+                <label className="block text-neutral-600 font-semibold mb-1">Author / Committee</label>
+                <input
+                  name="author"
+                  defaultValue={editingUpdate?.author || 'ENTS Editorial'}
+                  required
+                  className="w-full px-3.5 py-2 bg-neutral-50 border border-neutral-300 rounded-xl"
+                />
+              </div>
 
               <div>
-                <label className="block text-neutral-600 font-semibold mb-1">
-                  {selectedUpdateType === 'event' ? 'Short Description' : 'Short Excerpt / Summary'} <span className="text-red-500">*</span>
-                </label>
+                <label className="block text-neutral-600 font-semibold mb-1">Short Excerpt (Summary)</label>
                 <textarea
                   name="excerpt"
                   defaultValue={editingUpdate?.excerpt || ''}
                   rows={2}
                   required
-                  placeholder={
-                    selectedUpdateType === 'event'
-                      ? 'Brief summary of the activity or agenda...'
-                      : selectedUpdateType === 'external'
-                      ? 'Key takeaways or summary of the linked article...'
-                      : '1-2 sentences summarizing the update...'
-                  }
+                  placeholder="1-2 sentences summarizing the update..."
                   className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl"
                 />
               </div>
 
               <div>
-                <label className="block text-neutral-600 font-semibold mb-1">
-                  {selectedUpdateType === 'announcement' && 'Announcement Full Content (Markdown Supported)'}
-                  {selectedUpdateType === 'article' && 'Full Article Content (Markdown Supported)'}
-                  {selectedUpdateType === 'event' && 'Full Event Details (Markdown Supported)'}
-                  {selectedUpdateType === 'external' && 'Curator / Editor Notes (Optional Markdown)'}
-                </label>
+                <label className="block text-neutral-600 font-semibold mb-1">Full Article / Details Content</label>
                 <textarea
                   name="content"
                   defaultValue={editingUpdate?.content || ''}
-                  rows={selectedUpdateType === 'external' ? 3 : 5}
-                  placeholder={
-                    selectedUpdateType === 'external'
-                      ? 'Optional commentary or context for students...'
-                      : 'Full text / Markdown content for detail page...'
-                  }
+                  rows={5}
+                  placeholder="Full text / Markdown content for detail page..."
                   className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl"
                 />
               </div>
 
-              {/* Event Logistics (Only visible if Scheduled Event) */}
-              {selectedUpdateType === 'event' && (
-                <div className="p-4 bg-neutral-50 rounded-2xl border border-neutral-200 space-y-3">
-                  <div>
-                    <div className="font-bold text-neutral-800 uppercase text-[10px]">
-                      Event Logistics
-                    </div>
-                    <p className="text-[10px] text-neutral-500 font-mono mt-0.5">
-                      Live events appear on the public site while upcoming. Once the event date &amp; time concludes, it is automatically archived from the public feed.
-                    </p>
+              <div className="p-4 bg-neutral-50 rounded-2xl border border-neutral-200 space-y-3">
+                <div>
+                  <div className="font-bold text-neutral-800 uppercase text-[10px]">
+                    Event Logistics (Only required if type is &quot;Scheduled Event&quot;)
                   </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-neutral-500 mb-1">Event Date <span className="text-red-500">*</span></label>
-                      <input
-                        name="eventDate"
-                        defaultValue={editingUpdate?.eventDate || ''}
-                        required
-                        placeholder="e.g. Saturday, March 28, 2026"
-                        className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-neutral-500 mb-1">Event Time</label>
-                      <input
-                        name="eventTime"
-                        defaultValue={editingUpdate?.eventTime || ''}
-                        placeholder="e.g. 15:00 - 17:30 CAT"
-                        className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
-                      />
-                    </div>
-                  </div>
+                  <p className="text-[10px] text-neutral-500 font-mono mt-0.5">
+                    Live events appear on the public site while upcoming. Once the event date &amp; time concludes, it is automatically archived from the public feed.
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-neutral-500 mb-1">Event Venue / Location</label>
+                    <label className="block text-neutral-500 mb-1">Event Date</label>
                     <input
-                      name="eventLocation"
-                      defaultValue={editingUpdate?.eventLocation || ''}
-                      placeholder="e.g. RCA Innovation Lab"
+                      name="eventDate"
+                      defaultValue={editingUpdate?.eventDate || ''}
+                      placeholder="e.g. Saturday, March 28, 2026"
                       className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
                     />
                   </div>
                   <div>
-                    <label className="block text-neutral-500 mb-1">Optional External Registration / RSVP Link</label>
+                    <label className="block text-neutral-500 mb-1">Event Time</label>
                     <input
-                      name="rsvpLink"
-                      type="url"
-                      defaultValue={editingUpdate?.rsvpLink || ''}
-                      placeholder="e.g. https://forms.gle/... (leave blank for native 1-click RSVP)"
-                      className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-neutral-500 mb-1">Speakers / Hosts (Comma-separated)</label>
-                    <input
-                      name="speakers"
-                      defaultValue={editingUpdate?.speakers?.join(', ') || ''}
-                      placeholder="Aline Umutoni, David Nshimiyimana"
+                      name="eventTime"
+                      defaultValue={editingUpdate?.eventTime || ''}
+                      placeholder="e.g. 15:00 - 17:30 CAT"
                       className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
                     />
                   </div>
                 </div>
-              )}
+                <div>
+                  <label className="block text-neutral-500 mb-1">Event Venue / Location</label>
+                  <input
+                    name="eventLocation"
+                    defaultValue={editingUpdate?.eventLocation || ''}
+                    placeholder="e.g. RCA Innovation Lab"
+                    className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
+                  />
+                </div>
+                <div>
+                  <label className="block text-neutral-500 mb-1">Speakers / Hosts (Comma-separated)</label>
+                  <input
+                    name="speakers"
+                    defaultValue={editingUpdate?.speakers?.join(', ') || ''}
+                    placeholder="Aline Umutoni, David Nshimiyimana"
+                    className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
+                  />
+                </div>
+              </div>
 
               <div>
                 <CloudinaryImageInput
@@ -2230,7 +2080,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                   disabled={isPending}
                   className="btn-skeuo-dark px-5 py-2 rounded-xl font-bold"
                 >
-                  {isPending ? 'Saving...' : editingUpdate ? 'Update Dispatch' : 'Publish Dispatch'}
+                  {isPending ? 'Publishing...' : 'Publish Dispatch'}
                 </button>
               </div>
             </form>

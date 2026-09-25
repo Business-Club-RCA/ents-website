@@ -9,15 +9,12 @@ import { registerAttendanceAction } from '@/actions/adminActions';
 import { SocialShareBar } from '@/components/ui/SocialShareBar';
 import { slugify } from '@/lib/slug';
 import { isEventPassed } from '@/lib/dateUtils';
-import { getUpdateTypeLabel } from '@/lib/contentTypes';
 
 const ATTENDANCE_STORAGE_KEY = 'ents_event_attendees_v2';
 
-export type FilterTab = 'all' | 'announcement' | 'event' | 'article' | 'external';
-
 export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] }) {
   const [items, setItems] = useState<FeedItem[]>(initialItems);
-  const [activeTab, setActiveTab] = useState<FilterTab>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'news' | 'event'>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   // Keep items in sync when initialItems changes
@@ -101,14 +98,14 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
 
   // Filter items for main grid
   const filteredItems = activePublicItems.filter((item) => {
-    if (activeTab !== 'all' && item.type !== activeTab) return false;
+    if (activeTab === 'news' && item.type === 'event') return false;
+    if (activeTab === 'event' && item.type !== 'event') return false;
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       return (
         item.title.toLowerCase().includes(q) ||
         item.excerpt.toLowerCase().includes(q) ||
         item.author.toLowerCase().includes(q) ||
-        (item.sourceName && item.sourceName.toLowerCase().includes(q)) ||
         item.tags.some((t) => t.toLowerCase().includes(q))
       );
     }
@@ -296,46 +293,30 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
           </div>
 
           {/* Filter Tray */}
-          <div className="flex flex-wrap items-center gap-1.5 p-1.5 bg-neutral-200/60 rounded-2xl border border-neutral-300/80 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.07)] text-xs font-mono">
+          <div className="flex items-center gap-1.5 p-1.5 bg-neutral-200/60 rounded-2xl border border-neutral-300/80 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.07)] text-xs font-mono">
             <button
               onClick={() => setActiveTab('all')}
-              className={`px-3.5 py-1.5 rounded-xl cursor-pointer transition-all ${
+              className={`px-4 py-1.5 rounded-xl cursor-pointer transition-all ${
                 activeTab === 'all' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
               }`}
             >
-              All ({activePublicItems.length})
+              All Dispatches ({activePublicItems.length})
             </button>
             <button
-              onClick={() => setActiveTab('announcement')}
-              className={`px-3.5 py-1.5 rounded-xl cursor-pointer transition-all ${
-                activeTab === 'announcement' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
+              onClick={() => setActiveTab('news')}
+              className={`px-4 py-1.5 rounded-xl cursor-pointer transition-all ${
+                activeTab === 'news' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
               }`}
             >
-              Announcements ({activePublicItems.filter((i) => i.type === 'announcement').length})
+              Business Articles ({items.filter((i) => i.type !== 'event').length})
             </button>
             <button
               onClick={() => setActiveTab('event')}
-              className={`px-3.5 py-1.5 rounded-xl cursor-pointer transition-all ${
+              className={`px-4 py-1.5 rounded-xl cursor-pointer transition-all ${
                 activeTab === 'event' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
               }`}
             >
-              Scheduled Events ({upcomingEvents.length})
-            </button>
-            <button
-              onClick={() => setActiveTab('article')}
-              className={`px-3.5 py-1.5 rounded-xl cursor-pointer transition-all ${
-                activeTab === 'article' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
-              }`}
-            >
-              Articles ({activePublicItems.filter((i) => i.type === 'article').length})
-            </button>
-            <button
-              onClick={() => setActiveTab('external')}
-              className={`px-3.5 py-1.5 rounded-xl cursor-pointer transition-all ${
-                activeTab === 'external' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
-              }`}
-            >
-              External References ({activePublicItems.filter((i) => i.type === 'external').length})
+              Events ({upcomingEvents.length})
             </button>
           </div>
         </div>
@@ -345,20 +326,12 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
           <div className="py-16 text-center text-xs font-mono text-neutral-500 border border-neutral-200 rounded-2xl bg-neutral-50">
             {activeTab === 'event'
               ? 'No upcoming events scheduled at this moment. Stay tuned for future demo days and masterclasses!'
-              : activeTab === 'announcement'
-              ? 'No official announcements found.'
-              : activeTab === 'external'
-              ? 'No external references found.'
-              : activeTab === 'article'
-              ? 'No articles found matching your criteria.'
-              : 'No dispatches found matching your search.'}
+              : 'No articles or dispatches found matching your search.'}
           </div>
         ) : (
           <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-px grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 shadow-sm">
             {filteredItems.map((item) => {
               const isEvent = item.type === 'event';
-              const isExternal = item.type === 'external';
-              const typeLabel = getUpdateTypeLabel(item.type);
               const slug = slugify(item.title) || item.id;
               const articleHref = isEvent ? '#' : `/updates/${slug}`;
               const shareUrl =
@@ -376,13 +349,9 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                     <div className="flex items-center justify-between px-1 pb-2.5 mb-2.5 border-b border-neutral-200/70">
                       <span className="skeuo-rivet" />
                       <div className="flex items-center gap-2 text-[10px] font-mono text-neutral-500">
-                        <span className={`w-1.5 h-1.5 rounded-full ${
-                          isEvent ? 'bg-amber-500' :
-                          item.type === 'announcement' ? 'bg-blue-500' :
-                          isExternal ? 'bg-emerald-600' : 'bg-neutral-600'
-                        }`} />
-                        <span className="uppercase tracking-wider font-semibold text-neutral-700">
-                          {typeLabel}
+                        <span className="w-1.5 h-1.5 rounded-full bg-neutral-400" />
+                        <span className="uppercase tracking-wider font-semibold text-neutral-600">
+                          {isEvent ? 'EVENT DISPATCH' : 'BUSINESS DISPATCH'}
                         </span>
                       </div>
                       <span className="skeuo-rivet" />
@@ -403,7 +372,7 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                         />
                         <div className="absolute top-2.5 left-2.5">
                           <span className="skeuo-badge px-2 py-0.5 rounded-md text-[9px] font-mono font-bold text-neutral-900">
-                            {typeLabel}
+                            {isEvent ? 'EVENT' : 'ARTICLE'}
                           </span>
                         </div>
                       </Link>
@@ -413,13 +382,7 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                     <div className="mt-3.5 space-y-2">
                       <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400">
                         <span>{item.date}</span>
-                        {isExternal ? (
-                          <span className="text-neutral-600 font-semibold truncate max-w-40">
-                            Via {item.sourceName || 'External Source'}
-                          </span>
-                        ) : (
-                          <span>{item.readTime || '4 min read'}</span>
-                        )}
+                        <span>{item.readTime || '4 min read'}</span>
                       </div>
 
                       <h3 className="font-bold text-base sm:text-lg text-neutral-900 leading-snug group-hover:text-neutral-950">
@@ -431,34 +394,6 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                       <p className="text-xs text-neutral-600 leading-relaxed line-clamp-3">
                         {item.excerpt}
                       </p>
-
-                      {/* Event details pill if Scheduled Event */}
-                      {isEvent && item.eventDate && (
-                        <div className="p-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-[11px] font-mono text-neutral-700 space-y-0.5">
-                          <div className="font-bold text-neutral-900">{item.eventDate} {item.eventTime ? `· ${item.eventTime}` : ''}</div>
-                          {item.eventLocation && <div className="text-neutral-500 truncate">{item.eventLocation}</div>}
-                        </div>
-                      )}
-
-                      {/* External reference origin pill if External */}
-                      {isExternal && (
-                        <div className="p-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-[11px] font-mono text-neutral-700 flex items-center justify-between gap-2">
-                          <div className="truncate">
-                            <span className="text-neutral-400 text-[10px] block uppercase">Source Publication</span>
-                            <span className="font-bold text-neutral-900">{item.sourceName || 'External Media'}</span>
-                          </div>
-                          {item.sourceUrl && (
-                            <a
-                              href={item.sourceUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-blue-600 hover:underline shrink-0 text-xs font-semibold"
-                            >
-                              Visit ↗
-                            </a>
-                          )}
-                        </div>
-                      )}
 
                       {/* Tag list */}
                       <div className="flex flex-wrap gap-1.5 pt-2">
@@ -478,22 +413,12 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                   <div className="skeuo-groove px-1 pb-1 pt-3.5 mt-4 flex flex-col gap-3 text-xs font-mono">
                     <div className="flex items-center justify-between">
                       <span className="text-neutral-500 font-medium text-[11px] truncate max-w-35">
-                        {isExternal ? (item.sourceName || item.author) : item.author}
+                        {item.author}
                       </span>
 
                       <div className="flex items-center gap-2">
                         {isEvent ? (
-                          item.rsvpLink ? (
-                            <a
-                              href={item.rsvpLink}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="btn-skeuo-dark font-bold px-3 py-1.5 rounded-xl text-[11px] cursor-pointer inline-flex items-center gap-1"
-                            >
-                              <span>Register</span>
-                              <span>↗</span>
-                            </a>
-                          ) : registeredEvents.includes(item.id) ? (
+                          registeredEvents.includes(item.id) ? (
                             <span className="text-emerald-700 font-bold text-[11px]">
                               ✓ Registered
                             </span>
@@ -505,24 +430,6 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                               RSVP
                             </button>
                           )
-                        ) : isExternal ? (
-                          <div className="flex items-center gap-1.5">
-                            <Link
-                              href={articleHref}
-                              className="btn-skeuo-light font-bold px-2.5 py-1.5 rounded-xl text-[10px] cursor-pointer hover:border-neutral-900"
-                            >
-                              Notes &rarr;
-                            </Link>
-                            <a
-                              href={item.sourceUrl || '#'}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="btn-skeuo-dark font-bold px-3 py-1.5 rounded-xl text-[11px] cursor-pointer inline-flex items-center gap-1"
-                            >
-                              <span>Read Original</span>
-                              <span>↗</span>
-                            </a>
-                          </div>
                         ) : (
                           <Link
                             href={articleHref}

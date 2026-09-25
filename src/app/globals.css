@@ -847,3 +847,197 @@ h1, h2, h3, h4, h5, h6 {
   animation: float-reverse 9s ease-in-out infinite;
 }
 
+
+
+/* ----------------------------------------------------
+   ENTS Rich Markdown Typography (All Signs Interpeter)
+   ---------------------------------------------------- */
+.ents-markdown {
+  color: #171717;
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  word-break: break-word;
+}
+.ents-markdown h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e5e5e5;
+  color: #0a0a0a;
+}
+.ents-markdown h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-top: 2.25rem;
+  margin-bottom: 1rem;
+  color: #0a0a0a;
+}
+.ents-markdown h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  color: #0a0a0a;
+}
+.ents-markdown h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #0a0a0a;
+}
+.ents-markdown h5, .ents-markdown h6 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #0a0a0a;
+}
+.ents-markdown p {
+  margin-top: 1.125rem;
+  margin-bottom: 1.125rem;
+  line-height: 1.8;
+  color: #262626;
+}
+.ents-markdown strong, .ents-markdown b {
+  font-weight: 700;
+  color: #0a0a0a;
+}
+.ents-markdown em, .ents-markdown i {
+  font-style: italic;
+  color: #171717;
+}
+.ents-markdown del, .ents-markdown s, .ents-markdown strike {
+  text-decoration: line-through;
+  color: #737373;
+}
+.ents-markdown a {
+  color: #0a0a0a;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: #d4d4d4;
+  transition: all 0.2s ease;
+}
+.ents-markdown a:hover {
+  text-decoration-color: #0a0a0a;
+}
+.ents-markdown blockquote {
+  margin: 1.75rem 0;
+  padding: 1rem 1.25rem 1rem 1.5rem;
+  border-left: 3px solid #171717;
+  background-color: #fafafa;
+  border-radius: 0 1rem 1rem 0;
+  font-style: italic;
+  color: #404040;
+}
+.ents-markdown blockquote p {
+  margin: 0.5rem 0;
+}
+.ents-markdown ul {
+  list-style-type: disc;
+  margin: 1.25rem 0;
+  padding-left: 1.5rem;
+}
+.ents-markdown ol {
+  list-style-type: decimal;
+  margin: 1.25rem 0;
+  padding-left: 1.5rem;
+}
+.ents-markdown li {
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
+  line-height: 1.75;
+  padding-left: 0.25rem;
+}
+.ents-markdown li::marker {
+  color: #525252;
+  font-weight: 600;
+}
+.ents-markdown code:not(pre code) {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.85em;
+  font-weight: 600;
+  padding: 0.2em 0.4em;
+  background-color: #f5f5f5;
+  border: 1px solid #e5e5e5;
+  border-radius: 0.375rem;
+  color: #0a0a0a;
+}
+.ents-markdown pre {
+  margin: 1.75rem 0;
+  padding: 1.25rem 1.5rem;
+  background-color: #0a0a0a;
+  border: 1px solid #262626;
+  border-radius: 1rem;
+  overflow-x: auto;
+  color: #f5f5f5;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+.ents-markdown pre code {
+  background: transparent;
+  padding: 0;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+}
+.ents-markdown table {
+  width: 100%;
+  margin: 1.75rem 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #e5e5e5;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+.ents-markdown th {
+  background-color: #f5f5f5;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #404040;
+  border-bottom: 1px solid #e5e5e5;
+}
+.ents-markdown td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  color: #262626;
+  font-size: 0.9375rem;
+}
+.ents-markdown tr:last-child td {
+  border-bottom: none;
+}
+.ents-markdown tr:hover td {
+  background-color: #fafafa;
+}
+.ents-markdown hr {
+  margin: 2.5rem 0;
+  border: 0;
+  border-top: 1px solid #e5e5e5;
+}
+.ents-markdown img {
+  border-radius: 1rem;
+  border: 1px solid #e5e5e5;
+  max-width: 100%;
+  height: auto;
+  margin: 1.75rem auto;
+}
+.ents-markdown input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: #0a0a0a;
+}

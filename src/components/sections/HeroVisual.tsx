@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -53,7 +53,7 @@ export function HeroVisual({ announcement }: HeroVisualProps) {
 
         {/* ── ANNOUNCEMENT PANEL — full width, clearly visible ── */}
         {announcement && announcementSlug && (
-          <div className="animate-hero-badge w-full bg-[#111114]/90 backdrop-blur-xl border-y border-white/[0.13] shadow-[0_-8px_40px_rgba(0,0,0,0.5)]">
+          <div className="animate-hero-badge w-full bg-white/[0.08] backdrop-blur-2xl border-y border-white/20 shadow-[0_-4px_30px_rgba(0,0,0,0.25)]">
             {/* Green top accent line */}
             <div className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent" style={{top: 'auto'}} />
             <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -105,12 +105,6 @@ export function HeroVisual({ announcement }: HeroVisualProps) {
         {/* Headline + Subtitle + CTAs */}
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 lg:pb-20 pt-7 sm:pt-9">
           <div className="max-w-3xl space-y-5 sm:space-y-6">
-
-            {/* Kicker Badge */}
-            <div className="animate-hero-badge inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/15 border border-white/30 text-xs font-mono text-white tracking-wider uppercase shadow-md backdrop-blur-md">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-              <span>Rwanda Coding Academy · SIFS League 2026</span>
-            </div>
 
             {/* Bold Headline */}
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight text-white leading-[1.04]">

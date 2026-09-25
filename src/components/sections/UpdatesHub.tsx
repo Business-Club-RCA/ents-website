@@ -337,7 +337,7 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
               const shareUrl =
                 typeof window !== 'undefined'
                   ? `${window.location.origin}/updates/${slug}`
-                  : `https://ents.rca.ac.rw/updates/${slug}`;
+                  : `https://www.entsclub.online/updates/${slug}`;
 
               return (
                 <article

@@ -39,10 +39,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const slug = slugify(item.title);
-  const articleUrl = `https://ents.rca.ac.rw/updates/${slug || item.id}`;
+  const articleUrl = `https://www.entsclub.online/updates/${slug || item.id}`;
   const ogImageUrl = item.imageUrl
-    ? (item.imageUrl.startsWith('http') ? item.imageUrl : `https://ents.rca.ac.rw${item.imageUrl}`)
-    : 'https://ents.rca.ac.rw/ents-og.png';
+    ? (item.imageUrl.startsWith('http') ? item.imageUrl : `https://www.entsclub.online${item.imageUrl}`)
+    : 'https://www.entsclub.online/ents-og.png';
 
   return {
     title: `${item.title} · ENTS`,
@@ -79,7 +79,7 @@ export default async function BlogDetailPage({ params }: Props) {
   }
 
   const canonicalSlug = slugify(item.title) || item.id;
-  const canonicalUrl = `https://ents.rca.ac.rw/updates/${canonicalSlug}`;
+  const canonicalUrl = `https://www.entsclub.online/updates/${canonicalSlug}`;
 
   // Related articles (excluding current item)
   const allUpdates = await getUpdates();

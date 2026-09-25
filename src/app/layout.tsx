@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/Footer';
 import { SmoothScrollProvider } from '@/components/providers/SmoothScrollProvider';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ents.rca.ac.rw'),
+  metadataBase: new URL('https://www.entsclub.online'),
   title: {
     default: 'ENTS · Rwanda Coding Academy Business & Trading Society',
     template: '%s | ENTS · Rwanda Coding Academy',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     title: 'ENTS · Rwanda Coding Academy Business & Trading Society',
     description:
       'Where Code Meets Capital: Student venture incubation and quantitative paper trading league at Rwanda Coding Academy.',
-    url: 'https://ents.rca.ac.rw',
+    url: 'https://www.entsclub.online',
     siteName: 'ENTS Rwanda Coding Academy',
     locale: 'en_US',
     type: 'website',

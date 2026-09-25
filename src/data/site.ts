@@ -9,7 +9,7 @@ export const siteConfig = {
     location: 'Nyabihu, Western Province, Rwanda',
     url: 'https://rca.ac.rw',
   },
-  url: 'https://ents.rca.ac.rw',
+  url: 'https://www.entsclub.online',
   navItems: [
     { label: 'About', href: '/about' },
     { label: 'Tracks', href: '/tracks' },

@@ -11,6 +11,26 @@ interface SocialShareBarProps {
   compact?: boolean;
 }
 
+function normalizeOfficialUrl(raw?: string): string {
+  if (!raw) return 'https://www.entsclub.online';
+  // Strip any old domain
+  let clean = raw.replace(/https?:\/\/ents\.rca\.ac\.rw/gi, 'https://www.entsclub.online');
+  clean = clean.replace(/ents\.rca\.ac\.rw/gi, 'www.entsclub.online');
+  // If localhost was used in browser window.location, convert to official domain for sharing
+  if (clean.includes('localhost') || clean.includes('127.0.0.1')) {
+    try {
+      const parsed = new URL(clean);
+      return `https://www.entsclub.online${parsed.pathname}${parsed.search}`;
+    } catch {
+      return 'https://www.entsclub.online';
+    }
+  }
+  if (clean.startsWith('/')) {
+    return `https://www.entsclub.online${clean}`;
+  }
+  return clean;
+}
+
 export function SocialShareBar({
   title,
   url,
@@ -19,13 +39,13 @@ export function SocialShareBar({
   compact = false,
 }: SocialShareBarProps) {
   const [copied, setCopied] = useState(false);
-  const [currentUrl, setCurrentUrl] = useState(url || '');
+  const [currentUrl, setCurrentUrl] = useState(() => normalizeOfficialUrl(url));
 
   useEffect(() => {
     if (!url && typeof window !== 'undefined') {
-      setCurrentUrl(window.location.href);
+      setCurrentUrl(normalizeOfficialUrl(window.location.href));
     } else if (url) {
-      setCurrentUrl(url);
+      setCurrentUrl(normalizeOfficialUrl(url));
     }
   }, [url]);
 
@@ -33,8 +53,11 @@ export function SocialShareBar({
 
   const handleCopyLink = async () => {
     try {
+      const linkToCopy = normalizeOfficialUrl(
+        currentUrl || (typeof window !== 'undefined' ? window.location.href : '')
+      );
       if (typeof navigator !== 'undefined' && navigator.clipboard) {
-        await navigator.clipboard.writeText(currentUrl);
+        await navigator.clipboard.writeText(linkToCopy);
         setCopied(true);
         setTimeout(() => setCopied(false), 2200);
       }
@@ -49,7 +72,7 @@ export function SocialShareBar({
         await navigator.share({
           title,
           text: description || shareText,
-          url: currentUrl,
+          url: normalizeOfficialUrl(currentUrl),
         });
       } catch {
         // User cancelled or unsupported

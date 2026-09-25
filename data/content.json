@@ -238,29 +238,30 @@
     },
     {
       "id": "event-demo-summit-2026",
+      "date": "October 15, 2026",
+      "tags": [
+        "DemoDay",
+        "Ventures",
+        "RCA"
+      ],
       "type": "event",
       "title": "ENTS Venture & Demo Summit 2026",
-      "excerpt": "Annual flagship presentation of student software ventures, algorithmic trading strategies, and fintech platforms to industry mentors.",
-      "content": "Join student founders and quantitative analysts at Rwanda Coding Academy for the ENTS Venture & Demo Summit 2026. Watch 5 student venture teams demonstrate live products and pitch validated unit economics to guest evaluators and engineering mentors.",
       "author": "ENTS Executive Committee",
-      "date": "October 15, 2026",
-      "eventDate": "Saturday, November 14, 2026",
-      "eventTime": "14:00 - 17:30 CAT",
-      "eventLocation": "RCA Innovation Hall & Live Virtual Stream",
+      "content": "Join student founders and quantitative analysts at Rwanda Coding Academy for the ENTS Venture & Demo Summit 2026. Watch 5 student venture teams demonstrate live products and pitch validated unit economics to guest evaluators and engineering mentors.",
+      "excerpt": "Annual flagship presentation of student software ventures, algorithmic trading strategies, and fintech platforms to industry mentors.",
+      "imageUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1790319812/ents/updates/sqxm4jybgoqqolfy3nxl.jpg",
+      "isCustom": true,
       "rsvpLink": "https://www.entsclub.online/updates",
       "speakers": [
         "Aline Umutoni",
         "David Nshimiyimana",
         "Guest Evaluators"
       ],
-      "tags": [
-        "DemoDay",
-        "Ventures",
-        "RCA"
-      ],
-      "imageUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1790319812/ents/updates/sqxm4jybgoqqolfy3nxl.jpg",
-      "isCustom": true,
-      "attendees": []
+      "attendees": [],
+      "eventDate": "Saturday, November 14, 2026",
+      "eventTime": "14:00 - 17:30 CAT",
+      "eventLocation": "RCA Innovation Hall & Live Virtual Stream",
+      "featured": true
     },
     {
       "id": "item-1790319505952",
@@ -276,25 +277,27 @@
       "excerpt": "Successful innovation does not always begin with a big launch. By starting small, testing ideas, and learning from real user feedback and data, teams can reduce uncertainty and build products that solve genuine problems.",
       "imageUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1790319812/ents/updates/sqxm4jybgoqqolfy3nxl.jpg",
       "isCustom": true,
-      "attendees": []
+      "attendees": [],
+      "featured": true
     },
     {
       "id": "ext-newtimes-fintech-2026",
-      "type": "external",
-      "title": "Rwanda's Young Tech Founders Build Africa's Next-Gen Financial Systems",
-      "excerpt": "The New Times features how student builders at Rwanda Coding Academy are combining mathematical rigor with practical business handlership through ENTS.",
-      "content": "Read the full publication covering how ENTS prepares students to master financial engineering and commercial software development.",
-      "author": "Business & Tech Desk",
       "date": "September 18, 2026",
-      "sourceName": "The New Times",
-      "sourceUrl": "https://www.newtimes.co.rw",
       "tags": [
         "Press",
         "Fintech",
         "Africa"
       ],
+      "type": "external",
+      "title": "Rwanda's Young Tech Founders Build Africa's Next-Gen Financial Systems",
+      "author": "Business & Tech Desk",
+      "content": "Read the full publication covering how ENTS prepares students to master financial engineering and commercial software development.",
+      "excerpt": "The New Times features how student builders at Rwanda Coding Academy are combining mathematical rigor with practical business handlership through ENTS.",
       "imageUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1790319812/ents/updates/sqxm4jybgoqqolfy3nxl.jpg",
-      "isCustom": true
+      "isCustom": true,
+      "sourceUrl": "https://www.newtimes.co.rw",
+      "sourceName": "The New Times",
+      "featured": false
     }
   ],
   "tracks": [

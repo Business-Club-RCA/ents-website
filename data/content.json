@@ -220,6 +220,49 @@
   ],
   "updates": [
     {
+      "id": "news-sifs-v24",
+      "date": "March 11, 2026",
+      "tags": [
+        "News",
+        "SIFS",
+        "Engineering"
+      ],
+      "type": "announcement",
+      "title": "SIFS v2.4 Engine Deployed with Low-Latency Order Books",
+      "author": "Engineering Squad",
+      "content": "The ENTS Engineering Squad has officially pushed SIFS v2.4 to the campus local network and cloud telemetry cluster. This release marks a significant milestone in our quest to bring institutional trading mechanics to secondary school analysts.\n\nKey Architectural Enhancements:\n- Sub-50ms Tick Ingestion: Websocket buffers now process multi-pair pricing with under 35ms latency.\n- Hard-Coded 1% Maximum Drawdown Locks: Automated risk tripwires immediately freeze positions upon unexpected volatility spikes.\n- Live Telemetry Leaderboard Sync: Every confirmed fill and liquidation updates the public league rankings instantaneously.\n\nThe platform is open to all registered club members across Cohorts 5, 6, and 7.",
+      "excerpt": "Major architectural upgrades to the simulation engine introducing websocket streaming and automatic loss controls.",
+      "featured": true,
+      "imageUrl": "/news/trading-terminal.jpg",
+      "readTime": "3 min read"
+    },
+    {
+      "id": "event-demo-summit-2026",
+      "type": "event",
+      "title": "ENTS Venture & Demo Summit 2026",
+      "excerpt": "Annual flagship presentation of student software ventures, algorithmic trading strategies, and fintech platforms to industry mentors.",
+      "content": "Join student founders and quantitative analysts at Rwanda Coding Academy for the ENTS Venture & Demo Summit 2026. Watch 5 student venture teams demonstrate live products and pitch validated unit economics to guest evaluators and engineering mentors.",
+      "author": "ENTS Executive Committee",
+      "date": "October 15, 2026",
+      "eventDate": "Saturday, November 14, 2026",
+      "eventTime": "14:00 - 17:30 CAT",
+      "eventLocation": "RCA Innovation Hall & Live Virtual Stream",
+      "rsvpLink": "https://www.entsclub.online/updates",
+      "speakers": [
+        "Aline Umutoni",
+        "David Nshimiyimana",
+        "Guest Evaluators"
+      ],
+      "tags": [
+        "DemoDay",
+        "Ventures",
+        "RCA"
+      ],
+      "imageUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1790319812/ents/updates/sqxm4jybgoqqolfy3nxl.jpg",
+      "isCustom": true,
+      "attendees": []
+    },
+    {
       "id": "item-1790319505952",
       "date": "September 25, 2026",
       "tags": [
@@ -236,21 +279,22 @@
       "attendees": []
     },
     {
-      "id": "news-sifs-v24",
-      "date": "March 11, 2026",
+      "id": "ext-newtimes-fintech-2026",
+      "type": "external",
+      "title": "Rwanda's Young Tech Founders Build Africa's Next-Gen Financial Systems",
+      "excerpt": "The New Times features how student builders at Rwanda Coding Academy are combining mathematical rigor with practical business handlership through ENTS.",
+      "content": "Read the full publication covering how ENTS prepares students to master financial engineering and commercial software development.",
+      "author": "Business & Tech Desk",
+      "date": "September 18, 2026",
+      "sourceName": "The New Times",
+      "sourceUrl": "https://www.newtimes.co.rw",
       "tags": [
-        "News",
-        "SIFS",
-        "Engineering"
+        "Press",
+        "Fintech",
+        "Africa"
       ],
-      "type": "announcement",
-      "title": "SIFS v2.4 Engine Deployed with Low-Latency Order Books",
-      "author": "Engineering Squad",
-      "content": "The ENTS Engineering Squad has officially pushed SIFS v2.4 to the campus local network and cloud telemetry cluster. This release marks a significant milestone in our quest to bring institutional trading mechanics to secondary school analysts.\n\nKey Architectural Enhancements:\n- Sub-50ms Tick Ingestion: Websocket buffers now process multi-pair pricing with under 35ms latency.\n- Hard-Coded 1% Maximum Drawdown Locks: Automated risk tripwires immediately freeze positions upon unexpected volatility spikes.\n- Live Telemetry Leaderboard Sync: Every confirmed fill and liquidation updates the public league rankings instantaneously.\n\nThe platform is open to all registered club members across Cohorts 5, 6, and 7.",
-      "excerpt": "Major architectural upgrades to the simulation engine introducing websocket streaming and automatic loss controls.",
-      "featured": true,
-      "imageUrl": "/news/trading-terminal.jpg",
-      "readTime": "3 min read"
+      "imageUrl": "https://res.cloudinary.com/dlf3koulm/image/upload/v1790319812/ents/updates/sqxm4jybgoqqolfy3nxl.jpg",
+      "isCustom": true
     }
   ],
   "tracks": [

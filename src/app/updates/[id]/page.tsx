@@ -8,6 +8,7 @@ import { SocialShareBar } from '@/components/ui/SocialShareBar';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 import { getUpdates, getUpdate } from '@/lib/db';
 import { slugify } from '@/lib/slug';
+import { getUpdateTypeBadge, getUpdateTypeLabel } from '@/lib/contentTypes';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -104,8 +105,8 @@ export default async function BlogDetailPage({ params }: Props) {
         {/* 2. Article Header */}
         <header className="space-y-4 mb-8 sm:mb-10 max-w-3xl">
           <div className="flex items-center gap-3 text-xs font-mono text-neutral-500">
-            <span className="px-2.5 py-0.5 rounded-md bg-neutral-100 text-neutral-800 font-semibold uppercase tracking-wider text-[10px]">
-              {item.type === 'event' ? 'Event' : 'News'}
+            <span className={`px-2.5 py-0.5 rounded-md font-semibold uppercase tracking-wider text-[10px] border ${getUpdateTypeBadge(item.type).className}`}>
+              {getUpdateTypeLabel(item.type)}
             </span>
             <span>&middot;</span>
             <span>{item.date}</span>

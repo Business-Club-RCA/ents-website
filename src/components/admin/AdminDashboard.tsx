@@ -48,6 +48,7 @@ import {
 } from '@/components/ui/Icons';
 import { ProfileAvatar } from '@/components/ui/ProfileAvatar';
 import { isEventPassed } from '@/lib/dateUtils';
+import { getUpdateTypeBadge, getUpdateTypeLabel } from '@/lib/contentTypes';
 import { slugify } from '@/lib/slug';
 
 interface AdminDashboardProps {
@@ -90,6 +91,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
   // Update Modal State
   const [editingUpdate, setEditingUpdate] = useState<FeedItem | null>(null);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [modalUpdateType, setModalUpdateType] = useState<FeedItem['type']>('announcement');
 
   // Event Attendees Viewer Modal
   const [viewingAttendeesEvent, setViewingAttendeesEvent] = useState<FeedItem | null>(null);
@@ -1118,7 +1120,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                       <button
                         onClick={() => handleToggleFeaturedUpdate(item.id, item.title)}
                         className={`font-bold hover:underline cursor-pointer ${
-                          item.featured ? 'text-amber-700' : 'text-neutral-500 hover:text-neutral-900'
+                          item.featured ? 'text-neutral-900 font-bold' : 'text-neutral-500 hover:text-neutral-900'
                         }`}
                       >
                         {item.featured ? '★ Featured on Hero' : '☆ Feature on Hero'}

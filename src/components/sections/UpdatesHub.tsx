@@ -9,12 +9,13 @@ import { registerAttendanceAction } from '@/actions/adminActions';
 import { SocialShareBar } from '@/components/ui/SocialShareBar';
 import { slugify } from '@/lib/slug';
 import { isEventPassed } from '@/lib/dateUtils';
+import { getUpdateTypeBadge, getUpdateTypeLabel } from '@/lib/contentTypes';
 
 const ATTENDANCE_STORAGE_KEY = 'ents_event_attendees_v2';
 
 export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] }) {
   const [items, setItems] = useState<FeedItem[]>(initialItems);
-  const [activeTab, setActiveTab] = useState<'all' | 'news' | 'event'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'announcement' | 'event' | 'article' | 'external'>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   // Keep items in sync when initialItems changes
@@ -98,14 +99,14 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
 
   // Filter items for main grid
   const filteredItems = activePublicItems.filter((item) => {
-    if (activeTab === 'news' && item.type === 'event') return false;
-    if (activeTab === 'event' && item.type !== 'event') return false;
+    if (activeTab !== 'all' && item.type !== activeTab) return false;
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       return (
         item.title.toLowerCase().includes(q) ||
         item.excerpt.toLowerCase().includes(q) ||
         item.author.toLowerCase().includes(q) ||
+        (item.sourceName && item.sourceName.toLowerCase().includes(q)) ||
         item.tags.some((t) => t.toLowerCase().includes(q))
       );
     }
@@ -293,30 +294,46 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
           </div>
 
           {/* Filter Tray */}
-          <div className="flex items-center gap-1.5 p-1.5 bg-neutral-200/60 rounded-2xl border border-neutral-300/80 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.07)] text-xs font-mono">
+          <div className="flex items-center gap-1.5 p-1.5 bg-neutral-200/60 rounded-2xl border border-neutral-300/80 shadow-[inset_0_1.5px_3px_rgba(0,0,0,0.07)] text-xs font-mono overflow-x-auto max-w-full">
             <button
               onClick={() => setActiveTab('all')}
-              className={`px-4 py-1.5 rounded-xl cursor-pointer transition-all ${
+              className={`px-3.5 py-1.5 rounded-xl cursor-pointer transition-all whitespace-nowrap ${
                 activeTab === 'all' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
               }`}
             >
-              All Dispatches ({activePublicItems.length})
+              All ({activePublicItems.length})
             </button>
             <button
-              onClick={() => setActiveTab('news')}
-              className={`px-4 py-1.5 rounded-xl cursor-pointer transition-all ${
-                activeTab === 'news' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
+              onClick={() => setActiveTab('announcement')}
+              className={`px-3.5 py-1.5 rounded-xl cursor-pointer transition-all whitespace-nowrap ${
+                activeTab === 'announcement' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
               }`}
             >
-              Business Articles ({items.filter((i) => i.type !== 'event').length})
+              Announcements ({items.filter((i) => i.type === 'announcement').length})
             </button>
             <button
               onClick={() => setActiveTab('event')}
-              className={`px-4 py-1.5 rounded-xl cursor-pointer transition-all ${
+              className={`px-3.5 py-1.5 rounded-xl cursor-pointer transition-all whitespace-nowrap ${
                 activeTab === 'event' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
               }`}
             >
-              Events ({upcomingEvents.length})
+              Scheduled Events ({upcomingEvents.length})
+            </button>
+            <button
+              onClick={() => setActiveTab('article')}
+              className={`px-3.5 py-1.5 rounded-xl cursor-pointer transition-all whitespace-nowrap ${
+                activeTab === 'article' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
+              }`}
+            >
+              Articles ({items.filter((i) => i.type === 'article').length})
+            </button>
+            <button
+              onClick={() => setActiveTab('external')}
+              className={`px-3.5 py-1.5 rounded-xl cursor-pointer transition-all whitespace-nowrap ${
+                activeTab === 'external' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
+              }`}
+            >
+              External References ({items.filter((i) => i.type === 'external').length})
             </button>
           </div>
         </div>
@@ -326,14 +343,19 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
           <div className="py-16 text-center text-xs font-mono text-neutral-500 border border-neutral-200 rounded-2xl bg-neutral-50">
             {activeTab === 'event'
               ? 'No upcoming events scheduled at this moment. Stay tuned for future demo days and masterclasses!'
+              : activeTab === 'announcement'
+              ? 'No announcements found matching your search.'
+              : activeTab === 'external'
+              ? 'No external references found matching your search.'
               : 'No articles or dispatches found matching your search.'}
           </div>
         ) : (
           <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-px grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 shadow-sm">
             {filteredItems.map((item) => {
               const isEvent = item.type === 'event';
+              const isExternal = item.type === 'external';
               const slug = slugify(item.title) || item.id;
-              const articleHref = isEvent ? '#' : `/updates/${slug}`;
+              const articleHref = isEvent ? '#' : isExternal && item.sourceUrl ? item.sourceUrl : `/updates/${slug}`;
               const shareUrl =
                 typeof window !== 'undefined'
                   ? `${window.location.origin}/updates/${slug}`
@@ -350,9 +372,14 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                       <span className="skeuo-rivet" />
                       <div className="flex items-center gap-2 text-[10px] font-mono text-neutral-500">
                         <span className="w-1.5 h-1.5 rounded-full bg-neutral-400" />
-                        <span className="uppercase tracking-wider font-semibold text-neutral-600">
-                          {isEvent ? 'EVENT DISPATCH' : 'BUSINESS DISPATCH'}
+                        <span className="uppercase tracking-wider font-semibold text-neutral-700">
+                          {getUpdateTypeLabel(item.type)}
                         </span>
+                        {isExternal && item.sourceName && (
+                          <span className="text-neutral-400 font-normal">
+                            &middot; {item.sourceName}
+                          </span>
+                        )}
                       </div>
                       <span className="skeuo-rivet" />
                     </div>
@@ -372,7 +399,7 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                         />
                         <div className="absolute top-2.5 left-2.5">
                           <span className="skeuo-badge px-2 py-0.5 rounded-md text-[9px] font-mono font-bold text-neutral-900">
-                            {isEvent ? 'EVENT' : 'ARTICLE'}
+                            {getUpdateTypeLabel(item.type)}
                           </span>
                         </div>
                       </Link>
@@ -430,6 +457,16 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                               RSVP
                             </button>
                           )
+                        ) : isExternal && item.sourceUrl ? (
+                          <a
+                            href={item.sourceUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn-skeuo-dark font-bold px-3.5 py-1.5 rounded-xl text-[11px] cursor-pointer inline-flex items-center gap-1"
+                          >
+                            <span>Source</span>
+                            <span className="text-[10px]">↗</span>
+                          </a>
                         ) : (
                           <Link
                             href={articleHref}

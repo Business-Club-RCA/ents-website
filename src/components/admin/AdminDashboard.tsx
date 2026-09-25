@@ -1985,15 +1985,17 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-neutral-600 font-semibold mb-1">Type</label>
+                  <label className="block text-neutral-600 font-semibold mb-1">Content Type</label>
                   <select
                     name="type"
-                    defaultValue={editingUpdate?.type || 'article'}
-                    className="w-full px-3 py-2 bg-neutral-50 border border-neutral-300 rounded-xl"
+                    value={modalUpdateType}
+                    onChange={(e) => setModalUpdateType(e.target.value as FeedItem['type'])}
+                    className="w-full px-3 py-2 bg-neutral-50 border border-neutral-300 rounded-xl font-bold text-neutral-900 focus:outline-none focus:border-neutral-900"
                   >
-                    <option value="article">News Article</option>
-                    <option value="event">Scheduled Event</option>
-                    <option value="announcement">Announcement</option>
+                    <option value="announcement">1. Announcement</option>
+                    <option value="event">2. Scheduled Event</option>
+                    <option value="article">3. Article</option>
+                    <option value="external">4. External Reference</option>
                   </select>
                 </div>
                 <div>
@@ -2006,6 +2008,38 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                   />
                 </div>
               </div>
+
+              {/* EXTERNAL REFERENCE LOGISTICS */}
+              {modalUpdateType === 'external' && (
+                <div className="p-4 bg-neutral-50 rounded-2xl border border-neutral-200 space-y-3">
+                  <div className="font-bold text-neutral-800 uppercase text-[10px]">
+                    External Publication Logistics
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-neutral-600 font-semibold mb-1">Source / Publisher Name</label>
+                      <input
+                        name="sourceName"
+                        defaultValue={editingUpdate?.sourceName || ''}
+                        required
+                        placeholder="e.g. The New Times, TechCrunch"
+                        className="w-full px-3.5 py-2 bg-white border border-neutral-300 rounded-xl"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-neutral-600 font-semibold mb-1">External URL / Link</label>
+                      <input
+                        name="sourceUrl"
+                        type="url"
+                        defaultValue={editingUpdate?.sourceUrl || ''}
+                        required
+                        placeholder="https://..."
+                        className="w-full px-3.5 py-2 bg-white border border-neutral-300 rounded-xl"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
 
               <div>
                 <label className="block text-neutral-600 font-semibold mb-1">Author / Committee</label>
@@ -2040,54 +2074,72 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                 />
               </div>
 
-              <div className="p-4 bg-neutral-50 rounded-2xl border border-neutral-200 space-y-3">
-                <div>
-                  <div className="font-bold text-neutral-800 uppercase text-[10px]">
-                    Event Logistics (Only required if type is &quot;Scheduled Event&quot;)
-                  </div>
-                  <p className="text-[10px] text-neutral-500 font-mono mt-0.5">
-                    Live events appear on the public site while upcoming. Once the event date &amp; time concludes, it is automatically archived from the public feed.
-                  </p>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
+              {/* EVENT LOGISTICS */}
+              {modalUpdateType === 'event' && (
+                <div className="p-4 bg-neutral-50 rounded-2xl border border-neutral-200 space-y-3">
                   <div>
-                    <label className="block text-neutral-500 mb-1">Event Date</label>
+                    <div className="font-bold text-neutral-800 uppercase text-[10px]">
+                      Event Logistics &amp; Schedule
+                    </div>
+                    <p className="text-[10px] text-neutral-500 font-mono mt-0.5">
+                      Live events appear on the public site while upcoming. Once concluded, they are archived from the public feed.
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-neutral-500 mb-1">Event Date</label>
+                      <input
+                        name="eventDate"
+                        defaultValue={editingUpdate?.eventDate || ''}
+                        required
+                        placeholder="e.g. Saturday, March 28, 2026"
+                        className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-neutral-500 mb-1">Event Time</label>
+                      <input
+                        name="eventTime"
+                        defaultValue={editingUpdate?.eventTime || ''}
+                        required
+                        placeholder="e.g. 15:00 - 17:30 CAT"
+                        className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-neutral-500 mb-1">Event Venue / Location</label>
+                      <input
+                        name="eventLocation"
+                        defaultValue={editingUpdate?.eventLocation || ''}
+                        required
+                        placeholder="e.g. RCA Innovation Lab"
+                        className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-neutral-500 mb-1">Optional Registration / RSVP Link</label>
+                      <input
+                        name="rsvpLink"
+                        type="url"
+                        defaultValue={editingUpdate?.rsvpLink || ''}
+                        placeholder="https://lu.ma/... or registration link"
+                        className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-neutral-500 mb-1">Speakers / Hosts (Comma-separated)</label>
                     <input
-                      name="eventDate"
-                      defaultValue={editingUpdate?.eventDate || ''}
-                      placeholder="e.g. Saturday, March 28, 2026"
+                      name="speakers"
+                      defaultValue={editingUpdate?.speakers?.join(', ') || ''}
+                      placeholder="Aline Umutoni, David Nshimiyimana"
                       className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
                     />
                   </div>
-                  <div>
-                    <label className="block text-neutral-500 mb-1">Event Time</label>
-                    <input
-                      name="eventTime"
-                      defaultValue={editingUpdate?.eventTime || ''}
-                      placeholder="e.g. 15:00 - 17:30 CAT"
-                      className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
-                    />
-                  </div>
                 </div>
-                <div>
-                  <label className="block text-neutral-500 mb-1">Event Venue / Location</label>
-                  <input
-                    name="eventLocation"
-                    defaultValue={editingUpdate?.eventLocation || ''}
-                    placeholder="e.g. RCA Innovation Lab"
-                    className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
-                  />
-                </div>
-                <div>
-                  <label className="block text-neutral-500 mb-1">Speakers / Hosts (Comma-separated)</label>
-                  <input
-                    name="speakers"
-                    defaultValue={editingUpdate?.speakers?.join(', ') || ''}
-                    placeholder="Aline Umutoni, David Nshimiyimana"
-                    className="w-full px-3 py-1.5 bg-white border border-neutral-300 rounded-lg text-xs"
-                  />
-                </div>
-              </div>
+              )}
 
               <div>
                 <CloudinaryImageInput
@@ -2108,16 +2160,16 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                 />
               </div>
 
-              <div className="flex items-center gap-3 p-3 bg-amber-50/70 border border-amber-200/80 rounded-xl">
+              <div className="flex items-center gap-3 p-3 bg-neutral-50 border border-neutral-200 rounded-xl">
                 <input
                   type="checkbox"
                   id="featured"
                   name="featured"
                   defaultChecked={editingUpdate?.featured ?? false}
-                  className="w-4 h-4 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer"
+                  className="w-4 h-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-900 cursor-pointer"
                 />
                 <label htmlFor="featured" className="text-neutral-800 font-bold cursor-pointer text-xs">
-                  Feature on Hero Section (Announcement banner &amp; highlight card)
+                  Feature on Hero Section (Rotates in top hero announcement strip)
                 </label>
               </div>
 

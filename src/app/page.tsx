@@ -29,16 +29,16 @@ export default async function HomePage() {
   const businessTrack = tracks.find((t) => t.id === 'business-handlers') || tracks[0];
   const tradersTrack = tracks.find((t) => t.id === 'traders') || tracks[1];
 
-  // Feature announcement on hero: first check explicitly featured announcement, then latest announcement
-  const heroAnnouncement =
-    updates.find((u) => u.type === 'announcement' && u.featured) ||
-    updates.find((u) => u.type === 'announcement') ||
-    null;
+  // All announcements for hero rotation (featured ones first, then rest)
+  const heroAnnouncements = [
+    ...updates.filter((u) => u.type === 'announcement' && u.featured),
+    ...updates.filter((u) => u.type === 'announcement' && !u.featured),
+  ];
 
   return (
     <div className="flex flex-col">
       {/* 1. HERO SECTION */}
-      <HeroVisual announcement={heroAnnouncement} />
+      <HeroVisual announcements={heroAnnouncements} />
 
       {/* 2. WHO WE ARE: 3 Punchy Architecture Columns */}
       <section className="py-20 sm:py-28 border-b border-neutral-200 bg-white">

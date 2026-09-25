@@ -15,6 +15,7 @@ import {
 import {
   saveProject,
   deleteProject,
+  getUpdates,
   saveUpdate,
   deleteUpdate,
   registerEventAttendance,
@@ -144,6 +145,7 @@ export async function saveUpdateAction(item: FeedItem) {
   await saveUpdate(item);
   revalidatePath('/updates');
   revalidatePath(`/updates/${item.id}`);
+  revalidatePath('/');
   revalidatePath('/admin');
   return { success: true };
 }
@@ -152,8 +154,32 @@ export async function deleteUpdateAction(id: string) {
   await requireAuth();
   await deleteUpdate(id);
   revalidatePath('/updates');
+  revalidatePath('/');
   revalidatePath('/admin');
   return { success: true };
+}
+
+export async function toggleFeaturedUpdateAction(id: string) {
+  await requireAuth();
+  const dbUpdates = await getUpdates();
+  const target = dbUpdates.find((u: FeedItem) => u.id === id);
+  if (!target) return { success: false, error: 'Update not found' };
+
+  // Set this update as featured, unfeaturing others if it's being turned on
+  const willBeFeatured = !target.featured;
+  for (const item of dbUpdates) {
+    if (item.id === id) {
+      item.featured = willBeFeatured;
+    } else if (willBeFeatured && item.type === target.type) {
+      item.featured = false;
+    }
+    await saveUpdate(item);
+  }
+
+  revalidatePath('/');
+  revalidatePath('/updates');
+  revalidatePath('/admin');
+  return { success: true, featured: willBeFeatured };
 }
 
 export async function registerAttendanceAction(eventId: string, attendee: {

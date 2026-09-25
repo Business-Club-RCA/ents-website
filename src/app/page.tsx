@@ -8,7 +8,7 @@ import { StatsStrip } from '@/components/sections/StatsStrip';
 import { FlagshipSimulator } from '@/components/sections/FlagshipSimulator';
 import { HeroVisual } from '@/components/sections/HeroVisual';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
-import { getTracks, getStats, getTestimonials } from '@/lib/db';
+import { getTracks, getStats, getTestimonials, getUpdates } from '@/lib/db';
 import {
   PillarVenturesIllustration,
   PillarDisciplineIllustration,
@@ -20,18 +20,25 @@ import {
 export const revalidate = 60;
 
 export default async function HomePage() {
-  const [tracks, stats, testimonials] = await Promise.all([
+  const [tracks, stats, testimonials, updates] = await Promise.all([
     getTracks(),
     getStats(),
     getTestimonials(),
+    getUpdates(),
   ]);
   const businessTrack = tracks.find((t) => t.id === 'business-handlers') || tracks[0];
   const tradersTrack = tracks.find((t) => t.id === 'traders') || tracks[1];
 
+  // Feature announcement on hero: first check explicitly featured announcement, then latest announcement
+  const heroAnnouncement =
+    updates.find((u) => u.type === 'announcement' && u.featured) ||
+    updates.find((u) => u.type === 'announcement') ||
+    null;
+
   return (
     <div className="flex flex-col">
       {/* 1. HERO SECTION */}
-      <HeroVisual />
+      <HeroVisual announcement={heroAnnouncement} />
 
       {/* 2. WHO WE ARE: 3 Punchy Architecture Columns */}
       <section className="py-20 sm:py-28 border-b border-neutral-200 bg-white">

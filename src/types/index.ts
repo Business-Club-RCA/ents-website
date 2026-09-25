@@ -117,6 +117,7 @@ export interface FeedItem {
   readTime?: string;
   tags: string[];
   isCustom?: boolean;
+  featured?: boolean;
 
   // External Article metadata (e.g. BBC News)
   sourceUrl?: string;

@@ -4,10 +4,16 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from '@/components/ui/Icons';
+import { FeedItem } from '@/types';
+import { slugify } from '@/lib/slug';
 
 const ROTATING_WORDS = ['move.', 'scale.', 'build.', 'trade.', 'ship.'];
 
-export function HeroVisual() {
+interface HeroVisualProps {
+  announcement?: FeedItem | null;
+}
+
+export function HeroVisual({ announcement }: HeroVisualProps) {
   const [wordIndex, setWordIndex] = useState(0);
 
   useEffect(() => {
@@ -48,11 +54,30 @@ export function HeroVisual() {
       {/* 2. Hero Content with Staged Animations */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-16 lg:pb-20">
         <div className="max-w-2xl lg:max-w-3xl space-y-4 sm:space-y-5">
-          {/* Institution Kicker Badge */}
-          <div className="animate-hero-badge inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#121215]/60 backdrop-blur-md border border-white/15 text-xs font-mono text-neutral-300 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>SIFS LEAGUE 2026</span>
-          </div>
+          {/* Institution Kicker Badge / Announcement Banner */}
+          {announcement ? (
+            <Link
+              href={`/updates/${slugify(announcement.title) || announcement.id}`}
+              className="animate-hero-badge group inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#121215]/80 hover:bg-[#1a1a22] backdrop-blur-md border border-amber-500/40 hover:border-amber-400 text-xs font-mono text-neutral-200 transition-all duration-200 shadow-lg hover:shadow-amber-500/10 max-w-full"
+            >
+              <span className="flex h-2 w-2 relative shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
+              </span>
+              <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30 shrink-0">
+                Announcement
+              </span>
+              <span className="truncate max-w-[200px] sm:max-w-md font-medium text-white/95 group-hover:text-white">
+                {announcement.title}
+              </span>
+              <ArrowRight size={13} className="text-neutral-400 group-hover:text-amber-300 group-hover:translate-x-0.5 transition-transform shrink-0" />
+            </Link>
+          ) : (
+            <div className="animate-hero-badge inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#121215]/60 backdrop-blur-md border border-white/15 text-xs font-mono text-neutral-300 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>SIFS LEAGUE 2026</span>
+            </div>
+          )}
 
           {/* Bold Headline with Kinetic Word Roller Animation */}
           <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight text-white leading-[1.04]">
@@ -101,6 +126,39 @@ export function HeroVisual() {
               See how it works
             </Link>
           </div>
+
+          {/* Featured Announcement Highlight Card */}
+          {announcement && (
+            <div className="animate-hero-cta mt-6 sm:mt-7 pt-4 border-t border-white/10 max-w-xl">
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#121217]/80 backdrop-blur-xl border border-white/15 hover:border-amber-500/40 transition-all duration-300 shadow-2xl group">
+                <div className="flex items-center justify-between gap-3 mb-2">
+                  <div className="flex items-center gap-2 text-xs font-mono text-amber-400">
+                    <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                    <span className="uppercase tracking-wider font-bold">Featured Announcement</span>
+                  </div>
+                  <span className="text-[11px] font-mono text-neutral-400">{announcement.date}</span>
+                </div>
+                <Link href={`/updates/${slugify(announcement.title) || announcement.id}`}>
+                  <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-amber-300 transition-colors leading-snug mb-1.5 line-clamp-1">
+                    {announcement.title}
+                  </h4>
+                  <p className="text-xs sm:text-sm text-neutral-300 line-clamp-2 leading-relaxed font-normal">
+                    {announcement.excerpt}
+                  </p>
+                </Link>
+                <div className="mt-3.5 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono">
+                  <span className="text-neutral-400 text-[11px]">By {announcement.author}</span>
+                  <Link
+                    href={`/updates/${slugify(announcement.title) || announcement.id}`}
+                    className="text-amber-300 hover:text-amber-200 font-semibold inline-flex items-center gap-1.5 group-hover:translate-x-0.5 transition-transform"
+                  >
+                    <span>Read Details</span>
+                    <ArrowRight size={13} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>

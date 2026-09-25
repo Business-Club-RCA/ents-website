@@ -275,7 +275,8 @@
       "content": "The ENTS Engineering Squad has officially pushed SIFS v2.4 to the campus local network and cloud telemetry cluster. This release marks a significant milestone in our quest to bring institutional trading mechanics to secondary school analysts.\n\nKey Architectural Enhancements:\n- Sub-50ms Tick Ingestion: Websocket buffers now process multi-pair pricing with under 35ms latency.\n- Hard-Coded 1% Maximum Drawdown Locks: Automated risk tripwires immediately freeze positions upon unexpected volatility spikes.\n- Live Telemetry Leaderboard Sync: Every confirmed fill and liquidation updates the public league rankings instantaneously.\n\nThe platform is open to all registered club members across Cohorts 5, 6, and 7.",
       "excerpt": "Major architectural upgrades to the simulation engine introducing websocket streaming and automatic loss controls.",
       "imageUrl": "/news/trading-terminal.jpg",
-      "readTime": "3 min read"
+      "readTime": "3 min read",
+      "featured": true
     },
     {
       "id": "news-quant-literacy",

@@ -18,6 +18,7 @@ import {
   deleteProjectAction,
   saveUpdateAction,
   deleteUpdateAction,
+  toggleFeaturedUpdateAction,
   saveTrackAction,
   saveTeamMemberAction,
   deleteTeamMemberAction,
@@ -217,6 +218,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
       .filter(Boolean);
 
     const isEvent = type === 'event';
+    const featured = formData.get('featured') === 'on' || formData.get('featured') === 'true';
 
     const item: FeedItem = {
       id,
@@ -229,6 +231,7 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
       tags,
       imageUrl: imageUrl || undefined,
       isCustom: true,
+      featured,
       eventDate: isEvent ? (formData.get('eventDate') as string) : undefined,
       eventTime: isEvent ? (formData.get('eventTime') as string) : undefined,
       eventLocation: isEvent ? (formData.get('eventLocation') as string) : undefined,
@@ -246,11 +249,12 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
         await saveUpdateAction(item);
         setData((prev) => {
           const exists = prev.updates.some((u) => u.id === item.id);
+          const updatedList = exists
+            ? prev.updates.map((u) => (u.id === item.id ? item : (item.featured && u.type === item.type ? { ...u, featured: false } : u)))
+            : [item, ...prev.updates.map((u) => (item.featured && u.type === item.type ? { ...u, featured: false } : u))];
           return {
             ...prev,
-            updates: exists
-              ? prev.updates.map((u) => (u.id === item.id ? item : u))
-              : [item, ...prev.updates],
+            updates: updatedList,
           };
         });
         setIsUpdateModalOpen(false);
@@ -258,6 +262,31 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
         showStatus(`Update "${title}" published.`);
       } catch (err: any) {
         showStatus(err?.message || 'Failed to save update', 'error');
+      }
+    });
+  };
+
+  const handleToggleFeaturedUpdate = (id: string, title: string) => {
+    startTransition(async () => {
+      try {
+        const res = await toggleFeaturedUpdateAction(id);
+        if (res.success) {
+          setData((prev) => ({
+            ...prev,
+            updates: prev.updates.map((u) => {
+              if (u.id === id) {
+                return { ...u, featured: res.featured };
+              }
+              if (res.featured && u.type === 'announcement') {
+                return { ...u, featured: false };
+              }
+              return u;
+            }),
+          }));
+          showStatus(res.featured ? `"${title}" is now featured on the Hero section!` : `"${title}" unfeatured from Hero.`);
+        }
+      } catch (err: any) {
+        showStatus(err?.message || 'Failed to update featured status', 'error');
       }
     });
   };
@@ -1032,6 +1061,11 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                         <span className="uppercase font-bold px-2 py-0.5 rounded bg-neutral-100 border border-neutral-200 text-neutral-800">
                           {item.type}
                         </span>
+                        {item.featured && (
+                          <span className="px-1.5 py-0.5 rounded bg-amber-100 border border-amber-300 text-amber-900 text-[10px] font-bold">
+                            ★ Hero Featured
+                          </span>
+                        )}
                         {isEvent && (
                           isEventPassed(item.eventDate, item.eventTime) ? (
                             <span className="px-1.5 py-0.5 rounded bg-neutral-100 border border-neutral-300 text-neutral-500 text-[9px] font-semibold">
@@ -1081,6 +1115,14 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                           Roster ({attendeeCount})
                         </button>
                       )}
+                      <button
+                        onClick={() => handleToggleFeaturedUpdate(item.id, item.title)}
+                        className={`font-bold hover:underline cursor-pointer ${
+                          item.featured ? 'text-amber-700' : 'text-neutral-500 hover:text-neutral-900'
+                        }`}
+                      >
+                        {item.featured ? '★ Featured on Hero' : '☆ Feature on Hero'}
+                      </button>
                     </div>
                     <button
                       onClick={() => handleDeleteUpdate(item.id, item.title)}
@@ -2062,6 +2104,19 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                   defaultValue={editingUpdate?.tags.join(', ') || 'RCA, Ventures, Fintech'}
                   className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-300 rounded-xl"
                 />
+              </div>
+
+              <div className="flex items-center gap-3 p-3 bg-amber-50/70 border border-amber-200/80 rounded-xl">
+                <input
+                  type="checkbox"
+                  id="featured"
+                  name="featured"
+                  defaultChecked={editingUpdate?.featured ?? false}
+                  className="w-4 h-4 rounded border-amber-300 text-amber-600 focus:ring-amber-500 cursor-pointer"
+                />
+                <label htmlFor="featured" className="text-neutral-800 font-bold cursor-pointer text-xs">
+                  Feature on Hero Section (Announcement banner &amp; highlight card)
+                </label>
               </div>
 
               <div className="pt-4 flex justify-end gap-3 border-t border-neutral-200">

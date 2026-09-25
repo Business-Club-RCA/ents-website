@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
@@ -29,11 +29,9 @@ export default async function HomePage() {
   const businessTrack = tracks.find((t) => t.id === 'business-handlers') || tracks[0];
   const tradersTrack = tracks.find((t) => t.id === 'traders') || tracks[1];
 
-  // All announcements for hero rotation (featured ones first, then rest)
-  const heroAnnouncements = [
-    ...updates.filter((u) => u.type === 'announcement' && u.featured),
-    ...updates.filter((u) => u.type === 'announcement' && !u.featured),
-  ];
+  // Feature announcement on hero: first check explicitly featured announcement, then latest announcement
+  const heroAnnouncements =
+     [...updates.filter((u) => u.type === 'announcement' && u.featured), ...updates.filter((u) => u.type === 'announcement' && !u.featured)];
 
   return (
     <div className="flex flex-col">
@@ -45,7 +43,7 @@ export default async function HomePage() {
         <Container size="wide">
           <div className="max-w-3xl mb-12 sm:mb-16">
             <div className="text-xs uppercase font-mono tracking-widest text-neutral-500 mb-2.5">
-              01 · The Society Thesis
+              01 Â· The Society Thesis
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 leading-[1.08]">
               Where world-class code meets capital discipline.
@@ -117,7 +115,7 @@ export default async function HomePage() {
               </div>
               <div className="relative z-10 mt-8 pt-4 border-t border-neutral-200/70 flex items-center gap-2 text-xs font-mono text-neutral-500">
                 <span className="w-1.5 h-1.5 bg-neutral-900 rounded-full" />
-                <span>Nyabihu · Est. 2026</span>
+                <span>Nyabihu Â· Est. 2026</span>
               </div>
               {/* Background Illustration */}
               <div className="absolute -right-3 -bottom-3 pointer-events-none select-none transition-all duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-1">
@@ -134,7 +132,7 @@ export default async function HomePage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-4">
             <div>
               <span className="text-xs uppercase font-mono tracking-widest text-neutral-500">
-                02 · Specialization
+                02 Â· Specialization
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 mt-2">
                 Two Dedicated Disciplines
@@ -275,7 +273,7 @@ export default async function HomePage() {
           <div className="max-w-4xl space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-neutral-100 border border-neutral-200 text-xs font-mono text-neutral-600 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Rwanda Coding Academy · Society Active</span>
+              <span>Rwanda Coding Academy Â· Society Active</span>
             </div>
 
             <h2 className="font-bold text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-neutral-900 leading-[1.04]">
@@ -311,3 +309,5 @@ export default async function HomePage() {
     </div>
   );
 }
+
+

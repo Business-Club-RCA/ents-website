@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -19,7 +19,6 @@ export function HeroVisual({ announcements = [] }: HeroVisualProps) {
   const [announceIndex, setAnnounceIndex] = useState(0);
   const [visible, setVisible] = useState(true);
 
-  // Word roller
   useEffect(() => {
     const interval = setInterval(() => {
       setWordIndex((prev) => (prev + 1) % ROTATING_WORDS.length);
@@ -27,7 +26,6 @@ export function HeroVisual({ announcements = [] }: HeroVisualProps) {
     return () => clearInterval(interval);
   }, []);
 
-  // Announcement auto-rotation with fade
   useEffect(() => {
     if (announcements.length <= 1) return;
     const interval = setInterval(() => {
@@ -56,10 +54,12 @@ export function HeroVisual({ announcements = [] }: HeroVisualProps) {
           sizes="100vw"
           className="object-cover object-bottom"
         />
+        {/* Dark overlay — keeps image visible but ensures white text always readable */}
+        <div className="absolute inset-0 bg-black/45 pointer-events-none" />
         {/* Top vignette for nav */}
-        <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#0e0e11]/70 to-transparent pointer-events-none" />
-        {/* Strong bottom vignette — fully dark at the announcement band */}
-        <div className="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-[#0e0e11] via-[#0e0e11]/85 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#0e0e11]/70 to-transparent pointer-events-none" />
+        {/* Bottom vignette — fully dark at footer of hero */}
+        <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-[#0e0e11] via-[#0e0e11]/70 to-transparent pointer-events-none" />
       </div>
 
       {/* Spacer for top nav */}
@@ -68,15 +68,15 @@ export function HeroVisual({ announcements = [] }: HeroVisualProps) {
       {/* Hero Content */}
       <div className="relative z-10 flex-1 w-full flex flex-col justify-end">
 
-        {/* ── ANNOUNCEMENT PANEL ── */}
+        {/* ANNOUNCEMENT PANEL */}
         {current && currentSlug && (
           <div
             className="w-full"
             style={{
               opacity: visible ? 1 : 0,
               transition: 'opacity 0.35s ease',
-              borderTop: '1px solid rgba(255,255,255,0.18)',
-              borderBottom: '1px solid rgba(255,255,255,0.18)',
+              borderTop: '1px solid rgba(255,255,255,0.2)',
+              borderBottom: '1px solid rgba(255,255,255,0.2)',
             }}
           >
             <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
@@ -85,7 +85,6 @@ export function HeroVisual({ announcements = [] }: HeroVisualProps) {
                 {/* Left: label + title + excerpt */}
                 <div className="flex-1 min-w-0 space-y-1.5">
                   <div className="flex items-center gap-2.5 flex-wrap">
-                    {/* Green live beacon */}
                     <span className="flex h-2 w-2 relative shrink-0">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.9)]" />
@@ -102,7 +101,7 @@ export function HeroVisual({ announcements = [] }: HeroVisualProps) {
                   </div>
 
                   <Link href={`/updates/${currentSlug}`} className="block group/title">
-                    <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white leading-snug line-clamp-1 group-hover/title:text-white transition-colors">
+                    <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white leading-snug line-clamp-1 group-hover/title:text-white/90 transition-colors">
                       {current.title}
                     </h3>
                     <p className="mt-0.5 text-sm text-white/80 line-clamp-1 leading-relaxed">
@@ -125,7 +124,7 @@ export function HeroVisual({ announcements = [] }: HeroVisualProps) {
                           className={`rounded-full transition-all duration-300 ${
                             i === announceIndex
                               ? 'w-4 h-1.5 bg-white'
-                              : 'w-1.5 h-1.5 bg-white/35 hover:bg-white/60'
+                              : 'w-1.5 h-1.5 bg-white/40 hover:bg-white/70'
                           }`}
                           aria-label={`Announcement ${i + 1}`}
                         />
@@ -174,7 +173,7 @@ export function HeroVisual({ announcements = [] }: HeroVisualProps) {
               </span>
             </h1>
 
-            <p className="animate-hero-desc text-base sm:text-lg md:text-xl text-neutral-200/90 max-w-xl leading-relaxed font-normal">
+            <p className="animate-hero-desc text-base sm:text-lg md:text-xl text-white/90 max-w-xl leading-relaxed font-normal">
               A focused society for student builders and quantitative analysts at Rwanda Coding
               Academy to incubate software ventures, master global markets, and get things done.
             </p>

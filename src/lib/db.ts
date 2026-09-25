@@ -226,10 +226,6 @@ export async function readDB(): Promise<SiteContentDB> {
   }
 }
 
-export function invalidateDBCache(): void {
-  cachedDB = null;
-}
-
 export async function writeDB(data: SiteContentDB): Promise<void> {
   cachedDB = data;
   writeQueue = writeQueue.then(async () => {

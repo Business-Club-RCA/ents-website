@@ -251,52 +251,6 @@
       "featured": true,
       "imageUrl": "/news/trading-terminal.jpg",
       "readTime": "3 min read"
-    },
-    {
-      "id": "event-venture-summit-2026",
-      "date": "September 24, 2026",
-      "tags": [
-        "DemoDay",
-        "Ventures",
-        "SIFS",
-        "RCA"
-      ],
-      "type": "event",
-      "title": "ENTS Venture & Demo Summit 2026",
-      "author": "ENTS Executive Board",
-      "content": "Join us for the flagship ENTS Demo Day and Quantitative Symposium at Rwanda Coding Academy.\n\n### Summit Agenda\n\n- **14:00 - 14:30**: Opening Keynote & SIFS Season 03 Recap\n- **14:30 - 16:00**: Live Venture Pitches: 6 Student Teams Demo Working Products\n- **16:00 - 17:00**: Algorithmic Execution Showcase & Quant Backtests\n- **17:00 - 17:30**: Awards Presentation & Networking Mixer\n\nAll students, faculty, and industry partners are warmly welcomed.",
-      "excerpt": "Annual student venture showcase and algorithmic simulation championship held live at Rwanda Coding Academy.",
-      "eventDate": "Saturday, October 24, 2026",
-      "eventTime": "14:00 - 17:30 CAT",
-      "eventLocation": "RCA Innovation Auditorium, Nyabihu",
-      "rsvpLink": "https://www.entsclub.online/updates",
-      "speakers": [
-        "Aline Umutoni",
-        "David Nshimiyimana",
-        "Jean-Luc Habimana"
-      ],
-      "imageUrl": "/projects/rca-mart.jpg",
-      "isCustom": true,
-      "attendees": []
-    },
-    {
-      "id": "external-newtimes-ents-2026",
-      "date": "September 22, 2026",
-      "tags": [
-        "Press",
-        "The New Times",
-        "Fintech",
-        "RCA"
-      ],
-      "type": "external",
-      "title": "Rwanda's Young Minds Crafting Real-World Tech Ventures at RCA",
-      "author": "The New Times Rwanda",
-      "sourceName": "The New Times",
-      "sourceUrl": "https://www.newtimes.co.rw",
-      "excerpt": "National press feature highlighting how student developers at Rwanda Coding Academy combine systems software engineering with quantitative financial discipline.",
-      "content": "National coverage spotlighting the Entrepreneurs & Traders Society (ENTS) at Rwanda Coding Academy.\n\nThe feature explores how students are constructing their own order-matching engines and testing campus venture ideas before graduation.\n\n*Read the complete investigative report on The New Times.*",
-      "imageUrl": "/news/trading-terminal.jpg",
-      "isCustom": true
     }
   ],
   "tracks": [

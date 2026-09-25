@@ -58,24 +58,23 @@ export function HeroVisual({ announcement }: HeroVisualProps) {
           {announcement ? (
             <Link
               href={`/updates/${slugify(announcement.title) || announcement.id}`}
-              className="animate-hero-badge group inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.08] hover:bg-white/[0.14] backdrop-blur-xl border border-white/20 hover:border-white/40 text-xs font-mono text-neutral-200 transition-all duration-200 shadow-[0_4px_20px_rgba(0,0,0,0.5)] max-w-full"
+              className="animate-hero-badge group inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#121215]/80 hover:bg-[#1a1a22] backdrop-blur-md border border-amber-500/40 hover:border-amber-400 text-xs font-mono text-neutral-200 transition-all duration-200 shadow-lg hover:shadow-amber-500/10 max-w-full"
             >
-              {/* Pure Monochrome Radar Beacon */}
               <span className="flex h-2 w-2 relative shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white/60 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
               </span>
-              <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white/10 text-white border border-white/20 shrink-0">
+              <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30 shrink-0">
                 Announcement
               </span>
-              <span className="truncate max-w-[200px] sm:max-w-md font-medium text-white/90 group-hover:text-white">
+              <span className="truncate max-w-[200px] sm:max-w-md font-medium text-white/95 group-hover:text-white">
                 {announcement.title}
               </span>
-              <ArrowRight size={13} className="text-neutral-400 group-hover:text-white group-hover:translate-x-0.5 transition-transform shrink-0" />
+              <ArrowRight size={13} className="text-neutral-400 group-hover:text-amber-300 group-hover:translate-x-0.5 transition-transform shrink-0" />
             </Link>
           ) : (
-            <div className="animate-hero-badge inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white/[0.06] backdrop-blur-md border border-white/15 text-xs font-mono text-neutral-300 shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-white/80 animate-pulse" />
+            <div className="animate-hero-badge inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#121215]/60 backdrop-blur-md border border-white/15 text-xs font-mono text-neutral-300 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               <span>SIFS LEAGUE 2026</span>
             </div>
           )}
@@ -128,30 +127,22 @@ export function HeroVisual({ announcement }: HeroVisualProps) {
             </Link>
           </div>
 
-          {/* Featured Announcement Highlight Card (Innovative Monochrome Chassis) */}
+          {/* Featured Announcement Highlight Card */}
           {announcement && (
             <div className="animate-hero-cta mt-6 sm:mt-7 pt-4 border-t border-white/10 max-w-xl">
-              <div className="p-5 sm:p-6 rounded-2xl bg-[#0e0e12]/85 backdrop-blur-2xl border border-white/20 hover:border-white/40 transition-all duration-300 shadow-[0_12px_40px_rgba(0,0,0,0.7)] group relative overflow-hidden">
-                {/* Subtle Top Edge Specular Highlight */}
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
-
-                <div className="flex items-center justify-between gap-3 mb-2.5">
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-2 w-2 relative shrink-0">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white/60 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
-                    </span>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-bold font-mono tracking-wider uppercase bg-white/10 text-white border border-white/20">
-                      Featured Announcement
-                    </span>
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#121217]/80 backdrop-blur-xl border border-white/15 hover:border-amber-500/40 transition-all duration-300 shadow-2xl group">
+                <div className="flex items-center justify-between gap-3 mb-2">
+                  <div className="flex items-center gap-2 text-xs font-mono text-amber-400">
+                    <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                    <span className="uppercase tracking-wider font-bold">Featured Announcement</span>
                   </div>
                   <span className="text-[11px] font-mono text-neutral-400">{announcement.date}</span>
                 </div>
                 <Link href={`/updates/${slugify(announcement.title) || announcement.id}`}>
-                  <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-neutral-200 transition-colors leading-snug mb-1.5 line-clamp-1">
+                  <h4 className="text-base sm:text-lg font-bold text-white group-hover:text-amber-300 transition-colors leading-snug mb-1.5 line-clamp-1">
                     {announcement.title}
                   </h4>
-                  <p className="text-xs sm:text-sm text-neutral-300/90 line-clamp-2 leading-relaxed font-normal">
+                  <p className="text-xs sm:text-sm text-neutral-300 line-clamp-2 leading-relaxed font-normal">
                     {announcement.excerpt}
                   </p>
                 </Link>
@@ -159,7 +150,7 @@ export function HeroVisual({ announcement }: HeroVisualProps) {
                   <span className="text-neutral-400 text-[11px]">By {announcement.author}</span>
                   <Link
                     href={`/updates/${slugify(announcement.title) || announcement.id}`}
-                    className="btn-skeuo-light px-3.5 py-1.5 rounded-lg text-xs font-bold text-neutral-900 inline-flex items-center gap-1.5 hover:bg-white transition-all shadow-xs"
+                    className="text-amber-300 hover:text-amber-200 font-semibold inline-flex items-center gap-1.5 group-hover:translate-x-0.5 transition-transform"
                   >
                     <span>Read Details</span>
                     <ArrowRight size={13} />

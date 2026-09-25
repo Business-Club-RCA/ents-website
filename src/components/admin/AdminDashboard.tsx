@@ -46,6 +46,8 @@ import {
   UserIcon,
 } from '@/components/ui/Icons';
 import { ProfileAvatar } from '@/components/ui/ProfileAvatar';
+import { isEventPassed } from '@/lib/dateUtils';
+import { slugify } from '@/lib/slug';
 
 interface AdminDashboardProps {
   initialData: {
@@ -1026,9 +1028,22 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
                 <div key={item.id} className="bg-white p-5 flex flex-col justify-between relative group">
                   <div>
                     <div className="flex items-center justify-between text-[11px] font-mono text-neutral-500 mb-2">
-                      <span className="uppercase font-bold px-2 py-0.5 rounded bg-neutral-100 border border-neutral-200 text-neutral-800">
-                        {item.type}
-                      </span>
+                      <div className="flex items-center gap-1.5">
+                        <span className="uppercase font-bold px-2 py-0.5 rounded bg-neutral-100 border border-neutral-200 text-neutral-800">
+                          {item.type}
+                        </span>
+                        {isEvent && (
+                          isEventPassed(item.eventDate, item.eventTime) ? (
+                            <span className="px-1.5 py-0.5 rounded bg-neutral-100 border border-neutral-300 text-neutral-500 text-[9px] font-semibold">
+                              Concluded (Publicly Hidden)
+                            </span>
+                          ) : (
+                            <span className="px-1.5 py-0.5 rounded bg-emerald-50 border border-emerald-300 text-emerald-800 text-[9px] font-semibold">
+                              Live / Upcoming
+                            </span>
+                          )
+                        )}
+                      </div>
                       <span>{item.date}</span>
                     </div>
 
@@ -1982,8 +1997,13 @@ export function AdminDashboard({ initialData }: AdminDashboardProps) {
               </div>
 
               <div className="p-4 bg-neutral-50 rounded-2xl border border-neutral-200 space-y-3">
-                <div className="font-bold text-neutral-800 uppercase text-[10px]">
-                  Event Logistics (Only required if type is &quot;Scheduled Event&quot;)
+                <div>
+                  <div className="font-bold text-neutral-800 uppercase text-[10px]">
+                    Event Logistics (Only required if type is &quot;Scheduled Event&quot;)
+                  </div>
+                  <p className="text-[10px] text-neutral-500 font-mono mt-0.5">
+                    Live events appear on the public site while upcoming. Once the event date &amp; time concludes, it is automatically archived from the public feed.
+                  </p>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>

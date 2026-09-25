@@ -33,12 +33,21 @@ export const metadata: Metadata = {
     siteName: 'ENTS Rwanda Coding Academy',
     locale: 'en_US',
     type: 'website',
+    images: [
+      {
+        url: '/ents-og.png',
+        width: 1200,
+        height: 630,
+        alt: 'ENTS · Rwanda Coding Academy Business & Trading Society',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'ENTS · Rwanda Coding Academy',
     description:
       'Student venture incubation and quantitative paper trading league at Rwanda Coding Academy.',
+    images: ['/ents-og.png'],
   },
   robots: {
     index: true,

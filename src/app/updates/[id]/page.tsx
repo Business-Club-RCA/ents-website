@@ -5,8 +5,9 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Container } from '@/components/ui/Container';
 import { SocialShareBar } from '@/components/ui/SocialShareBar';
+import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 import { getUpdates, getUpdate } from '@/lib/db';
-import { FeedItem } from '@/types';
+import { slugify } from '@/lib/slug';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -16,9 +17,15 @@ export const revalidate = 60;
 
 export async function generateStaticParams() {
   const updates = await getUpdates();
-  return updates.map((item) => ({
-    id: item.id,
-  }));
+  const params: { id: string }[] = [];
+  for (const item of updates) {
+    params.push({ id: item.id });
+    const slug = slugify(item.title);
+    if (slug && slug !== item.id) {
+      params.push({ id: slug });
+    }
+  }
+  return params;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -31,9 +38,35 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const slug = slugify(item.title);
+  const articleUrl = `https://ents.rca.ac.rw/updates/${slug || item.id}`;
+  const ogImageUrl = item.imageUrl
+    ? (item.imageUrl.startsWith('http') ? item.imageUrl : `https://ents.rca.ac.rw${item.imageUrl}`)
+    : 'https://ents.rca.ac.rw/ents-og.png';
+
   return {
     title: `${item.title} · ENTS`,
     description: item.excerpt,
+    openGraph: {
+      title: `${item.title} · ENTS`,
+      description: item.excerpt,
+      url: articleUrl,
+      type: 'article',
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: item.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${item.title} · ENTS`,
+      description: item.excerpt,
+      images: [ogImageUrl],
+    },
   };
 }
 
@@ -45,13 +78,14 @@ export default async function BlogDetailPage({ params }: Props) {
     notFound();
   }
 
+  const canonicalSlug = slugify(item.title) || item.id;
+  const canonicalUrl = `https://ents.rca.ac.rw/updates/${canonicalSlug}`;
+
   // Related articles (excluding current item)
   const allUpdates = await getUpdates();
   const relatedItems = allUpdates
     .filter((i) => i.id !== item.id && i.type !== 'event')
     .slice(0, 2);
-
-  const paragraphs = (item.content || item.excerpt).split('\n\n').filter(Boolean);
 
   return (
     <article className="py-12 sm:py-16 bg-white min-h-screen">
@@ -84,7 +118,9 @@ export default async function BlogDetailPage({ params }: Props) {
           </h1>
 
           <div className="flex items-center gap-3 pt-2 text-xs font-mono text-neutral-600">
-            <span>Written by <strong className="text-neutral-900">{item.author}</strong></span>
+            <span>
+              Written by <strong className="text-neutral-900">{item.author}</strong>
+            </span>
           </div>
 
           {/* Social Share Bar Top */}
@@ -92,6 +128,7 @@ export default async function BlogDetailPage({ params }: Props) {
             <SocialShareBar
               title={item.title}
               description={item.excerpt}
+              url={canonicalUrl}
               compact={false}
             />
           </div>
@@ -118,13 +155,9 @@ export default async function BlogDetailPage({ params }: Props) {
           </p>
         </div>
 
-        {/* 5. Main Body Content */}
-        <div className="prose prose-neutral max-w-none text-neutral-800 text-base sm:text-lg leading-relaxed space-y-6 font-normal">
-          {paragraphs.map((para, idx) => (
-            <p key={idx} className="leading-relaxed">
-              {para}
-            </p>
-          ))}
+        {/* 5. Main Body Content (Rendered via MarkdownRenderer) */}
+        <div className="max-w-none text-neutral-800 text-base sm:text-lg leading-relaxed font-normal">
+          <MarkdownRenderer content={item.content || item.excerpt} />
         </div>
 
         {/* 6. External Link Callout if applicable */}
@@ -167,6 +200,7 @@ export default async function BlogDetailPage({ params }: Props) {
           <SocialShareBar
             title={item.title}
             description={item.excerpt}
+            url={canonicalUrl}
             compact={false}
           />
         </div>
@@ -200,39 +234,42 @@ export default async function BlogDetailPage({ params }: Props) {
               More From the Dispatch Feed
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {relatedItems.map((rel) => (
-                <Link
-                  key={rel.id}
-                  href={`/updates/${rel.id}`}
-                  className="group bg-white border border-neutral-200 rounded-2xl p-5 card-hover flex flex-col justify-between"
-                >
-                  <div>
-                    {rel.imageUrl && (
-                      <div className="relative w-full h-40 rounded-xl overflow-hidden mb-3 bg-neutral-100">
-                        <Image
-                          src={rel.imageUrl}
-                          alt={rel.title}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                          className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-300"
-                        />
+              {relatedItems.map((rel) => {
+                const relSlug = slugify(rel.title) || rel.id;
+                return (
+                  <Link
+                    key={rel.id}
+                    href={`/updates/${relSlug}`}
+                    className="group bg-white border border-neutral-200 rounded-2xl p-5 card-hover flex flex-col justify-between"
+                  >
+                    <div>
+                      {rel.imageUrl && (
+                        <div className="relative w-full h-40 rounded-xl overflow-hidden mb-3 bg-neutral-100">
+                          <Image
+                            src={rel.imageUrl}
+                            alt={rel.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                            className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-300"
+                          />
+                        </div>
+                      )}
+                      <div className="text-[11px] font-mono text-neutral-400 mb-1.5">
+                        {rel.date}
                       </div>
-                    )}
-                    <div className="text-[11px] font-mono text-neutral-400 mb-1.5">
-                      {rel.date}
+                      <h4 className="font-bold text-base text-neutral-900 group-hover:text-neutral-950 line-clamp-2 mb-2">
+                        {rel.title}
+                      </h4>
+                      <p className="text-xs text-neutral-600 line-clamp-2">
+                        {rel.excerpt}
+                      </p>
                     </div>
-                    <h4 className="font-bold text-base text-neutral-900 group-hover:text-neutral-950 line-clamp-2 mb-2">
-                      {rel.title}
-                    </h4>
-                    <p className="text-xs text-neutral-600 line-clamp-2">
-                      {rel.excerpt}
-                    </p>
-                  </div>
-                  <div className="mt-4 pt-3 border-t border-neutral-100 text-xs font-mono font-bold text-neutral-900">
-                    Read Article &rarr;
-                  </div>
-                </Link>
-              ))}
+                    <div className="mt-4 pt-3 border-t border-neutral-100 text-xs font-mono font-bold text-neutral-900">
+                      Read Article &rarr;
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         )}
@@ -240,4 +277,3 @@ export default async function BlogDetailPage({ params }: Props) {
     </article>
   );
 }
-

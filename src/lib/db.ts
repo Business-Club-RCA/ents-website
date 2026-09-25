@@ -19,6 +19,7 @@ import { executiveTeam, clubMembers } from '@/data/team';
 import { mockLeaderboardData } from '@/data/leaderboard';
 import { statsData } from '@/data/stats';
 import { siteConfig } from '@/data/site';
+import { slugify } from './slug';
 import {
   isPostgresConfigured,
   loadEntireDBFromPostgres,
@@ -320,9 +321,16 @@ export const getUpdates = cache(async (): Promise<FeedItem[]> => {
   return db.updates;
 });
 
-export const getUpdate = cache(async (id: string): Promise<FeedItem | null> => {
+export const getUpdate = cache(async (idOrSlug: string): Promise<FeedItem | null> => {
   const db = await readDB();
-  return db.updates.find((u) => u.id === id) || null;
+  const normalized = idOrSlug.toLowerCase();
+  return (
+    db.updates.find(
+      (u) =>
+        u.id.toLowerCase() === normalized ||
+        slugify(u.title) === normalized
+    ) || null
+  );
 });
 
 export async function saveUpdate(item: FeedItem): Promise<FeedItem> {

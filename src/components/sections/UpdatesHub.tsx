@@ -7,6 +7,8 @@ import { Container } from '@/components/ui/Container';
 import { FeedItem } from '@/types';
 import { registerAttendanceAction } from '@/actions/adminActions';
 import { SocialShareBar } from '@/components/ui/SocialShareBar';
+import { slugify } from '@/lib/slug';
+import { isEventPassed } from '@/lib/dateUtils';
 
 const ATTENDANCE_STORAGE_KEY = 'ents_event_attendees_v2';
 
@@ -80,11 +82,22 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
     setAttendeeEmail('');
   };
 
-  const upcomingEvents = items.filter((item) => item.type === 'event');
-  const currentFeaturedEvent = upcomingEvents[featuredEventIndex % (upcomingEvents.length || 1)];
+  // Active upcoming events only (passed events automatically excluded from public site)
+  const upcomingEvents = items.filter(
+    (item) => item.type === 'event' && !isEventPassed(item.eventDate, item.eventTime)
+  );
+  const currentFeaturedEvent =
+    upcomingEvents.length > 0
+      ? upcomingEvents[featuredEventIndex % upcomingEvents.length]
+      : null;
+
+  // Active public items (all non-events, plus only upcoming events)
+  const activePublicItems = items.filter(
+    (item) => item.type !== 'event' || !isEventPassed(item.eventDate, item.eventTime)
+  );
 
   // Filter items for main grid
-  const filteredItems = items.filter((item) => {
+  const filteredItems = activePublicItems.filter((item) => {
     if (activeTab === 'news' && item.type === 'event') return false;
     if (activeTab === 'event' && item.type !== 'event') return false;
     if (searchQuery.trim()) {
@@ -287,7 +300,7 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                 activeTab === 'all' ? 'btn-skeuo-pill-active' : 'btn-skeuo-pill-inactive'
               }`}
             >
-              All Dispatches ({items.length})
+              All Dispatches ({activePublicItems.length})
             </button>
             <button
               onClick={() => setActiveTab('news')}
@@ -311,13 +324,20 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
         {/* 3. NEWS & ARTICLES GRID WITH SOCIAL SHARE BAR */}
         {filteredItems.length === 0 ? (
           <div className="py-16 text-center text-xs font-mono text-neutral-500 border border-neutral-200 rounded-2xl bg-neutral-50">
-            No articles or dispatches found matching your search.
+            {activeTab === 'event'
+              ? 'No upcoming events scheduled at this moment. Stay tuned for future demo days and masterclasses!'
+              : 'No articles or dispatches found matching your search.'}
           </div>
         ) : (
           <div className="border border-neutral-200/90 rounded-2xl overflow-hidden bg-neutral-200/80 gap-px grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 shadow-sm">
             {filteredItems.map((item) => {
               const isEvent = item.type === 'event';
-              const articleHref = isEvent ? '#' : `/updates/${item.id}`;
+              const slug = slugify(item.title) || item.id;
+              const articleHref = isEvent ? '#' : `/updates/${slug}`;
+              const shareUrl =
+                typeof window !== 'undefined'
+                  ? `${window.location.origin}/updates/${slug}`
+                  : `https://ents.rca.ac.rw/updates/${slug}`;
 
               return (
                 <article
@@ -412,7 +432,7 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                           )
                         ) : (
                           <Link
-                            href={`/updates/${item.id}`}
+                            href={articleHref}
                             className="btn-skeuo-light font-bold px-3.5 py-1.5 rounded-xl text-[11px] cursor-pointer hover:border-neutral-900"
                           >
                             Read &rarr;
@@ -427,11 +447,7 @@ export function UpdatesHub({ initialItems = [] }: { initialItems?: FeedItem[] })
                       <SocialShareBar
                         title={item.title}
                         description={item.excerpt}
-                        url={
-                          typeof window !== 'undefined'
-                            ? `${window.location.origin}/updates/${item.id}`
-                            : undefined
-                        }
+                        url={shareUrl}
                         compact={true}
                       />
                     </div>

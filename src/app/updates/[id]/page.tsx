@@ -8,6 +8,7 @@ import { SocialShareBar } from '@/components/ui/SocialShareBar';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 import { getUpdates, getUpdate } from '@/lib/db';
 import { slugify } from '@/lib/slug';
+import { getUpdateTypeLabel } from '@/lib/contentTypes';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -105,7 +106,7 @@ export default async function BlogDetailPage({ params }: Props) {
         <header className="space-y-4 mb-8 sm:mb-10 max-w-3xl">
           <div className="flex items-center gap-3 text-xs font-mono text-neutral-500">
             <span className="px-2.5 py-0.5 rounded-md bg-neutral-100 text-neutral-800 font-semibold uppercase tracking-wider text-[10px]">
-              {item.type === 'event' ? 'Event' : 'News'}
+              {getUpdateTypeLabel(item.type)}
             </span>
             <span>&middot;</span>
             <span>{item.date}</span>
@@ -118,9 +119,22 @@ export default async function BlogDetailPage({ params }: Props) {
           </h1>
 
           <div className="flex items-center gap-3 pt-2 text-xs font-mono text-neutral-600">
-            <span>
-              Written by <strong className="text-neutral-900">{item.author}</strong>
-            </span>
+            {item.type === 'external' ? (
+              <span>
+                Source: <strong className="text-neutral-900">{item.sourceName || 'External Source'}</strong>
+                {item.author && item.author !== item.sourceName && (
+                  <span className="text-neutral-500"> &middot; Curated by {item.author}</span>
+                )}
+              </span>
+            ) : item.type === 'event' ? (
+              <span>
+                Organized by <strong className="text-neutral-900">{item.author || 'Events Committee'}</strong>
+              </span>
+            ) : (
+              <span>
+                Written by <strong className="text-neutral-900">{item.author}</strong>
+              </span>
+            )}
           </div>
 
           {/* Social Share Bar Top */}
@@ -155,13 +169,92 @@ export default async function BlogDetailPage({ params }: Props) {
           </p>
         </div>
 
+        {/* Event Logistics & Registration Info */}
+        {item.type === 'event' && (item.eventDate || item.eventLocation || item.speakers?.length) && (
+          <div className="mb-10 p-6 rounded-2xl bg-neutral-50 border border-neutral-200 space-y-4">
+            <div className="text-xs font-mono uppercase tracking-wider text-neutral-500 font-semibold">
+              Event Information &amp; Logistics
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
+              {item.eventDate && (
+                <div className="p-3 bg-white rounded-xl border border-neutral-200">
+                  <div className="text-neutral-400 text-[10px] uppercase">Date &amp; Time</div>
+                  <div className="font-bold text-neutral-900 mt-0.5">{item.eventDate}</div>
+                  {item.eventTime && <div className="text-neutral-600">{item.eventTime}</div>}
+                </div>
+              )}
+              {item.eventLocation && (
+                <div className="p-3 bg-white rounded-xl border border-neutral-200">
+                  <div className="text-neutral-400 text-[10px] uppercase">Location</div>
+                  <div className="font-bold text-neutral-900 mt-0.5">{item.eventLocation}</div>
+                </div>
+              )}
+              {item.speakers && item.speakers.length > 0 && (
+                <div className="p-3 bg-white rounded-xl border border-neutral-200">
+                  <div className="text-neutral-400 text-[10px] uppercase">Speakers / Hosts</div>
+                  <div className="font-bold text-neutral-900 mt-0.5">{item.speakers.join(', ')}</div>
+                </div>
+              )}
+            </div>
+            {item.rsvpLink ? (
+              <div className="pt-1">
+                <a
+                  href={item.rsvpLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-skeuo-dark font-bold text-xs font-mono px-5 py-2.5 rounded-xl inline-flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>Register for Event</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            ) : (
+              <div className="pt-1">
+                <Link
+                  href="/updates"
+                  className="btn-skeuo-dark font-bold text-xs font-mono px-5 py-2.5 rounded-xl inline-flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>RSVP on Updates Feed</span>
+                  <span>&rarr;</span>
+                </Link>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* 5. Main Body Content (Rendered via MarkdownRenderer) */}
         <div className="max-w-none text-neutral-800 text-base sm:text-lg leading-relaxed font-normal">
           <MarkdownRenderer content={item.content || item.excerpt} />
         </div>
 
-        {/* 6. External Link Callout if applicable */}
-        {item.sourceUrl && (
+        {/* 6. Prominent External Callout for External References */}
+        {item.type === 'external' && item.sourceUrl && (
+          <div className="mt-10 p-6 sm:p-8 rounded-3xl border border-neutral-300 bg-neutral-50 flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-sm">
+            <div className="space-y-1.5 max-w-xl">
+              <div className="inline-flex items-center gap-2 text-xs font-mono uppercase text-neutral-600 font-semibold">
+                <span className="w-2 h-2 rounded-full bg-emerald-600" />
+                <span>External Reference &middot; {item.sourceName || 'Original Publisher'}</span>
+              </div>
+              <h4 className="text-xl font-bold text-neutral-900">
+                Read the complete article on {item.sourceName || 'external source'}
+              </h4>
+              <p className="text-xs font-mono text-neutral-500">
+                Published: {item.date} &middot; Original destination: <span className="break-all underline">{item.sourceUrl}</span>
+              </p>
+            </div>
+            <a
+              href={item.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-skeuo-dark font-bold text-xs font-mono px-6 py-3.5 rounded-2xl self-start sm:self-auto cursor-pointer inline-flex items-center gap-2 shadow-sm hover:scale-[1.02] transition-transform"
+            >
+              <span>Read Original ↗</span>
+            </a>
+          </div>
+        )}
+
+        {/* Fallback for other items with sourceUrl */}
+        {item.type !== 'external' && item.sourceUrl && (
           <div className="mt-10 p-6 rounded-2xl border border-neutral-200 bg-neutral-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <div className="text-xs font-mono uppercase text-neutral-500 font-semibold mb-1">

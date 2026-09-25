@@ -45,6 +45,7 @@ import {
   CohortApplication,
 } from '@/types';
 import { uploadImageBuffer, isCloudinaryConfigured } from '@/lib/cloudinary';
+import { slugify } from '@/lib/slug';
 
 // -------------------------------------------------------------
 // 1. AUTHENTICATION ACTIONS
@@ -141,10 +142,76 @@ export async function deleteProjectAction(id: string) {
 
 export async function saveUpdateAction(item: FeedItem) {
   await requireAuth();
+
+  // Validate type
+  const validTypes = ['announcement', 'event', 'article', 'external'];
+  if (!item.type || !validTypes.includes(item.type)) {
+    throw new Error('Invalid content type. Must be Announcement, Scheduled Event, Article, or External Reference.');
+  }
+
+  // Common required fields
+  const title = item.title?.trim();
+  if (!title || title.length > 250) {
+    throw new Error('Title / Headline is required (maximum 250 characters).');
+  }
+
+  const date = item.date?.trim();
+  if (!date) {
+    throw new Error('Publication date is required.');
+  }
+
+  const excerpt = item.excerpt?.trim();
+  if (!excerpt) {
+    throw new Error('Short excerpt / summary is required.');
+  }
+
+  // Content type specific validations
+  if (item.type === 'external') {
+    const sourceUrl = item.sourceUrl?.trim();
+    if (!sourceUrl) {
+      throw new Error('External link / URL is required for External References.');
+    }
+    try {
+      const parsed = new URL(sourceUrl);
+      if (!['http:', 'https:'].includes(parsed.protocol)) {
+        throw new Error('External URL must start with http:// or https://');
+      }
+    } catch {
+      throw new Error('Please provide a valid External URL starting with https:// or http://');
+    }
+
+    const sourceName = item.sourceName?.trim();
+    if (!sourceName) {
+      throw new Error('Source / Organization name is required for External References (e.g. Bloomberg, TechCabal).');
+    }
+    // Ensure author attribution
+    item.author = item.author?.trim() || sourceName;
+    item.sourceUrl = sourceUrl;
+    item.sourceName = sourceName;
+  } else if (item.type === 'event') {
+    const eventDate = item.eventDate?.trim();
+    if (!eventDate) {
+      throw new Error('Event Date is required for Scheduled Events.');
+    }
+    item.eventDate = eventDate;
+    item.author = item.author?.trim() || 'Events Committee';
+  } else {
+    // announcement or article
+    item.author = item.author?.trim() || 'ENTS Editorial';
+  }
+
   await saveUpdate(item);
   revalidatePath('/updates');
-  revalidatePath(`/updates/${item.id}`);
+  revalidatePath('/updates/[id]', 'page');
   revalidatePath('/admin');
+  revalidatePath('/');
+
+  const slug = slugify(item.title);
+  if (slug) {
+    revalidatePath(`/updates/${slug}`);
+  }
+  revalidatePath(`/updates/${item.id}`);
+
   return { success: true };
 }
 

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -45,7 +45,7 @@ export function HeroVisual({ announcement }: HeroVisualProps) {
         <div className="absolute inset-0 bg-radial from-transparent via-[#0e0e11]/10 to-[#0e0e11]/30 pointer-events-none" />
       </div>
 
-      {/* Spacer for Top Floating Navigation */}
+      {/* Spacer for top nav */}
       <div className="relative z-10 pt-28 sm:pt-32" />
 
       {/* 2. Hero Content */}
@@ -57,7 +57,7 @@ export function HeroVisual({ announcement }: HeroVisualProps) {
             {/* Institutional Kicker Badge */}
             <div className="animate-hero-badge inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.06] backdrop-blur-md border border-white/15 text-xs font-mono text-neutral-300 shadow-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="tracking-wider uppercase">Rwanda Coding Academy &middot; SIFS League</span>
+              <span className="tracking-wider uppercase">Rwanda Coding Academy · SIFS League</span>
             </div>
 
             {/* Bold Headline */}
@@ -106,14 +106,12 @@ export function HeroVisual({ announcement }: HeroVisualProps) {
             </div>
           </div>
 
-          {/* RIGHT: Single Announcement Card — easily visible, monochrome, innovative */}
+          {/* RIGHT: Single Announcement Card */}
           {announcement && announcementSlug && (
-            <div className="animate-hero-cta w-full lg:w-[420px] xl:w-[460px] shrink-0">
-              <div className="relative group rounded-3xl overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-300 shadow-[0_20px_60px_rgba(0,0,0,0.85)] bg-[#0a0a0d]/90 backdrop-blur-2xl">
-                {/* Top specular chamfer highlight */}
+            <div className="animate-hero-cta w-full lg:w-[400px] xl:w-[440px] shrink-0">
+              <div className="relative group rounded-3xl overflow-hidden border border-white/20 hover:border-white/35 transition-all duration-300 shadow-[0_20px_60px_rgba(0,0,0,0.85)] bg-[#0a0a0d]/90 backdrop-blur-2xl">
+                {/* Top specular chamfer */}
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none" />
-                {/* Bottom inner edge shadow */}
-                <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
 
                 <div className="p-6 sm:p-7">
                   {/* Card Header */}
@@ -124,7 +122,7 @@ export function HeroVisual({ announcement }: HeroVisualProps) {
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70" />
                         <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
                       </span>
-                      <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-neutral-300 bg-white/8 border border-white/15 px-2.5 py-1 rounded-md">
+                      <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-neutral-300 bg-white/[0.08] border border-white/15 px-2.5 py-1 rounded-md">
                         Official Announcement
                       </span>
                     </div>

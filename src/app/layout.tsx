@@ -95,7 +95,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-white text-neutral-900 selection:bg-neutral-900 selection:text-white">
         <SmoothScrollProvider>
           <Header />
-          <main className="flex-grow">{children}</main>
+          <main className="grow">{children}</main>
           <Footer />
         </SmoothScrollProvider>
       </body>

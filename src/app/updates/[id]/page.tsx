@@ -136,7 +136,7 @@ export default async function BlogDetailPage({ params }: Props) {
 
         {/* 3. Hero Feature Cover Image */}
         {item.imageUrl && (
-          <div className="relative w-full h-[280px] sm:h-[400px] md:h-[480px] rounded-3xl overflow-hidden mb-10 border border-neutral-200 bg-neutral-100 shadow-sm">
+          <div className="relative w-full h-70 sm:h-100 md:h-120 rounded-3xl overflow-hidden mb-10 border border-neutral-200 bg-neutral-100 shadow-sm">
             <Image
               src={item.imageUrl}
               alt={item.title}
